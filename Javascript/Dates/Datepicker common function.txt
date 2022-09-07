@@ -1,0 +1,35 @@
+$("#appointment_date").datepicker({ 
+      dateFormat: 'mm-dd-yy',
+      minDate: 0,
+      beforeShowDay: function(date){
+        let day = date.getDay();
+        return [(day !== 0), ''];
+      },
+      onSelect:function(){
+        let apptDate = $(this).datepicker('getDate'),
+            apptDay = apptDate.getDay();
+        let apptTimeWeekdays = ['10am', '1pm', '4pm'],
+            apptTimeSat = ['9am', '11am'];
+        
+        	$('#appointment_time option:not(:first-child)').remove();
+        
+           if( apptDay === 6 ){
+             
+             $.each(apptTimeSat, function(index, time){
+               $('#appointment_time').append($('<option>', { 
+                 value: time,
+                 text : time 
+               }));
+             });
+           }else{
+           	$.each(apptTimeWeekdays, function(index, time){
+               $('#appointment_time').append($('<option>', { 
+                 value: time,
+                 text : time 
+               }));
+             });
+             
+           }
+      },
+      
+      });

@@ -1,0 +1,1039 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/backtracking-control-verbs.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:21 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Regex backtracking control verbs. Discusses regular expression verbs found in Perl, PCRE and Python, such as (*SKIP), (*PRUNE) and (*FAIL)" />
+<title>Backtracking Control Verbs Tutorial</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li class="current"><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Backtracking Control Verbs</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+Several regex flavors have special patterns that instruct the engine about <i>how to match</i>, rather than about <i>what to match</i>, as the other tokens do. In the <a href="#doc">documentation</a>, these patterns are bundled under the label of <em><b>special backtracking control verbs</b></em>, although at first sight some verbs, such as <span class="socode">(*ACCEPT)</span> (which tells the engine to return the string it has matched so far) may not seem directly related to backtracking.
+<br /><br />
+
+<div class="pullquote R">
+(Almost) everything you always wanted to know about backtracking control verbs but never dared to ask.
+</div>
+
+In practice, the idioms I find the most useful are <span class="socode"><a href="#skip">(*SKIP)</a></span>, <a href="#prune"><span class="socode">(*PRUNE)</span></a> and the <a href="#skipfail"><span class="socode">(*SKIP)(*FAIL)</span></a> combination. If you're only looking for regex that you can put to immediate use, feel free to skip to these sections. Otherwise, stay with me as we explore the various backtracking control verbs.
+<br /><br />
+
+<a id="nav"></a>
+<span class="em8"><a href="#nav">(direct link)</a></span><br />
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#engines">Engines that Support Backtracking Control Verbs</a><br />
+✽ <a href="#mainverbs">The Main Backtracking Control Verbs</a><br />
+✽ <a href="#then"><span class="socode">(*THEN)</span></a><br />
+✽ <a href="#autopossessification">Autopossessification<br />
+✽ <a href="#prune"><span class="socode">(*PRUNE)</span></a><br />
+✽ <a href="#skip"><span class="socode">(*SKIP)</span></a><br />
+✽ <a href="#commit"><span class="socode">(*COMMIT)</span></a><br />
+✽ <a href="#withinlookarounds">Backtracking control verbs inside lookarounds, subpatterns and atomic groups</a><br />
+✽ <a href="#repetition">Backtracking control verbs inside Repeated Groups</a><br />
+✽ <a href="#accept"><span class="socode">(*ACCEPT)</span></a><br />
+✽ <a href="#fail"><span class="socode">(*FAIL)</span></a><br />
+✽ <a href="#mark"><span class="socode">(*MARK)</span></a><br />
+✽ <a href="#skipfail"><span class="socode">Using (*SKIP)(*FAIL) to Exclude Unwanted Matches</span></a><br />
+✽ <a href="#doc">Documentation</a><br />
+
+
+<br /><br />
+
+<a id="engines"></a>
+<span class="em8"><a href="#engines">(direct link)</a></span><br />
+<h2>Engines that Support Backtracking Control Verbs</h2>
+At the moment, backtracking control verbs are a rarity: <br /><br />
+
+✽ Perl <a href="http://perldoc.perl.org/perl5100delta.html#Regular-expressions" target="_blank">introduced them</a> in version 5.10 (final release: December 18, 2007)<br /><br />
+
+✽ Four months earlier (28 August 2007), PCRE 7.30 "<a href="http://vcs.pcre.org/pcre?view=revision&amp;sortby=author&amp;sortdir=down&amp;revision=210" target="_blank">followed suit</a>" with a back-to-the-future move as Perl 5.10 hadn't yet been officially released. Because of PCRE's wide use, the verbs can be found in contexts such as PHP, R and Apache.<br /><br />
+
+✽ For Python, Matthew Barnett <a href="https://bitbucket.org/mrabarnett/mrab-regex/commits/850a1a672549e9b9c6ee71086d9d926ce4dbd208" target="_blank">introduced a limited set</a> of the verbs in the September 14, 2015 release of his <a href="https://pypi.python.org/pypi/regex" target="_blank"><i>regex</i> engine</a> (a brilliant alternate to the feature-poor <i>re</i>). So far the supported verbs are <span class="socode">(*PRUNE)</span>, <span class="socode">(*SKIP)</span> and <span class="socode">(*FAIL)</span>, probably the most important ones.<br />
+<br />
+
+The slow speed of adoption of the backtracking control verbs reflects some simple truths: they are rarely used, likely because they are poorly known&mdash;and little understood by a considerable proportion of those few who have heard of them.
+<br /><br />
+
+Frankly, this lack of awareness is not an issue because there is so much "basic" material that most people who only occasionally use regex need to master before the features offered by backtracking verbs become meaningful. But with this page, I hope to make them more accessible to those who are interested in polishing their regex&mdash;and I count myself firmly in that camp, since:<br />
+1. There is always more to learn,<br />
+2. There is a lot to forget, and<br />
+3. The regex landscape doesn't stand still, as new engines are introduced and old ones evolve.
+<br /><br />
+<br />
+
+
+<a id="mainverbs"></a>
+<span class="em8"><a href="#mainverbs">(direct link)</a></span><br />
+<h2>The Main Backtracking Control Verbs</h2>
+
+Four verbs can be called the "main" or "real" backtracking control verbs: <span class="socode">(*THEN)</span>, <span class="socode">(*PRUNE)</span>, <span class="socode">(*SKIP)</span> and <span class="socode">(*COMMIT)</span>. In fact, the above list arranges them in "order of strength". Although the most important ones are <span class="socode">(*PRUNE)</span> and <span class="socode">(*SKIP)</span>, it will be easier to gain a well-rounded understanding of the verbs if we explore them in this order.
+<br /><br />
+
+<a id="invisible"></a>
+<span class="em8"><a href="#invisible">(direct link)</a></span><br />
+<b>During Forward Matching, the Verbs are "Invisible"</b><br />
+The first thing to understand about these four verbs is that as long as the engine is moving forward in the pattern and the string, the verbs have no influence on the matching. In other words, they always match. This is a zero-width match, much as the lookahead <span class="socode">(?=)</span>, which asserts that an empty string can be found at the position immediately to the right of the string cursor: it is always true.
+<br /><br />
+
+For instance, <span class="socode">(*PRUNE)</span> has no influence whatsoever when the pattern <span class="socode">\d+(*PRUNE)\D+</span> is set to work on the string <span class="mono">12 Monkeys</span>: the regex just matches, and the special semantics of <span class="socode">(*PRUNE)</span> are never activated.
+<br /><br />
+
+
+<a id="activation"></a>
+<span class="em8"><a href="#activation">(direct link)</a></span><br />
+<b>The verbs activate when the engine needs to backtrack across them</b><br />
+The verbs are triggered at the point when the engine tries to give them up in order to continue a match attempt.
+<br /><br />
+
+Specifically, all four backtracking control verbs forbid the engine from crossing them while backtracking&mdash;in other words, the engine can never go back to their left. What the engine must do at that point depends on the verb, the engine's actions being arranged on a scale of potency from <span class="socode">(*THEN)</span> to <span class="socode">(*PRUNE)</span>, <span class="socode">(*SKIP)</span> and <span class="socode">(*COMMIT)</span>.
+<br /><br />
+
+To understand how the verbs work, we must therefore understand how backtracking works, which is no small feat considering that various optimizations may influence how different engines backtrack. Nevertheless, treading carefully, you'll usually have a good idea of what behavior to expect.
+<br />
+<br />
+
+
+
+<a id="then"></a>
+<span class="em8"><a href="#then">(direct link)</a></span><br />
+<h2><span class="socode">(*THEN)</span></h2>
+
+This verb is probably the least useful of the four backtracking control verbs. <span class="socode">(*THEN)</span> is designed to work within an alternation&mdash;on the left side of one or more <span class="socode">|</span> tokens.
+<br /><br />
+
+As with the three other backtracking control verbs, when the engine passes <span class="socode">(*THEN)</span> from left to right, nothing happens (the token acts as an always-true assertion at that point in the string).<br /><br />
+
+If the engine needs to backtrack, it cannot backtrack across <span class="socode">(*THEN)</span> (same as with the other backtracking control verbs). At that stage, if the engine is on the left side of an alternation (the <span class="socode">|</span> token), it gives up trying to match the current branch and starts trying to match the next branch.
+<br /><br />
+
+
+Consider this regex:<br /><br />
+<div class="cinter">
+    <code>Comedian: (?:B\w+ (*THEN)Murray|E\w+ (*THEN)Murphy|P\w+ Sellers)</code>
+</div>
+<br />
+We'll use it against this string:<br />
+<span class="mono">Comedian: Bill Burr -- Comedian: Peter Sellers</span><br />
+The match is <i>Peter Sellers</i>.
+<br /><br />
+
+
+
+
+Here's a top-level explanation. What we have here can be seen as a construct of the form<br />
+<div class="cinter">
+    <span class="mono">if:then&hellip; &nbsp;elseif:then&hellip; &nbsp;else:then</span><br />
+</div>
+<br />
+✽ The <span class="socode">B\w+</span>, <span class="socode">E\w+</span> and <span class="socode">P\w+</span> fragments are meant to match a first name.<br /><br />
+
+✽ The idea is that if the first name starts with a <span class="mono">B</span>, <b>THEN</b> the last name must be <i>Murray</i>&hellip;<br /><br />
+
+✽ If the engine matches a first name starting with a <span class="mono">B</span> but the last name is something else than <i>Murray</i>, the engine is instructed not to slowly backtrack each of the tokens of the failed branch's pattern <span class="socode">B\w+</span>, but to give up the entire branch (this might remind you of an atomic group) and skip directly to the next branch in the alternation, which is <span class="socode">E\w+ (*THEN)Murphy</span>.<br /><br />
+
+✽ In that branch, the idea is the same: if the first name starts with an <span class="mono">E</span>, <b>THEN</b> the last name must be <i>Murphy</i>, otherwise don't bother backtracking across the first name and skip to the next branch: <span class="socode">P\w+ Sellers</span><br /><br />
+
+In pseudo-regex, the expression reads:<br />
+- Match <i>Comedian:</i><br />
+- If the first name starts with <span class="mono">B</span>, THEN match <i>Murray</i><br />
+- Elseif the first name starts with <span class="mono">E</span>, THEN match <i>Murphy</i><br />
+- Else a match first name starting with <span class="mono">P</span>, a space, and <i>Sellers</i><br />
+<br />
+
+In our example, the engine starts a match attempt at the beginning of this string:<br /> <i>Comedian: Bill Burr -- Comedian: Peter Sellers</i><br /><br />
+
+After matching <i>Comedian:</i>, a space character, the <i>Bill</i> in <i>Bill Burr</i> and the space character, the engine matches the always-true <span class="socode">(*THEN)</span>, but at that stage it fails to match the <i>M</i> in <i>Murray</i>. It cannot backtrack across the <span class="socode">(*THEN)</span>, so it gives up the content of the alternation's first branch (<i>Bill</i> and a space) and tries to match the <i>E</i> at the start of the middle branch. That fails, so the engine tries to match the <i>P</i> in the third branch. That too fails, so the entire match attempt has failed. The engine advances in the string to the position preceding the <i>o</i> in <i>Comedian</i> and tries a second match attempt. That fails immediately. After a number of other immediately-failed match attempts, the engine tries a match attempt at the position before the <i>C</i> in <i>Comedian: Peter Sellers</i>. This match attempt succeeds.
+<br /><br />
+
+Here are code snippets if you'd like to try it with the two engines that currently support <span class="socode">(*THEN)</span>.<br /><br />
+
+    <div class="codebox"><pre>
+# Perl
+$comedian_regex =
+ qr/Comedian: (?:B\w+ (*THEN)Murray|E\w+ (*THEN)Murphy|P\w+ Sellers)/;
+if ('Comedian: Bill Burr -- Comedian: Peter Sellers'
+     =~
+     $comedian_regex
+   ) { print "\$&='$&'\n";  }
+else { print "No match\n"; }
+</pre></div>
+    <br />
+
+
+    <div class="codebox"><pre>
+// PHP
+$comedian_regex =
+ '~Comedian: (?:B\w+ (*THEN)Murray|E\w+ (*THEN)Murphy|P\w+ Sellers)~';
+echo preg_match($comedian_regex,
+                'Comedian: Bill Burr -- Comedian: Peter Sellers',
+                $m
+                ) ? "$m[0]\n" : "No match\n";
+</pre></div>
+
+
+
+    <br /><br />
+
+
+<b>Is this useful?</b><br />
+Not for this simple example. Consider the simpler alternate, where the two <span class="socode">(*THEN)</span> have been removed:<br /><br />
+
+<code class="cinter">Comedian: (?:B\w+ Murray|E\w+ Murphy|P\w+ Sellers)</code><br />
+
+This matches the same strings.<br /><br />
+
+<a id="autopossessification"></a>
+<span class="em8"><a href="#autopossessification">(direct link)</a></span><br />
+<b>Autopossessification</b><br />
+The <span class="socode">(*THEN)</span> are just meant to speed up the process by cutting down on backtracking. But the time lost to compile this more complex pattern more than offsets any time gained during matching. Furthermore, for this example, there is no time gain during matching (as least with the PCRE engine: I haven't timed Perl). That is because PCRE would never backtrack into the first name in the first place. Before matching, the engine studies the pattern, and an optimization kicks in that turns the <span class="socode">\w+</span> token into a <a href="regex-quantifiers.html#possessive">possessive</a> <span class="socode">\w++</span>.
+<br /><br />
+
+PCRE is able to do this because the token that follows <span class="socode">\w+</span> is a space character. The <span class="socode">\w</span> token and the space character are mutually exclusive: even if it backtracks into <span class="socode">\w+</span>, the engine will never be able to match a space character where a word character was matched earlier. Therefore PCRE can treat <span class="socode">\w</span> as a <span class="socode">\w++</span>. This process is known by a charming term: <i>autopossessification</i>. Try not to say it while chewing on oatmeal.
+<br /><br />
+
+When you turn off PCRE optimizations by using <a href="regex-modifiers.html#pcre">PCRE's start of pattern modifiers</a> <span class="socode">(*NO_START_OPT)</span> and <span class="socode">(*NO_AUTO_POSSESS)</span>, the (*THEN) pattern edges out the plain pattern. But only by a hair: this makes sense because <i>Bill</i> does not give <span class="socode">\w+</span> much to backtrack.
+<br /><br />
+
+
+That being said, when the expression to the left of a <span class="socode">(*THEN)</span> (within the same branch of the alternation) is particularly complex and time-consuming, I am sure there are situations when the verb would be useful. For my part, I have never used it except to try it out.
+<br />
+<br />
+
+<b>When <span class="socode">(*THEN)</span> is not found within an alternation</b><br />
+The <span class="socode">(*THEN)</span> verb works by sending the engine to the next branch of an alternation. When <span class="socode">(*THEN)</span> is not found within an alternation, it behaves like <span class="socode">(*PRUNE)</span>.
+<br /><br />
+<br />
+
+
+
+<a id="prune"></a>
+<span class="em8"><a href="#prune">(direct link)</a></span><br />
+<h2><span class="socode">(*PRUNE)</span></h2>
+
+If you remember to use it, this verb is probably the second most useful of the four.<br /><br />
+
+As with the other three backtracking control verbs, when the engine passes <span class="socode">(*PRUNE)</span> from left to right, nothing happens (the token acts as an always-true assertion at that point in the string).<br /><br />
+
+If the engine needs to backtrack, it cannot cross <span class="socode">(*PRUNE)</span> from right to left (same as with the other backtracking control verbs). At that stage, it gives up on the match attempt. As usual, if any characters are left in the string, the engine then advances to the next string position and starts a new match attempt.
+<br /><br />
+
+<a id="atomicbomb"></a>
+<span class="em8"><a href="#atomicbomb">(direct link)</a></span><br />
+<b>Atomic bomb</b><br />
+This behavior probably reminds you of atomic groups. You could design some uses of <span class="socode">(*PRUNE)</span> so that it acts the same as an atomic group or a possessive quantifier, but in most cases it will behave differently. This is because you can drop <span class="socode">(*PRUNE)</span> anywhere&mdash;and once you try to backtrack across it, the whole match attempt explodes. In contrast, with atomic groups and possessive quantifiers, only a fragment of the match is taken out. If it helps, think of <span class="socode">(*PRUNE)</span> as an atomic <i>bomb</i>.
+<br /><br />
+
+<a id="pruneatomic"></a>
+<span class="em8"><a href="#pruneatomic">(direct link)</a></span><br />
+<b>When (*PRUNE) is the same as an atomic group</b><br />
+First, let's look at an example where <span class="socode">(*PRUNE)</span> behaves the same as an atomic group or a possessive modifier. Let's say you're a security analyst sifting through your database for people called <i>Jones</i> whose first name has six or more letters. Your search should produce strings such as <i>Quincy Jones: music producer</i>, <i>Rashida Jones: actress</i>, <i>Indiana Jones: movie character</i>. At first, you come up with <span class="socode">\w{6,} Jones:.*</span>, then you decide to make the first name <span class="socode">\w{6,}</span> atomic since there's no point backtracking once you've established that you have the wrong last name. The following three expressions would be equivalent:<br /><br />
+
+- <span class="socode">(?>\w{6,}) Jones:.*</span> (atomic group)<br />
+- <span class="socode">\w{6,}+ Jones:.*</span> (possessive quantifier)<br />
+- <span class="socode">\w{6,}(*PRUNE) Jones:.*</span> ("atomic bomb")<br />
+<br />
+
+The reason <span class="socode">(*PRUNE)</span> behaves the same as an atomic group or possessive quantifier in this situation is that it appears immediately after the first sub-expression. The match attempt explodes at a point that happens to be the same place where the atomic and possessive versions cause the match to fail: once they've given up the <span class="socode">\w{6,}</span> there is nothing left to backtrack.
+<br /><br />
+
+<a id="pruneisdifferent"></a>
+<span class="em8"><a href="#pruneisdifferent">(direct link)</a></span><br />
+<b>Usually, (*PRUNE) is not the same as an atomic group</b><br />
+Let's now look at the more general case, where <span class="socode">(*PRUNE)</span> behaves differently from an atomic group. This time, we want to match actor names. If the first name has two to four letters, the last name must be <i>Murray</i>; however, <i>Bill Burr</i> is acceptable too.
+<br /><br />
+
+First, we try with an atomic group:<br />
+<span class="socode">(?>\w{2,4} )Murray|Bill Burr|Peter Sellers</span><br />
+Against the string <i>Bill Burr -- Peter Sellers</i>, this regex matches <i>Bill Burr</i>. In the first match attempt (at the beginning of the string), after the first name and the space character match in the leftmost side of the alternation, the <span class="mono">M</span> in <i>Murray</i> fails. The engine gives up the atomic group, then restarts the match attempt in the same position&mdash;before the initial <i>B</i>. This time the middle part of the alternation&mdash;<span class="socode">Bill Burr</span>&mdash;is a direct match.<br /><br />
+
+Let's now try the <span class="socode">(*PRUNE)</span> version of this pattern:<br /><br />
+
+<code class="cinter">\w{2,4} (*PRUNE)Murray|Bill Burr|Peter Sellers </code><br />
+
+Against the same string <i>Bill Burr -- Peter Sellers</i>, this pattern never matches <i>Bill Burr</i>. Instead, it matches <i>Peter Sellers</i>. The difference is that on the first match attempt, in the leftmost side of the alternation, after the <span class="mono">M</span> in <i>Murray</i> fails to match, the engine tries to backtrack across the <span class="socode">(*PRUNE)</span>. At that stage, the match attempt explodes&mdash;the other parts of the alternation are never visited. The engine advances to the next position in the string (between the initial <i>B</i> and the <i>i</i>) and starts a whole new match attempt. After this and several more match attempts fail, the engine starts a new match attempt at the string position immediately preceding the <i>P</i> in <i>Peter Sellers</i>, and the match succeeds with the rightmost branch of the alternation.
+<br /><br />
+
+
+Here are some code snippets if you'd like to try this in the three engines that currently support <span class="socode">(*PRUNE)</span>.<br /><br />
+
+
+    <div class="codebox"><pre>
+# Perl
+$actor_regex = qr/\w{2,4} (*PRUNE)Murray|Bill Burr|Peter Sellers/;
+if ('Comedian: Bill Burr -- Comedian: Peter Sellers'
+    =~ $actor_regex
+   ) { print "\$&='$&'\n";  }
+else { print "No match\n"; }
+</pre></div>
+    <br />
+
+
+    <div class="codebox"><pre>
+// PHP
+$actor_regex = '~\w{2,4} (*PRUNE)Murray|Bill Burr|Peter Sellers~';
+echo preg_match($actor_regex,
+                'Bill Burr -- Peter Sellers',
+                $m
+                ) ? "$m[0]\n" : "No match\n";
+</pre></div>
+    <br />
+
+    <div class="codebox"><pre>
+# Python
+# if you don't have the regex package, <i>pip install regex</i>
+
+import regex as mrab
+
+# <i>print(regex.__version__)</i> should output 2.4.76 or higher
+actor_regex = r'\w{2,4} (*PRUNE)Murray|Bill Burr|Peter Sellers'
+print(mrab.search(actor_regex, 'Bill Burr -- Peter Sellers'))
+# &lt;regex.Match object; span=(13, 26), match='Peter Sellers'>
+</pre></div>
+
+
+    <br /><br />
+
+
+<a id="pruneuseful"></a>
+<span class="em8"><a href="#pruneuseful">(direct link)</a></span><br />
+<b>Is this <span class="socode">(*PRUNE)</span> useful?</b><br />
+For moderately complex expressions that may entail a lot of backtracking, <span class="socode">(*PRUNE)</span> can save the engine a lot of time. It's a powerful weapon to have in your regex arsenal: you drop it anywhere, and it causes the match attempt to explode if the engine ever tries to backtrack across it.
+<br /><br />
+
+Certain conditions must be met before <span class="socode">(*PRUNE)</span> becomes efficient:<br />
+- the time saved must outweigh the longer time needed to compile the regex. If the only potential savings is backtracking across two letters (as with a <span class="socode">\w{2,4}</span>, this is not a place for <span class="socode">(*PRUNE)</span>.<br />
+- <span class="socode">(*PRUNE)</span> must save real-life backtracking. On paper, it may look like a <span class="socode">(*PRUNE)</span> saves you some backtracking, but your engine may have performed some optimizations that would prevent backtracking from ever happening anyway: see the section on <a href="#autopossessification">autopossessification</a>.
+<br /><br />
+
+
+When <span class="socode">(*PRUNE)</span> does work, in many cases <span class="socode">(*SKIP)</span> works even better.
+<br /><br />
+
+
+<span class="em8">Teaser: in PCRE, you can accomplish similar results to <span class="socode">(*PRUNE)</span> with a <a href="pcre-callouts.html">callout</a> that returns a positive value.</span>
+
+
+<br /><br /><br />
+
+
+
+<a id="skip"></a>
+<span class="em8"><a href="#skip">(direct link)</a></span><br />
+<h2><span class="socode">(*SKIP)</span></h2>
+The next backtracking control verb on our potency scale is my favorite. I'll give a quick explanation of <span class="socode">(*SKIP)</span> in relation to <span class="socode">(*PRUNE)</span> for those of you who have been following from the top, then I'll give the long version for those who skipped directly to this section. <br /><br />
+
+<b>The short version</b><br />
+Like <span class="socode">(*PRUNE)</span>, <span class="socode">(*SKIP)</span> acts like an "<a href="regex-disambiguation.html#atomic"><i>atomic</i></a> bomb": when the engine tries to backtrack across it, the match attempt explodes. In the case of <span class="socode">(*PRUNE)</span>, if any characters are left in the string, the engine then advances to the next string position and starts a new match attempt. In the case of <span class="socode">(*SKIP)</span>, the engine advances to the string position corresponding to the place in the pattern where <span class="socode">(*SKIP)</span> was encountered, and starts a new match attempt at that position. In other words, the engine <i>skips</i> to the string position corresponding to where <span class="socode">(*SKIP)</span> was matched&mdash;potentially saving a lot of fruitless match attempts.
+<br /><br />
+
+<b>The longer version</b><br />
+As with the other three backtracking control verbs, when the engine passes <span class="socode">(*SKIP)</span> from left to right, nothing visible happens: the token acts as an always-true assertion at that point in the string.
+<br /><br />
+If the engine needs to backtrack, it cannot cross <span class="socode">(*SKIP)</span> from right to left (same as with the other backtracking control verbs). Instead, it gives up on the match attempt. At that stage, the way the engine works, it would normally advance to the next string position and starts a new match attempt. Instead, <span class="socode">(*SKIP)</span> causes the engine to skip to the position in the string corresponding to where <span class="socode">(*SKIP)</span> was matched, and to start the next match attempt at that position. This can save time by avoiding fruitless match attempts.
+<br /><br />
+
+<a id="doublebomb"></a>
+<span class="em8"><a href="#doublebomb">(direct link)</a></span><br />
+<b>Double bomb</b><br />
+<span class="socode">(*SKIP)</span> is like a bomb that operates on two planes. Not only does backtracking through it blow up the match attempt (as <span class="socode">(*PRUNE)</span> does), it also blows up the part of the subject string leading up to it.
+<br /><br />
+
+<a id="failuretriggersskip"></a>
+<span class="em8"><a href="#failuretriggersskip">(direct link)</a></span><br />
+<b>PCRE, Python: later match failure always triggers (*SKIP)</b> (unless it is followed by other verbs)<br />
+Here it's important to understand how backtracking works. In theory, when a match fails somewhere after a <span class="socode">(*SKIP)</span>, although you and I can sometimes tell that there is nothing to backtrack, a regex engine will always try to backtrack to the beginning of the string as it looks for other paths to explore. Therefore, if <span class="socode">(*SKIP)</span> is the last backtracking control verb in a pattern, a match failure beyond the <span class="socode">(*SKIP)</span> should always trigger the <span class="socode">(*SKIP)</span>. If another verb occurs to the right of the <span class="socode">(*SKIP)</span> and to the left of the failure, that verb gets triggered first.
+<br /><br />
+
+In practice, if you were writing a regex engine, you would try to avoid backtracking when it's obvious that backtracking would be fruitless (for instance, when the pattern contains no quantifiers or alternations). Internally, among all kinds of clever optimizations, Perl, PCRE and Python's <i>regex</i> package are smart enough to avoid fruitless backtracking. But externally, PCRE and Python behave as though they were backtracking all the way back. Perl's behavior is <a href="#perlskip-problem">inconsistent</a>.
+<br /><br />
+
+For instance, given the string <i>aaaardvark aaardwolf</i>, suppose we run a match attempt with this regex:<br /><br />
+<code class="cinter">aa(*SKIP)ard\w+</code>
+<br />
+
+The engine starts a match attempt at the beginning of the string. It matches <i>aa</i>, passes over the <span class="socode">(*SKIP)</span>, matches the third <i>a</i> then chokes on the <span class="socode">r</span> token because the next character in the string is <i>a</i>. Internally, our engines are smart enough to fail the match right away because there is nothing to backtrack (no quantifiers, no alternations). Externally, the engines behave as though they were conducting a naive path exploration that would cause them to give up the last <i>a</i> then attempt to backtrack across the <span class="socode">(*SKIP)</span> in search of a different match.
+<br /><br />
+
+The <span class="socode">(*SKIP)</span> is triggered: the match attempt explodes; the engine skips in the string past the initial <i>aa</i> before starting its second match attempt. At this position, there is only one <i>a</i> character, so this match attempt fails, as do other attempts until we reach the position preceding <i>aaardwolf</i>.
+<br /><br />
+
+In contrast, without the <span class="socode">(*SKIP)</span>, the pattern would match the string <i>aaardwark</i> starting on the second <i>a</i>.
+<br /><br />
+
+<a id="perlskip-problem"></a>
+<span class="em8"><a href="#perlskip-problem">(direct link)</a></span><br />
+<b>Perl: Inconsistent behavior on later failure</b><br />
+Unlike PCRE and Python, when a pattern looks like it should fail to the right of a <span class="socode">(*SKIP)</span>, the Perl engine does not always fire the <span class="socode">(*SKIP)</span>. For instance, with the earlier pattern <span class="socode">aa(*SKIP)ard\w+</span> Perl matches <i>aaardvark</i> in <i>aaaardvark aaardwolf</i>.
+<br /><br />
+
+Perhaps even worse, with <span class="socode">a{1,2}(*SKIP)ard\w+</span>, when matching against <i>aaaardvark aaardwolf</i>, after matching <i>aaa</i> and failing on the <span class="socode">r</span> token, Perl doesn't try to backtrack across <span class="socode">(*SKIP)</span> despite the quantified <span class="socode">a{1,2}</span>&mdash;a backtrackable expression which should clearly lure the engine to trigger the <span class="socode">(*SKIP)</span>. The <span class="socode">(*SKIP)</span> doesn't fire, and the engine matches <i>aaardvark</i> instead of the expected <i>aaardwolf</i>.
+<br /><br />
+When I reported this as <a href="https://rt.perl.org/Ticket/Display.html?id=126327" target="_blank">a bug</a>, a Perl team dev kindly explained that <span class="socode">(*SKIP)</span> doesn't fire if the "study phase" at the start of a match attempt is able to decide that the match should not even be attempted. This leads me to guess that at the first position in the string, the optimizer sees that the characters <i>ar</i> or <i>aar</i> must be matched but can't be. The match attempt aborts before it even starts, so technically <span class="socode">(*SKIP)</span> is never crossed and the engine starts the next match attempt at the position following the first <i>a</i>.<br /><br />
+
+This "optimized behavior" contradicts the pattern writer's directions, so it seems undesirable to me. Since backtracking control verbs are described as experimental, it's entirely possible that the Perl team will decide to change the behavior at some stage.
+<br /><br />
+
+
+Here are some code snippets if you'd like to try <span class="socode">(*SKIP)</span> in the three engines that currently support it.<br /><br />
+
+
+    <div class="codebox"><pre>
+# Perl
+if ('123ABC' =~
+   /123(*SKIP)B|.{3}/
+   ) { print "\$&='$&'\n"; }
+# $&='ABC'
+# with (*PRUNE) instead, the match would be 23A
+</pre></div>
+    <br />
+
+
+    <div class="codebox"><pre>
+// PHP
+echo preg_match('~aa(*SKIP)ard\w+~',
+             'aaaardvark aaardwolf',
+                                 $m) ?
+             "$m[0]\n" : "No match\n";
+# matches aaardwolf, whereas Perl matches aaardvark
+</pre></div>
+    <br />
+
+    <div class="codebox"><pre>
+# Python
+#  if you don't have the regex package, <i>pip install regex</i>
+
+import regex as mrab
+
+# <i>print(regex.__version__)</i> should output 2.4.76 or higher
+print(mrab.search(r'aa(*SKIP)ard\w+', 'aaaardvark aaardwolf'))
+#  &lt;regex.Match object; span=(11, 20), match='aaardwolf'>
+</pre></div>
+
+    <br /><br />
+
+
+Apart from potentially avoiding lots of fruitless match attempt, <span class="socode">(*SKIP)</span> is particularly useful as part of the <a href="#skipfail"><span class="socode">(*SKIP)(*FAIL)</span> construct</a>, which we'll study shortly.
+<br /><br />
+
+In the section about <a href="#mark">(*MARK)</a>, we'll see that you can also make <span class="socode">(*SKIP)</span> cause the engine to skip to a specific "bookmark" in the string, rather than to the position where <span class="socode">(*SKIP)</span> was encountered.
+
+<br /><br />
+<br />
+
+
+
+<a id="commit"></a>
+<span class="em8"><a href="#commit">(direct link)</a></span><br />
+<h2><span class="socode">(*COMMIT)</span></h2>
+
+
+The fourth and "strongest" backtracking control verb is probably the easiest to grasp. As with the other three backtracking control verbs, when the engine passes <span class="socode">(*COMMIT)</span> from left to right, nothing happens (the token acts as an always-true assertion at that point in the string).
+<br /><br />
+<div class="pullquote R">
+We are committed to finding a match in this match attempt, or none at all.
+</div>
+If the engine needs to backtrack, it cannot cross <span class="socode">(*COMMIT)</span> from right to left (same as with the other backtracking control verbs). At that stage, it gives up on the match attempt. Normally, the engine would then advance to the next string position and start a new match attempt. But when <span class="socode">(*COMMIT)</span> fires, the engine abandons any further match attempt, and the overall match just fails.
+<br /><br />
+
+You can read the <span class="socode">(*COMMIT)</span> token as "past this point, we are committed to finding a match in this match attempt, or none at all".
+<br /><br />
+
+<a id="nocommit"></a>
+<span class="em8"><a href="#nocommit">(direct link)</a></span><br />
+<b>But <span class="socode">(*COMMIT)</span> does not always commit</b><br />
+One thing to bear in mind is that other backtracking control verbs may influence the engine's behavior if it fails to match further to the right. For instance, if a <span class="socode">(*PRUNE)</span> or a <span class="socode">(*SKIP)</span> are crossed to the right of a <span class="socode">(*COMMIT)</span>, when the match later fails and the engine starts to backtrack, it will try to cross <span class="socode">(*PRUNE)</span> or <span class="socode">(*SKIP)</span> before <span class="socode">(*COMMIT)</span> is reached. This fires the <span class="socode">(*PRUNE)</span> or <span class="socode">(*SKIP)</span> behavior, so a new match attempts can take place despite the <span class="socode">(*COMMIT)</span>, which never fires.
+<br /><br />
+
+At least that's the theory. Perl behaves inconsistently depending on whether <span class="socode">(*PRUNE)</span> or <span class="socode">(*SKIP)</span> is backtracked into. This is the object of a <a href="https://rt.perl.org/Ticket/Display.html?id=126328" target="_blank">bug report</a>.
+<br /><br />
+
+Here are some code snippets if you'd like to see how this works in the two engines that support <span class="socode">(*COMMIT)</span>.<br /><br />
+
+
+    <div class="codebox"><pre>
+# Perl
+if ('123ABC' =~
+   /123(*COMMIT)B|.{3}/
+   ) { print "\$&='$&'\n"; }
+else { print "No match\n"; }
+# No match
+# with /1(*COMMIT)23(*SKIP)B|.{3}/ the match is ABC:
+#   (*COMMIT) never fires, but (*SKIP) does.
+# with /1(*COMMIT)23(*PRUNE)B|.{3}/ there is no match! (<a href="https://rt.perl.org/Ticket/Display.html?id=126328" target="_blank">Bug</a>.)
+</pre></div>
+    <br />
+
+
+    <div class="codebox"><pre>
+// PHP
+echo preg_match('~123(*COMMIT)B|.{3}~', '123ABC', $m) ?
+                            "$m[0]\n" : "No match\n";
+// No match: (*COMMIT) fires
+
+echo preg_match('~1(*COMMIT)23(*PRUNE)B|.{3}~', '123ABC', $m) ?
+                            "$m[0]\n" : "No match\n";
+// 23A: (*COMMIT) never fires
+
+echo preg_match('~1(*COMMIT)23(*SKIP)B|.{3}~', '123ABC', $m) ?
+                            "$m[0]\n" : "No match\n";
+// ABC: (*COMMIT) never fires
+</pre></div>
+
+
+
+<br /><br />
+
+
+
+<a id="withinlookarounds"></a>
+<span class="em8"><a href="#withinlookarounds">(direct link)</a></span><br />
+<h2>Backtracking Control Verbs inside Lookarounds, Subpatterns or Atomic Groups</h2>
+
+Within a lookaround, subpattern or atomic group, a backtracking control verb only affects the sub-match. For instance, <span class="socode">(*COMMIT)</span> only commits the engine with respect to the match within a lookaround&mdash;not with respect to the overall match.<br /><br />
+
+Mileage may vary so experimentation is key.<br /><br />
+
+<b>Double Negatives</b><br />
+If you should wish to use backtracking control verbs within negative lookarounds (come on, you know you're asking for trouble!) remember to pay close attention to logic. For instance, a <span class="socode">(*SKIP)</span> that causes the failure of the pattern that dwells within a negative lookahead thereby causes the negative lookahead assertion to succeed. Likewise, an <span class="socode"><a href="#accept">(*ACCEPT)</a></span> (a verb we'll soon see) makes the pattern succeed, resulting in a failure of the negative lookahead assertion.
+
+<br /><br />
+<br />
+
+
+<a id="repetition"></a>
+<span class="em8"><a href="#repetition">(direct link)</a></span><br />
+<h2>Backtracking Control Verbs inside Repeated Groups</h2>
+
+When a backtracking control verb lives within a repeated group, PCRE fires the verb at the point where it is backtracked. In contrast, Perl, strangely, chooses to ignore verbs when the quantified group has not yet been fully matched. This is the object of a <a href="https://rt.perl.org/Ticket/Display.html?id=126343" target="_blank">bug report</a>.
+
+<br /><br />
+These examples may make this a little clearer.  <br /><br />
+
+    <div class="codebox"><pre>
+# Perl
+if ('1213' =~
+   /(?:1(*COMMIT)2)+./
+   ) { print "\$&='$&'\n"; }
+# $&='121'
+# The engine matches the first '12', then it matches
+# '1' and the (*COMMIT) token. When the second '2' fails,
+# the engine manages to backtrack across (*COMMIT),
+# which never fires. <a href="https://rt.perl.org/Ticket/Display.html?id=126343" target="_blank">Bug?</a>
+</pre></div>
+    <br />
+
+
+    <div class="codebox"><pre>
+// PHP
+echo preg_match('~(?:1(*COMMIT)2)+.~', '12123', $m) ?
+                            "$m[0]\n" : "No match\n";
+// No match: (*COMMIT) correctly fires after the second '2'
+// fails to match.
+</pre></div>
+
+
+
+<br />
+<br />
+<br />
+
+
+
+<a id="accept"></a>
+<span class="em8"><a href="#accept">(direct link)</a></span><br />
+<h2><span class="socode">(*ACCEPT)</span></h2>
+
+The next two verbs are bundled with <i>backtracking control verbs</i> in the documentation, but I would drop the <i>backtracking</i> part of the description and keep the <i>control</i>. <span class="socode">(*ACCEPT)</span> doesn't seem to relate to backtracking. <span class="socode">(*FAIL)</span> does cause the engine to backtrack&mdash;which is not the same as controlling what happens when the engine backtracks, as in the case of the first four.
+<br /><br />
+
+<span class="socode">(*ACCEPT)</span> is delightfully simple, but its utility is limited. When the engine encounters <span class="socode">(*ACCEPT)</span>, it immediately returns the portion of the string it has matched so far. If the engine matches <span class="socode">(*ACCEPT)</span> in the middle of a capturing group, that group is set to whatever characters have been matched up to that point.
+<br /><br />
+
+The only use case for <span class="socode">(*ACCEPT)</span> that I'm aware of is when the branches of an alternation are distributed into a later expression that is not required for all of the branches. For instance, suppose you want to match any of these patterns: <i>BAZ</i>, <i>BIZ</i>, <i>BO</i>.
+<br /><br />
+You could simply write <span class="socode">BAZ|BIZ|BO</span>, but if <i>B</i> and <i>Z</i> stand for complicated sub-patterns, you'll probably look for ways to factor the <i>B</i> and <i>Z</i> patterns. A first pass might give you <span class="socode">B(?:AZ|IZ|O)</span>, but that solution doesn't factor the <i>Z</i>. Another option would be <span class="socode">B(?:A|I)Z|BO</span>, but it forces you to repeat the <i>B</i>. This pattern allows you to factor both the <i>B</i> and the <i>Z</i>:<br /><br />
+
+<code class="cinter">B(?:A|I|O(*ACCEPT))Z</code><br />
+
+If he engine follows the <i>O</i> branch, it never matches <i>BOZ</i> because it returns <i>BO</i> as soon as <span class="socode">(*ACCEPT)</span> is encountered&mdash;which is what we wanted.
+<br /><br />
+
+Here is sample code to try <span class="socode">(*ACCEPT)</span> in the two languages that support it.<br />
+For each language, the second fragment demonstrates the behavior inside a capture group.
+<br /><br />
+
+    <div class="codebox"><pre>
+# Perl
+if ('BOZ' =~
+   /B(?:A|I|O(*ACCEPT))Z/
+   ) { print "\$&='$&'\n"; }
+# BO
+# with 'BAZ' as subject, the match would be <i>BAZ</i>
+
+
+if ('BOZX' =~
+   /B((?:A|I|O(*ACCEPT))Z)X/
+   ) { print "\$1='$1'\n"; }
+# Group 1: O
+# with 'BAZX' as subject, Group 1 would be <i>AZ</i>
+</pre></div>
+    <br />
+
+
+    <div class="codebox"><pre>
+// PHP
+echo preg_match('~B(?:A|I|O(*ACCEPT))Z~',
+                'BOZ',
+                 $m) ? "$m[0]\n" : "No match\n";
+// BO
+// with 'BAZ' as subject, the match would be <i>BAZ</i>
+
+echo preg_match('~B((?:A|I|O(*ACCEPT))Z)X~',
+                'BOZX',
+                 $m) ? "$m[1]\n" : "No match\n";
+// Group 1: O
+// with 'BAZX' as subject, Group 1 would be <i>AZ</i>
+
+</pre></div>
+    <br />
+
+Are there other ways to factor the <i>B</i> and <i>Z</i> patterns? Sure. Conditionals come to mind, for instance:<br />
+- Option 1: <code>B(?:(A|I)|O)(?(1)Z)</code> (if <i>A</i> or <i>I</i> have been captured to Group 1, then match <i>Z</i>)<br />
+- Option 2: <code>B(?:A|I|(O))(?(1)|Z)</code> (if <i>O</i> has been captured to Group 1, then match the empty string, otherwise match <i>Z</i>)<br />
+<br />
+
+
+Please note that <span class="socode">(*ACCEPT)</span> is not the opposite of <span class="socode">(*FAIL)</span>
+
+<br /><br />
+<br />
+
+
+<a id="fail"></a>
+<span class="em8"><a href="#fail">(direct link)</a></span><br />
+<h2><span class="socode">(*FAIL)</span></h2>
+
+
+This verb is available in Perl, PCRE and Python's alternate <a href="https://pypi.python.org/pypi/regex" target="_blank"><i>regex</i> package</a>.<br /><br />
+
+<span class="socode">(*FAIL)</span> means <i>at the present token in the string, the current token does not match.</i> The result is no different from trying to match a <i>b</i> character with a <span class="socode">p</span> token: the engine chokes on the token, and its next move is to backtrack in order to find a different way to make the current match attempt succeed.
+<br /><br />
+
+
+<b>Alternates to <span class="socode">(*FAIL)</span></b><br />
+If you want to shave three characters, you can write <span class="socode">(*F)</span> instead of <span class="socode">(*FAIL)</span>.
+<br /><br />
+And in most languages that don't support <span class="socode">(*FAIL)</span>, you can simply use the classic <span class="socode">(?!)</span>, which has the same effect. How does <span class="socode">(?!)</span> work? It's a negative lookahead that asserts that at the current position in the string, it is not possible to match the empty string. Since the empty string can be matched at any position, the assertion fails.
+
+<br /><br />I recall reading in one of the engines' docs that internally <span class="socode">(*FAIL)</span> is translated to <span class="socode">(?!)</span>&mdash;unless it was the other way around.
+<br /><br />
+
+The regex syntax offers many options besides <span class="socode">(?!)</span> to force the engine to fail at a certain point in the pattern&mdash;consider contradictory pairs such as <span class="socode">(?=A)B</span>. But <span class="socode">(?!)</span> is the most popular, probably because it is so compact. Some of these ways are explored in the <a href="regex-tricks.html#fail">trick about forcing a failure</a>.
+
+<br /><br />
+
+
+<a id="failusecases"></a>
+<span class="em8"><a href="#failusecases">(direct link)</a></span><br />
+<b>Use Cases for <span class="socode">(*FAIL)</span></b><br />
+
+There are a number of use cases for <span class="socode">(*FAIL)</span> and its equivalents. <br /><br />
+
+
+✽ You can use <span class="socode">(*F)</span> within conditionals to enforce certain balancing conditions. For instance, <span class="socode">(INTRO)?(?:MAIN1|MAIN2(?(1)|(?!)))</span> is a long-winded way of ensuring that <i>MAIN2</i> is only matched if <i>INTRO</i> has been matched before. This approach is used elegantly in <a href="regex-conditionals.html#balancing">.NET balancing groups</a>. It is also developed in the section on <a href="regex-conditionals.html#control_failure">Conditionals At Work: Controlling Failure</a><br /><br />
+
+✽ In my trick to write <a href="regex-tricks.html#pseudo-define">pre-defined subroutines for engines that don't support it</a>, I use <span class="socode">(*FAIL)</span>&mdash;or its alias <span class="socode">(?!)</span>&mdash; to force the engine to backtrack after defining a capture group without intending to consume characters at that position in the string.<br /><br />
+
+✽ In a moment, we'll look at the <a href="#skipfail">(*SKIP)(*FAIL)</a> construct, which is a delightful way of excluding certain patterns from the match.<br /><br />
+
+✽ In Perl, which has extensive callback facilities, <span class="socode">(*FAIL)</span> can be used to explore all the branches of a match tree. Consider this example:<br />
+<code class="cinter">'abc' =~ /\w+(?{print "$&\n";})(*F)/</code><br />
+This prints <i>abc</i>, <i>ab</i>, <i>a</i>, <i>bc</i>, <i>b</i>, <i>c</i>. After the <span class="socode">\w+</span> matches the whole string, the <a href="regex-disambiguation.html#codecapsule">code capsule</a> prints the match, then <span class="socode">(*F)</span> forces the engine to backtrack. The engine gives up the <i>c</i>, the callback prints <i>ab</i>, the <span class="socode">(*F)</span> forces the engine to backtrack, and so on.
+<br /><br />
+
+
+<a id="failvsaccept"></a>
+<span class="em8"><a href="#failvsaccept">(direct link)</a></span><br />
+<b><span class="socode">(*FAIL)</span> is not the opposite of <span class="socode">(*ACCEPT)</span></b><br />
+It's natural to imagine that <span class="socode">(*FAIL)</span> would be the opposite of <span class="socode">(*ACCEPT)</span>, but that is not the case. If it were the opposite of <span class="socode">(*ACCEPT)</span>, then <span class="socode">(*FAIL)</span> would mean <i>at this point in the match, fail the match attempt.</i> The engine would then throw away whatever had been matched thus far, and perhaps begin a new match attempt at the next starting position in the string.<br /><br />
+
+<a id="failthematch"></a>
+<span class="em8"><a href="#failthematch">(direct link)</a></span><br />
+<b>Forcing the Match Attempt to Fail</b><br />
+If you truly want the opposite of <span class="socode">(*ACCEPT)</span> in order to abort the match attempt, you will need to use something like <span class="socode">(*PRUNE)(*FAIL)</span> or <span class="socode">(*COMMIT)(*FAIL)</span>:<br /><br />
+
+✽ In the case of <span class="socode">(*PRUNE)(*FAIL)</span>, once the engine encounters <span class="socode">(*FAIL)</span>, it tries to backtrack in order to find a successful match. When it tries to backtrack across the <span class="socode">(*PRUNE)</span>, the match attempt fails. The engine then tries a new match attempt at the next starting position in the string, if any.<br /><br />
+
+✽ In the case of <span class="socode">(*COMMIT)(*FAIL)</span>, once the engine encounters <span class="socode">(*FAIL)</span>, it tries to backtrack in order to find a successful match. When it tries to backtrack across the <span class="socode">(*COMMIT)</span>, the match attempt fails, and the engine also abandons any further match attempts.<br />
+<br />
+
+Soon we'll study a surprisingly useful variation on these themes: <span class="socode">(*SKIP)(*FAIL)</span>.
+
+<br />
+<br /><br />
+
+
+<a id="mark"></a>
+<span class="em8"><a href="#mark">(direct link)</a></span><br />
+<h2><span class="socode">(*MARK)</span></h2>
+
+This verb is used either on its own or in conjunction with <span class="socode">(*SKIP)</span>. You use it to tag (and in certain cases "bookmark") a position in the string, as in <span class="socode">(*MARK:after_the_digits)</span>.
+<br /><br />
+
+Note that <span class="socode">(*:some_tag)</span> is an alias for <span class="socode">(*MARK:some_tag)</span>
+<br />    <br />
+
+
+When the verb is used by itself, you typically pepper several instances of it in your code, as in <span class="socode">(*MARK:tag1)</span>, <span class="socode">(*MARK:tag2)</span>. You are later able to determine which path the engine has used to return the match by inspecting the <span class="socode">$REGMARK</span> variable in Perl or PCRE's <span class="socode">pcre_extra</span> data block (please refer to the <a href="#doc">documentation</a>).
+<br /><br />
+
+When the verb is used in conjunction with <span class="socode">(*SKIP)</span>, the <span class="socode">(*SKIP:some_tag)</span> syntax specifies a "bookmark" in the string, the position where the engine should start its next match attempt if the match attempt explodes when the engine tries to backtrack across <span class="socode">(*SKIP:some_tag)</span>.
+<br /><br />
+
+
+If you'd like to see how this works, here's a code sample. <br /><br />
+
+    <div class="codebox"><pre>
+# Perl
+if ('123ABC456' =~
+  /123(*MARK:past_digits)[A-Z]+(*SKIP:past_digits)9..|.{6}/
+   ) { print "\$&='$&'\n"; }
+# $&='ABC456'
+# instead of skipping past <i>ABC</i> (default (*SKIP) behavior),
+# the engine only skips past <i>123</i>
+</pre></div>
+    <br />
+
+
+    <div class="codebox"><pre>
+// PHP
+echo preg_match(
+  '~123(*MARK:past_digits)[A-Z]+(*SKIP:past_digits)9..|.{6}~',
+  '123ABC456',
+  $m) ? "MARK $m[0]\n" : "No match\n";
+// match: ABC456
+// instead of skipping past <i>ABC</i> (default (*SKIP) behavior),
+// the engine only skips past <i>123</i>
+</pre></div>
+    <br />
+
+
+<b>Marking with <span class="socode">(*PRUNE)</span> and <span class="socode">(*THEN)</span></b><br />
+You can use <span class="socode">(*PRUNE:some_tag)</span> and <span class="socode">(*THEN:some_tag)</span> to record the matching path if you'd like to later inspect the <span class="socode">$REGMARK</span> variable in Perl or PCRE's <span class="socode">pcre_extra</span> data block.<br /><br />
+
+One difference between these and <span class="socode">(*MARK:some_tag)</span> is that while <span class="socode">(*SKIP:some_tag)</span> looks for <span class="socode">(*MARK:some_tag)</span>, it does not look for <span class="socode">(*PRUNE:some_tag)</span> or <span class="socode">(*THEN:some_tag)</span>.
+
+
+<br /><br /><br />
+
+
+
+
+<a id="skipfail"></a>
+<span class="em8"><a href="#skipfail">(direct link)</a></span><br />
+<h2>Using (*SKIP)(*FAIL) to Exclude Unwanted Matches</h2>
+
+You might recall from the <a href="regex-style.html#regexstyle"><i>Elements of Regex Style</i></a> that often, saying what you <i>don't</i> want is an important strategy to achieve your regex goals. We typically do that with negative character classes such as <span class="socode">\D</span> and <span class="socode">[^"]</span>, or with negative assertions such as <span class="socode">(?!A)</span>. <br /><br />
+
+Sometimes, we want a bit more sophistication to express what we don't want. For instance, suppose we'd like to match all individual words in a text (defined by the pattern <span class="socode">\b\w+\b</span>) except if such words live between curly braces, <span class="mono">{like these}</span>.
+<br /><br />
+
+For this kind of situation, the <span class="socode">(*SKIP)(*FAIL)</span> construct is wonderful. With it, instead of cooking up some convoluted negative logic, you express exactly what you want to avoid; if you find it, you skip it; if you don't find it, you match what you want. <br /><br />
+
+Here is how we could match single words so long as they don't live inside a set of curly braces. <br /><br />
+
+<code class="cinter">{[^}]*}(*SKIP)(*FAIL)|\b\w+\b</code>
+<br />
+
+Note that for this pattern, we assume we know that our text can never contain <span class="mono">{nested{braces}}</span>.<br /><br />
+
+Here is how the pattern works.<br /><br />
+
+✽ First, notice the central pivot around the alternation <span class="socode">|</span>.<br /><br />
+
+✽ On the left side, we use <span class="socode">{[^}]*}</span> to try to match what we <b>don't</b> want: anything within a set of curly braces. For this, we match a left curly brace, then <span class="socode">[^}]*</span> matches zero or more characters that aren't a right curly brace (another example of saying what we don't want), then we match a right curly brace. <br /><br />
+
+✽ If the engine matches a set of curly braces, it then encounters the <span class="socode">(*SKIP)</span> verb, which always matches. Next, it encounters the token <span class="socode">(*FAIL)</span>, which always fails.<br /><br />
+
+✽ At that stage, the engine tries to backtrack across <span class="socode">(*SKIP)</span> in the hope of finding a different way to match within the current attempt. But <span class="socode">(*SKIP)</span> causes the match attempt to explode, and <span class="socode">(*SKIP)</span> also tells the engine to start the next match attempt at the string position corresponding to where <span class="socode">(*SKIP)</span> was encountered. This means the engine will never again look at the set of curly braces it just matched. The content we want to avoid has been skipped (matched then thrown away).<br /><br />
+
+✽ At the start of each match attempt, if the engine is unable to match a set of curly braces, it jumps to the right branch of the <span class="socode">|</span> alternation. There, <span class="socode">\b\w+\b</span> attempts to match an individual word. If this fails, the match attempt fails. The engine then advances to the next position in the string, and tries a whole new match attempt (once again trying to match a set of curly braces first.)
+<br /><br />
+
+
+In effect, <span class="socode">(*SKIP)(*FAIL)</span> says:<br /><br />
+
+<blockquote><div>
+    Throw away anything you can match to the left of me.
+</div></blockquote>
+<br /><br />
+
+This is a very useful technique, and it also appears on the page about <a href="regex-best-trick.html#pcrevariation">the best regex trick</a>.
+<br /><br />
+
+If you'd like to try <span class="socode">(*SKIP)(*FAIL)</span>, here is sample code for the three engines that support it.
+<br /><br />
+
+    <div class="codebox"><pre>
+# Perl
+while ('good words {and bad} {ones}' =~
+      /{[^}]*}(*SKIP)(*FAIL)|\b\w+\b/g
+      ) { print "matched: '$&'\n"; }
+# matched: 'good'
+# matched: 'words'
+</pre></div>
+    <br />
+
+
+    <div class="codebox"><pre>
+// PHP
+if(preg_match_all('~{[^}]*}(*SKIP)(*FAIL)|\b\w+\b~',
+    'good words {and bad} {ones}',
+    $matches)) var_dump($matches[0]);
+/* array(2) {
+              [0]=>
+              string(4) "good"
+              [1]=>
+              string(5) "words"
+            } */
+
+</pre></div><br />
+
+
+    <div class="codebox"><pre>
+# Python
+# if you don't have the regex package, <i>pip install regex</i>
+
+import regex as mrab
+
+# <i>print(regex.__version__)</i> should output 2.4.76 or higher
+print(mrab.findall(r'{[^}]*}(*SKIP)(*FAIL)|\b\w+\b',
+                   'good words {and bad} {ones}'))
+# ['good', 'words']
+</pre></div>
+<br />
+<br />
+
+
+<a id="doc"></a>
+<span class="em8"><a href="#doc">(direct link)</a></span><br />
+<h2>Documentation</h2>
+
+That's about all I have to say about backtracking control verbs for the time being. If you'd like to learn more, feel free to dip into the documentation&mdash;though my hope is to have made the verbs far more approachable than in those documents.
+<br /><br />
+
+✽ <a href="pcre-doc/08.37/pcrepattern.html#SEC27" target="_blank">PCRE documentation on backtracking control verbs</a><br />
+✽ <a href="http://perldoc.perl.org/perlre.html#Special-Backtracking-Control-Verbs" target="_blank">Perl documentation on backtracking control verbs</a><br />
+<br />
+
+Smiles,
+<br /><br />
+
+Rex
+
+
+
+
+    <br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div>    <a href="regex-quantifier-capture.html" >
+        <img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+        <b>&nbsp;Quantifier Capture and Quantifier Arithmetic</b>
+    </a>
+    <br /><br /><br />
+
+
+    <div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-2 of 2 Threads</div>
+<a id="cid2653"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">OnlineCop</span></div>
+<div class="comment-date">July 15, 2019 - 17:45</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Text spills outside the center column</div><br />
+<div class = "comment-text">You have some regex patterns on https://www.rexegg.com/backtracking-control-verbs.html which extend outside of the &#039;article&#039; column. The first place is below the &#039;#then&#039; anchor, after the text &quot;Here are code snippets if you&#039;d like to try it with the two engines that currently support (*THEN). &quot;<br />
+<br />
+The second place is below the &#039;#pruneisdifferent&#039; anchor, after the text &quot;Here are some code snippets if you&#039;d like to try this in the three engines that currently support (*PRUNE). &quot;. I&#039;m able to see this on Chrome in Ubuntu 16 and Chrome in OS X. The code that spills over is within a PRE element within a DIV named &quot;codebox&quot;. Could the CSS for this be updated to either wrap that text, allow that div to scroll any overflowing content, or even consider widening the &#039;article&#039; width slightly?</div>
+</div>
+<a id="cid1961"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Mike</span></div>
+<div class="comment-date">October 18, 2015 - 05:51</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Thank you so much for this</div><br />
+<div class = "comment-text">I&#039;ve been trying to get as well versed in regex as possible and this was a topic that I felt I only had a loose understanding on. I&#039;ve only skimmed this section a little, but I plan on using this as a more robust reference for future practicing. Very helpful for removing SQL comments, etc.</div>
+</div>
+<a id="cid1962"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Mike</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">October 18, 2015 - 08:53</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: Thank you so much for this</div><br />
+<div class = "comment-text">Hi Mike,
+<br /><br />
+Thank you so much for your positive feedback, you made my day. I only finished this page five days ago after putting days of work into it. 
+<br /><br />
+I thought it was an esoteric topic that would attract few readers, so it&#039;s wonderful to see that at least one person is enjoying it already.
+<br /><br />
+Wishing you a fun weekend, 
+<br /><br />
+Rex
+</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/backtracking-control-verbs.html" method="post" >
+<input type="hidden" name="token" value="edd72cdd2db308e2cf5e914811c30832" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a class="thispage" href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/backtracking-control-verbs.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:22 GMT -->
+</html>

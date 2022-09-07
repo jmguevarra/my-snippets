@@ -1,0 +1,51 @@
+<script defer src="https://a.unbounce.com/s/javascripts/jquery/jquery-ui.1.8.16.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/smoothness/jquery-ui.css" />
+<script defer>
+//simple date picker  
+$(function() {
+	$("#appointment_date").datepicker({ 
+      dateFormat: 'mm-dd-yy',
+      minDate: 0,
+      beforeShowDay: function(date){
+      	let day = date.getDay();
+        return [(day !== 0), ''];
+      }, 
+	
+      beforeShowDay: function(date){
+      	let day = date.getDay();
+        return [ (day === 2 || day === 3), ''];
+      }, 
+      
+      onSelect:function(){
+        let apptDate = $(this).datepicker('getDate'),
+            apptDay = apptDate.getDay();
+        let apptTimeWeekdays = ['10am', '1pm', '4pm'],
+            apptTimeSat = ['9am', '11am'];
+        
+        	$('#appointment_time option:not(:first-child)').remove();
+        
+           if( apptDay === 6 ){
+             
+             $.each(apptTimeSat, function(index, time){
+               $('#appointment_time').append($('<option>', { 
+                 value: time,
+                 text : time 
+               }));
+             });
+           }else{
+           	$.each(apptTimeWeekdays, function(index, time){
+               $('#appointment_time').append($('<option>', { 
+                 value: time,
+                 text : time 
+               }));
+             });
+             
+           }
+      },
+      
+      });
+  	$('#appointment_date').attr('readonly', true);
+  
+  
+});
+</script> 

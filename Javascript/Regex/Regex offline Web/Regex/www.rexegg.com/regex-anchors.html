@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-anchors.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Regex anchors. Presents regular expression anchors and discusses their behavior in various programming languages." />
+<title>Regular Expression Anchors</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li class="current"><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Regex Anchors</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+
+Anchors belong to the family of regex tokens that don't match any characters, but that <b>assert</b> something about the string or the matching process. Anchors assert that the engine's current position in the string matches a well-determined location: for instance, the beginning of the string, or the end of a line.
+<br /><br />
+This type of assertion is useful for several reasons. First, it is expressive: it lets you specify that you want to match digits at the end of a line, but not anywhere else. Second, it is efficient: when you tell the engine that you want to find a compex pattern at a given location, it doesn't have to spend time trying to find that pattern at many other locations. This is why the <a href="regex-style.html">regex style guide</a> recommends using anchors whenever possible—even when your regex would match without them.
+<br /><br />
+
+
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#semantics">Boundaries vs. Anchors and Delimiters</a><br />
+✽ <a href="#caret">Caret <span class="socode">^</span>: Beginning of String (or Line)</a><br />
+✽ <a href="#dollar">Dollar <span class="socode">$</span>: End of String (or Line)</a><br />
+✽ <a href="#A">Beginning of String: <span class="socode">\A</span></a><br />
+✽ <a href="#z">Very End of String: <span class="socode">\z</span></a><br />
+✽ <a href="#Z">End of String (or Before Optional Line Break): <span class="socode">\Z</span></a><br />
+✽ <a href="#alwaysmulti">Bringing Some Order: Multiline All the Time</a><br />
+✽ <a href="#G">Beginning of String or End of Previous Match: <span class="socode">\G</span></a><br />
+✽ <a href="#anywhere">Anchors Anywhere, Anytime</a><br />
+✽ <a href="#delimiters">Anchors seen as Delimiters</a><br />
+
+
+
+<br /><br />
+
+
+<a id="semantics"></a>
+<span class="em8"><a href="#semantics">(direct link)</a></span><br />
+<h2>Anchors vs. Boundaries and Delimiters</h2>
+Why is <span class="socode">^</span> called an anchor while <span class="socode">\b</span> is called a boundary and <span class="socode">(?&lt;!.)</span> is called (by me) a delimiter? These semantic questions are explored in <a href="regex-boundaries.html#anchors">Boundaries vs. Anchors</a> on the boundaries page, and in <a href="#delimiters">Anchors Seen as Delimiters</a> lower on this page.
+<br /><br /><br />
+
+
+<a id="caret"></a>
+<span class="em8"><a href="#caret">(direct link)</a></span><br />
+<h2>Caret <span class="socode">^</span>: Beginning of String (or Line)</h2>
+
+In most engines (but not Ruby), when <a href="regex-modifiers.html#multiline">multiline mode</a> hasn't been turned on, the caret anchor <span class="socode">^</span> asserts that the engine's current position in the string is the beginning of the string. Therefore, <span class="socode">^a</span> matches an <i>a</i> at the beginning of the string.
+<br /><br />
+
+<b>Ruby</b><br />
+In Ruby, <span class="socode">^</span> always asserts that the engine's current position in the string is the beginning of a line—which is either the beginning of the string or a position following a line feed character <span class="socode">\n</span>. Therefore, <span class="socode">^a</span> matches the <i>a</i> on both of these lines:<br />
+<span class="mono">apple<br />apricot</span>
+<br /><br />
+
+<a id="carmulti"></a>
+<span class="em8"><a href="#carmulti">(direct link)</a></span><br />
+<b>Multiline Mode: <span class="socode">^</span> Matches on Every Line</b><br />
+Apart from Ruby, all engines allow you to turn on a mode where the anchors <span class="socode">^</span> and <span class="socode">$</span> match on every line. That mode is often turned on with an inline modifier <span class="socode">(?m)</span>, but this varies across engines and applications, and the Modifiers page has instructions for <a href="regex-modifiers.html#multiline">how to turn on multiline mode in various languages</a>.<br /><br />
+
+When that mode is set, <span class="socode">^a</span> matches the <i>a</i> on both of these lines:<br />
+<span class="mono">apple<br />apricot</span>
+<br />
+
+<br /><br />
+
+
+
+
+
+<a id="dollar"></a>
+<span class="em8"><a href="#dollar">(direct link)</a></span><br />
+<h2>Dollar <span class="socode">$</span>: End of String (or Line)</h2>
+
+The dollar anchor changes its meaning depending on which engine we use and on whether the <a href="regex-modifiers.html#multiline">multiline mode</a> is on. Let's start with the narrowest meaning then gradually expand.
+<br /><br />
+
+<a id="doleos"></a>
+<span class="em8"><a href="#doleos">(direct link)</a></span><br />
+<b>All Engines: Match at the Very End of the String</b><br />
+All engines agree on one string position where the dollar anchor <span class="socode">$</span> is allowed to match: at the very end of the string. For instance, if your string is <i class="mono">the apple</i>, the <span class="socode">$</span> anchor matches the position after the <i>e</i>, and <span class="socode">e$</span> matches the final <i>e</i>, but not the first.<br /><br />
+
+For convenience, most engines build some flexibility into <span class="socode">$</span>, allowing it to match before final line breaks—we'll examine this in the following sections. 
+<br /><br />
+
+JavaScript, however, does not have this kind of flexibility (which won't surprise you if you remember that JavaScript is by a long shot <a href="regex-javascript.html#crippled">the worst among all the major regex engines</a>).
+If you add a line break at the end of your <i class="mono">the apple</i> string, as in <i class="mono">the apple\n</i>, the JavaScript engine no longer matches the final <i>e</i>.
+<br /><br />
+
+
+<a id="dolbr"></a>
+<span class="em8"><a href="#dolbr">(direct link)</a></span><br />
+<b>All Engines Except JavaScript: Match Before One Final Line Break</b><br />
+
+In all major engines except JavaScript, if the string has one final line break, the <span class="socode">$</span> anchor can match there. For instance, in <i class="mono">the apple\n</i>, <span class="socode">e$</span> matches the final <i>e</i>.
+<br /><br />
+
+This is convenient: When you want to match some characters at the end of a string, you don't have to worry about whether it might have a line break at the end.
+<br /><br />
+
+
+<a id="pcre_linebreaks"></a>
+<span class="em8"><a href="#pcre_linebreaks">(direct link)</a></span><br />
+For all engines except PCRE, the final line break character must be a linefeed character <i>\n</i>. But in PCRE (C, PHP, R…), the definition of a line break for the purpose of the <span class="socode">$</span> anchor depends on how PCRE was compiled. Depending on the language and tool, that final newline character may be allowed to be a linefeed, a carriage return, a linefeed-and-carriage-return sequence, or any of the above.
+<br /><br />
+Apart from these potential differences resulting from how PCRE was compiled, PCRE also lets you override the default newline (and therefore the behavior of the <span class="socode">$</span> anchor) with one of <a href="regex-modifiers.html#pcre">PCRE's special beginning of pattern modifiers</a>, such as <span class="socode">(*ANYCRLF)</span>, <span class="socode">(*CR)</span> and <span class="socode">(*ANY)</span>
+<br /><br />
+
+
+<a id="eol"></a>
+<span class="em8"><a href="#eol">(direct link)</a></span><br />
+<b>Multiline Mode (and Ruby Default): <span class="socode">$</span> Matches on Every Line</b><br />
+
+In Ruby, the <span class="socode">$</span> anchor always matches at the end of a line. For instance, <span class="socode">e$</span> matches the <i>e</i> on both of these lines:<br />
+<span class="mono">apple<br />orange</span>
+<br />
+<br />
+
+Other engines (including JavaScript) also allow the <span class="socode">$</span> to match at the end of a line when you turn on the <a href="regex-modifiers.html#multiline">multiline mode</a> (follow the link for how to turn on multiline in various languages).
+<br /><br />
+
+At first, Ruby insistence to allow <span class="socode">^</span> and <span class="socode">$</span> to match on every line may seem annoying because it is not standard. However, once you learn about anchors such as <span class="socode">\A</span> and <span class="socode">\Z</span>, you see that this way of proceeding makes a lot of sense as it gives anchors an unambiguous meaning.
+<br /><br /><br />
+
+
+
+<a id="A"></a>
+<span class="em8"><a href="#A">(direct link)</a></span><br />
+<h2>Beginning of String: <span class="socode">\A</span></h2>
+
+In all major regex flavors except JavaScript, the <span class="socode">\A</span> anchor asserts that the engine's current position in the string is the beginning of the string. Therefore, in the following string, <span class="socode">\Aa</span> matches the <i>a</i> in <i>apple</i> but not <i>apricot</i>:<br /> 
+<span class="mono">apple<br />apricot</span><br /><br />
+
+Of course the <span class="socode">^</span> anchor also matches that position. But since <span class="socode">^</span> changes its meaning <a href="#carmulti">when multiline is on</a>, <span class="socode">\A</span> gives us an unambiguous anchor to ensure we really only ever match at the beginning of the string.
+<br />
+
+<br /><br />
+
+
+
+<a id="z"></a>
+<span class="em8"><a href="#z">(direct link)</a></span><br />
+<h2>Very End of String: <span class="socode">\z</span></h2>
+
+<div class="pullquote R">
+A string goes<br />from <span class="socode">\A</span> to <span class="socode">\z</span>
+</div>
+
+In all major regex flavors except JavaScript and Python (where this token does not exist), the <span class="socode">\z</span> anchor asserts that the engine's current position in the string is the very end of the string (past any potential final line breaks). Therefore, in the following string, <span class="socode">e\z</span> matches the <i>e</i> in <i>orange</i> but not <i>apple</i>:<br /> 
+<span class="mono">apple<br />orange</span><br /><br />
+
+Of course the <span class="socode">$</span> anchor also matches that position. But since <span class="socode">$</span> changes its meaning <a href="#carmulti">when multiline is on</a>, <span class="socode">\z</span> gives us an unambiguous anchor to ensure we really only ever match at the very end of the string.
+<br /><br />
+
+Since the <span class="socode">\A</span> anchor specifies the very beginning of the string, we could have expected another capital letter for the end of the string—rather than the lowercase <span class="socode">\z</span>. Instead, the <span class="socode">\Z</span> (which we'll see next) gives us some flexibility around the line break (except in Python). Therefore, it's helpful to think of a string as going from <span class="socode">\A</span> to <span class="socode">\z</span>.
+
+<br /><br /><br />
+
+
+<a id="Z"></a>
+<span class="em8"><a href="#Z">(direct link)</a></span><br />
+<h2>End of String (or Before Optional Line Break): <span class="socode">\Z</span></h2>
+
+This flexible "end-of-string" anchor behaves differently depending on the engine.
+<br /><br />
+
+
+✽ In Python, the token <span class="socode">\Z</span> does what <span class="socode">\z</span> does in other engines: it only matches at the very end of the string.
+<br /><br />
+
+✽ In .NET, Perl and Ruby, <span class="socode">\Z</span> is allowed to match before a final line feed. Therefore, <span class="socode">e\Z</span> will match the final <i>e</i> in the string <i class="mono">apple\norange\n</i><br /><br />
+
+✽ In Java, <span class="socode">\Z</span> will also match before a final line break character, which may be a line feed, a carriage return and other line separators.<br /><br />
+
+✽ In PCRE (C, PHP, R…), <span class="socode">\Z</span> will also match before a final line break character. As discussed <a href="#pcre_linebreaks">earlier</a>, what PCRE defines as a line break character depends on how it was compiled, as well as on the potential presence of <a href="regex-modifiers.html#pcre">PCRE's special beginning of pattern modifiers</a>, such as <span class="socode">(*ANYCRLF)</span>, <span class="socode">(*CR)</span> and <span class="socode">(*ANY)</span>
+
+<br /><br /><br />
+
+
+<a id="alwaysmulti"></a>
+<span class="em8"><a href="#alwaysmulti">(direct link)</a></span><br />
+<h2>Bringing Some Order: Multiline All the Time</h2>
+There is a good argument for always leaving multiline mode on in order to give clear roles to all the anchors we've seen so far. If you do this, you know that <span class="socode">$</span> and <span class="socode">^</span> always match on every line. And if you need to match specifically at the beginning or the end of the string, you use <span class="socode">\A</span>, <span class="socode">\Z</span> or <span class="socode">\z</span>.
+<br /><br />
+
+In fact, this is Ruby's behavior. That is also where Perl 6 is headed. To me, this idea makes a lot of sense: it gets rid of the multiline mode <span class="socode">m</span> and makes anchors more meaningful.
+<br />
+
+<br /><br />
+
+
+<a id="G"></a>
+<span class="em8"><a href="#G">(direct link)</a></span><br />
+<h2>Beginning of String or End of Previous Match: <span class="socode">\G</span></h2>
+
+.NET, PCRE (C, PHP, R…), Java, Perl and Ruby support <span class="socode">\G</span>, a useful anchor that can match at one of two positions:<br />
+✽ The beginning of the string,<br />
+✽ The position that immediately follows the end of the previous match.<br />
+<br />
+
+Among other uses, <span class="socode">\G</span> can come in handy in tokenized strings when you want to match tokens in certain areas of the string but not in others. Consider for instance this string showing Jane and Tarzan's times on three separate swim tests:<br />
+<span class="mono">Tarzan A:33 B:32 C:36 Jane A:35 B:33 C:31
+</span><br />
+If we are only interested in matching Jane's scores, we can use:<br /><br />
+
+<code class="cinter">(?:Jane|\G) \w+:(\d+)</code><br />
+
+There are other ways to do this, especially if you have infinite lookbehind (.NET), but this approach is particularly economical.
+<br /><br />
+
+How does it work? When the engine tries to match at the beginning of the string, the first token <span class="socode">(?:Jane|\G)</span> succeeds because <span class="socode">\G</span> matches at the beginning of the string. However, the next token (a space character) fails against Tarzan's <i>T</i>. The next chance for the pattern to match is at the position preceding <i>Jane</i>. The engine matches "<i>Jane A:35</i>", capturing the <i>35</i> to Group 1. At the starting position of the next match attempt, <span class="socode">\G</span> matches, and the engine matches "<i> B:33</i>". Finally, <span class="socode">\G</span> matches again, and the engine matches "<i> C:31</i>".
+<br /><br />
+
+Incidentally, in PCRE, Perl and Ruby, you don't need to retrieve the times from Group 1: you can match them directly with this small variation, where <span class="socode">\K</span> tells the engine to drop what it matched so far from the match to be returned:<br />
+<code class="cinter">(?:Jane|\G) \w+:\K\d+</code><br />
+<br />
+
+<a id="bridleG"></a>
+<span class="em8"><a href="#bridleG">(direct link)</a></span><br />
+<b>"Beginning of String" Match: Using or Bridling <span class="socode">\G</span></b><br />
+The fact that <span class="socode">\G</span> matches at the beginning of the string is neither convenient nor inconvenient. Half the time, we use that property. The other half, we work around it. <br /><br />
+
+For our second example, consider this string, which might represent two potential positions for placing a "submarine" on a paper grid in preparation for a naval battle:<br />
+<span class="mono">A1B1C1vsA1A2A3</span><br />
+Each position (on either side of <i>vs</i>) has three tokens composed of one letter and one digit.<br /><br />
+
+Suppose we want to match the first three tokens, i.e. <i>A1</i>, <i>B1</i>, <i>C1</i>. We can do this quite easily with this regex:<br />
+<code class="cinter">\G[A-Z]\d</code><br />
+
+The <span class="socode">\G</span> matches at the beginning of the string, allowing us to match <i>A1</i>. Then <span class="socode">\G</span> matches before the next token, so we match it, as well as the following token. <span class="socode">\G</span> succeeds again before the <i>vs</i>, but <span class="socode">[A-Z]</span> cannot match the <i>v</i>, so the match fails. There is no more position for <span class="socode">\G</span> to match, and we therefore avoid the tokens to the right, as we wanted.
+<br /><br />
+
+Now suppose we want to match the second position's tokens, i.e. <i>A1</i>, <i>A2</i>, <i>A3</i>. Remembering the Tarzan and Jane example, we could try <span class="socode">(?:vs|\G)([A-Z]\d)</span>… but the strings in these two examples are not built the same way, and this regex would match all the tokens! Let's see how. After the <span class="socode">\G</span> matches at the beginning of the string, <span class="socode">[A-Z]\d</span> is able to match the first token. Then <span class="socode">\G</span> matches again, so we match the second token, and the third. Then, when we hit <i>vs</i>, <span class="socode">\G</span> still matches, but <span class="socode">[A-Z]</span> fails against <i>vs</i>. The engine backtracks and tries the other side of the alternation, <i>vs</i>, which matches. <span class="socode">[A-Z]\d</span> matches the fourth token, then <span class="socode">\G</span> helps us with tokens 5 and 6.<br /><br />
+
+Clearly, this time <span class="socode">\G</span> is in our way: we wish it didn't match at the beginning of the string. To solve this, we can "bridle <span class="socode">\G</span>" by placing the negative lookahead <span class="socode">(?!\A)</span> right next to it. It asserts that what immediately follows the current position is not the beginning of the string, so <span class="socode">\G</span> can no longer match there. The regex becomes:<br /><br />
+<code class="cinter">(?:vs|\G(?!\A))([A-Z]\d)</code><br />
+
+It may sound strange that we used <span class="socode">(?!\A)</span> to negate the anchor <span class="socode">\A</span>. As it turns out, <span class="socode">(?&lt;!\A)</span> would also have worked. We'll explore this in the section about <a href="regex-anchors.html#lookaround">anchors within a lookaround</a>.
+<br /><br />
+<br />
+
+
+<a id="anywhere"></a>
+<span class="em8"><a href="#anywhere">(direct link)</a></span><br />
+<h2>Anchors Anywhere, Anytime</h2>
+
+If you read too much beginner literature, overexposure to patterns such as <span class="socode">^Name: \w+$</span> could lead you believe that anchors such as <span class="socode">^</span> and <span class="socode">$</span> must be used in immutable positions at either end of the string. The <span class="socode">(?!\A)</span> in the regex just above hints that it is not so.<br /><br />
+
+<div class="pullquote L">
+Anchors are not<br />
+sacred cows. Move them<br />
+where you like.
+</div>
+There is nothing sacred about anchors. A single anchor such as <span class="socode">^</span> may appear multiple times in a regex pattern. It can also participate in any subexpression, such as a group, an alternation, or a lookbehind. Let's see some examples.<br /><br />
+<br />
+
+<a id="multiple_places"></a>
+<span class="em8"><a href="#multiple_places">(direct link)</a></span><br />
+<b>Anchor in Multiple Places</b><br />
+<code class="cinter">^cat|^mouse</code>
+Here we use the beginning-of-string anchor twice, on both sides of an alternation. This ensures that whichever word we match will be at the beginning of the string.
+<br /><br />
+In contrast, if we used <span class="socode">^cat|mouse</span>, the <span class="socode">^</span> would only apply to cat. On the other side of the alternation, <span class="socode">mouse</span> is not anchored, so it could match anywhere in the string—perhaps not what we intend.<br /><br />
+
+Another way to ensure the anchor applies to both sides would be to enclose the alternation in a group, as in <span class="socode">^(?:cat|mouse)</span>
+<br /><br />
+
+
+<a id="alternation"></a>
+<span class="em8"><a href="#alternation">(direct link)</a></span><br />
+<b>Anchor in an Alternation</b><br />
+<code class="cinter">\bcat(\w+|$)</code>
+Here we use the end-of-string anchor <span class="socode">$</span> in an alternation. After the <a href="regex-boundaries.html#wordboundary">word boundary</a> <span class="socode">\b</span> and the letters <i>cat</i>, the engine must either match some word characters <span class="socode">\w+</span> or be able to assert that the current position is the end of the string.
+<br /><br />
+
+As a result, the word <i>cat</i> on its own can match, but only at the end of the string. In contrast, <i>catch</i> can match anywhere in the string.
+<br /><br /><br />
+
+
+<a id="lookaround"></a>
+<span class="em8"><a href="#lookaround">(direct link)</a></span><br />
+<b>Anchor Within a Lookaround</b><br />
+<code class="cinter">\w+(?=,|$)</code>
+Here we use the end-of-string anchor <span class="socode">$</span> within a lookahead. The engine matches word characters, then asserts that what follows is either a comma or the end of the string. In the string <i class="mono">one apple, two peaches, three plums</i>, this regex would match the fruits but not the numbers.
+<br /><br />
+
+It's worth taking a moment to examine the meaning of an anchor within a lookaround. 
+When the engine is standing at the beginning of the string, you could say that what <i>immediately</i> follows or precedes this position is also the beginning of the string. If <i>immediately</i> refers to an infinitely small distance to the left or to the right, that is indeed the case. This is a matter of semantics and perspective, of course, but it's a perspective that the engine takes on board: <span class="socode">^</span>, <span class="socode">(?&lt;=^)</span> and <span class="socode">(?=^)</span> all match at the beginning of a string.
+<br /><br />
+The same applies to other anchors: whenever an anchor is within a lookaround, the meaning of the anchor is the same as if the lookaround weren't there at all. This is convenient for several reasons:<br /><br />
+✽ We can use a negative lookahead or a negative lookbehind to assert that the current position does not correspond to an anchor. For instance, <span class="socode">(?&lt;!^)</span> checks that the current position is not the beginning of the string.<br /><br />
+✽ We can place an anchor in an alternation within a lookaround to make a complex delimiter, as in the <span class="socode">\w+(?=,|$)</span> example a few paragraphs above. To take another example, <span class="socode">(?&lt;=>>|^)</span> ensures that what precedes the current position is either two "greater than" characters <i>></i>, or—assuming we're in multiline mode—the beginning of a line. This could be useful, for instance, in parsing the text of an email. Note that as in any alternation, the order of tokens is important: <span class="socode">(?&lt;=^|>>)</span> matches at the beginning of the string if possible, or past <i>>></i> if not. A few lines above, the priority was reversed.    
+<br /><br />
+<br />
+
+
+<a id="delimiters"></a>
+<span class="em8"><a href="#delimiters">(direct link)</a></span><br />
+<h2>Anchors seen as Delimiters</h2>
+Just as you can argue that <a href="regex-boundaries.html#anchors">anchors are a kind of boundary</a>, you can argue that they are a kind of <a href="regex-boundaries.html#diy">delimiter</a>. <br /><br />
+
+Take the beginning of string anchor <span class="socode">^</span>: you can express it with the negative lookbehind <span class="socode">(?s)(?&lt;!.)a</span>, which asserts that what precedes the current position is not a character. (In this regex, the mode modifier <span class="socode">(?s)</span>—also known as <a href="regex-modifiers.html#dotall">dotall</a> mode—is necessary to allow the dot to match any character including line breaks.)
+<br /><br />
+
+Likewise, in <a href="regex-modifiers.html#multiline">multiline mode</a>, where <span class="socode">^</span> matches the beginning of every line, you can mimic the anchor's behavior with the negative lookbehind <span class="socode">(?&lt;!.)a</span>, which asserts that what precedes the current position is not a character, except perhaps a line break. 
+<br /><br />
+
+Expressed in this way, the anchor <span class="socode">^</span> no longer seems to refer to a specific position in the string: it is just a shorthand notation for a "<a href="regex-boundaries.html#diy">do-it-yourself delimiter</a>".<br /><br />
+
+Ultimately, this will boil down to a question of semantics. But the question is not futile. Rephrasing anchors as DIY delimiters suggests ways to implement these anchors using other meta-characters if you ever decided to write your own engine. More importantly, exploring alternate ways to perform the work of anchors brings out some of their features and suggests possible variations.
+<br /><br />
+
+For instance, in many engines, if you wanted a variation on the multiline anchor <span class="socode">^</span> that only matches at the beginning of lines two and beyond, you could use something like the lookbehind <span class="socode">(?&lt;=\n)</span>, which asserts that what precedes the current position is a linefeed character.
+<br /><br /><br />
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div>
+
+<a href="regex-capture.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;Everything You've Wanted to know about Capture Groups</b>
+</a>
+<br /><br /><br />
+
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-2 of 2 Threads</div>
+<a id="cid2755"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">kurdi</span></div>
+<div class="comment-date">April 10, 2020 - 22:33</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Thanks</div><br />
+<div class = "comment-text">It really is mind-boggling that such a quality content is available for free. Thanks for your hard work.</div>
+</div>
+<a id="cid1806"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Yon</span></div>
+<div class="comment-date">May 20, 2015 - 02:35</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>The $ effect</div><br />
+<div class = "comment-text">In the following use cases, the &quot;$&quot; anchor changes the regex behavior when trying to match the simple string &quot;a&quot; :<br />
+- regex &quot;^b*&quot; matches,<br />
+- regex &quot;^b*$&quot; does not match. How can we explain that? Thanks,<br />
+-Yon</div>
+</div>
+<a id="cid1809"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Yon</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">May 20, 2015 - 09:48</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: The $ effect</div><br />
+<div class = "comment-text">Hi Yon,
+Neither of these patterns matches the string &quot;a&quot;.
+</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-anchors.html" method="post" >
+<input type="hidden" name="token" value="4f66db04a90014eb9b7857a935ea2a65" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a class="thispage" href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-anchors.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+</html>

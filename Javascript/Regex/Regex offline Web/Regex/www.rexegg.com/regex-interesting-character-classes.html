@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-interesting-character-classes.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:24 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Interesting regex character classes. Presents a collection of useful character classes for regular expressions." />
+<title>Interesting Regex Character Classes</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li class="current"><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Interesting Character Classes</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+My goal with this page is to assemble a collection of interesting (and potentially useful) regex character classes. I will try to organize the collection into themes.
+<br /><br />
+
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#how">How do these Character Classes Work?</a><br />
+✽ <a href="#ascii">Useful ASCII Ranges</a><br />
+✽ <a href="#obnoxious">Obnoxious Ranges</a><br />
+✽ <a href="#strange">Strange or Beautiful Ranges</a><br />
+✽ <a href="#line_break">Line-Break-Related</a><br />
+✽ <a href="#languages">Language-Related</a><br />
+
+<br /><br />
+
+
+
+<a id="how"></a>
+<span class="em8"><a href="#how">(direct link)</a></span><br />
+<h2>How do these Character Classes Work?</h2>
+Before we start, I want to make sure you don't feel confused when you stumble on something like <span class="socode">[!-~]</span>. Remember that the hyphen defines a range between two characters in the ASCII table (or between two Unicode code points, depending on the engine). But a range does not have to look like <span class="socode">[a-z]</span>&hellip;
+<br /><br />
+
+If you consult the <a href="http://www.ascii-code.com/" target="_blank">ASCII table</a>, you will see that <span class="socode">[!-~]</span> is a valid range—and a useful one too.
+<br /><br />
+
+Sometimes, instead of a straight character class, you'll see something like <span class="socode">(?![aeiou])[a-z]</span>. The first part is a negative lookahead that asserts that the following character is not one of those in a given range. This is a way to perform character class subtraction in regex engines that don't support that operation—and that's most of them. In this example, the resulting character class is that of English lower-case consonants, since we have removed the vowels <span class="socode">[aeiou]</span> from the range of letters <span class="socode">[a-z]</span>. You may, by the way, notice that the letter <i>a</i> appears in both classes: we could have written this <span class="socode">(?![eiou])[b-z]</span>
+<br /><br />
+<br />
+
+
+
+<a id="ascii"></a>
+<span class="em8"><a href="#ascii">(direct link)</a></span><br />
+<h2>Useful ASCII Ranges</h2>
+
+<b>All Printable Characters in the ASCII Table</b><br />
+<code class="cinter">[ -~]</code><br />
+
+<b>All Printable Characters in the ASCII Table—Except the Space Character</b><br />
+<code class="cinter">[!-~]</code><br />
+
+<b>All "Special Characters" in the ASCII Table</b><br />
+<code class="cinter">(?![a-zA-Z0-9])[!-~]</code><br />
+
+<b>All "Special Characters" in the ASCII Table—Without Using Lookahead</b><br />
+<code class="cinter">[!-/:-@\[-`{-~]</code><br />
+
+<b>All Latin and Accented Characters</b><br />
+<code class="cinter">(?i)(?:(?![×Þß÷þø])[a-zÀ-ÿ])</code><br />
+
+<b>All English Consonants</b><br />
+<code class="cinter">[b-df-hj-np-tv-z]</code><br />
+
+<br /><br />
+
+
+
+
+<a id="obnoxious"></a>
+<span class="em8"><a href="#obnoxious">(direct link)</a></span><br />
+<h2>Obnoxious Ranges</h2>
+
+<b>Alphanumeric Characters</b><br />
+<code class="cinter">[^\W_]</code>
+This is an interesting class for engines that don't support the POSIX <span class="socode">[[:alnum:]]</span>. It makes use of the fact that <span class="socode">\w</span> is very close to what we want. <span class="socode">[^\W]</span> is a double negation that matches the same as <span class="socode">\w</span>. By adding <span class="socode">_</span> to the negated class, we are left with ASCII digits and numbers. Watch out, though: in Python and .NET, <span class="socode">\w</span> matches any unicode letter. But frankly... Just use <span class="socode">[a-zA-Z0-9]</span>. See also <a href="#wsexcnl">Any White-Space Except Newline</a>.
+<br /><br />
+
+<a id="binary"></a>
+<b>Binary Number</b><br />
+<code class="cinter">[^\D2-9]+</code>
+This is the same idea as the regex above to match alphanumeric characters. In most engines, the character class only matches digits 0 or 1. The <span class="socode">+</span> quantifier makes this an obnoxious regex to match a binary number—if you want to do that, <span class="socode">[01]+</span> is all you need. Note that in .NET and Python 3 some engines <span class="socode">\d</span> matches any digit in any script, so the meaning in those engines would be "any digit in any script, except ASCII digits <i>2</i> through <i>9</i>".
+<br /><br />
+<br />
+
+
+
+<a id="strange"></a>
+<span class="em8"><a href="#strange">(direct link)</a></span><br />
+<h2>Strange or Beautiful Ranges</h2>
+
+<b>Square Brackets</b><br />
+This will work in .NET, Perl, PCRE and Python. <br />
+<code class="cinter">[][]</code><br />
+The crazy thing is that there is a lot of variation among engines as to which brackets need to be escaped. While <span class="socode">[\]\[]</span> will work everywhere, in JavaScript you can use <span class="socode">[[\]]</span>, and in Java you can use <span class="socode">[]\[]</span>.
+<br /><br />
+
+<b>Words you can Type with your Left Hand</b><br />
+(But you'll need a QWERTY keyboard.)<br />
+<code class="cinter">(?i)\b[a-fq-tv-xz]+\b</code><br />
+
+<b>Words you can Type with your Right Hand (QWERTY keyboard)</b><br />
+<code class="cinter">(?i)\b[ug-py]+\b</code><br />
+
+<b>Words that only use Letters from the Top Row (QWERTY keyboard)</b><br />
+<code class="cinter">(?i)\b[eio-rtuwy]+\b</code><br />
+<br /><br />
+
+
+
+
+<a id="line_break"></a>
+<span class="em8"><a href="#line_break">(direct link)</a></span><br />
+<h2>Line-Break-Related</h2>
+
+<b>Any Character Including Line Breaks</b><br />
+These are ways to replicate the behavior of the dot in <span class="socode">DOTALL</span> mode (by default, the dot does not match line breaks): <span class="socode">[\S\s]</span> or <span class="socode">[\D\d]</span> or <span class="socode">[\w\W]</span>. Note that in each of these classes, I have tried to place in first position the token that has the greatest chance of matching first (which of course would depend on the target text).
+<br /><br />
+
+<a id="wsexcnl"></a>
+<b>Any White-Space Character Except the Newline Character</b><br />
+You may not have a use for this, but it's an interesting class making use of double negation. We're negating <span class="socode">\S</span>, so that's the same as all white-space characters <span class="socode">\s</span>. But the <span class="socode">\n</span> removes itself from the set.<br />
+<code class="cinter">[^\S\n]</code><br />
+
+
+<b>Alternative to <span class="socode">[\r\n]</span> for Java and Ruby 2+</b><br />
+<code class="cinter">(?![ \t\cK\f])\s</code><br />
+This rather pointless regex (except as a learning device) relies on the fact that in these three engines <span class="socode">\s</span> matches an ASCII space, a tab, a line feed, a carriage return, a vertical tab or a form feed: the negative lookahead removes all of those characters except the newline and carriage return.
+<br /><br />
+<br />
+
+
+
+
+
+<a id="languages"></a>
+<span class="em8"><a href="#languages">(direct link)</a></span><br />
+<h2>Language-Related</h2>
+
+<b>French Letters</b><br />
+<code class="cinter">[a-zA-ZàâäôéèëêïîçùûüÿæœÀÂÄÔÉÈËÊÏÎŸÇÙÛÜÆŒ]</code><br />
+
+<b>German Letters</b><br />
+The controversial capital letter for ß, now included in unicode, is missing in many fonts, so it might show on your screen as a question mark.<br /> 
+<code class="cinter">[a-zA-ZäöüßÄÖÜẞ]</code><br />
+
+<b>Polish Letters</b><br />
+<code class="cinter">[a-pr-uwy-zA-PR-UWY-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]</code>
+Note that there is no Q, V and X in Polish. But if you want to allow all English letters as well, use <span class="socode">[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]</span>
+<br /><br />
+
+<b>Italian Letters</b><br />
+<code class="cinter">[a-zA-ZàèéìíîòóùúÀÈÉÌÍÎÒÓÙÚ]</code><br />
+
+<b>Spanish Letters</b><br />
+<code class="cinter">[a-zA-ZáéíñóúüÁÉÍÑÓÚÜ]</code><br />
+<br /><br />
+
+
+ 
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div>
+<br />
+Smiles,
+<br /><br />
+Rex
+
+<br /><br />
+
+<script src="../ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+  $('.triggerToggle').click(function(){
+     $(this).parent().nextAll('.toggleme').toggle();
+  });
+});
+</script><div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-1 of 1 Threads</div>
+<a id="cid2670"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">cesar</span><span class="comment-location"> &ndash; ali_Escobar2003@yahoo.com</span></div>
+<div class="comment-date">August 26, 2019 - 12:15</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Spanish</div><br />
+<div class = "comment-text">Thx!! I couldnt figure out how to keep my spanish characters while cleaning up some tweets.</div>
+</div>
+<a id="cid2671"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to cesar</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">August 26, 2019 - 12:18</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: Spanish</div><br />
+<div class = "comment-text">Hola Cesar,
+Me encanta o&iacute;r que hayas podido resolver tu problema. Dese&aacute;ndote un buen&iacute;simo d&iacute;a, -Rex
+</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-interesting-character-classes.html" method="post" >
+<input type="hidden" name="token" value="51b75aec5a73f1c27a010d0cc581fb22" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a class="thispage" href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-interesting-character-classes.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:24 GMT -->
+</html>

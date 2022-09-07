@@ -1,0 +1,15 @@
+/*GF ClearFields Func*/
+	$.fn.gfClearValue = function(){
+		if(this.attr('type') == 'button' || this.attr('type') == 'submit'){ return; } 
+		
+		if(this.attr('type') == 'radio' || this.attr('type') == 'checkbox'){
+			this.prop('checked', '');
+			return true;
+		}
+		
+		if( this.is('select') || this.is('textarea') || this.is('input') ){
+			this.val('');
+			return true;
+		}
+	};
+	/*End GF ClearFields*/

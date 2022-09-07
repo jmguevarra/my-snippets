@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-trick-line-numbers.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Matching line numbers with Regular Expressions. Presents techniques for Perl, PCRE and .NET, including recursion, self-referencing groups and balancing groups." />
+<title>Matching Line Numbers with Regex&mdash;Regex Trick</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li class="current"><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>On Which Line Number is the First Match?</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+Using only regex, can you tell the on which line a match was found? You could do that with a <a href="regex-perl-one-liners.html">Perl one-liner</a> using <span class="socode">$.</span> to print the line, but in pure regex, the answer should be "No: a regex cannot give you a line number."
+<br /><br />
+
+And that is probably a fair answer. But this page presents tricks that allow you to return the line number using only regular expressions. They may not be tricks you want to put into practice, but they're a great excuse to look at three forms of advanced regex syntax (which form the backbone of the three solutions): recursion, self-referencing groups and balancing groups.
+<br /><br />
+
+<b>Input for the techniques</b><br />
+To demonstrate the techniques, we will use this input:<br />
+<pre><i>
+Paint it white
+Paint it black
+Why not blue?
+Or red or brown?
+</i></pre>
+<br />
+<b>
+Our aim will be to match the line number where the first instance of <i>blue</i> can be found.
+</b>
+
+The techniques relies on a hack: at the bottom of the input, we will paste a list of digits, separated by a unique delimiter (something that will not appear somewhere else in the file). For our tests, we will use a <span class="socode">~</span> as a delimiter. Our input becomes:<br />
+
+<pre><i>
+Paint it white
+Paint it black
+Why not blue?
+Or red or brown?
+
+~1~2~3~4~5~6~7~8~9~10
+</i></pre>
+<br />
+If need be, generating that list of digits programmatically would be a simple matter.
+<br />
+<br />
+
+<b>Inspiration for these tricks: SQL</b><br />
+
+The inspiration for the main idea behind all three solutions is a classic database hack. Databases such as MySQL do not provide syntax to return a row number, so a well-known workaround is to join to a table of integers. Another use for a table of integers is to provide the equivalent of a <span class="socode">for</span> loop within a <span class="socode">SELECT</span> statement, letting you for instance to generate a list of the 30 dates after the current date.
+<br /><br />
+<br />
+
+<h2>Outline</h2>
+Here are jumping points to the techniques we'll look at.<br /><br />
+
+<a href="#recursion">Match Line Number Using Recursion</a><br />
+<a href="#selfref">Match Line Number Using Self-Referencing Group</a><br />
+<a href="#reverseselfref">Self-Reference Variation: Reverse the Line Numbers</a><br />
+<a href="#balancing">Match Line Number Using Balancing Groups</a><br />
+<br /><br />
+
+
+<a id="recursion"></a>
+<h2>Match Line Number Using Recursion</h2>
+
+This solution uses recursion, which is available in Perl, PCRE and Matthew Barnett's <i>regex</i> module for Python. In turn, PCRE is used in contexts such as PHP, R and Delphi. You can test this solution in Notepad++ or EditPad Pro.
+<br /><br />
+
+The point of the recursion is not immediate to grasp, so I'll give an overview before diving into the regex. The idea of the recursive structure, which lives inside a lookahead, is to balance each non-blue line with a digit. This is similar to what we do when we balance nested parentheses <i>((( &hellip; )))</i> using recursion, except that here we have: <i>non-blue-line non-blue-line non-blue-line ~1~2~3</i>. The last <span class="socode">~digit</span> segment is captured to Group 2.  Group 1, which contains the recursion, is optional, which makes the surrounding lookahead optional. This is because if <i>blue</i> is on the first line, no lines are skipped. After the lookahead, we match <i>blue</i>, then if Group 2 was set, we match it. Either way, we look for the next <span class="socode">~digit</span> segment and return the digit as the match.
+<br /><br />
+
+
+<div class="codebox">
+<pre>
+(?xsm)             # free-spacing mode, DOTALL, multi-line
+(?=.*?blue)        # if blue isn't there, fail without delay
+
+######    Recursive Section     ######
+# This section aims to balance empty lines with digits, i.e.
+# emptyLine,emptyLine,emptyLine ... ~1~2~3
+# The last digit block is captured to Group 2, e.g. ~3
+(?=                # lookahead
+(                  # Group 1
+   (?:               # skip one line that doesn't contain blue
+      ^              # start of line
+      (?:(?!blue)[^\r\n])*  # zero or more chars
+                            # that do not start blue
+      (?:\r?\n)      # newline
+    ) 
+    (?:(?1)|[^~]+)   # recurse Group 1 OR match all non-tilde chars
+    (~\d+)           # match a sequence of digits
+)?                 # End Group 1
+)                  # End lookahead. 
+
+# Group 2, if set, now contains the number of lines skipped
+.*?               # lazily match chars up to... 
+blue              # match blue
+.*?               # lazily match chars up to... 
+(?(2)\2)          # if Group 2 is set, match Group 2
+~                 # Match the next tilde
+\K                # drop what was matched so far
+\d+               # match the next digits: this is the match    
+</pre>
+</div>
+<br />
+In this <a href="http://regex101.com/r/aE2eE4/1" target="_blank">live regex demo</a>, you can see that the match is <span class="socode">3</span> (blue is on line 3). You can also inspect the content of Groups 1 and 2, and play with the input (move the first <i>blue</i> to other lines).
+
+<br />
+<br /><br />
+
+<a id="selfref"></a>
+<h2>Match Line Number Using Self-Referencing Group</h2>
+
+This technique uses a self-referencing capture group, that is, a group that refers to itself. It's not hard, but it may not be immediate if you haven't seen the technique before, so I'll give you an overview. We match the non-blue lines one by one. For each line we match, we lookahead to the string of digits at the bottom, and we use Group 1 to capture a portion of that string. This is Group 1: <span class="socode">((?(1)\1)~\d+)</span>. Group 1 says "if Group 1 is already set, match what Group 1 has captured so far. Then, regardless, match a tilde and some digits." This means with each non-blue line we match, Group 1 grows to capture an ever-longer portion of the digit string. 
+<br /><br />
+
+<pre><div class="codebox">
+(?xsm)             # free-spacing mode, DOTALL, multi-line
+(?=.*?blue)        # if blue isn't there, fail without delay
+
+########### LINE SKIPPER / COUNTER ############
+(?:               # start non-capture group
+                  # the aim is to skip lines that don't contain blue
+                  # and capture a corresponding digit sequence
+   (?:               # skip one line that doesn't contain blue
+      ^              # beginning of line
+      (?:(?!blue)[^\r\n])*  # zero or more chars
+                            # that do not start blue
+      (?:\r?\n)      # newline chars
+    )   
+# With each line skipped, let Group 1 capture
+# an ever-growing portion of the string of numbers
+   (?=             # lookahead
+      [^~]+           # skip all chars that are not tildes
+      (               # start Group 1
+        (?(1)\1)      # if Group 1 is set, match Group 1
+        # (?>\1?)     # alternate phrasing for the above
+        ~\d+          # match a tilde and  digits
+      )               # end Group 1
+   )               # end lookahead
+)*+               # end counter-line-skipper: zero or more times
+                  # the possessive + forbids backtracking
+
+
+.*?               # lazily match any chars up to...
+blue              # match blue
+[^~]+             # match any non-tilde chars
+(?(1)\1)          # if Group 1 has been set, match it
+# \1?             # alternate phrasing for the above
+~                 # match a tilde
+\K                # drop what we matched so far
+\d+               # match digits. This is the match!    
+</div></pre>
+<br />
+In this <a href="http://regex101.com/r/aE2eE4/3" target="_blank">live regex demo</a>, you can see that the match is <span class="socode">3</span> (blue is on line 3). You can also inspect the content of Group 1 and play with the input (move the first <i>blue</i> to other lines).
+<br /><br />
+<br />
+
+<a id="reverseselfref"></a>
+<h2>Self-Referencing Group Variation: Reverse the Line Numbers</h2>
+
+In this interesting variation, we reverse the line numbers at the bottom of the file: <i>~10~9~8~7~6~5~4~3~2~1</i><br /><br />
+
+This has several benefits. First, we can shoot all the way to the back of the file with a simple <span class="socode">.*</span> and know we have reached the digits' section. That is more satisfying than looking for the digits' section with <span class="socode">[^~]+</span>. Second, we don't have to worry that our "unique" delimiter (here a simple tilde <span class="socode">~</span>) might be used somewhere else in the input: We shoot down to the end and backtrack from there. This makes the situation even more similar to being able to inspect a separate table or file.
+<br /><br />
+
+The code is nearly the same: In the self-referencing group, instead of appending digits to the existing capture with <span class="socode">((?(1)\1)~\d+)</span>, we prepend them with <span class="socode">(~\d+(?(1)\1))</span>.
+<br /><br />
+Our input becomes:<br />
+
+<pre><i>
+Paint it white
+Paint it black
+Why not blue?
+Or red or brown?
+
+~10~9~8~7~6~5~4~3~2~1
+</i></pre>
+<br />
+
+
+<pre><div class="codebox">
+(?xsm)             # free-spacing mode, DOTALL, multi-line
+(?=.*?blue)        # if blue isn't there, fail without delay
+
+########### LINE SKIPPER / COUNTER ############
+(?:               # start non-capture group
+                  # the aim is to skip lines that don't contain blue
+                  # and capture a corresponding digit sequence
+   (?:               # skip one line that doesn't contain blue
+      ^              # beginning of line
+      (?:(?!blue)[^\r\n])*  # zero or more chars
+                            # that do not start blue
+      (?:\r?\n)      # newline chars
+    )   
+# With each line skipped, let Group 1 capture
+# an ever-growing portion of the string of numbers
+   (?=             # lookahead
+      .*           # Go to the end of the file
+      (               # start Group 1
+        ~\d+          # match a tilde and  digits
+        (?(1)\1)      # if Group 1 is set, match Group 1
+      )               # end Group 1
+   )               # end lookahead
+)*+               # end counter-line-skipper: zero or more times
+                  # the possessive + forbids backtracking
+
+
+.*?               # lazily match any chars up to...
+blue              # match blue
+.*                # Get to the end of the data
+~                 # match a tilde
+\K                # drop what we matched so far
+\d+               # match digits. This is the match!   
+(?=               # Lookahead (this positions us in the right place)
+   (?(1)\1)           # If Group 1 has been set, match it
+)                 # End lookahead 
+</div></pre>
+<br />
+In this <a href="http://regex101.com/r/dP1aZ8/1" target="_blank">live regex demo</a>, you can see that the match is <span class="socode">3</span> (blue is on line 3). You can also inspect the content of Group 1 and play with the input (move the first <i>blue</i> to other lines).
+<br /><br />
+<br />
+
+<a id="balancing"></a>
+<h2>Match Line Number Using Balancing Groups</h2>
+
+This version uses an outstanding regex feature exclusive to the .NET engine: balancing groups.
+<br /><br />
+We use a group named <span class="socode">c</span> to serve as a counter of lines that don't contain <i>blue</i>. Of course there is no such thing as a "counter"&hellip; But each capture for Group c is added to the Capture Collection stack, and that stack has a length (which you can later inspect with <span class="socode">match.Groups["c"].Captures.Count</span>).
+<br /><br />
+
+After "incrementing the counter" while skipping the empty lines (meaning that for each empty line we add a capture to Group c collection), we match the line with <i>blue</i> and get to the beginning of the digit sequence. There the fun begins: as long as we can decrement c (i.e., pop an element from Group c captures), we match a digit sequence. The digits matched at this point (if any) therefore correspond to the skipped lines. And the digit for the line containing <i>blue</i> is the next one in the sequence.<br /><br />
+
+Don't let the explanation scare you: the code is probably simpler than the explanation!
+<br /><br />
+
+For some reason .NET doesn't seem to do well with the capture-popping syntax <span class="socode">(?&lt;-c> &hellip; )</span> when it's inside a lookbehind, so instead of matching the line number directly, we will capture it to Group 1.
+<br /><br />
+
+
+<div class="codebox">
+<pre>
+(?xsm)             # free-spacing, DOTALL, multi-line
+(?=.*?blue)        # if blue isn't there, fail without delay
+\A                 # Assert position at the beginning of the input 
+
+########### LINE SKIPPER / COUNTER ############
+(?&lt;c>              # Add a capture to Group c for each line that
+                   # doesn't contain blue. Think of Group c as
+                   # a counter (we are only interested in the
+                   # number of captures it contains)
+   ^                      # beginning of line
+   (?:(?!blue)[^\r\n])*   # zero or more chars
+                          # that do not start blue
+     (?:\r?\n)            # newline chars
+)                  # end Group c
+*                  # repeat Group c as long as we can
+                   # find non-blue lines
+
+###########    AFTER SKIPPING    ############
+.*?               # lazily match any chars up to...
+blue              # match blue
+[^~]+             # match any non-tilde chars
+
+###########    Number of Skipped Lines (if any)    ############
+# To get to the number of skipped lines in the digit sequence, 
+# for each Group c capture (each skipped line), we pop one 
+# element from Group c ("decrement c") and match the next digits
+(?(c)             # Conditional: If Group c has been set
+   (?&lt;-c>           # Pop one capture from Group c / "decrement c"
+     ~\d+              # Match the next tilde and digits
+   )                # End of popping / "decrementing" group
+   *                # Zero or more times: We will only pop elements
+                    # (and therefore match new digits) as long as
+                    # Group c still contains captures
+)                 # End Conditional checking if Group c has been set
+
+#######    Finally: the next digits are the right one  ########
+~                  # Matrch the tilde
+(\d+)              # Capture the digits to Group 1
+</pre></div>
+<br />
+In this <a href="http://regexhero.net/tester/?id=1505f752-0c6b-4bdf-a62a-66b38bfb6120" target="_blank">live regex demo</a>, inspect the captures: you will see that Group 1 is <span class="socode">3</span>.
+<br />
+<br /><br />
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div>
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-1 of 1 Threads</div>
+<a id="cid2117"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">perlancar</span></div>
+<div class="comment-date">April 15, 2016 - 02:26</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>&amp;. should be $.</div><br />
+<div class = "comment-text">The special variable that contains &quot;current line number&quot; is $. , not &amp;. Also, in Perl, another alternative to get the line number is to use pos() inside embedded code. Pos() gives the character offset, and we can scan $_ for newlines to get line number + column number.</div>
+</div>
+<a id="cid2124"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to perlancar</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">April 29, 2016 - 10:27</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: &amp;. should be $.</div><br />
+<div class = "comment-text">Typo fixed, thank you -- and thanks for your other idea as well.
+</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-trick-line-numbers.html" method="post" >
+<input type="hidden" name="token" value="ce2c4fc69a703bdef77ef8d158694a35" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a class="thispage" href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-trick-line-numbers.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:07 GMT -->
+</html>

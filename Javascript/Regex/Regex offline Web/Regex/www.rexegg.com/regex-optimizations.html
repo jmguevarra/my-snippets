@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-optimizations.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:24 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Regex Optimizations. Presents list of potential optimizations in regular expressions and discusses performance gains, if any." />
+<title>Regular Expression Optimizations</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li class="current"><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Regex Optimizations</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+
+The best regex optimization, in my opinion, is to start with good style. So I highly recommend you visit the page on <a href="regex-style.html">regex style</a> if you haven't already done so. 
+<br /><br />
+
+
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#optimization">Optimizing Your Regular Expressions</a><br />
+✽ <a href="#what">What is an Optimization, Exactly?</a><br />
+✽ <a href="#staralt">Unrolling an Alternation Quantified by a Star</a><br />
+✽ <a href="#most_likely_cases">In Alternations, put the Most Likely Cases First</a><br />
+✽ <a href="#expose_literals">Expose literal characters</a><br />
+✽ <a href="#anchors">Use and Expose Anchors</a><br />
+✽ <a href="#distribute_alternation">Distributing into the Alternation</a><br />
+✽ <a href="#study">Automated Optimization: Study Mode</a><br />
+✽ <a href="#conclusion">Optimizations: In Conclusion</a><br />
+
+
+
+<br /><br />
+
+
+
+<a id="optimization"></a>
+<span class="em8"><a href="#optimization">(direct link)</a></span><br />
+<h2>Optimizing Your Regular Expressions</h2>
+Suppose you travel to an exotic country. With no prior knowledge of the exotic language spoken in that land, you learn to say such things as "Take me to the East Gate". Once you get into a cab, you realize that requesting your destination is not enough. Unless you also say how you want to get there, you might be taken all over town. That seems a bit unfair, doesn't it?
+<br /><br />
+
+You could feel the same about optimizations in regex. They feel like a bit of a scam.
+<br /><br />
+
+
+
+<div class="pullquote R">
+A bad regex engine is like a rude cab driver.
+</div>
+
+Let me explain what I mean. In a programming language, you can use high level functions without really having to worry about how they work. You say "open this, find that, print the other", and it just works. When you start to learn regex, you may think that it's enough to know how to say "find that", naively assuming that the whole point of the syntax is to let you specify what you are looking for. But that's not the case. In some situations, if you don't tell the regex engine <i>how</i> to find what you want, it may take you all over town. A search that might resolve in a hundred steps can take ten thousand if written the wrong way. 
+<br /><br />
+
+Now a well-optimized regex engine will be able to look at your pattern and be a little forgiving. It sees a lot of foreigners in town, and even if you didn't express yourself most elegantly, it appreciates the effort, tries to understand what you really meant, and takes you to your hotel as fast as possible.
+<br /><br />
+
+So in some sense, optimizing your regex expressions means learning tricks to speak to impolite or uncivilized regex engines, i.e., engines that haven't been optimized. And that's the scam. Why should I use your programming language if you haven't taken the trouble to make it efficient? 
+<br /><br />
+What's more, optimizing your regex can force you to write expressions that are harder to write and read. That too seems a tad unfair.
+<br /><br />
+
+Nevertheless, studying optimizations is fun and useful. When you study optimizations, you deepen your understanding of how the engine works, and that knowledge helps you write your expressions faster and more accurately. <br /><br />
+<br />
+
+
+
+<a id="what"></a>
+<span class="em8"><a href="#what">(direct link)</a></span><br />
+<h2>What is an Optimization, Exactly?</h2>
+Before we start, I should define what I mean by optimization. In this section, I am not talking about the "big picture" regex writing practices we discussed in the <a href="regex-style.html#regexstyle" >Elements of Regex Style</a>, practices that hinge on fundamental features of your regex engine, such as the different paths down which a greedy and a lazy quantifier may lead your engine before you end up matching the same string.
+<br /><br />
+Here, we are talking about "micro-optimizations" akin to turning a bolt by a quarter of a turn on your V-6. <br /><br />
+
+Frankly, I'm not sure I always know what should qualify as a "big-picture practice" or as a "micro-optimization". In the end, I suppose the results produced by each technique make that decision for us.
+<br /><br />
+
+<b>About the optimization tests on this page</b><br />
+
+On this page, I took one trick from the <a href="regex-tricks.html">syntax tricks</a> page and a handful of optimizations I found in Jeffrey Friedl's <a href="http://www.amazon.com/dp/0596528124?tag=onamazon-20" target="_blank"><em>Mastering Regex Expressions</em></a> and tested how one particular version of one particular engine (PCRE 8.12) used within one particular version of one particular language (PHP 5.3.8) responds to each of them. 
+<br /><br />
+
+At some stage, I would like to run the same tests in .NET, Python, Java, JavaScript and Ruby. In the meantime, even if you don't use PHP, the optimizations are still interesting to study.
+<br /><br />
+<br />
+
+<a id="staralt"></a>
+<span class="em8"><a href="#staralt">(direct link)</a></span><br />
+<h2>Unrolling an Alternation Quantified by a Star</h2>
+In the trick to <a href="regex-tricks.html#staralt">Mimic an Alternation Quantified by a Star</a>, we see that <span class="socode">(A|B)*</span> can be unrolled to <span class="socode">A*(?:B+A*)*</span>. Is there a time benefit to doing away with the alternation?
+<br /><br />
+
+Using <a href="pcregrep-pcretest.html">pcretest</a>, I benchmarked two patterns against this string: <br />
+<span class="mono">14e987eaie7e7e7e9876ei14ou</span><br />
+The patterns: <code>(?:\d|[aeiou])*</code> and <code>\d*(?:[aeiou]+\d*)*</code><br />
+
+The original pattern (with the alternation) compiles faster: 1.6 millionth of a second vs. 2.2 for the unrolled version. However, it executes a lot slower: 1.7 millionth of a second vs. 0.8.<br /><br />
+
+This seems like a potentially useful optimization to implement at the engine level (in one's own code, it is a bit hard to maintain). 
+<br />
+<br /><br />
+
+
+<a id="most_likely_cases"></a>
+<span class="em8"><a href="#most_likely_cases">(direct link)</a></span><br />
+<h2>In Alternations, put the Most Likely Cases First</h2>
+The engine reads from left to right. In the world of web addresses, dot-com is more frequent than dot-net and dot-biz, so if you were checking for these three domains in a pool of random names, in theory you would write<br />
+<span class="socode cinter">\.(?:com|net|biz)\b</span>
+rather than<br />
+<span class="socode cinter">\.(?:biz|net|com)\b</span>
+<br />
+
+In practice, in PCRE there doesn't seem to be a difference—I ran two patterns two million times and compared the results. In case you're interested in doing some benchmarking of your own, here is the (very basic) code I used for this test.<br /><br />
+
+<div class="codebox"><pre>
+&lt;?php
+$start=time();
+for ($i=0;$i&lt;1000000;$i++)
+    $res = preg_match('~\.(?:com|net|biz)\b~',
+                      'apache.com');
+$lap=time();
+for ($i=0;$i&lt;1000000;$i++)
+     $res = preg_match('~\.(?:biz|net|com)\b~',
+                       'apache.com');
+$end=time();
+$time1 = $lap - $start;
+$time2 = $end - $lap;
+echo $time1.&quot;&lt;br /&gt;&quot;;
+echo $time2.&quot;&lt;br /&gt;&quot;;
+?&gt;
+</pre></div>
+<br /><br />
+
+
+<a id="expose_literals"></a>
+<span class="em8"><a href="#expose_literals">(direct link)</a></span><br />
+<h2>Expose Literal Characters</h2>
+Regex engines match fastest when anchors and literal characters are right there in the main pattern, rather than buried in sub-expressions. Hence the advice to "expose" literal characters whenever you can take them out of an alternation or quantified expression. Let's look at two examples.<br /><br />
+
+<b>Example 1:</b> <span class="socode">AA*</span> should be faster than <span class="socode">A+</span>. They mean the same: at least one <i>A</i>, possibly followed by more <i>A</i> characters.<br /><br />
+
+I ran these two patterns two million times on the string <i>BBBCCC</i>. Both took the same amount of time. This tells me that the PHP PCRE engine must be "polite" as far as this optimization is concerned&mdash;meaning, it does it for you. Just use <span class="socode">A+</span>.<br /><br />
+
+
+<b>Example 2:</b> <span class="socode">th(?:is|at)</span> should be faster than <span class="socode">this|that</span>.<br /><br />
+
+I ran these two patterns two million times on the string <i>that</i>. The second ("less optimal") pattern was actually faster by eight percent, earning me half a millionth of a second per run, nothing to write home about. Again, the optimization must be built into PHP's PCRE regex engine. Maybe the theoretically "more optimal" pattern loses out somewhere in the compilation. 
+<br /><br />
+
+<b>Should you use it?</b><br />
+Where speed is concerned, the answer depends on the engine you're using. For me, regardless of which engine I happen to use, the decision is one of readability—and therefore maintainability.
+<br /><br />
+For instance, if I am matching all numbers from <i>10</i> to <i>19</i>, I will always bring out the <i>1</i> and use <span class="socode">1[0-9]</span>. For me, that is easier to read and maintain than spelling out each number, all the more so when working with a more complex range of numbers.
+<br /><br />
+On the other hand, if I were crafting a regex for all the two-letter abbreviations of States in the USA, I would spell them out: <span class="socode">\b(?:AL|AK|AZ|…)\b</span>. I would do so even though I have tools at my fingertips that will automatically compress long alternations into their optimized counterparts (<i>regex-opt</i> in C, <i>Regexp::Assemble</i> and <i>Regexp::Assemble::Compressed</i> in Perl).
+<br /><br />
+That is because any day of the week, I would rather have to debug this:<br />
+<span class="socode">\b(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|<br />MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|<br />WA|WV|WI|WY)\b</span><br /><br />
+than that:<br />
+<span class="socode">\b(?:AZ|TX|[AFI]L|[CGILMPVW]A|[CM]O|[CMUV]T|[DMN]E|[HMRW]I|[IMNS]D|[IMT]N|[KM]S|[KNW]Y|[NW]V|[NO]H|[NS]C|N[JM]|[AO][KR])\b</span> 
+<br /><br /><br />
+
+
+
+<a id="anchors"></a>
+<span class="em8"><a href="#anchors">(direct link)</a></span><br />
+<h2>Use and Expose Anchors</h2>
+The beginning- and end-of-string anchors <span class="socode">^</span> and <span class="socode">$</span> can save your regex a lot of backtracking in cases where the match is bound to fail.<br /><br />
+
+In theory, <span class="socode">^.*abc</span> fails faster than <span class="socode">.*abc</span>. I ran this two million times on a "failure string" (forty <i>z</i> characters in a row). As in the last example, the "less optimal" pattern was faster by eight percent, earning me half a millionth of a second per run. Again, PCRE sounds polite. The lost time might have to do with processing the extra anchor.
+<br /><br />
+
+It is also advised to <i>expose</i> anchors, which means taking anchors out of alternation parentheses when possible. For instance, <br />
+<span class="socode">^(?:abc|def)</span> is preferred to <span class="socode">^abc|^def</span>.
+<br /><br />
+I ran each of these two preg_match functions two million times. <br /><br />
+<div class="codebox">
+$res = preg_match('~^(?:abc|def)~', 'definition');<br />
+$res = preg_match('~^abc|^def~', 'definition');<br />
+</div>
+<br />
+The first saved me one second (out of fourteen). On the one hand, that's a seven percent improvement. On the other hand, on a single run, that's only an improvement of half a millionth of a second. <br /><br />
+
+<b>Should you use it?</b><br />
+I use anchors wherever I can as a matter of good style—and saving unneeded backtracking. As to whether to expose them outside of alternations, I usually do so as well, not because it is faster but because it tends to be more readable. 
+<br /><br /><br />
+
+
+
+<a id="distribute_alternation"></a>
+<span class="em8"><a href="#distribute_alternation">(direct link)</a></span><br />
+<h2>Distributing into the Alternation</h2>
+
+The last technique I tried is what Jeffrey calls "distributing into the alternation":<br /> <br />
+<span class="socode">\b(?:com\b|net\b)</span> vs. <span class="socode">\b(?:com|net)\b</span><br /><br />
+
+This technique did speed up the script by seven percent, saving a millionth of a second per run.<br /><br />
+
+Will I use it? Probably not. I like exposing boundaries.
+<br /><br />
+<br />
+
+
+<a id="study"></a>
+<span class="em8"><a href="#study">(direct link)</a></span><br />
+<h2>Automated Optimization: Study Mode</h2>
+PCRE has a "Study" modifier you can tag at the end of a pattern. For patterns that do not start with a fixed character and are not anchored, this modifier causes the regex engine to study the string a little more before applying the pattern, just in case some optimizations can be discovered.
+<br /><br />
+
+To use this mode, add a capital S after the closing delimiter, as in:<br />
+<code class="cinter">$pattern='/\d+\b(day|night)\b/S';</code><br />
+Apparently, this study mode can be useful when parsing long documents such as web pages. It may not help, but it costs less than a hundred thousandth of a second. 
+<br /><br />
+<br />
+
+
+<a id="conclusion"></a>
+<span class="em8"><a href="#conclusion">(direct link)</a></span><br />
+<h2>Optimizations: In Conclusion</h2> 
+When I tested them in PHP, the "micro-optimizations" in <a href="http://www.amazon.com/dp/0596528124?tag=onamazon-20" target="_blank"><em>Mastering Regex Expressions</em></a> did not seem to speed up the code. Does that mean they are bad? On the contrary. Maybe Philip Hazel and the other contributors to the PCRE engine read Jeffrey's book, found that the optimizations improved matching speed—or match failure speed, which is often more important—and incorporated them into the engine. In his book, Jeffrey hints that he wouldn't be sad for that to happen.
+<br /><br />
+
+At least in PHP, I suggest you forget "micro-optimizations" such as the ones presented in this section. <a href="regex-style.html">Good style</a> matters more.
+<br /><br />
+
+PCRE won't "scam you" when you board the cab: it's a polite engine. Just write regex that works, focusing on the big picture to avoid patterns that slow you down by orders of magnitude. Mainly, this means making judicious use of anchors, quantifiers (lazy vs. greedy), groups (atomic or backtracking-savvy), and anything that can make your regex more specific than the all-too-common match-all dot-star soup&mdash;such as literal characters and negative classes. For more, read the section about the <a href="regex-style.html#regexstyle" ><em>Elements of Regex Style</em></a>.
+<br /><br />
+<br />
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div><a href="regex-cookbook.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;Regex Cookbook</b>
+</a>
+<br /><br /><br />
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Be the First to Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-optimizations.html" method="post" >
+<input type="hidden" name="token" value="bf9b465e636ca9cfff85fc977f99518e" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a class="thispage" href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-optimizations.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:24 GMT -->
+</html>

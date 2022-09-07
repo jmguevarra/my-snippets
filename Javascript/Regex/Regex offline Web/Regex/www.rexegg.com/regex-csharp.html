@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-csharp.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="C# Regular Expressions Tutorial. Discusses the .NET Regex classes in C#, provides working code for matching, replacing and splitting." />
+<title>C# Regex Tutorial</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li class="current"><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Using Regular Expressions with C#</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+The C# regex tutorial is not as fully fleshed out as I would like, but I'm working on it. In the meantime, I have some great material to get you started in C#'s particular flavor of regex.
+<br /><br /><br />
+
+<h2>What's on this Page</h2>
+With the C# page and the other language pages, my goal is not to teach you regex. That's what the rest of the site is for! My goal here is to get you fully up and running in your language by:<br />
+✽ Explaining the features that are specific to your language and regex flavor<br />
+✽ Giving you full working programs that demonstrate these features<br /><br />
+
+I believe in learning features by seeing working code. This is what most of this page is about.
+<br /><br />
+
+<a id="toc"></a>
+<span class="em8"><a href="#toc">(direct link)</a></span><br />
+<b>Table of Contents</b><br />
+Here are some jump points to the content on this page.<br />
+<a href="#flavortaste">What does the .NET regex flavor taste like?</a><br />
+<a href="#missing">What's missing from .NET regex?</a><br />
+<a href="#threethings">C# regex: the first three things you <i>must</i> know</a><br />
+<a href="#twoprograms">Two programs for all common regex tasks</a><br />
+<a href="#simple">The "simple" program</a><br />
+<a href="#advanced">The "advanced" program</a><br />
+<a href="#versions">Differences in .NET Regex across .NET Versions</a><br />
+<a href="#quantgroups">Capture Groups that can be Quantified</a><br />
+<a href="#reuseGroupName">Named Capture Reuse</a><br />
+<a href="#quantReuse">Quantified Reused Name Groups</a><br />
+<a href="#balancingGroups">Balancing Groups</a><br />
+<a href="#pcre.net">An Alternate engine: PCRE.NET</a><br />
+
+<br /><br />
+
+
+<a id="flavortaste"></a>
+<span class="em8"><a href="#flavortaste">(direct link)</a></span><br />
+<h2>What does the .NET regex flavor taste like?</h2>
+If you hate Windows, you're going to hate .NET regular expressions.<br />
+Why&hellip; Because it sucks?<br />
+No. Because feature-for-feature, it may well be the best regex engine out there&mdash;or at least one of top two contenders for the spot. What's more, if for any reason you just don't like it, you can use the brilliant <a href="#pcre.net">PCRE.NET interface</a> to the PCRE library.
+<br /><br />
+Among other features, .NET regular exprssions have:<br /><br />
+
+✽ Infinite-width lookbehind. This means you can write something like <code>(?<=\d+\w+)</code>&mdash;extremely convenient when you need to check context. If you are writing code, the only other engine to offer this feature is Matthew Barnett's experimental <i>regex</i> module for Python. Jan Goyvaerts' proprietary JGSoft flavor (EditPad, RegexBuddy, PowerGrep) also support infinite-width lookbehind, but only Jan is allowed to write code with it. <br /><br />
+
+✽  <a href="#quantgroups">Capture groups that can be quantified</a>. This means that if you write <code>(\w+\s)+</code>, the engine will return not just one Group 1 capture, but a whole array of them. This has terrific value for parsing strings with an arbitrary number of tokens.<br /><br />
+
+✽  <a href="#classsubtraction">Character class subtraction</a>. This allows you to write <code>[a-z0-9-[mp3]]</code>, which means you shouldn't be listening to loud music while writing regex. Err&hellip; sorry, I meant, this means you can match all lowercase English letters and digits except the characters <i>m</i>, <i>p</i> and <i>3</i>.<br /><br />
+
+✽ <a href="#reuseGroupName">Reuse capture group names</a>. In .NET, you can reuse the name of a capture group, as <i>pets</i> in <code>(?&lt;pets&gt;cats) and dogs|(?&lt;pets&gt;pigs) and whistles</code><br /><br />
+
+✽ Optional right-to-left matching. I'll soon add a trick to demonstrate a situation where this could be handy. Bear in mind that in other languages, a workaround would be to reverse the string before matching, then to reverse the results.<br /><br />
+
+✽ <a href="#balancingGroups">Balancing groups</a>. This feature allows you to ensure that a subexpression is matched the same number of times as another&mdash;and to construct a number of useful counting tricks.<br /><br />
+
+✽ <span class="socode">(?n)</span> modifier  (also accessible via the <span class="socode">ExplicitCapture</span> option). This turns all <i>(parentheses)</i> into non-capture groups. To capture, you must use <a href="regex-capture.html#namedgroups">named groups</a>.
+<br /><br />
+<br />
+
+<a id="missing"></a>
+<span class="em8"><a href="#missing">(direct link)</a></span><br />
+<h2>What's Missing from .NET regex?</h2>
+
+.NET regex certainly doesn't have it all, though some features that seem lacking are cleanly achieved through other means. If one of your favorite feature from Perl or PCRE is really missing, don't despair yet, as you can use the brilliant <a href="#pcre.net">PCRE.NET interface</a> to the PCRE engine.
+<br /><br />
+
+✽ Subroutines. In .NET, you cannot write <code>(\d+):(?1)</code>. This is a feature I miss. By extension, neither can you write something like <code>(?(DEFINE)(?&lt;digits&gt;\d+))(?&digits):(?&digits)</code><br /><br />
+
+✽ .NET regex does not have the <code>\K</code> "keep out" feature. However, in Perl and PCRE, <code>\K</code> is only a convenience to (partially) make up for the lack of infinite-width lookbehinds.<br /><br />
+
+✽ No possessive quantifiers as in <code>\w++</code>. I know, this is only a shorthand notation for the atomic group <span class="socode">(?>\w+)</span>… But it is much tidier.<br /><br />
+
+✽ No branch reset. .NET does now allow <code>(?|(cats) and dogs|(pigs) and whistles)</code>, where Group 1 can be defined in multiple places in the string. However, .NET lets you achieve the same by recycling a named groups: <code>(?&lt;pets&gt;cats) and dogs|(?&lt;pets&gt;pigs) and whistles</code>
+<br />
+<br /><br />
+
+
+<a id="threethings"></a>
+<span class="em8"><a href="#threethings">(direct link)</a></span><br />
+<h2>The first three things you <i>must</i> know to use regex in C#</h2>
+Before you start using regex in C#, at a bare minimum, you should know these three things.<br /><br />
+
+<b>1. Import the .NET Regex Library</b><br />
+
+To access the regex classes, you need this line at the top of your code:<br /><br />
+
+<code class="cinter">using System.Text.RegularExpressions;</code><br />
+
+<b>2. Use Verbatim Strings</b><br />
+
+Regex patterns are full of backslashes. In a normal string, you have to escape them, which prevents you from pasting patterns straight from a regex tool. To get around this problem, use C#'s <i>verbatim strings</i>, whose characters lose any special significance for the compiler. To make a verbatim string, precede your string with an <i>@</i> character, like so:<br /><br />
+
+<code class="cinter">string myPattern = <b>@</b>"Score: \w+: \d+";</code><br />
+
+Verbatim strings can span multiple lines. This is useful for your regex subjects as well as regex patterns that use free-spacing mode. For instance:<br /><br />
+
+<div class="codebox"><pre>
+string mySubject = <b>@</b>"Arizona, AZ 100
+California, CA 122
+South Dakota, SD 33
+";
+
+string myPattern = <b>@</b>"(?xm) # free-spacing mode
+^([\w\s]+),\s # State
+([A-Z]{2}\s) # State abbreviation
+(\d+) # Value of a dollar, in cents
+";
+</pre></div>
+<br />
+
+
+<b>3. Watch Out for <code>\w</code> and <code>\d</code></b><br />
+
+By default, .NET RegularExpressions classes assume that your string is encoded in UTF-8. The regex tokens <code>\w</code>, <code>\d</code> and <code>\s</code> behave accordingly, matching any utf-8 codepoint that is a valid word character, digit or whitespace character in any language.<br /><br />
+
+This means that by default, <br /><br />
+
+✽ <code>\d+</code> will match <i>123۳۲١८৮੪૯୫୬१७੩௮௫౫೮൬൪๘໒໕២៧៦᠖</i><br /><br />
+✽ <code>\w+</code> will match <i>abcdᚠᚱᚩᚠᚢᚱტყაოსdᚉᚔమరמטᓂᕆᔭᕌसられま래도</i><br /><br />
+✽ <code>\s+</code> will match all kinds of strange whitespace characters you've never dreamed of.<i></i><br /><br />
+
+If all you wanted was English digits for <code>\d</code>, English letters, English digits and underscore for <code>\w</code> and whitespace characters you can understand for <code>\s</code>, then you need to set the ECMAScript option. Here's how to do it:<br /><br />
+
+<code class="cinter">var r2 = new Regex(@"\d+", RegexOptions.ECMAScript);</code><br />
+<br />
+
+
+<a id="twoprograms"></a>
+<span class="em8"><a href="#twoprograms">(direct link)</a></span><br />
+<h2>Two C# programs that show<br />
+how to perform common regex tasks</h2>
+
+Whenever I start playing with the regex features of a new language, the thing I always miss the most is a complete working program that performs the most common regex tasks—and some not-so-common ones as well.
+<br /><br />
+This is what I have for you in the two following complete C# regex programs. There are two programs: a "simple" one and an "advanced" one. Yes, these terms are subjective.
+<br /><br />
+
+<b>Both programs perform the six same most common regex tasks</b>, but in different contexts. The first four tasks answer the most common questions we use regex for:
+<br /><br />
+✽ Does the string match?<br />
+✽ How many matches are there?<br />
+✽ What is the first match?<br />
+✽ What are all the matches?<br />
+<br />
+The last two tasks perform two other common regex tasks:
+<br /><br />
+✽ Replace all matches<br />
+✽ Split the string<br />
+<br />
+If you study this code, you'll have a terrific starting point to start tweaking and testing with your own expressions with C#.
+<br /><br />
+
+<b>Differences between the "Simple" and "Advanced" program</b><br />
+<br />
+Here is the difference in a nutshell.<br />
+&bull; The simple program assumes that the overall match and its capture groups is the data we're seeking. This is what you would expect.
+<br />
+&bull; The advanced program assumes that we have no interest in the overall matches, but that the data we're seeking is in capture Group 1, if it is set.
+<br /><br />
+
+<b>Have fun tweaking</b><br />
+With these two programs in hand, you should have a solid base to understand how to do basic things&mdash;and fairly advanced ones as well. I hope you'll have fun changing the pattern, deleting code fragments you don't need and tweaking those you do need.
+<br /><br />
+
+<b>Disclaimer</b><br />
+As you can imagine, I am not fluent in all of the ten or so languages showcased on the site. This means that although the sample code works, a C# pro may look at the code and see a more idiomatic way of testing an empty value or iterating a structure. If some idiomatic improvements jump out at you, please shoot me a comment. 
+<br /><br />
+<br />
+
+<a id="simple"></a>
+<span class="em8"><a href="#simple">(direct link)</a></span><br />
+<h2>C# Regex Program #1: Simple</h2>
+
+<p class="messages">Please note that usually you will choose to perform <b>only one</b> of the six tasks in the code, so your own code will be much shorter.</p><br />
+<div class="cinter">
+<a href="javascript:void(0);" class="triggerToggle"><b>Click to Show / Hide code</b></a><br />
+or leave the site to view an <a rel="nofollow" href="http://ideone.com/rVq1TO" target="_blank">online demo</a><br />
+</div>
+
+<div class="codebox hide toggleme"><pre>
+using System;
+using System.Text.RegularExpressions;
+using System.Collections.Specialized;
+class Program {
+static void Main()    {
+string s1 = @"apple:green:3 banana:yellow:5";
+var myRegex = new Regex(@"(\w+):(\w+):(\d+)");
+
+<b>///////// The six main tasks we're likely to have ////////</b>
+
+<b>// Task 1: Is there a match?</b>
+Console.WriteLine("*** Is there a Match? ***");
+if (myRegex.IsMatch(s1)) Console.WriteLine("Yes");
+else Console.WriteLine("No");
+
+<b>// Task 2: How many matches are there?</b>
+MatchCollection AllMatches = myRegex.Matches(s1);
+Console.WriteLine("\n" + "*** Number of Matches ***");
+Console.WriteLine(AllMatches.Count);
+
+<b>// Task 3: What is the first match?</b>
+Console.WriteLine("\n" + "*** First Match ***");
+Match OneMatch = myRegex.Match(s1);
+if (OneMatch.Success)    {
+    Console.WriteLine("Overall Match: "+ OneMatch.Groups[0].Value);
+    Console.WriteLine("Group 1: " + OneMatch.Groups[1].Value);
+    Console.WriteLine("Group 2: " + OneMatch.Groups[2].Value);
+    Console.WriteLine("Group 3: " + OneMatch.Groups[3].Value);
+    }
+
+<b>// Task 4: What are all the matches?</b>
+Console.WriteLine("\n" + "*** Matches ***");
+if (AllMatches.Count > 0)    {
+    foreach (Match SomeMatch in AllMatches)    {
+        Console.WriteLine("Overall Match: " + SomeMatch.Groups[0].Value);
+        Console.WriteLine("Group 1: " + SomeMatch.Groups[1].Value);
+        Console.WriteLine("Group 2: " + SomeMatch.Groups[2].Value);
+        Console.WriteLine("Group 3: " + SomeMatch.Groups[3].Value);
+    }
+}
+
+<b>// Task 5: Replace the matches</b>
+// simple replacement: reverse groups
+string replaced = myRegex.Replace(s1, 
+       delegate(Match m) {
+       return m.Groups[3].Value + ":" +
+              m.Groups[2].Value + ":" +
+              m.Groups[1].Value;
+        }
+        );
+Console.WriteLine("\n" + "*** Replacements ***");
+Console.WriteLine(replaced);
+
+<b>// Task 6: Split</b>
+// Let's split at colons or spaces
+string[] splits = Regex.Split(s1, @":|\s");
+Console.WriteLine("\n" + "*** Splits ***");
+foreach (string split in splits) Console.WriteLine(split);
+
+Console.WriteLine("\nPress Any Key to Exit.");
+Console.ReadKey();
+
+} // END Main
+} // END Program
+</pre></div>
+
+<br /><br />
+
+<a id="advanced"></a>
+<span class="em8"><a href="#advanced">(direct link)</a></span><br />
+<h2>C# Regex Program #2: Advanced</h2>
+
+The second full C# regex program is featured on my page about <a href="regex-best-trick.html">the best regex trick ever</a>.
+<br /><br />
+
+✽ Here is the article's <a href="regex-best-trick.html#toc">Table of Contents</a><br />
+✽ Here is the <a href="regex-best-trick.html#codesamples">explanation for the code</a><br />
+✽ Here is the <a href="regex-best-trick.html#csharpcode">C# code</a><br />
+
+<br />
+<br /><br />
+
+
+<a id="versions"></a>
+<span class="em8"><a href="#versions">(direct link)</a></span><br />
+<h2>Differences in .NET Regex across .NET Versions</h2>
+If you're using the latest version of .NET, don't worry about this section. After 2.0—and you're unlikely to target an earlier version—the new features are few.<br /><br />
+
+<a id="timeout"></a>
+<span class="em8"><a href="#timeout">(direct link)</a></span><br />
+<b>New regex features in .NET 4.5</b><br />
+The Time Out feature lets you control the risk of catastrophic backtracking. When you initialize a Regex, you can now specify a third argument to control the timeout. For instance,<br />
+<div class="codebox"><pre>
+var myregex = new Regex( @"(A+)+",
+                         RegexOptions.IgnoreCase,
+                         TimeSpan.FromSeconds(1) )	
+</pre></div>
+
+ensures the engine searches for a match for one second at the most, after which it throws a <span class="socode">RegexMatchTimeoutException</span> exception. This timeout is observed by <i>IsMatch</i>, <i>Match</i>, <i>Matches</i>, <i>Replace</i>, <i>Split</i> and <i>Match.NextMatch</i>.
+   
+<br /><br /><br />
+
+
+<a name=classsubtraction></a>
+<span class="em8"><a href="#classsubtraction">(direct link)</a></span><br />
+<h2>Character Class Subtraction</h2>
+The syntax <span class="socode">[…-[…]]</span>, which allows you to subtract one character class from another, is unique to .NET—though Java and Ruby 2+ has syntax that allows you a similar operation. <br /><br />
+
+For details, see <a href="regex-class-operations.html#subtraction_dotnet">character class subtraction in .NET</a> on the page about character class operations.
+<br /><br /><br />
+
+<a id="quantgroups"></a>
+<span class="em8"><a href="#quantgroups">(direct link)</a></span><br />
+<h2>Capture Groups that can be Quantified</h2>
+
+You'll recall from the page about <a href="regex-capture.html">regex capture groups</a> that when you place a quantifier after a capturing group, as in <code>(\d+:?)+</code>, the regex engine doesn't create multiple capture groups for you. Instead, the capture group returns the string that was captured last. For instance, if we used the above regex on the string <i>111:22:33</i>, the engine would match the whole string, and capture Group 1 would be reported as <i>33</i>.
+<br /><br />
+
+Well, with .NET regex, all of that changes. If you just ask, C# will still report that Group 1 is <i>33</i>. But if you dig deeper into Group 1, C# will also return a collection of captures with all the values that Group 1 captured in succession because of the <code>+</code> quantifier.
+<br /><br />
+
+This feature is a game changer, because it lets you easily parse strings with an unknown number of tokens. <br /><br />
+
+For instance, consider a file with a series of word translations for a number of languages, like so:<br /><br />
+
+<i><b>Italian:</b>one=uno,two=due <b>German:</b>one=ein,two=zwei,three=drei,four=vier <b>Japanese:</b>one=ichi,two=ni,three=san</i>
+<br /><br />
+
+For each language, you would like to parse the English word (e.g. "two") and its translation (e.g. "zwei") into variables. If you had the same number of definitions for each language, you could accomplish this with a fixed number of capture groups. But, as you can see, Italian has two definitions, German has four, Japanese has three. For normal regex, the task is complex because you cannot create capture groups on the fly.<br /><br />
+
+With .NET, you have a simple solution. Consider a regex that matches each language at a time. It could look like this:<br /><br />
+
+<code class="cinter">\w+:(?:(\w+)=(\w+),?)+</code><br />
+
+The <code>\w+:</code> corresponds to the language (e.g. <i>Italian:</i>). Inside of the non-capturing parentheses, we define a dictionary pair, capturing the English word to Group 1 and the translation to Group 2. The <code>,?</code> is just an optional comma (there is no comma after each language's last entry). So far, this is all normal. The odd thing here is the <code>+</code> quantifier that repeats the expression for a dictionary pair. What happens to the capture Groups? <br /><br />
+
+In normal regex, if we had just matched the Italian entries, Group 1 and Group 2 would correspond to the last dictionary pair captured for that match, i.e. <i>two</i> for Group 1 and <i>due</i> for Group 2. In .NET, Group 1 and Group 2 are objects. Their Value property is the same as in other regex flavors, i.e. the the last dictionary pair captured for the current match. The twist is that each Group has a member called Captures, which is an object that contains all the captures that were made for that group during the match. Therefore for the first match (the Italian entries), Group 1's Captures member will contain two captures, whose values are "one" and "two".
+
+<br /><br />
+
+The code below uses this example and shows you exactly how to implement the feature. 
+<br /><br />
+
+Before you examine the code, have a look at the output, which explains how the groups work.<br /><br />
+
+
+<div class="cinter">
+<a href="javascript:void(0);" class="triggerToggle"><b>Click to Show / Hide code</b></a><br />
+or leave the site to view an <a rel="nofollow" href="http://ideone.com/CjeYz2" target="_blank">online demo</a><br />
+</div>
+
+<div class="codebox hide toggleme"><pre>
+using System;
+using System.Text.RegularExpressions;
+class Program {
+static void Main() {
+string ourString = @"Italian:one=uno,two=due Japanese:one=ichi,two=ni,three=san";
+string ourPattern = @"\w+:(?:(\w+)=(\w+),?)+";
+var ourRegex = new Regex(ourPattern);
+MatchCollection AllMatches = ourRegex.Matches(ourString);
+
+Console.WriteLine("**** Understanding .NET Capture Groups with Quantifiers ****");
+Console.WriteLine("\nOur string today is:" + ourString);
+Console.WriteLine("Our regex today is:" + ourPattern);
+Console.WriteLine("Number of Matches: " + AllMatches.Count);
+
+Console.WriteLine("\n*** Let's Iterate Through the Matches ***");
+int matchNum = 1;
+foreach (Match SomeMatch in AllMatches)    {
+    Console.WriteLine("Match number: " + matchNum++);
+    Console.WriteLine("Overall Match: " + SomeMatch.Value);
+    Console.WriteLine("\nNumber of Groups: " + SomeMatch.Groups.Count);
+    Console.WriteLine("Why three Groups, not two? Because the overall match is Group 0");
+    // Another way of printing the overall match
+    Console.WriteLine("Group 0: " + SomeMatch.Groups[0].Value);
+    Console.WriteLine("Since Groups 1 and 2 have quantifiers, the value of Group 1 and Group 2 is the last capture of each group");
+    Console.WriteLine("Group 1: " + SomeMatch.Groups[1].Value);
+    Console.WriteLine("Group 2: " + SomeMatch.Groups[2].Value);
+    // For this match, let's look all the Group 1 captures manually
+    int g1capCount = SomeMatch.Groups[1].Captures.Count;
+    Console.WriteLine("Number of Group 1 Captures: " + g1capCount);
+    Console.WriteLine("Group 1 Capture 0: " + SomeMatch.Groups[1].Captures[0].Value);
+    Console.WriteLine("Group 1 Capture 1: " + SomeMatch.Groups[1].Captures[1].Value);
+    // To be safe, we'll check if we have a third capture for Group 1
+    // Because the first overall match only has two captures
+    if(g1capCount>2) Console.WriteLine("Group 1 Capture 2: " + SomeMatch.Groups[1].Captures[2].Value);
+    // Let's look at Group 2 captures automatically
+    int g2capCount = SomeMatch.Groups[2].Captures.Count;
+    Console.WriteLine("Number of Group 2 Captures: " + g2capCount);
+    int i2 = 0;
+    foreach (Capture g2capture in SomeMatch.Groups[2].Captures ) {
+        Console.WriteLine("Group 2 Capture " + i2 + ": " + g2capture.Value);
+        i2++;
+        } // end iterate G2 captures
+    Console.WriteLine("\n");
+    } // end iterate matches
+
+Console.WriteLine("\nPress Any Key to Exit.");
+Console.ReadKey();
+
+} // END Main
+} // END Program
+</pre></div>
+<br /><br />
+
+
+
+
+<a id="reuseGroupName"></a>
+<span class="em8"><a href="#reuseGroupName">(direct link)</a></span><br />
+<h2>Named Capture Reuse</h2>
+C# allows you to reuse the same named group multiple times. For a given group, you retrieve the array of captures in the same way as with <a href="#quantgroups">quantified capture groups</a>. The following program shows you how.<br /><br />
+
+<div class="cinter">
+<a href="javascript:void(0);" class="triggerToggle"><b>Click to Show / Hide code</b></a><br />
+or leave the site to view an <a rel="nofollow" href="http://ideone.com/UU6MQG" target="_blank">online demo</a><br />
+</div>
+
+<div class="codebox hide toggleme"><pre>
+using System;
+using System.Text.RegularExpressions;
+class Program {
+static void Main()    {
+string ourString = @"one:uno dos:two three:tres";
+string ourPattern = @"(?&lt;someword>\w+):(?&lt;someword>\w+)";
+var ourRegex = new Regex(ourPattern);
+MatchCollection AllMatches = ourRegex.Matches(ourString);
+
+Console.WriteLine("**** Understanding Named Capture Reuse ****");
+Console.WriteLine("\nOur string today is:" + ourString);
+Console.WriteLine("Our regex today is:" + ourPattern);
+Console.WriteLine("Number of Matches: " + AllMatches.Count);
+
+Console.WriteLine("\n*** Let's Iterate Through the Matches ***");
+int matchNum = 1;
+foreach (Match SomeMatch in AllMatches)    {
+    Console.WriteLine("Match number: " + matchNum++);
+    Console.WriteLine("Overall Match: " + SomeMatch.Value);
+    Console.WriteLine("\nNumber of Groups: " + SomeMatch.Groups.Count);
+    Console.WriteLine("Why two Groups, not one? Because the overall match is Group 0");
+    // Another way of printing the overall match
+    Console.WriteLine("Groups[0].Value = " + SomeMatch.Groups[0].Value);
+    Console.WriteLine(@"Since the 'someword' group appears more than once in the pattern, the value of Groups[1] and Groups[""someword""] is the last capture of each group");
+    Console.WriteLine("Groups[1].Value = " + SomeMatch.Groups[1].Value);
+    Console.WriteLine(@"Groups[""someword""].Value = " + SomeMatch.Groups["someword"].Value);
+    // Let's look all the first captures manually
+    Console.WriteLine("Someword Capture 0: " + SomeMatch.Groups["someword"].Captures[0].Value);
+
+// Let's look at someword captures automatically
+    int somewordCapCount = SomeMatch.Groups["someword"].Captures.Count;
+    Console.WriteLine("Number of someword Captures: " + somewordCapCount);
+    int i2 = 0;
+    foreach (Capture someword in SomeMatch.Groups["someword"].Captures)    {
+        Console.WriteLine("someword Capture " + i2 + ": " + someword.Value);
+    i2++;
+    } // end iterate G2 captures
+    Console.WriteLine("\n");
+} // end iterate matches
+
+Console.WriteLine("\nPress Any Key to Exit.");
+Console.ReadKey();
+
+} // END Main
+} // END Program
+</pre></div>
+<br /><br />
+
+
+
+<a id="quantReuse"></a>
+<span class="em8"><a href="#quantReuse">(direct link)</a></span><br />
+<h2>Quantified Reused Named Groups</h2>
+What if you were to combine <a href="#quantgroups">quantified capture groups</a> with <a href="#reuseGroupName">reused named groups</a>? No problem. For the given named capture, C# just keeps adding captured strings in the order they are captured. The following program shows you how this works.<br /><br />
+
+<div class="cinter">
+<a href="javascript:void(0);" class="triggerToggle"><b>Click to Show / Hide code</b></a><br />
+or leave the site to view an <a rel="nofollow" href="http://ideone.com/jJ7hcK" target="_blank">online demo</a><br />
+</div>
+
+<div class="codebox hide toggleme"><pre>
+using System;
+using System.Text.RegularExpressions;
+class Program {
+static void Main()    {
+string ourString = @"one-two-three:uno-dos-tres one-two-three:ichi-ni-san";
+string ourPattern = @"(?:(?&lt;someword>\w+)-?)+:(?:(?&lt;someword>\w+)-?)+";
+var ourRegex = new Regex(ourPattern);
+MatchCollection AllMatches = ourRegex.Matches(ourString);
+
+Console.WriteLine("**** Understanding Named Capture Reuse ****");
+Console.WriteLine("\nOur string today is:" + ourString);
+Console.WriteLine("Our regex today is:" + ourPattern);
+Console.WriteLine("Number of Matches: " + AllMatches.Count);
+
+Console.WriteLine("\n*** Let's Iterate Through the Matches ***");
+int matchNum = 1;
+foreach (Match SomeMatch in AllMatches)    {
+    Console.WriteLine("Match number: " + matchNum++);
+    Console.WriteLine("Overall Match: " + SomeMatch.Value);
+    Console.WriteLine("\nNumber of Groups: " + SomeMatch.Groups.Count);
+    Console.WriteLine("Why two Groups, not one? Because the overall match is Group 0");
+    // Another way of printing the overall match
+    Console.WriteLine("Groups[0].Value = " + SomeMatch.Groups[0].Value);
+    Console.WriteLine(@"Since the 'someword' group appears more than once in the pattern, the value of Groups[1] and Groups[""someword""] is the last capture of each group");
+    Console.WriteLine("Groups[1].Value = " + SomeMatch.Groups[1].Value);
+    Console.WriteLine(@"Groups[""someword""].Value = " + SomeMatch.Groups["someword"].Value);
+    // Let's look all the first captures manually
+    Console.WriteLine("Someword Capture 0: " + SomeMatch.Groups["someword"].Captures[0].Value);
+
+// Let's look at someword captures automatically
+    int somewordCapCount = SomeMatch.Groups["someword"].Captures.Count;
+    Console.WriteLine("Number of someword Captures: " + somewordCapCount);
+    int i2 = 0;
+    foreach (Capture someword in SomeMatch.Groups["someword"].Captures)    {
+        Console.WriteLine("someword Capture " + i2 + ": " + someword.Value);
+    i2++;
+    } // end iterate G2 captures
+    Console.WriteLine("\n");
+} // end iterate matches
+
+Console.WriteLine("\nPress Any Key to Exit.");
+Console.ReadKey();
+
+} // END Main
+} // END Program
+</pre></div>
+<br /><br />
+
+<a id="balancingGroups"></a>
+<span class="em8"><a href="#balancingGroups">(direct link)</a></span><br />
+<h2>Balancing Groups</h2>
+I haven't yet written this section, but there are great examples of this feature in several sections of the site. These will show you everything you need to know to get started with balancing groups.<br /><br />
+
+✽  <a href="regex-conditionals.html#balancing">Matching Balanced Strings such as <i class="mono">AAA foo BBB</i></a><br />
+✽  <a href="regex-trick-line-numbers.html#balancing">Matching Line Numbers</a><br />
+✽  <a href="regex-quantifier-capture.html#balancingGroups">Quantifier Capture</a><br />
+
+<br /><br />
+<br />
+
+<a id="pcre.net"></a>
+<span class="em8"><a href="#pcre.net">(direct link)</a></span><br />
+<h2>An Alternate engine: PCRE.NET</h2>
+PCRE is another of my favorite engines. In fact, this site probably has the most comprehensive resources about PCRE on the web, from the <a href="https://www.rexegg.com/pcre-documentation.html">PCRE documentation and changelog</a> to <a href="regex-modifiers.html#pcre">PCRE's special start of pattern modifiers</a>, <a href="backtracking-control-verbs.html">backtracking control verbs</a> and the <a href="pcregrep-pcretest.html">pcregrep and pcretest utilities</a>.<br /><br />
+
+So when I found out about Lucas Trzesniewski's .NET wrapper around the PCRE library, I was excited. This means you can get around .NET's lack of a few features such as recursion.
+<br /><br />
+
+In Visual Studio 2015, installation is a snap:<br /><br />
+✽ Create a project.<br />
+✽ Press Ctrl + Q for the Quick Launch window, type <i>nuget</i> and select <i>Manage Nuget Packages for Solution.</i><br />
+✽ In the search window, type <i>pcre.net</i>, making sure that the filters pull-down is set to <i>All</i>.<br />
+✽ Install.<br /><br />
+
+The <a href="https://www.microsoft.com/en-us/download/details.aspx?id=48145" target="_blank">Visual C++ Redistributable for Visual Studio 2015</a> is a requirement, but you probably won't need to install it if you installed all of VS2015.
+<br /><br />
+
+
+Compared with using .NET regex, one difference to keep in mind is that on top of the <i>.exe</i> file, you'll have to distribute <i>PCRE.NET.dll</i> (which will be in your build folder). It only weighs 350kB so that's not a big deal. Still if for some reason you're shooting for the size of a small console program such as the one below (about 7kB once compiled), this will blow up the budget. Of course in the case of a pure .NET solution you're probably "paying" a similar weight, but it's hidden in the framework's <i>System.Text.RegularExpressions.dll</i> (29kB) and (I assume) its parents.
+<br /><br />
+
+To get you started, I'll give you a simple but fully functioning program that showcases the main methods. Beyond that,<br />
+✽ please visit my page about <a href="pcre-callouts.html">PCRE callouts</a>, which shows more code examples in PCRE.NET<br />
+✽ see the <a href="https://github.com/ltrzesniewski/pcre-net" target="_blank">GitHub repo</a> if you'd like more information.
+<br /><br />
+
+I hope you'll forgive the weird indentation&mdash;I wanted everything to fit within the narrow box.
+<br /><br />
+
+<div class="codebox pre">
+using System;
+using PCRE;
+using System.Linq;
+
+class Program
+{
+static void Main()
+{
+string subject = "&lt;000> 111 &lt;222> 333 4444";
+// Match three digits, unless they live inside angle brackets
+var digits_regex = new PcreRegex(@"&lt;[^>]+(*SKIP)(*F)|\b\d(\d)\d\b");
+
+// Does the pattern match?
+Console.WriteLine("=== Does it Match? ===");
+Console.WriteLine(digits_regex.IsMatch(subject));
+
+// What is the first match?
+Console.WriteLine("=== First Match ===");
+var onematch = digits_regex.Match(subject);
+
+if (onematch.Success)
+{
+// onematch.Value is the same as onematch.Groups[0].Value
+Console.WriteLine(onematch.Value);
+}
+
+// What is Capture Group 1?
+Console.WriteLine("=== Capture Group 1 ===");
+if (onematch.Success)
+{
+Console.WriteLine(onematch.Groups[1].Value);
+}
+
+// What are all the matches?
+Console.WriteLine("=== Matches ===");
+var matches = digits_regex.Matches(subject);
+if (matches.Any())
+{
+foreach (var match in matches)
+{
+Console.WriteLine(match.Value);
+}
+
+// Replace: surround with angle brackets
+Console.WriteLine("=== Replacements ===");
+string replaced = digits_regex.Replace(subject, "<$0>");
+Console.WriteLine(replaced);
+
+// Replace using callback
+Console.WriteLine("=== Replacements with Callback ===");
+string replaced2 = digits_regex.Replace(subject, delegate (PcreMatch m) {
+if (m.Value == "111") return "&lt;ones>";
+else return m.Value;
+});
+Console.WriteLine(replaced2);
+
+// Split
+Console.WriteLine("=== Splits ===");
+var splits = digits_regex.Split(subject);
+foreach (var split in splits)
+{
+Console.WriteLine(split);
+}
+
+Console.WriteLine("Press Any Key");
+Console.ReadKey();
+}
+}
+}
+</div>
+
+
+<br /><br /><br />
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div>
+<br />
+Smiles,
+<br /><br />
+Rex
+
+<br /><br />
+
+<script src="../ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+  $('.triggerToggle').click(function(){
+     $(this).parent().nextAll('.toggleme').toggle();
+  });
+});
+</script><div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-3 of 3 Threads</div>
+<a id="cid2410"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Felipe</span><span class="comment-location"> &ndash; SP - Brazil</span></div>
+<div class="comment-date">September 15, 2017 - 01:25</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Amazing website</div><br />
+<div class = "comment-text">It helped me a lot with my validation controls. Thanks</div>
+</div>
+<a id="cid1939"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">kiko</span></div>
+<div class="comment-date">October 03, 2015 - 16:02</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Why are you doing this?</div><br />
+<div class = "comment-text">You have no idea how hard it is for me to find a good free site to learn regex. The C# docs is so alien, thank you so much from the bottom of my heart.</div>
+</div>
+<a id="cid1786"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Jim MacDiarmid</span><span class="comment-location"> &ndash; Manassas, Va</span></div>
+<div class="comment-date">April 28, 2015 - 03:50</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Awesome site!</div><br />
+<div class = "comment-text">Hey Rex,  Awesome site you have here. I&#039;m a C# and PHP coder and have been working off and on with Regex. I love it as a tool, but sometimes it gets so darn confusing. Thanks for putting this site up. Nice job!</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-csharp.html" method="post" >
+<input type="hidden" name="token" value="758fca8f52dfb6f74da510a085779185" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a class="thispage" href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-csharp.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:07 GMT -->
+</html>

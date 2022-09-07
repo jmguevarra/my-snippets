@@ -1,0 +1,81 @@
+.compare-form .banner-form2 {
+    max-width: 420px;
+    margin-left: auto;
+    background-color: #273d4f;
+    padding: 8px 20px 10px;
+    margin-top: 20px;
+}
+.compare-form .gform_wrapper .gfield {
+    margin-top: 0px;
+}
+.compare-form .gform_wrapper .gform_footer {
+    padding: 0;
+    margin-top: 0;
+}
+.compare-form .gform_wrapper .validation_message {
+    padding: 5px !important;
+    line-height: 1.2;
+}
+.compare-form .gform_wrapper .validation_error {
+    background-color: #fff;
+    border-color: #ff0000;
+    color: #ff0000;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size:14px;
+}
+.compare-form .gform_wrapper .gfield_error {
+    background-color: transparent !important;
+    padding-top: 0 !important;
+    margin: 0px !important;
+    border-width: 0px !important;
+}
+.compare-form .gform_wrapper .validation_message {
+    padding: 5px !important;
+    line-height: 1.2;
+    background-color: #fff0f0;
+    color: red;
+    font-size: 11px;
+    border: none;
+    border-bottom-left-radius: 1px;
+    border-bottom-right-radius: 1px;
+}
+.compare-form .gfield .large {
+    background-color: #fff;
+    padding: 5px !important;
+    line-height: 1.2;
+    border-radius: 1px;
+    font-size: 14px !important;
+    margin-bottom: 0px !important;
+    border-color: #fff !important;
+}
+.compare-form .gform_wrapper .gfield {
+    margin-top: 0px;
+    margin-bottom: 0 !important;
+}
+.compare-form textarea.large {
+    max-height: 80px;
+}
+@media only screen and (min-width:641px){
+    .compare-form .banner-form2{
+        padding-right:15px;
+    }
+    .compare-form .gform_wrapper ul.gform_fields li.gfield{
+        padding-right:5px !important;
+    }
+    .compare-form .gform_wrapper.gform_validation_error .gform_body ul li.gfield.gfield_error:not(.gf_left_half):not(.gf_right_half){
+        max-width:100% !important;
+    }
+    .compare-form .gform_wrapper.gform_validation_error .top_label li.gfield.gfield_error.gf_left_half,
+    .compare-form .gform_wrapper.gform_validation_error .top_label li.gfield.gfield_error.gf_right_half{
+        max-width:50%;
+    }
+    .compare-form .gform_wrapper .top_label li.gfield.gfield_error.gf_left_third,
+    .compare-form .gform_wrapper .top_label li.gfield.gfield_error.gf_middle_third{
+        width:33.3% !important;
+    }
+    .compare-form  .gform_wrapper li.gfield.gfield_error.gfield_contains_required div.ginput_container,
+    .compare-form  .gform_wrapper li.gfield.gfield_error.gfield_contains_required label.gfield_label{
+        margin-top: 8px;
+    }
+}

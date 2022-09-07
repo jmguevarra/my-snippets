@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-recursion.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="About Recursive Regular Expressions. Advanced Regex Tutorial with examples and full tracing of the engine matches." />
+<title>Recursive Regex—Tutorial</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li class="current"><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Recursive Regular Expressions</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+<br />
+
+Recursion is an arcane but immensely helpful feature that only a few regex engines support. Before you invest your time sutdying this topic, I suggest you start out with the <a href="regex-disambiguation.html#recursion">recursion summary</a> on the main syntax page. If at that stage you are still interested, you can return here to dive deeper.<br /><br />
+
+
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#engines">Support for Regex Recursion</a><br />
+
+
+<br /><br />
+
+
+<a id="engines"></a>
+<span class="em8"><a href="#engines">(direct link)</a></span><br />
+<h2>Supported Engines</h2>
+Recursion is supported in the following engines:<br />
+✽ PCRE (C, PHP, R…)<br />
+✽ Perl<br />
+✽ Ruby 2+<br />
+✽ Python via the alternate <i>regex</i> module<br />
+✽ JGSoft (not available in a programming language)<br />
+<br />
+
+<b>Historical Note</b><br />
+A bit of history: recursion appeared in <a href="https://www.rexegg.com/pcre-documentation.html#perl_pcre">PCRE seven years before it made it to Perl regex</a>. This explains the differences in behavior between the two engines—which, if you insist on knowing at this early stage, pertain to atomicity and the carryover of capture buffers down the stack. When Perl introduced recursion into its regex it behaved differently from PCRE's, and PCRE stuck to its original behavior for backward compatibility.
+<br /><br />
+
+
+
+<b>Entire Recursion and Local Recursion</b><br />
+
+The recursive syntax is simple. In PCRE and Perl, you just add <span class="socode">(?R)</span> anywhere you like in your pattern. Basically, <span class="socode">(?R)</span> means "paste the entire regular expression right here, replacing the original <span class="socode">(?R)</span>. <br /><br />
+
+In Ruby, you use <span class="socode">\g&lt;0></span>
+<br /><br />
+
+
+
+
+<div class="pullquote R">
+In its simplest form, a recursive pattern is the same as a plus quantifier.
+</div>
+
+Of the few people I've seen mentioning recursive patterns on the net, nearly all use it for the same purpose&mdash;to match nested parentheses. Is that just tremendously useful, are they all copying one another, or are they copying <a href="http://www.amazon.com/dp/0596528124?tag=onamazon-20" target="_blank">Jeffrey Friedl's book</a>?<br /><br />
+
+To see how recursion works, let's start with something a little simpler. 
+<br /><br />
+
+<h2>The Paste Method</h2>
+I am going to show you two ways to work with recursive patterns. I call them the "paste method" and the "trace method". The paste method has little practical utility, but in the beginning it can give you an easy way to think about recursive patterns. So we will start with that. Here are a first pattern and a sample subject string.
+<br /><br />
+
+<div class="codebox">
+<b>Recursive Pattern #1</b><br />
+Pattern:&nbsp;&nbsp;&nbsp;\w{3}\d{3}(?R)?<br />
+Subject:&nbsp;&nbsp;&nbsp;aaa111bbb222<br />
+</div>
+<br />
+
+What does this pattern do?<br /><br />
+
+First, it matches three word characters: <code>\w{3}</code>, then three digits: <code>\d{3}</code>. On our test string, with "aaa111", the expression can match on these first steps. <br /><br />
+
+Next, since the expression has worked thus far, the <code>(?R)</code> "pastes" the whole pattern in its own place. (Bear in mind that this is only a manner of speaking. The actual regex engine wouldn't know pasting from pasta.) The question mark at the end of <code>(?R)?</code> is the usual "one or nothing" operator. It makes it so that if the expression in the "pasted pattern" fails, the engine can match "empty" in that same spot. 
+<br /><br />
+
+At this stage, the expanded expression looks like this:
+<br /><br />
+
+Pattern 1 (first expansion): <code>\w{3}\d{3}(?:<b>\w{3}\d{3}(?R)?</b>)?</code><br /><br />
+
+The bold part of the pattern is where the full pattern has been pasted in place of (?R). As you can see, I have encapsulated the pasted pattern in a non-capturing group. Why? Because I needed to apply the question mark that was at the end of the (?R)? to the pasted pattern&mdash;the non-capturing group is just a way to express that syntax. Without the final question mark, we would not need the non-capturing group. By the way, even though the (?R) is inside parentheses, the parentheses do not capture anything. That is why I used a non-capturing group rather than simple parentheses. 
+<br /><br />
+
+After matching "aaa111", we are now at the beginning of the bold part of the expression. Our first job is to match three more word characters and three more digits. Luckily, with "bbb222", our test string supplies these. Next, we bump against (?R)? once again. The (?R) pastes itself in place. If you wrote out the whole expression at this stage, it would look like this:<br /><br />
+
+Pattern 1 (second expansion): <code>\w{3}\d{3}(?:\w{3}\d{3}<b>#</b>(?:\w{3}\d{3}(?R)?)<b>?</b>)?</code><br /><br />
+
+This time, I have inserted a bold hash character (#) to show where we are in the expression at the moment. I have also bolded the question mark of the pattern we just pasted in order to emphasize that this new pattern is optional. At this stage, we try to match three word characters again. But we are at the end of our subject string (aaa111bbb222), so the new sub-pattern fails. Thanks to the bold question mark, we can go back to where we were before trying to match the pasted pattern. In the first expansion, that location is the point just before the (?R)?. The engine rolls over the (?R)?, successfully completes the expression, and returns a match: "aaa111bbb222".
+<br /><br />
+
+As you can see, if you approach them like this, recursive expressions are nothing to be scared of. But the record should show that our recursion accomplished nothing more than the puny plus quantifier in:
+<br /><br />
+Alternate to recursive pattern #1: <code>(?:\w{3}\d{3})<b>+</b></code><br /><br />
+
+And as you can imagine, with anything a bit complex, the paste method would quickly become difficult to follow. Fortunately, the "trace method" eliminates the problem.
+<br /><br />
+
+<a id="trace"></a>
+
+<h2>The Trace Method</h2>
+As you may have gathered from the other pages on this site, I am a big fan of a regex tool called <a rel="nofollow" href="http://yu8.us/regexbuddy" target="_blank" >RegexBuddy</a>, which helps me create and troubleshoot all kinds of expressions. I was thrilled when its author introduced support for recursive regex in version 4 (released in September 2013). A link to the free trial is in the right pane.
+
+<br /><br />
+With the method I am about to show you, you can analyze recursive patterns of any complexity. All you need is a spreadsheet. The box below traces our recursive pattern #1 as it tries to match our subject. <br /><br />
+
+<div class="codebox">
+<b>#&nbsp;&nbsp;&nbsp;&nbsp;Depth&nbsp;&nbsp;&nbsp;Position&nbsp;in&nbsp;Regex&nbsp;&nbsp;&nbsp;String&nbsp;Pos.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Backtracks</b><br />
+S1&nbsp;&nbsp;&nbsp;D0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>\w{3}</b>\d{3}(?R)?&nbsp;&nbsp;&nbsp;&nbsp;<b>&nbsp;aaa</b>111bbb222&nbsp;&nbsp;&nbsp;&nbsp;Match.<br />
+S2&nbsp;&nbsp;&nbsp;D0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\w{3}<b>\d{3}</b>(?R)?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aaa<b>111</b>bbb222&nbsp;&nbsp;&nbsp;&nbsp;Match.<br />
+S3&nbsp;&nbsp;&nbsp;D0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\w{3}\d{3}<b>(?R)?</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aaa111<b>bbb</b>222&nbsp;&nbsp;&nbsp;&nbsp;Try&nbsp;Depth&nbsp;1.&nbsp;<br />
+S4&nbsp;&nbsp;&nbsp;D1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>&nbsp;\w{3}</b>\d{3}(?R)?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aaa111<b>bbb</b>222&nbsp;&nbsp;&nbsp;&nbsp;Match.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3<br />
+S5&nbsp;&nbsp;&nbsp;D1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\w{3}<b>\d{3}</b>(?R)?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aaa111bbb<b>222</b>&nbsp;&nbsp;&nbsp;&nbsp;Match.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3<br />
+S6&nbsp;&nbsp;&nbsp;D1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\w{3}\d{3}<b>(?R)?</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aaa111bbb222<b>#</b>&nbsp;&nbsp;&nbsp;Try&nbsp;Depth&nbsp;2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3<br />
+S7&nbsp;&nbsp;&nbsp;D2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>\w{3}</b>\d{3}(?R)?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aaa111bbb222<b>#</b>&nbsp; &nbsp;No&nbsp;Match.&nbsp;Back&nbsp;to&nbsp;S6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6,3<br />
+S8&nbsp;&nbsp;&nbsp;D1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\w{3}\d{3}(?R)?<b>#</b>&nbsp;&nbsp;&nbsp;&nbsp;aaa111bbb222<b>#</b>&nbsp;&nbsp;&nbsp;D1&nbsp;succeeds,&nbsp;back&nbsp;to&nbsp;D0&nbsp;&nbsp;&nbsp;3<br />
+S9&nbsp;&nbsp;&nbsp;D0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\w{3}\d{3}(?R)?<b>#</b>&nbsp;&nbsp;&nbsp;&nbsp;aaa111bbb222<b>#</b>&nbsp;&nbsp;&nbsp;D0&nbsp;succeeds.<br />
+<br />
+<b>Return&nbsp;overall&nbsp;match:&nbsp;aaa111bbb222</b><br />
+</div>
+<br />
+
+Here is how it works.<br /><br />
+
+✽ In the leftmost column of your spreadsheet, enter the step number. For easier reference later, I call these steps S1, S2, S3 etc.<br /><br />
+✽ In the next column, you will have the depth level of the recursion. For easier reference, I call these depths D0, D1, D2 etc. In this example you can see how we start at D0, then go to D1 and D2, then back up to D1, and finally D0, which the expression needs to complete in order to succeed. The other levels are all made optional by the question mark at the end of (?R)?, so they are allowed to fail, as happens at Step S7, Depth D2.<br /><br />
+
+✽ In the "Position in Regex" column, you have the expression of the <b>current depth level</b>. For instance, at step S4, we reach depth D1, and the expression shown is the pattern from the depth level being evaluated. By only showing the current level, you do not create a spaghetti of patterns and sub-patterns, as the paste method tends to do. At each step, bold the part of the expression that is being evaluated. When we reach the position at the end of the string, I add a bold hash character (#).<br /><br />
+
+✽ In the next column, paste the string on each row, and bold the part of the string that is being evaluated or that just matched. When we reach the position at the end of the string, I add a bold hash character (#).<br /><br />
+✽ In the Notes column, explain what is happening.<br /><br />
+✽ In the Backtracks column, keep track of the sequence of steps to which you are allowed to backtrack if the current pattern fails. For instance, at S3, we decide to try D1, so S4 and the following steps on D1 have a backtrack mark to S3 in case D1 fails.<br /><br />
+✽ For expressions that have capture groups, create a column for each capture group, and show the value of each capture group at each step. We will see an example of this later.
+<br /><br />
+
+<b>Navigating the Depths of Recursion</b> <br />
+With the Trace method, you can follow a match through complex recursions.<br /><br />
+To obtain an overall match, depth 0 (D0) must succeed all the way to the end of the expression. In the middle of D0, the engine may have to dip down a number of levels. These levels all eventually succeed or fail, throwing the engine back to the prior level. At some stage, the engine gets back to D0, and either fails or eventually succeeds in finding a match.
+<br /><br />
+
+<a id="atomiclevels"></a>
+
+<h2>Recursion Depths are Atomic</h2>
+One feature of PHP recursion that's important to understand is that each recursion level is atomic. What does this mean? <br /><br />
+
+
+Suppose your expression sends you to D1, made optional by a question mark. You complete D1 successfully. But back on D0, the engine fails to match the next character. Now, D1 may have given the engine a number of options in the form of quantifiers and alternations. When D0 fails, the engine does not go back inside D1 to try the unexplored options (different quantities or other sides of alternations). Instead, it discards D1 as a block. This is the behavior of an atomic group.
+<br /><br />
+
+This atomic feature of recursion levels can have profound effects on your match. <a href="#okonoko" >Later on</a>, we will see an example of that. It is a feature of PHP's PCRE engine. Perl, on the other hand, can backtrack into recursion levels.
+
+<br /><br />
+
+<h2>Leaving a Way Out of the Recursion</h2>
+
+In Pattern 1, you saw that whenever you paste the whole expression in place of the recursion marker (?R), you inherit another (?R). You have to, since it's part of the whole expression! To avoid madness and infinite loops, you need to make sure that at some stage the (?R) will stop breeding. In Pattern 1, this was achieved by adding a question mark after the (?R). This ensures that if a recursion level fails, the engine can continue with the match at the level just above.
+<br /><br />
+
+Another way to make sure you can exit a recursion is to make the (?R) part of an alternation. Consider this:<br /><br />
+
+Pattern 2: <code>abc(?:$|(?R))</code><br /><br />
+
+This pattern matches series of the string "abc" strung together. This series must be located at the end of the subject string, as it is anchored there by the dollar sign. The pattern matches "abc", "abcabc", but not "abc123". How does it work?
+<br /><br />
+After each "abc" match, the regex engine meets an alternation. On the left side, if it finds the end of string position (expressed by the dollar symbol in the regex), that's the end of the expression. On the other hand, if the end of the string has not yet been reached, the engine moves to the right side of the alternation, goes down one level, and tries to find "abc" once again. 
+<br /><br />
+
+Without some kind of way out, the expression would never match, as eventually any string must run out of "abc"s to feed the regex engine.
+
+<br /><br />
+
+
+<a id="okonoko"></a>
+<h2>Using Recursion to Match Palindromes (mirror words)</h2>
+
+Instead of looking at the classic "match nested parentheses" pattern presented elsewhere, I will now show you a pattern that is just as powerful but easier to read. As an exercise, you can tweak it to match nested parentheses. Here's the pattern:<br /><br />
+
+<code>(\w)(?:(?R)|\w?)\1</code><br /><br />
+
+What does this do? This pattern matches <i>palindromes</i>, which are "mirror words" that can be read in either direction, such as "level" and "peep". Let's unroll it to see how it works.<br /><br />
+
+<div class="codebox">
+(?x)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# activate comment mode<br /><br />
+(\w)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# capture one word character in Group 1<br /><br />
+(?:(?R)&nbsp;&nbsp;# non-capturing group: match the whole expression again, <br /><br />
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# OR<br /><br />
+\w?)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# match any word character, or "empty"<br /><br />
+\1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# match the character captured in Group 1<br />
+</div>
+<br />
+The pattern starts with one word character. This character is mirrored at the very end with the Group 1 back reference. These are the basic mechanics of how we are "building our mirror". In the very middle of the mirror, we are happy to have either a single character (the \w in the alternation) or nothing (made possible by the question mark after the \w). Note that the pattern is not anchored, so it can match mirror words inside longer strings.
+<br /><br />
+
+Here is some php code that tests the pattern against a few strings.<br /><br />
+
+<div class="codebox">
+&lt;?php<br />
+$subjects=array('dontmatchme','kook','book','paper','kayak','okonoko','aaaaa','bbbb');<br />
+$pattern='/(\w)(?:(?R)|\w?)\1/';<br />
+foreach ($subjects as $sub) {<br />
+echo $sub.&quot; &quot;.str_repeat('-',15-strlen($sub)).&quot;-&gt; &quot;;<br />
+if (preg_match($pattern,$sub,$match)) echo $match[0].&quot;&lt;br /&gt;&quot;;<br />
+else echo 'sorry, no match&lt;br /&gt;';<br />
+}<br />
+?&gt;<br />
+</div>
+<br />
+
+And here is the output:<br /><br />
+
+<div class="codebox">
+dontmatchme -----&gt; sorry, no match<br />
+kook ------------&gt; kook<br />
+book ------------&gt; oo<br />
+paper -----------&gt; pap<br />
+kayak -----------&gt; kayak<br />
+okonoko ---------&gt; okonoko<br />
+aaaaa -----------&gt; aaaaa<br />
+bbbb ------------&gt; bbb<br />
+</div>
+<br /><br />
+
+It worked perfectly! Well, almost perfectly. For the last string ("bbbb"), a match is found, but not the one we expected.
+<br /><br />
+
+<a id="okonoko-trace"></a>
+What is happening there? This has to do with the <a href="#atomiclevels" >atomic nature of PHP recursion levels</a>. To explain it properly we will need to use the <a href="#trace" >trace method</a> in order to see every little step taken by the PHP regex engine.
+
+For the fully-traced match, click the image.<br /><br />
+<div class="cinter">
+<a href="../a.yu8.us/c_regex-bbbb.jpg" target="_blank">
+<img src="../a.yu8.us/c_regex-bbbb_sm.jpg" width="350" height="224" alt="Recursive Regex Atomic Levels Fail Backtracking" />
+</a>
+</div>
+<br />
+
+Now pay close attention to step 22. At this stage, D0 has matched the first b, D1 has matched bbb, completing the string, and D0 cannot continue. If this were Perl, D0 could backtrack into D1, where other D1 matches could be explored: <br />
+when D1 matches the bold characters in <code><b>(\w)</b>(?:(?R)|\w<b>?</b>)<b>\1</b></code>, it returns bb, and D0 can match the final b, returning the complete intended match: bbbb.<br /><br />
+
+However, this is not how the PCRE engine used by PHP's preg_match function works. Instead of going back into D1, the engine gives up D1 as a block. D0 then completes the match by eating two more "b"s, leaving the last one untouched, and returns "bbb".
+<br /><br />
+
+May this serve as a warning about the potentially unexpected outcomes of recursive regular expressions!
+
+<br /><br />
+
+<h2>Numbered Recursion</h2>
+
+Now suppose we wanted to match mirror words only if they occupy the entire string. We would have to make sure that the match starts at the beginning of the string, and ends at the end. Easy, you might say, add a caret and a dollar anchor: <br /><br />
+Attempt at anchored recursive pattern: <code>^(\w)(?:(?R)|\w?)\1$</code><br /><br />
+
+Wait, not so fast&hellip; If you add anchors to the expression, when you hit the (?R), the anchors will be pasted back into the middle of the expression, yielding something like this:<br /><br />
+Attempt at anchored recursive pattern (first expansion):<br />
+<code>^(\w)(?:^(\w)(?:(?R)|\w?)\1$|\w?)\1$</code><br /><br />
+
+Now you have two carets preceding two distinct characters. This pattern can never match. <br /><br />
+
+Fortunately, you can build a recursive expression without using <code>(?R)</code>, which repeats then entire expression. Instead, using the <a href="regex-disambiguation.html#subroutines" target="_blank">"subroutine expression" (or sub-pattern) syntax</a>, you can paste a sub-pattern specified by a capture group. For instance, to paste the regex inside the Group 1 parentheses, you would use (?1) instead of (?R). Here is how our corrected anchored recursive pattern looks:<br /><br />
+Anchored recursive pattern: <code>^((\w)(?:<b>(?1)</b>|\w?)\2)$</code><br /><br />
+
+Everything between the two anchors now lives in a set of parentheses. This is Group 1. Therefore, the captured word at the start is now Group 2. In the middle, the repeating expression pastes the subpattern defined by the Group 1 parentheses in place of the alternation: the anchors are left out. At the end, the first character is mirrored by the back reference to Group 2.
+<br /><br />
+
+This works perfectly. Except, once again, for the "bbbb" string. To see exactly why, you can use the trace method as shown in the <a href="#okonoko-trace" >earlier example</a>.
+<br /><br />
+
+
+<a id="recursivegroups"></a>
+<h2>Groups Contents and Numbering in Recursive Expressions</h2>
+In a recursive regex, it can seem as though you are "pasting" the entire expression inside itself. In an expression where you have capture groups, as the one above, you might hope that as the regex shifts to deeper recursion levels and the overall expression "gets longer", the engine would automatically spawn new capture groups corresponding to the "pasted" patterns.<br /><br />
+
+But it is not so. First off, "pasting" is only a way of speaking. And as explained in the <a href="regex-capture.html#groupnumbers" >section on group numbering</a>, groups are strictly numbered from left to right as you find capturing parentheses by reading the expression on the screen&mdash;and I mean the original expression, not one filled with layers of virtual paste operations.
+<br /><br />
+
+Group numbers are preserved from one depth level to the next. But what about their contents? There are a few simple rules about how group contents travel from one depth level to another. In PCRE,<br /><br />
+
+✽ As you go down depth levels, the contents of a group (such as Group 1) stays the same at first&hellip;<br />
+✽ But the deeper level can overwrite the contents of a Group set above&hellip;<br />
+✽ Until you return to the higher level, where the captured groups resume their value.<br /><br />
+
+
+In contrast, in Perl, as you go down depth levels, the contents of a group (such as Group 1) are wiped out.
+<br /><br />
+
+To see this, I suggest a simple exercise for which I have prepared an expression and a test string. The expression matches the test string. The hints in the code box explain the value changes of the four capture groups.<br /><br />
+
+<div class="codebox">
+<b>Subject:</b>&nbsp;&nbsp;&nbsp;&nbsp; baacdbcd aacdbcda<br />
+<b>Expression:</b>&nbsp; ^(.)((.)(?:(d)\1\3\4|\3<b>(?2)</b>))[ ]\2\3<br /><br />
+
+<b>Hints:</b><br />
+The recursion (in bold) calls the Group 2 pattern, i.e.:  ((.)(?:(d)\1\3\4|\3(?2)))<br />
+At depth 0, the left side of the alternation fails. <br />
+Value of \1: b throughout the match.<br />
+Value of \2: aacdbcd once depth 1 recursion ends.<br />
+Value of \3: a on depth 0, c on depth 1, a again once we return to depth 1<br />
+Value of \4: a on depth 0 then discarded, d on depth 1, unset again on depth 0<br />
+</div>
+<br />
+
+
+For the fully-traced solution, click the image!<br /><br />
+<div class="cinter">
+<a href="../a.yu8.us/c_regex-recursive-groups.jpg" target="_blank">
+<img src="../a.yu8.us/c_regex-recursive-groups_sm.jpg" width="400" height="147" alt="Recursive Regex Capture Groups in Levels" />
+</a>
+</div>
+<br />
+
+
+<h2>More about Recursive Expressions</h2>
+
+There are great examples of regex recursion in several sections of the site. These will show you practical ways to use recursion in situations we haven't explored here.<br /><br />
+
+✽ <a href="regex-quantifier-capture.html#recursion">Quantifier Capture</a><br />
+✽ <a href="regex-trick-line-numbers.html#recursion">Matching Line Numbers</a><br />
+<br />
+
+For more information about recursive regexes, you can visit the <a href="http://php.net/manual/en/regexp.reference.recursive.php" target="_blank">PHP manual's page on recursive patterns</a> and see if some of the examples posted there speak to you.
+<br /><br />
+
+For me, the best <a href="_latest/pcrepattern.html#SEC23">reference on recursive expressions</a> lives in the <a href="https://www.rexegg.com/pcre-documentation.html">PCRE documentation</a> written by Philip Hazel, the creator of the PCRE engine. 
+<br />
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div><a href="regex-quantifier-capture.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;Quantifier Capture and Quantifier Arithmetic</b>
+</a>
+<br /><br /><br />
+
+
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-4 of 4 Threads</div>
+<a id="cid2606"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Matthias Kowalewski</span></div>
+<div class="comment-date">March 02, 2019 - 08:25</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Solution for RECURSION bbb &amp; bbbb</div><br />
+<div class = "comment-text">Hi Rex, <br />
+first I want to thank you for all the effort you made creating a site like rexegg. I&#039;ve learned so much and now I want to give something back. I found a neat solution for your problem described in the RECURSION section of your page. This one actually overcomes the pcre engine limitation. I&#039;ll give you a link to regex101.com and you can decide for yourself if it&#039;s cool or not. :)<br />
+<br />
+https://regex101.com/r/ob2BLl/11<br />
+<br />
+Thanks for everything! Regards, <br />
+Matthias</div>
+</div>
+<a id="cid2607"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Matthias Kowalewski</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">March 02, 2019 - 09:29</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: Solution for RECURSION bbb &amp; bbbb</div><br />
+<div class = "comment-text">Hi Matthias,
+Thank you for your kind message and most of all congrats on finding a clever way of achieving that classic task!
+At the moment I don&#039;t have the brainspace to study what you&#039;ve done (surgery in a couple of days), but I&#039;ve added your message as a comment to the Recursion page. Hope that&#039;s okay with you, if not please get in touch.
+Warm regards,
+Rex
+</div>
+</div>
+<a id="cid2038"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rob</span><span class="comment-location"> &ndash; Boston</span></div>
+<div class="comment-date">January 22, 2016 - 08:42</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>a man a canal a plan panama</div><br />
+<div class = "comment-text">So I checked if the palindrome matcher would match &quot;amanaplanacanalpanama&quot;, and it didn&#039;t quite work. You can see what it matches here:<br />
+<br />
+http://rubular.com/r/F1jdF0hKpq<br />
+<br />
+Seems to be not &quot;greedy&quot; enough, matching several smaller palindromes in that string instead of the largest. Is it the ruby regex engine, or a limitation of the regex?</div>
+</div>
+<a id="cid2039"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Rob</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">January 24, 2016 - 14:03</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: a man a canal a plan panama</div><br />
+<div class = "comment-text">Hi Rob,<br />
+You&#039;re right. Don&#039;t know enough about Ruby recursion to offer any insights.<br />
+Kind regards,<br />
+Rex</div>
+</div>
+<a id="cid1466"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Damian</span><span class="comment-location"> &ndash; Argentina</span></div>
+<div class="comment-date">June 14, 2014 - 01:41</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>str_pad</div><br />
+<div class = "comment-text">You can use str_pad instead of str_repeat (I know, it doesn&#039;t have anything to do with regex). Thanks for this site, it&#039;s awesome.</div>
+</div>
+<a id="cid993"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Sergio</span><span class="comment-location"> &ndash; Florida</span></div>
+<div class="comment-date">October 15, 2012 - 22:34</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Recursion number?</div><br />
+<div class = "comment-text">Thanks for your articles. I haven\&#039;t found a better explained website about regex. It seems you can really put yourself in the learner\&#039;s shoes and don\&#039;t enjoy seeing us struggling like others with their eloquence. This article helped me to reduce half of the code in my expression already around 500 lines long! I need to [regex question follows]
+</div>
+</div>
+<a id="cid994"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Sergio</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Andy</span></div>
+<div class="comment-date">October 18, 2012 - 07:14</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Re: Recursion number?</div><br />
+<div class = "comment-text">Hi Sergio, Thank you for your very kind message. Sorry for not being able to reply to your regex question, I am flat out from 6am to midnight at the moment. May I suggest the forums? Kind regards, -A
+</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-recursion.html" method="post" >
+<input type="hidden" name="token" value="af8a67dd5e165ac0a7d6f23f5278a544" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a class="thispage" href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-recursion.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:21 GMT -->
+</html>

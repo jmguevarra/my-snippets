@@ -1,0 +1,103 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+<script>
+
+  	$(document).ready( function(){
+      
+      
+      	// Dynamically add animations using jQuery with ease:
+		// $('#yourElement').addClass('animated bounceOutLeft');
+      
+      	//You can also detect when an animation ends:
+		//$('#yourElement').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', doSomething);
+      
+      	$.fn.extend({
+           animateCss: function (animationName) {
+                var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+                this.addClass('animated ' + animationName).one(animationEnd, function() {
+                    $(this).removeClass('animated ' + animationName);
+                });
+           }
+        });
+      
+      	$('#lp-pom-button-575').animateCss('bounce');
+        $('#lp-pom-button-577').animateCss('flash');
+        $('#lp-pom-button-578').animateCss('pulse');
+     	$('#lp-pom-button-579').animateCss('rubberBand');
+        $('#lp-pom-button-580').animateCss('shake');
+      	$('#lp-pom-button-585').animateCss('headShake');
+        $('#lp-pom-button-586').animateCss('swing');
+        $('#lp-pom-button-587').animateCss('tada');
+     	$('#lp-pom-button-588').animateCss('wobble');
+        $('#lp-pom-button-589').animateCss('jello');
+      	$('#lp-pom-button-591').animateCss('bounceIn');
+        $('#lp-pom-button-592').animateCss('bounceInDown');
+        $('#lp-pom-button-593').animateCss('bounceInLeft');
+     	$('#lp-pom-button-594').animateCss('bounceInRight');
+        $('#lp-pom-button-595').animateCss('bounceInUp');
+      	$('#lp-pom-button-597').animateCss('bounceOut');
+        $('#lp-pom-button-598').animateCss('bounceOutDown');
+        $('#lp-pom-button-599').animateCss('bounceOutLeft');
+     	$('#lp-pom-button-600').animateCss('bounceOutRight');
+        $('#lp-pom-button-601').animateCss('bounceOutUp');
+        $('#lp-pom-button-602').animateCss('fadeIn');
+        $('#lp-pom-button-603').animateCss('fadeInDown');
+        $('#lp-pom-button-604').animateCss('fadeInDownBig');
+     	$('#lp-pom-button-605').animateCss('fadeInLeft');
+        $('#lp-pom-button-606').animateCss('fadeInLeftBig');
+      	$('#lp-pom-button-608').animateCss('fadeInRight');
+        $('#lp-pom-button-609').animateCss('fadeInRightBig');
+        $('#lp-pom-button-610').animateCss('fadeInUp');
+     	$('#lp-pom-button-611').animateCss('fadeInUpBig');
+        $('#lp-pom-button-612').animateCss('fadeOut');
+        $('#lp-pom-button-613').animateCss('fadeOutDown');
+        $('#lp-pom-button-615').animateCss('fadeOutDownBig');
+        $('#lp-pom-button-616').animateCss('fadeOutLeft');
+     	$('#lp-pom-button-617').animateCss('fadeOutLeftBig');
+        $('#lp-pom-button-618').animateCss('fadeOutRight');
+        $('#lp-pom-button-620').animateCss('fadeOutRightBig');
+        $('#lp-pom-button-621').animateCss('fadeOutUp');
+        $('#lp-pom-button-622').animateCss('fadeOutUpBig');
+     	$('#lp-pom-button-623').animateCss('flipInX');
+        $('#lp-pom-button-624').animateCss('flipInY');
+      	$('#lp-pom-button-626').animateCss('flipOutX');
+        $('#lp-pom-button-627').animateCss('flipOutY');
+        $('#lp-pom-button-628').animateCss('lightSpeedIn');
+     	$('#lp-pom-button-629').animateCss('lightSpeedOut');
+        $('#lp-pom-button-630').animateCss('rotateIn');
+        $('#lp-pom-button-632').animateCss('rotateInDownLeft');
+        $('#lp-pom-button-633').animateCss('rotateInDownRight');
+        $('#lp-pom-button-634').animateCss('rotateInUpLeft');
+     	$('#lp-pom-button-635').animateCss('rotateInUpRight');
+        $('#lp-pom-button-636').animateCss('rotateOut');
+        $('#lp-pom-button-638').animateCss('rotateOutDownLeft');
+        $('#lp-pom-button-639').animateCss('rotateOutDownRight');
+        $('#lp-pom-button-640').animateCss('rotateOutUpLeft');
+     	$('#lp-pom-button-641').animateCss('rotateOutUpRight');
+        $('#lp-pom-button-642').animateCss('hinge');
+        $('#lp-pom-button-645').animateCss('jackInTheBox');
+        $('#lp-pom-button-646').animateCss('rollIn');
+        $('#lp-pom-button-647').animateCss('rollOut');
+     	$('#lp-pom-button-648').animateCss('zoomIn');
+        $('#lp-pom-button-650').animateCss('zoomInDown');
+        $('#lp-pom-button-652').animateCss('zoomInLeft');
+        $('#lp-pom-button-653').animateCss('zoomInRight');
+        $('#lp-pom-button-654').animateCss('zoomInUp');
+     	$('#lp-pom-button-655').animateCss('zoomOut');
+        $('#lp-pom-button-656').animateCss('zoomOutDown');
+      	$('#lp-pom-button-658').animateCss('zoomOutLeft');
+        $('#lp-pom-button-659').animateCss('zoomOutRight');
+        $('#lp-pom-button-660').animateCss('zoomOutUp');
+     	$('#lp-pom-button-661').animateCss('slideInDown');
+        $('#lp-pom-button-662').animateCss('slideInLeft');
+      	$('#lp-pom-button-664').animateCss('slideInRight');
+      	$('#lp-pom-button-665').animateCss('slideInUp');
+        $('#lp-pom-button-666').animateCss('slideOutDown');
+        $('#lp-pom-button-667').animateCss('slideOutLeft');
+     	$('#lp-pom-button-668').animateCss('slideOutRight');
+        $('#lp-pom-button-670').animateCss('slideOutUp');
+      
+      
+    });
+  
+</script>

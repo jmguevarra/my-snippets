@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-modifiers.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Regular Expression Modifiers. Explains how to turn on regex modifiers in a variety of languages (.NET / C#, Perl, PCRE, PHP, Python, Java, JavaScript, Ruby…)" />
+<title>What are regex modifiers, and how to turn them on?</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li class="current"><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Regex Modifiers—Turning them On</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+This is a reference page—don't feel you have to read it as it is rather terse. Other sections link to it when needed.
+<br /><br />
+
+
+Regex modifiers turn up at every corner on this site. Rather than repeatedly explain what they do and the multiple ways to turn them on in every regex flavor, I decided to gather the four common ones (<span class="socode">i</span>, <span class="socode">s</span>, <span class="socode">m</span> and <span class="socode">x</span>) in one place. The final section briefly surveys <a href="#other">other modifiers</a>, which are usually language-specific.
+<br /><br />
+
+
+
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#i">Case Insensitivity: <span class="socode">i</span></a><br />
+✽ <a href="#dotall">DOTALL (Dot Matches Line Breaks): <span class="socode">s</span> (except Ruby and JavaScript)</a><br />
+✽ <a href="#multiline">Multiline (<span class="socode">^</span> and <span class="socode">$</span> Match on Every Line): <span class="socode">m</span> (except Ruby)</a><br />
+✽ <a href="#freespacing">Free-Spacing: <span class="socode">x</span> (except JavaScript)</a> <br />
+✽ <a href="#other">Other Modifiers</a><br />
+✽ <a href="#pcre">PCRE's Special Start-of-Pattern Modifiers</a><br />
+<br /><br />
+
+<a id="i"></a>
+<span class="em8"><a href="#i">(direct link)</a></span><br />
+<h2>Case Insensitivity: <span class="socode">i</span></h2>
+
+By default, all major regex engines match in case-sensitive mode. If you want patterns such as <span class="socode">Name: [a-z]+</span> to match in case-insensitive fashion, we need to turn that feature on.<br />
+Yes, but…
+<br /><br />
+
+<b>What does <i>case-insensitive</i> really mean?</b><br />
+As long as you stick to the 26 letters of the English alphabet, the definition of upper-case and lower-case is straightforward. When you branch out into typographical niceties or other languages and scripts, things are not always so simple. Here are some questions you may run into.<br /><br />
+
+✽ Will <i class="mono">ﬂ</i> (one-character, i.e. the <i class="mono">fl</i> ligature) match <i class="mono">FL</i>?<br />
+✽ Will <i class="mono">à</i> (one character) match <i class="mono">À</i>?<br />
+✽ Will <i class="mono">à</i> (two characters, i.e. the letter <i class="mono">a</i> and the grave accent) match <i class="mono">À</i>? All engines seem to handle that correctly.<br />
+✽ Will <i class="mono">ß</i> match <i class="mono">ss</i>? No engine seems to do so.<br />
+✽ Will <i class="mono">i</i> match <i class="mono">İ</i> (Turkish capital <i class="mono">i</i>) as well as <i class="mono">I</i>?<br />
+<br />
+These questions are just the tip of the iceberg. Even if I knew all the answers, it would be impossible to include them all in this section: if you use a particular script, you'll need to research how your specific engine handles case-insensitive matching in that script.
+<br /><br />
+
+
+<b>More than one way</b><br />
+For several engines, note that there are two ways of turning on case-insensitive matching: as an inline modifier <span class="socode">(?i)</span> or as an option in the regex method or function.
+<br /><br />
+
+
+<b>Inline Modifier <span class="socode">(?i)</span></b><br />
+In .NET, PCRE (C, PHP, R…), Perl, Python, Java and Ruby (but not JavaScript), you can use the inline modifier <span class="socode">(?i)</span>, for instance in <span class="socode">(?i)cat</span>. See the section on <a href="regex-disambiguation.html#modifiers">inline modifiers</a> for juicy details about three additional features (unavailable in Python): turning it on in mid-string, turning it off with <span class="socode">(?-i)</span>, or applying it only to the content of a non-capture group with <span class="socode">(?i:foo)</span><br /><br />
+
+
+<b>.NET</b><br />
+Apart from the <span class="socode">(?i)</span> inline modifier, .NET languages have the <span class="socode">IgnoreCase</span> option. For instance, in C# you can use:<br /><br />
+<code class="cinter">var catRegex = new Regex("cat", RegexOptions.IgnoreCase);</code>
+<br />
+
+
+<b>Perl</b><br />
+Apart from the <span class="socode">(?i)</span> inline modifier, Perl lets you add the <span class="socode">i</span> flag after your pattern's closing delimiter. For instance, you can use: <br /><br />
+<code class="cinter">if ($the_subject =~ m/cat/i) { … }</code>
+<br />
+
+
+<b>PCRE (C, PHP, R…)</b><br />
+Note that in PCRE, to use case-insensitive matching with non-English letters that aren't part of your locale, you'll have to turn on Unicode mode—for instance with the <span class="socode">(*UTF8)</span> <a href="#pcre">special start-of-pattern modifier</a>.<br />
+<br />
+
+
+Apart from the <span class="socode">(?i)</span> inline modifier, PCRE lets you set the <span class="socode">PCRE_CASELESS</span> mode when calling the <span class="socode">pcre_compile()</span> (or similar) function:<br /><br />
+
+<div class="codebox"><pre>
+cat_regex = pcre_compile( "cat", PCRE_CASELESS,
+                          &error, &erroroffset, NULL );    
+</pre></div>
+<br />
+
+In PHP, the <span class="socode">PCRE_CASELESS</span> option is passed via the <span class="socode">i</span> flag, which you can add in your regex string after the closing delimiter. For instance, you can use: <br /><br />
+<code class="cinter">$cat_regex = '~cat~i';</code>
+<br /><br />
+
+In R, the <span class="socode">PCRE_CASELESS</span> option is passed via the <span class="socode">ignore.case=TRUE</span> option. For instance, you can use:<br /><br />
+<code class="cinter">grep("cat", subject, perl=TRUE, value=TRUE, ignore.case=TRUE);</code>
+<br />
+
+<b>Python</b><br />
+Apart from the <span class="socode">(?i)</span> inline modifier, Python has the <span class="socode">IGNORECASE</span> option. For instance, you can use:<br /><br />
+<code class="cinter">cat_regex = re.compile("cat", re.IGNORECASE)</code>
+<br />
+
+<b>Java</b><br />
+Apart from the <span class="socode">(?i)</span> inline modifier, Java has the <span class="socode">CASE_INSENSITIVE</span> option. For instance, you can use:<br /><br />
+<div class="codebox"><pre>
+Pattern catRegex = Pattern.compile( "cat",
+                                    Pattern.CASE_INSENSITIVE |
+                                    Pattern.UNICODE_CASE );
+</pre></div>
+<br />
+
+The <span class="socode">UNICODE_CASE</span> option added here ensures that the case-insensitivity feature is Unicode-aware. If you're only working with ASCII, you don't have to use it.
+<br /><br />
+
+
+
+<b>JavaScript</b><br />
+In JavaScript, your only option is to add the <span class="socode">i</span> flag after your pattern's closing delimiter. For instance, you can use: <br /><br />
+<code class="cinter">var catRegex = /cat/i;</code>
+<br />
+
+
+<b>Ruby</b><br />
+Apart from the <span class="socode">(?i)</span> inline modifier, Ruby lets you add the <span class="socode">i</span> flag after your pattern's closing delimiter. For instance, you can use: <br /><br />
+<code class="cinter">cat_regex = /cat/i</code>
+<br /><br />
+<br />
+
+
+<a id="dotall"></a>
+<span class="em8"><a href="#dotall">(direct link)</a></span><br />
+<h2>DOTALL (Dot Matches Line Breaks): <span class="socode">s</span> (with exceptions)</h2>
+
+By default, the dot <span class="socode">.</span> doesn't match line break characters such as line feeds and carriage returns. If you want patterns such as <span class="socode">BEGIN .*? END</span> to match across lines, we need to turn that feature on.
+<br /><br />
+
+This mode is sometimes called <i>single-line</i> (hence the <i>s</i>) because as far as the dot is concerned, it turns the whole string into one big line—<span class="socode">.*</span> will match from the first character to the last, no matter how many line breaks stand in between. 
+<br /><br />
+
+The mode is also called <i>DOTALL</i> in PCRE, Python and Java (to be more precise, the <a href="https://www.rexegg.com/pcre-documentation.html">PCRE documentation</a> uses <i>PCRE_DOTALL</i>). To me, the name <i>DOTALL</i> is a sensible way to call this mode. The third option <i>dot-matches-line-breaks</i> is descriptive but a bit of a mouthful.
+<br /><br />
+
+For several engines, note that there are two ways of turning it on: as an inline modifier or as an option in the regex method or function.
+<br /><br />
+
+
+<b>JavaScript</b><br />
+JavaScript does not support single-line mode. To match any character in JavaScript, including line breaks, use a construct such as <span class="socode">[\D\d]</span>. This character class matches one character that is either a non-digit <span class="socode">\D</span> or a digit <span class="socode">\d</span>. Therefore it matches any character.
+<br /><br />
+Another JavaScript solution is to use the XRegExp regex library. If you've got infinite time on your hands, you can also try porting PCRE to JavaScript using Emscripten, as Firas seems to have done on regex 101.
+<br /><br />
+
+<b>Inline Modifier <span class="socode">(?s)</span></b><br />
+In .NET, PCRE (C, PHP, R…), Perl, Python and Java (but not Ruby), you can use the inline modifier <span class="socode">(?s)</span>, for instance in <span class="socode">(?s)BEGIN .*? END</span>. See the section on <a href="regex-disambiguation.html#modifiers">inline modifiers</a> for juicy details about three additional features (unavailable in Python): turning it on in mid-string, turning it off with <span class="socode">(?-s)</span>, or applying it only to the content of a non-capture group with <span class="socode">(?s:foo)</span><br /><br />
+
+
+<b>.NET</b><br />
+Apart from the <span class="socode">(?s)</span> inline modifier, .NET languages have the <span class="socode">Singleline</span> option. For instance, in C# you can use:<br /><br />
+<div class="codebox"><pre>
+var blockRegex = new Regex( "BEGIN .*? END",
+                             RegexOptions.IgnoreCase |
+                             RegexOptions.Singleline );
+</pre></div>
+<br /><br />
+
+<b>Perl</b><br />
+Apart from the <span class="socode">(?s)</span> inline modifier, Perl lets you add the <span class="socode">s</span> flag after your pattern's closing delimiter. For instance, you can use: <br /><br />
+<code class="cinter">if ($the_subject =~ m/BEGIN .*? END/s) { … }</code>
+<br /><br />
+
+<b>PCRE (C, PHP, R…)</b><br />
+Apart from the <span class="socode">(?s)</span> inline modifier, PCRE lets you set the <span class="socode">PCRE_DOTALL</span> mode when calling the <span class="socode">pcre_compile()</span> (or similar) function:<br /><br />
+
+<div class="codebox"><pre>
+block_regex = pcre_compile( "BEGIN .*? END", PCRE_DOTALL,
+                             &error, &erroroffset, NULL );    
+</pre></div>
+<br />
+
+In PHP, the <span class="socode">PCRE_DOTALL</span> option is passed via the <span class="socode">s</span> flag, which you can add in your regex string after the closing delimiter. For instance, you can use: <br /><br />
+<code class="cinter">$block_regex = '~BEGIN .*? END~s';</code>
+<br /><br />
+
+
+<b>Python</b><br />
+Apart from the <span class="socode">(?s)</span> inline modifier, Python has the <span class="socode">DOTALL</span> option. For instance, you can use:<br /><br />
+<code>block_regex = re.compile("BEGIN .*? END", re.IGNORECASE | re.DOTALL)</code>
+<br /><br />
+
+<b>Java</b><br />
+Apart from the <span class="socode">(?s)</span> inline modifier, Java has the <span class="socode">DOTALL</span> option. For instance, you can use:<br /><br />
+<div class="codebox"><pre>
+Pattern blockRegex = Pattern.compile( "BEGIN .*? END",
+                                       Pattern.CASE_INSENSITIVE |
+                                       Pattern.DOTALL );  
+</pre></div>
+<br />
+
+<a id="rubym"></a>
+<b>Ruby: <span class="socode">(?m)</span> modifier and <span class="socode">m</span> flag</b><br />
+In Ruby, you can use the inline modifier <span class="socode">(?m)</span>, for instance in <span class="socode">(?m)BEGIN .*? END</span>. This is an odd Ruby quirk as other engines use <span class="socode">(?m)</span> for the "<span class="socode">^</span> and <span class="socode">$</span> match on every line" mode.<br /><br />
+See the section on <a href="regex-disambiguation.html#modifiers">inline modifiers</a> for juicy details about three additional features: turning it on in mid-string, turning it off with <span class="socode">(?-m)</span>, or applying it only to the content of a non-capture group with <span class="socode">(?m:foo)</span><br /><br />
+
+
+
+Ruby also lets you to add the <span class="socode">m</span> flag at the end of your regex string. For instance, you can use:<br /><br />
+<code class="cinter">block_regex = /BEGIN .*? END/m</code>
+<br /><br />
+
+<a id="dotall_origins"></a>
+<span class="em8"><a href="#dotall_origins">(direct link)</a></span><br />
+<b>Origins of <span class="mono b">DOTALL</span></b><br />
+The single-line mode is also often called <i class="mono">DOTALL</i> (which stands for "dot matches all") because of the <span class="socode">PCRE_DOTALL</span> option in PCRE, the <span class="socode">re.DOTALL</span> option in Python and the <span class="socode">Pattern.DOTALL</span> option in Java. <br /><br />
+
+I've heard it claimed several times that "DOTALL is a Python thing" but this seemed to come from people who hadn't heard about the equivalent options in PCRE and Java. Still this made me wonder: where did <span class="mono">DOTALL</span> appear first? Looking at the <a href="https://www.rexegg.com/pcre-documentation.html#changelog">PCRE Change Log</a> and old Python documentation, it seems that it appeared in PCRE with version 0.96 (October 1997), in Python with version 1.5 (February 1998), then in Java 1.4 (February 2002). The gap between the PCRE and Python introductions wasn't conclusive—the word might have been in circulation in earlier beta versions, or even in other tools—so I asked Philip Hazel (the father of PCRE) about it. He replied:<br /><br />
+<blockquote><div>
+I believe I invented it — I certainly had not seen it elsewhere when I 
+was trying to think of a name for the PCRE option that corresponds to 
+Perl's <span class="socode">/s</span> option. ("S" there stands for "single-line" (…) so I wanted a better name.)
+</div></blockquote>
+<br />
+
+So there. Those who like a bit of history might enjoy this tasty nugget.
+
+
+<br /><br />
+<br />
+
+
+
+
+<a id="multiline"></a>
+<span class="em8"><a href="#multiline">(direct link)</a></span><br />
+<h2>Multiline (<span class="socode">^</span> and <span class="socode">$</span> Match on Every Line): <span class="socode">m</span> (except Ruby)</h2>
+
+By default, in all major engines except Ruby, the anchors <span class="socode">^</span> and <span class="socode">$</span> only match (respectively) at the beginning and the end of the string.<br /><br />
+
+In Ruby, they match at the beginning and end of each line, and there is no way to turn that feature off. This is actually a reasonable way of doing things, with which Ruby partially redeems itself for using <span class="socode">m</span> for <a href="#dotall">DOTALL mode</a> when other engines use <span class="socode">s</span>.<br /><br />
+
+In other engines, if you want patterns such as <span class="socode">^Define</span> and <span class="socode">>>>$</span> to match (respectively) at the beginning and the end of each line, we need to turn that feature on.
+<br /><br />
+
+This feature is usually called <i>multi-line</i> (hence the <i>m</i>) because the anchors <span class="socode">^</span> and <span class="socode">$</span> operate on multiple lines.<br /><br />
+
+For several engines, note that there are two ways of turning it on: as an inline modifier <span class="socode">(?m)</span> or as an option in the regex method or function.
+<br /><br />
+
+
+<b>Ruby</b><br />
+In Ruby, the anchors <span class="socode">^</span> and <span class="socode">$</span> always match on all lines. There is no way to turn this option off. This is actually quite a nice way to do things, since, as in most flavors, there are separate anchors for the beginning and end of strings: <span class="socode">\A</span>, <span class="socode">\Z</span> and <span class="socode">\z</span>.
+<br /><br />
+On the other hand, one can regret Ruby's choice to use the <span class="socode">m</span> flag and modifier in a non-standard way (see <a href="#dotall">DOTALL</a>).
+<br /><br />
+
+
+<b>Inline Modifier <span class="socode">(?m)</span></b><br />
+In .NET, PCRE (C, PHP, R…), Perl, Python, Java and Ruby (but not JavaScript), you can use the inline modifier <span class="socode">(?m)</span>, for instance in <span class="socode">(?m)^cat</span>. See the section on <a href="regex-disambiguation.html#modifiers">inline modifiers</a> for juicy details  about three additional features (unavailable in Python): turning it on in mid-string, turning it off with <span class="socode">(?-m)</span>, or applying it only to the content of a non-capture group with <span class="socode">(?m:foo)</span><br /><br />
+
+
+
+<b>.NET</b><br />
+Apart from the <span class="socode">(?m)</span> inline modifier, .NET languages have the <span class="socode">Multiline</span> option. For instance, in C# you can use:<br /><br />
+<div class="codebox"><pre>
+var catRegex = new Regex("^cat", RegexOptions.IgnoreCase |
+                                 RegexOptions.Multiline);  
+</pre></div>
+<br /><br />
+
+
+<b>Perl</b><br />
+Apart from the <span class="socode">(?m)</span> inline modifier, Perl lets you add the <span class="socode">m</span> flag after your pattern's closing delimiter. For instance, you can use: <br /><br />
+<code class="cinter">if ($the_subject =~ m/^cat/m) { … }</code>
+<br />
+
+<b>PCRE (C, PHP, R…)</b><br />
+Apart from the <span class="socode">(?m)</span> inline modifier, PCRE lets you set the <span class="socode">PCRE_MULTILINE</span> mode when calling the <span class="socode">pcre_compile()</span> (or similar) function:<br /><br />
+
+<div class="codebox"><pre>
+cat_regex = pcre_compile( "^cat",
+                           PCRE_CASELESS | PCRE_MULTILINE,
+                           &error, &erroroffset, NULL );    
+</pre></div>
+<br />
+
+In PHP, the <span class="socode">PCRE_MULTILINE</span> option is passed via the <span class="socode">m</span> flag, which you can add in your regex string after the closing delimiter. For instance, you can use: <br /><br />
+<code class="cinter">$cat_regex = '~^cat~m';</code>
+<br />
+
+
+<b>Python</b><br />
+Apart from the <span class="socode">(?m)</span> inline modifier, Python has the <span class="socode">MULTILINE</span> option. For instance, you can use:<br /><br />
+<code class="cinter">cat_regex = re.compile("^cat", re.IGNORECASE | re.MULTILINE)</code>
+<br /><br />
+
+
+
+<b>Java</b><br />
+Apart from the <span class="socode">(?m)</span> inline modifier, Java has the <span class="socode">MULTILINE</span> option. For instance, you can use:<br /><br />
+<div class="codebox"><pre>
+Pattern catRegex = Pattern.compile( "^cat",
+                                    Pattern.CASE_INSENSITIVE |
+                                    Pattern.MULTILINE );  
+</pre></div>
+<br />
+
+<b>JavaScript</b><br />
+In JavaScript, your only option is to add the <span class="socode">m</span> flag after your pattern's closing delimiter. For instance, you can use: <br /><br />
+<code class="cinter">var catRegex = /^cat/m;</code>
+<br />
+<br /><br />
+
+
+<a id="freespacing"></a>
+<span class="em8"><a href="#freespacing">(direct link)</a></span><br />
+<h2>Free-Spacing: <span class="socode">x</span> (except JavaScript)</h2>
+
+By default, any space in a regex string specifies a character to be matched. In languages where you can write regex strings on multiple lines, the line breaks also specify literal characters to be matched. Because you cannot insert spaces to separate groups that carry different meanings (as you do between phrases and pragraphs when you write in English), a regex can become hard to read, as for instance the <a href="regex-humor.html#meaning-of-life">Meaning of Life regex from the regex humor page</a>:<br />
+<code class="cinter">^(?=(?!(.)\1)([^\DO:105-93+30])(?-1)(?&lt;!\d(?&lt;=(?![5-90-3])\d))).[^\WHY?]$</code>
+<br />
+
+Luckily, many engines support a <i>free-spacing</i> mode that allows you to aerate your regex. For instance, you can add spaces between the tokens. In PHP, you could write this—note the <span class="socode">x</span> flag after the final delimiter <span class="socode">~</span>:<br /><br />
+<code class="cinter">$word_with_digit_and_cap_regex = '~ ^ (?=\D*\d) \w*[A-Z]\w* $ ~x';</code>
+<br />
+But why stay on one line? You can spread your regex over as many lines as you like—indenting and adding comments—which are introduced by a <span class="socode">#</span>. For instance, in C# you can do something like this:<br /><br />
+
+<a id="x1"></a>
+<div class="codebox"><pre>
+var wordWithDigitAndCapRegex = new Regex(
+@"(?x)      # Free-spacing mode
+
+  ^         # Assert that position = beginning of string
+  
+  #########   Lookahead   ##########
+  (?=       # Start lookahead
+     \D*       # Match any non-digits
+     \d        # Match one digit
+  )         # End lookahead
+
+  ######## Matching Section ########
+  \w*       # Match any word chars
+  [A-Z]     # Match one upper-case letter
+  \w*       # Match any word chars
+  
+  $         # Assert that position = end of string
+");
+</pre></div>
+<br />
+
+This mode is called <i>free-spacing mode</i>. You may also see it called <i>whitespace mode</i>, <i>comment mode</i> or <i>verbose mode</i>.
+<br /><br />
+
+It may be overkill in a simple regex like the one above (although anyone who has to maintain your code will thank you for it). But if you're building a serious regex pattern like the one in the <a href="regex-trick-numbers-in-english.html#english-number-regex">trick to match numbers in plain English</a>… Unless you're a masochist, you have no choice.
+<br /><br />
+
+
+Note that inside a character class, the space character and the <i class="mono">#</i> (which otherwise introduces comments) are still honored—except in Java, where they both need to be escaped if you mean to match these characters.
+<br /><br />
+
+
+For several engines, there are two ways of turning the free-spacing mode on: as an inline modifier or as an option in the regex method or function.
+<br /><br />
+
+Free-spacing mode is wonderful, but there are a couple of minor hazards you should be aware of, as they may leave you scratching your head wondering why a pattern is not working as you expect. <br /><br />
+
+
+<b>Trip Hazard #1: The Meaning of Space</b><br />
+First, you can no longer use <span class="socode">Number: \d+</span> to match a string such as <i>Number:&ensp;24</i>. The reason is that the space in <span class="socode">: \d</span> no longer matches a space. We're in free-spacing mode, remember? That's the whole point.<br /><br />
+
+To match a space character, you need to specify it. The two main ways to do so are to place it inside a character class, or to escape it with a backslash. Either of those would work: <span class="socode">Number:[ ]\d+</span> or <span class="socode">Number:\ \d+</span>
+<br /><br />
+
+Of course <span class="socode">Number:\s\d+</span> would also match, but remember that <span class="socode">\s</span> matches much more than a space character. For instance, it could match a tab or a line break. This may not be what you want.
+<br /><br />
+
+<b>Trip Hazard #2: Late Start</b><br />
+Second, you may get overconfident in the power of free-spacing and try something like this in order to let the regex stand on its own:<br /><br />
+<div class="codebox"><pre>
+var wordWithDigitAndCapRegex = new Regex(@"
+       (?x)      # Free-spacing mode
+       ^         # Beginning of string
+       etc       # Match the literal chars e,t,c
+");
+</pre></div>
+<br />
+
+The problem with this is that although it may look as though the free-spacing modifier <span class="socode">(?x)</span> is the first thing in your regex, it is not.
+<br /><br />
+After the opening double-quote <span class="socode">"</span>, we have a line break and a number of spaces. The engine tries to match those, because at that stage we are not yet in free-spacing mode. That mode is turned on only when we encounter <span class="socode">(?x)</span>. This regex will never match the string <i>etc and more</i>, because by the time we encounter the beginning of string anchor <span class="socode">^</span>, we're supposed to already have matched a line break and space characters!
+<br /><br />
+This is why if you look at the <a href="#x1">first example</a>, you will see that the free-spacing modifier <span class="socode">(?x)</span> is the very first thing after the opening quote character. 
+<br /><br />
+
+<b>Whitespace is not just trimmed out of the pattern</b><br />
+Even though whitespace is ignored, the position of a whitespace still separates the previous token from the next. For instance, <br /><br />
+
+✽ <span class="socode">(A)\1 2</span> is not the same as <span class="socode">(A)\12</span>. The former matches <i class="mono">AA2</i>, the latter matches <i class="mono">A\n</i> in .NET, PCRE, Perl and Ruby (12 is the octal code for the linefeed character)<br />
+✽ <span class="socode">\p{Nd}</span> is valid, but <span class="socode">\p{N d}</span> is not—except in Perl and Ruby<br />
+<br />
+
+<b>JavaScript</b><br />
+JavaScript does not support free-spacing mode. In JavaScript, to match any character including line breaks, use a construct such as <span class="socode">[\D\d]</span>. This character class matches one character that is either a non-digit <span class="socode">\D</span> or a digit <span class="socode">\d</span>. Therefore it matches any character.
+<br /><br />
+
+Another JavaScript solution is to use the XRegExp regex library. If you've got infinite time on your hands, you can also try porting PCRE to JavaScript using Emscripten, as Firas seems to have done on regex 101.
+<br /><br />
+
+<b>Inline Modifier <span class="socode">(?s)</span></b><br />
+In .NET, PCRE (C, PHP, R…), Perl, Python, Java and Ruby (but not JavaScript), you can use the inline modifier <span class="socode">(?x)</span>, for instance, this is an aerated regex to match repeated words:<br />
+<code class="cinter">(?x)&emsp;&emsp;(\w+)&emsp;&emsp;[ \r\n]+&emsp;&emsp;\1\b</code>
+Also see the section on <a href="regex-disambiguation.html#modifiers">inline modifiers</a>.<br /><br />
+
+
+<b>.NET</b><br />
+Apart from the <span class="socode">(?x)</span> inline modifier, .NET languages have the <span class="socode">IgnorePatternWhitespace</span> option. For instance, in C# you can use:<br /><br />
+<div class="codebox"><pre>
+var repeatedWordRegex = new Regex(@"
+                            (\w+) [ \r\n]+ \1\b",
+                            RegexOptions.IgnorePatternWhitespace
+                        );
+</pre></div>
+<br /><br />
+
+<b>Perl</b><br />
+Apart from the <span class="socode">(?x)</span> inline modifier, Perl lets you add the <span class="socode">x</span> flag after your pattern's closing delimiter. For instance, you can use: <br /><br />
+<code class="cinter">if ($the_subject =~ m/(\w+) [ \r\n]+ \1\b/x) { … }</code>
+<br /><br />
+
+<b>PCRE (C, PHP, R…)</b><br />
+Apart from the <span class="socode">(?x)</span> inline modifier, PCRE lets you set the <span class="socode">PCRE_EXTENDED</span> mode when calling the <span class="socode">pcre_compile()</span> (or similar) function:<br /><br />
+
+<div class="codebox"><pre>
+repeated_word_regex = pcre_compile( "(\w+) [ \r\n]+ \1\b",
+                             PCRE_EXTENDED,
+                             &error, &erroroffset, NULL );    
+</pre></div>
+<br />
+
+In PHP, the <span class="socode">PCRE_EXTENDED</span> option is passed via the <span class="socode">x</span> flag, which you can add in your regex string after the closing delimiter. For instance, you can use: <br /><br />
+<code class="cinter">$repeated_word_regex = '~(\w+) [ \r\n]+ \1\b~x';</code>
+<br /><br />
+
+
+<b>Python</b><br />
+Apart from the <span class="socode">(?x)</span> inline modifier, Python has the <span class="socode">VERBOSE</span> option. For instance, you can use:<br /><br />
+<code>repeated_word_regex = re.compile(r"(\w+) [ \r\n]+ \1\b", re.VERBOSE)</code>
+<br /><br />
+
+<b>Java</b><br />
+Unlike in other engines, inside a Java character class hashes introduce comments and spaces are ignored, so you need to escape them if you want to use these characters in a class, e.g. <span class="socode">[\#\ ]+</span>
+<br /><br />
+Apart from the <span class="socode">(?x)</span> inline modifier, Java has the <span class="socode">COMMENTS</span> option. For instance, you can use:<br /><br />
+<div class="codebox"><pre>
+Pattern repeatedWordRegex = Pattern.compile(
+                                     "(\\w+) [ \\r\\n]+ \\1\\b",
+                                     Pattern.COMMENTS );
+</pre></div>
+<br />
+
+<b>Ruby</b><br />
+Apart from the <span class="socode">(?x)</span> inline modifier, Ruby lets you add the <span class="socode">x</span> flag at the end of your regex string. For instance, you can use: <br /><br />
+<code class="cinter">repeated_word_regex = /(\w+) [ \r\n]+ \1\b/x</code>
+<br /><br />
+<br />
+
+
+<a id="other"></a>
+<span class="em8"><a href="#other">(direct link)</a></span><br />
+<h2>Other Modifiers</h2>
+Some engines support modifiers and flags in addition to <span class="socode">i</span>, <span class="socode">s</span>, <span class="socode">m</span> and <span class="socode">x</span>. I plan to cover those in the pages dedicated to those flavors.<br /><br />
+For instance, <br /><br />
+<a id="n"></a>
+✽ .NET has the <span class="socode">(?n)</span> modifier (also accessible via the <span class="socode">ExplicitCapture</span> option). This turns all <i>(parentheses)</i> into non-capture groups. To capture, you must use <a href="regex-capture.html#namedgroups">named groups</a>.
+<br /><br />
+<a id="d"></a>
+✽ Java has the <span class="socode">(?d)</span> modifier (also accessible via the <span class="socode">UNIX_LINES</span> option). When this is on, the line feed character <span class="socode">\n</span> is the only one that affects the dot <span class="socode">.</span> (which doesn't match line breaks unless <a href="#dotall">DOTALL</a> is on) and the anchors <span class="socode">^</span> and <span class="socode">$</span> (which match line beginnings and endings in <a href="#multiline">multiline</a> mode.)<br />
+<br />
+
+✽ Perl has several other flags. See the <a href="http://perldoc.perl.org/perlre.html#Modifiers" target="_blank">documentation's modifier section</a>.<br />
+<br />
+
+✽ PCRE has the <span class="socode">(?J)</span> modifier (also available in code via the <span class="socode">PCRE_DUPNAMES</span> option). When set, different capture groups are allowed to use the same name—though they will be assigned different numbers.<br /><br />
+
+<a id="pcreU"></a>
+<span class="em8"><a href="#pcreU">(direct link)</a></span><br />
+✽ PCRE has the <span class="socode">(?U)</span> modifier (also available in code via the <span class="socode">PCRE_UNGREEDY</span> option). When set, quantifiers are ungreedy by default. Appending a <span class="socode">?</span> makes them greedy.<br /><br />
+
+<a id="pcreX"></a>
+<span class="em8"><a href="#pcreX">(direct link)</a></span><br />
+✽ PCRE has the <span class="socode">(?X)</span> modifier (also available in code via the <span class="socode">PCRE_EXTRA</span> option). Historically, this mode has been used to enable new features in development. At the moment, it triggers errors if tokens such as <span class="socode">\B</span> are used in a character class (where normally it matches the capital letter <i class="mono">B</i>, unlike outside a character class, where it is a <a href="regex-boundaries.html#notb">not-a-word-boundary</a> assertion).<br /><br />
+
+✽ PCRE has a number of <b>special</b> modifiers that can be set at the start of the pattern (these are shown <a href="#pcre">below</a>). In addition, many options can be sent to the <span class="socode">pcre_compile()</span> family of functions, if you have access to them. For details on those, get <i>pcre_compile.html</i> from the doc folder by <a href="http://www.pcre.org/" target="_blank">downloading PCRE</a>.<br />
+
+<br /><br />
+
+<a id="pcre"></a>
+<span class="em8"><a href="#pcre">(direct link)</a></span><br />
+<h2>PCRE's Special Start-of-Pattern Modifiers</h2>
+PCRE has a number of "special modifiers" you can set at the start of a pattern. Instead of the standard <span class="socode">(?z)</span> syntax for inline modifiers, the special modifier syntax looks like <span class="socode">(*MYMODIFIER)</span>. These modifiers are particularly useful in contexts where PCRE is integrated within a tool or a language—as they replace a number of options you would send to <span class="socode">pcre_compile()</span>.
+<br /><br />
+
+
+<b>UTF Strings</b><br />
+Assuming PCRE is compiled with the relevant options, you can instruct the engine to treat the subject string as various kinds of UTF strings.<br /><br />
+
+✽ <span class="socode">(*UTF)</span> is a generic way to treat the subject as a UTF string—detecting whether it should be treated as UTF-8, UTF-16 or UTF-32.<br />
+✽ <span class="socode">(*UTF8)</span>, <span class="socode">(*UTF16)</span> and <span class="socode">(*UTF32)</span> treat the string as one of three specific UTF encodings.
+<br /><br />
+
+<b>Unicode Properties for <span class="socode">\d</span> and <span class="socode">\w</span></b><br />
+By default, <span class="socode">\d</span> only matches ASCII digits, whereas <span class="socode">\w</span> only matches ASCII digits, letters and underscores.
+<br /><br />
+
+The <span class="socode">(*UCP)</span> modifier (which stands for <i>Unicode Character Properties</i>) allows these tokens to match Unicode digits and word characters.<br /><br />
+
+For instance, <span class="socode">(*UCP)\d+ :: \w+</span> matches <i class="mono">1۳۲١८৮੪ :: Aれま래도ᚠᚱᚩ</i><br />
+(See <a href="http://regex101.com/r/jN2fU8/2">demo</a>).
+<br /><br />
+
+In combination with <span class="socode">(*UCP)</span>, you may also need to use one of the <span class="socode">(*UTF)</span> modifiers. To see how this works, consider the output of this program with a standard Xampp PHP:<br /><br />
+
+<div class="codebox"><pre>
+$string = '1۳۲١८৮੪ :: Aれま래도ᚠᚱᚩ';
+$utfregex[0] = "~\d+ :: \w+~";
+$utfregex[1] = "~(*UCP)\d+ :: \w+~";
+$utfregex[2] = "~(*UTF)(*UCP)\d+ :: \w+~";
+$utfregex[3] = "~(*UTF)\d+ :: \w+~";
+$utfregex[4] = "~\d+ :: \w+~u";
+
+foreach (range(0, 4) as $i) {
+          echo "$i: ".preg_match($utfregex[$i],$string)."&lt;br />";
+          }
+
+//   <b>Output:</b>
+//   0: 0
+//   1: 0
+//   2: 1 => (*UTF)(*UCP)
+//   3: 0
+//   4: 1 => The u flag produces the same result as (*UTF)(*UCP)
+</pre></div>
+<br />
+
+
+
+<b>Line Break Modifiers</b><br />
+By default, when PCRE is compiled, you tell it what to consider to be a line break when encountering a <span class="socode">.</span> (as the dot it doesn't match line breaks unless in <a href="#dotall">dotall mode</a>), as well the <span class="socode">^</span> and <span class="socode">$</span> anchors' behavior in <a href="#">multiline mode</a>. You can override this default with the following modifiers:<br /><br />
+
+✽ <span class="socode">(*CR)</span> Only a carriage return is considered to be a line break<br />
+✽ <span class="socode">(*LF)</span> Only a line feed is considered to be a line break (as on Unix)<br />
+✽ <span class="socode">(*CRLF)</span> Only a carriage return followed by a line feed is considered to be a line break (as on Windows)<br />
+✽ <span class="socode">(*ANYCRLF)</span> Any of the above three is considered to be a line break<br />
+✽ <span class="socode">(*ANY)</span> Any Unicode newline sequence is considered to be a line break<br />
+<br />    
+
+For instance, <span class="socode">(*CR)\w+.\w+</span> matches <i>Line1\nLine2</i> because the dot is able to match the <i>\n</i>, which is not considered to be a line break. See <a href="http://regex101.com/r/jN2fU8/1" target="_blank">demo</a>.
+<br /><br />
+
+<b>Controling <span class="socode">\R</span></b><br />
+By default, the <span class="socode">\R</span> metacharacter matches any Unicode newline sequence. When UTF-8 mode is off, these newline sequences are the <span class="mono">\r\n</span> pair, as well as the carriage return, line feed, vertical tab, form feed or next line characters. In UTF-8 mode, the token also matches the line separator and the paragraph separator character.
+<br /><br />
+
+Two start-of-pattern modifiers let you change the behavior of <span class="socode">\R</span>:<br /><br />
+
+✽ With <span class="socode">(*BSR_ANYCRLF)</span>, <span class="socode">\R</span> only matches the <span class="mono">\r\n</span> sequence, <span class="mono">\r</span> or <span class="mono">\n</span>. This can also be set when PCRE is compiled or requested via the <span class="socode">PCRE_BSR_ANYCRLF</span> option<br />
+✽ With <span class="socode">(*BSR_UNICODE)</span>, <span class="socode">\R</span> matches any Unicode newline sequence (overriding the <span class="socode">PCRE_BSR_ANYCRLF</span> option if set). This can also be set when PCRE is compiled or requested via the <span class="socode">PCRE_BSR_UNICODE</span> option<br /><br />
+
+<b>Controling Runaway Patterns</b><br />
+To limit the number of times PCRE calls the <span class="socode">match()</span> function, use the <span class="socode">(*LIMIT_MATCH=x)</span> modifier, setting x to the desired number.<br /><br />
+
+To limit recursion, use <span class="socode">(*LIMIT_RECURSION=d)</span>, setting d to the deepest recursion level allowed.
+<br /><br />
+
+<b>Turning Off Optimizations</b><br />
+<a id="autopossess"></a>
+<span class="em8"><a href="#autopossess">(direct link)</a></span><br />
+By default, PCRE studies the pattern and automatically makes a quantified token atomic when the following token is incompatible—for instance turning <span class="socode">A+X</span> into <span class="socode">A++X</span>. The <span class="socode">(*NO_AUTO_POSSESS)</span> modifier disables this optimization. Use this when you want to use <a href="pcregrep-pcretest.html">pcretest</a> to benchmark two patterns and make yourself feel good about all the cycles auto-possessification is saving you.<br /><br />
+
+By default, PCRE performs several optimizations to find out faster whether a match will fail. The <span class="socode"> (*NO_START_OPT)</span> modifier disables these optimizations.
+<br /><br />
+
+<a id="notempty"></a>
+<b>Disabling Empty Matches</b><br />
+In PCRE2, <span class="socode">(*NOTEMPTY)</span> tells the engine not to return empty matches. Likewise, <span class="socode">(*NOTEMPTY_ATSTART)</span> tells the engine not to return empty matches found at the start of the subject.
+<br /><br />
+
+<a id="nodotstaranchor"></a>
+<b>Disabling Automatic Anchoring Optimization</b><br />
+In PCRE2, <span class="socode">PCRE2_NO_DOTSTAR_ANCHOR</span> tells the engine not to automatically anchor patterns that start with <span class="socode">.*</span><br /><br />
+You can read more about this flag on the <a href="https://www.rexegg.com/pcre-doc/_latestpcre2/pcre2api.html">PCRE2 API page</a> (search for <i>PCRE2_NO_DOTSTAR_ANCHOR</i>).
+
+<br /><br />
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div><a href="regex-uses.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;The 1001 ways to use Regex</b>
+</a>
+<br /><br /><br />
+
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Be the First to Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-modifiers.html" method="post" >
+<input type="hidden" name="token" value="b4c7c11f4b7d95b50ccdb4bed1483ea1" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a class="thispage" href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-modifiers.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+</html>

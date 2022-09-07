@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-php.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="PHP Regex Tutorial. Discusses Preg functions, PCRE, code examples." />
+<title>PHP Regex Tutorial</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li class="current"><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Using Regular Expressions with PHP</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+
+<a id="phpregex"></a>
+
+With the <i>preg</i> family of functions, PHP has a great interface to regex! Let's explore how it works and what it has to offer.
+<br /><br />
+
+
+<a id="delimiters"></a>
+<h2>Pattern Delimiters</h2>
+The first and most important thing to know about the <i>preg</i> functions is that they expect you to frame the regex patterns you feed them with one delimiter character on each side. For instance, if you choose "~" as a delimiter, for the regex pattern <code>\b\w+\b</code>, this is the string you would feed to a <i>preg</i> function: <code>'~\b\w+\b~'</code><br />
+<br />
+
+For the delimiter, you can choose any character apart from spaces and backslashes. But choose wisely, because if your delimiter appears in the pattern, it needs to be escaped. The forward slash is a popular delimiter, and strangely so since it needs to be escaped in all sorts of strings having to do with file paths. For instance, to match <i>http://</i>, do you really want your regex string to look like <code>'/http:\/\//'</code>?
+<br /><br />
+Doesn't <code>'~http://~'</code> look better?
+<br /><br />
+
+Rare characters such as "~", "%", "#" or "@" are more sensible and fairly popular choices.<br /><br />
+
+I don't like the "#" because it clashes with the # you use in comment mode. Esthetically, my favorite is the tilde ("~") because it meets three criteria. First, it is discrete, which allows the actual regex to stand out. Many delimiters look like they belong to the expression, and that is confusing. Second, tildes rarely occurs in my patterns, so I almost never have to escape them. Third, it is my favorite, which allows me to introduce some circular logic in this paragraph.
+<br /><br /><br />
+
+<h2>Pattern Modifiers: either Inline or as Flags</h2>
+The second thing to know about PHP regex is that you can change their meaning by using modifiers, either as flags or inline. For instance, to look for "blob\d+" in case-insensitive fashion, you can add the "i" modifier in these two ways:<br /><br />
+
+&bull; As a flag at the end of the pattern: <code>~blob\d+~i</code><br />
+&bull; Inline at the start of the pattern: <code>~(?i)blob\d+~</code><br /><br />
+
+I tend to prefer inline modifier syntax, first because it jumps out at you when you start reading the regex, second because it is more portable across other regex flavors, and third because you can turn it off further down the string (for instance, <code>(?-i)</code> turns off the case-insensitive modifier).
+<br /><br />
+
+The <a href="regex-modifiers.html" >modifiers page</a> explains all the flags and shows how to set them. It also presents <a href="regex-modifiers.html#pcre">PCRE's Special Start-of-Pattern Modifiers</a>, which include little-known modifiers such as <span class="socode">(*LIMIT_MATCH=x)</span>.
+<br /><br />
+
+Whatever you do, never use the cursed U flag or the (?U) modifier because they will draw a gang of raptorexes to your cubicle&mdash;not a good look! The u flag and (?u) modifier, on the other hand, are fine&mdash;they make the engine treat the input as a utf-8 string.
+<br /><br />
+<br />
+
+<h2>The <i>Preg</i> functions</h2>
+
+There are five major functions in the <i>preg</i> family:<br />
+&bull; <a href="#match">preg_match</a><br />
+&bull; <a href="#matchall">preg_match_all</a><br />
+&bull; <a href="#replace">preg_replace</a><br />
+&bull; <a href="#callback">preg_replace_callback</a><br />
+&bull; <a href="#split">preg_split</a><br />
+<br />
+<br />
+<a id="match"></a>
+<h2>Matching Once with <i>Preg_Match()</i></h2>
+
+This function is the most commonly seen in the world of php regex. It returns a boolean to indicate whether it was able to match. If you include a variable's name as a third parameter, such as $match in the example below, when there is a match, the variable will be filled with an array: element 0 for the entire match, element 1 for Group 1, element 2 for Group 2, and so on.
+<br /><br />
+
+But a code box is worth a thousand words, so consider the following example.
+<br /><br />
+<div class="codebox"><pre>
+$subject='Give me 10 eggs';
+$pattern='~\b(\d+)\s*(\w+)$~';
+
+$success = preg_match($pattern, $subject, $match);
+if ($success) {
+	echo &quot;Match: &quot;.$match[0].&quot;&lt;br /&gt;&quot;; 
+	echo &quot;Group 1: &quot;.$match[1].&quot;&lt;br /&gt;&quot;; 
+	echo &quot;Group 2: &quot;.$match[2].&quot;&lt;br /&gt;&quot;; 
+	}
+
+<b>Output:</b>
+Match: 10 eggs
+Group 1: 10
+Group 2: eggs
+</pre></div>
+<br />
+
+Notice how $match[0] contains the overall match? Considering that $match[1] contains Group 1, this is equivalent to saying that the whole match is "Group 0", which is in tune with an idea presented in the section about <a href="regex-style.html#capturevsmatch" >capturing vs. matching</a>: "The Match is Just Another Capture Group".
+<br /><br />
+<br />
+
+<a id="matchall"></a>
+<h2>Finding All Matches with <i>Preg_Match_All()</i></h2>
+This terrific function gives you access to all of the pattern's matches. The matches (and the captured groups if any) are returned to an array. Depending on your needs, you can ask the function to organize the array of results in two distinct ways.
+<br /><br />
+
+Consider this string and a regex pattern to match its lines:<br /><br />
+
+<div class="codebox"><pre>
+$airports= 'San Francisco (SFO) USA
+Sydney (SYD) Australia
+Auckland (AKL) New Zealand';
+
+$regex = '%(?m)^\s*+([^(]+?)\s\(([^)]+)\)\s+(.*)$%';
+</pre></div><br />
+
+You want to isolate the airport's city, the airport code and the country. Here are the two ways to organize the array.<br /><br />
+
+<b>First Presentation: in the Order of the Pattern's Groups</b>
+<br /><br />
+
+In both presentations, <i>$hits</i> will contain the number of matches found (including 0 if none are found).
+<br /><br />
+<code>$hits = preg_match_all($regex,$airports,$matches,PREG_PATTERN_ORDER);</code>
+<br /><br />
+
+The output is below. Element 0 contains an array with the whole matches; element 1 contains an array with the Group 1 matches; element 2 contains an array with the Group 2 matches; and so on. This order (whole match, Group 1, Group 2, Group 3) can be said to be "the order of the regex pattern".
+<br /><br />
+The flag for this presentation is PREG_PATTERN_ORDER (think of it as "the order of the regex pattern"). This is actually the function's default behavior, so you can freely drop the PREG_PATTERN_ORDER flag when you call the function.
+<br /><br />
+
+<div class="codebox"><pre>
+Array
+(
+    [0] => Array    // The Whole Matches
+        (
+            [0] => San Francisco (SFO) USA
+            [1] => Sydney (SYD) Australia
+            [2] => Auckland (AKL) New Zealand
+        )
+    [1] => Array     // The Group 1 Matches
+        (
+            [0] => San Francisco
+            [1] => Sydney
+            [2] => Auckland
+        )
+    [2] => Array     // The Group 2 Matches
+        (
+            [0] => SFO
+            [1] => SYD
+            [2] => AKL
+        )
+    [3] => Array     // The Group 3 Matches
+        (
+            [0] => USA
+            [1] => Australia
+            [2] => New Zealand
+        )
+)	
+</pre></div><br />
+
+<b>Second Presentation: ordered by SET (one set for each match)</b>
+<br /><br />
+
+Again, <i>$hits</i> contains the number of matches found (including 0 if none are found).
+<br /><br />
+<code>$hits = preg_match_all($regex,$airports,$matches,PREG_SET_ORDER);</code>
+<br /><br />
+
+The output is below. Note that the outer array is organized "one SET for each match at a time". Element 0 contains an array with the first match (that array's element 0 is the whole match, element 1 is Group 1, element 2 is Group 2&hellip;) Element 1 contains an array with the second match (that array's element 0 is the whole match, element 1 is Group 1, element 2 is Group 2&hellip;)
+<br /><br />
+
+Sometimes, this structure is exactly what you want. The flag for this presentation is PREG_SET_ORDER (think of it as "ordered by set"). 
+<br /><br />
+
+<div class="codebox"><pre>
+Array
+(
+    [0] => Array     // The First Match
+        (
+            [0] => San Francisco (SFO) USA
+            [1] => San Francisco
+            [2] => SFO
+            [3] => USA
+        )
+    [1] => Array     // The Second Match
+        (
+            [0] => Sydney (SYD) Australia
+            [1] => Sydney
+            [2] => SYD
+            [3] => Australia
+        )
+    [2] => Array     // The Third Match
+        (
+            [0] => Auckland (AKL) New Zealand
+            [1] => Auckland
+            [2] => AKL
+            [3] => New Zealand
+        )
+)	
+</pre></div><br />
+
+<p class="messages">To remember the flags, try to understand them as "in the order of the regex pattern" (PREG_PATTERN_ORDER), or "ordered by set" (PREG_SET_ORDER)</p>
+<br /><br />
+<br />
+
+
+<a id="replace"></a>
+<h2>Replacing with <i>Preg_Replace()</i></h2>
+
+For straight replacements (for instance, replacing '10' with '20'), you don't really need regex. In such cases, str_replace can be faster than the <i>preg_replace</i> regex function: <code>$string=str_replace('10','20','$string');</code>
+<br /><br />
+The <i>preg_replace</i> function comes in when you need a regex pattern to match the string to be replaced, for instance if you only wanted to replace '10' when it stands alone but not when it is part "101" or "File10".<br /><br />
+
+<p class="messages">By default, the function replaces <i>all</i> of the matches in the original string, so make sure this is what you want. If you want to replace only 1 or 5 instances, specify this limit as a fourth argument.</p><br />
+Here is an example.
+<br /><br />
+
+<div class="codebox"><pre>
+$subject='Give me 12 eggs then 12 more.';
+$pattern='~\d+~';
+$newstring = preg_replace($pattern, "6", $subject);
+echo $newstring;
+
+<b>The Output:</b>
+Give me 6 eggs then 6 more.
+</pre></div>
+<br />
+
+This code replaces the two instances of "12" with "6". If you wanted to only replace the first instance, you would set the limit (1) as a fourth argument:
+<br /><br />
+
+<code>$newstring = preg_replace($pattern, "6", $subject,1);</code>
+<br /><br />
+
+This would output "Give me 6 eggs then 12 more."
+<br /><br />
+
+If you want to know how many replacements are made, add a variable as a fifth parameter. This forces you to set the fourth parameter (the limit number of replacements). To set no limit, use -1.
+
+For instance, with<br /><br /> 
+
+<code>$newstring = preg_replace($pattern, "6", $subject,-1, $count);</code>
+<br /><br />
+The value of <i>$count</i> would be 2.
+<br /><br />
+<b>Using Captured Groups in the Replacement</b><br />
+In the replacement string, you can refer to capture groups. Group 1 is \1 or $1, Group 2 is \2 and $2, and so on. This means that the replacement string "\2###\1" will replace the matched text with the content of Group 2 followed by three hashes and the content of Group 1. 
+<br /><br />
+
+<p class="messages">This technique is often used when you want to rearrange the sequence of a string. You might match a whole big string full of unwanted fluff, capture the portions you are interested in, and rearrange them how you like.</p>
+<br />
+Note that as it makes one replacement after another, the regex engine keeps working on the original string&mdash;rather than switching to the latest version of the string.
+<br /><br />
+For instance, using the string <i>abcde</i>, let's use the regex <code>(?&lt;=a)\w</code>, which matches one word character preceded by an a:
+<br /><br />
+<code>$string = preg_replace('~(?&lt;=a)\w~','a','abcde');</code> <br /><br />
+
+This produces <i>aacde</i>: only the "b" was replaced, because in the original string it is the only character that is preceded by an "a". If, on the other hand, the regex engine switched to the latest version of the string after making each substitution, when it came to "c", that character would also be preceded by an "a", and we would end with <i>aaaaa</i>.
+<br /><br />
+
+<b>Replacing an Invisible Delimiter</b><br />
+This is a trick that regex lovers are sure to enjoy. It is closely related to the technique of <a href="#splitinvisible">Splitting with an Invisible Delimiter</a>, so I explain it in that section.
+<br /><br /><br />
+
+
+
+<a id="callback"></a>
+<h2>Sophisticated Replacements with <i>Preg_Replace_Callback()</i></h2>
+
+It's neat that <i>preg_replace</i> allows you to manipulate the replacement string by referring to captured groups. But let's face it, often you want to operate some far more complex substitutions on the text you match. This is when <i>preg_replace_callback</i> comes to the rescue.<br /><br />
+
+Instead of specifying a litteral replacement (or a replacement composed of litterals and capture groups), <i>preg_replace_callback</i> lets you specify a replacement function. That function does its magic on the matched pattern and returns the replacement, which <i>preg_replace_callback</i> then plugs into place in the original string.
+<br /><br />
+
+For instance, suppose you have a string where you need the last letter of each word to be converted to uppercase. First we'll look at the basic syntax, then we'll see an "inline syntax" that is more economical. In both cases, we'll use this regex:<br />
+<br />
+<div class="cinter">
+<code>\b(\w+)(\w)\b</code>
+</div>
+<br />
+This pattern simply matches each word separately (thanks to the \b word boundaries). As it does so, it captures all of a word's letters except its last into Group 1, and it captures the final letter into Group 2. (For this task, we're assuming that each word has at least two letters, so we're okay.)
+<br /><br />
+
+Here's the basic way of doing the replacement.
+<br /><br />
+
+<div class="codebox"><pre>
+$string = ("cool kids capitalize final letters");
+$regex = "~\b(\w+)(\w)\b~";
+$newstring = preg_replace_callback($regex,"LastToUpper",$string);
+function LastToUpper($m) {
+   return $m[1].strtoupper($m[2]);
+   }
+echo $newstring;
+
+<b>The Output:</b> cooL kidS capitalizE finaL letterS
+</pre></div>
+<br />
+
+In the example above, you can see how <i>preg_replace_callback</i> specifies the name of the function that produces the replacement strings: "LastToUpper". The function LastToUpper is then defined. We know that <i>preg_replace_callback</i> sends one parameter to the substitution function, so we specify it and call it&mdash;arbitrarily&mdash;$m.
+<br /><br />
+This $m that <i>preg_replace_callback</i> sends to the substitution function is the current match array, in the same form as the match array of <a href="#match"><i>preg_match</i></a>. This means that $m[0] is the overall match, while $m[1] is Group 1, $m[2] is Group 2, and so on. This makes it easy for LastToUpper to return the word with the last letter capitalized: it is Group 1 (the initial letters) concatenated with the uppercase version of Group 2 (the last letter).
+<br /><br />
+
+Here we did something simple, but you can appreciate how easy it would be to infuse our substitution with more logic. Suppose, for instance, that we want to capitalize the last letter of each word, but that when that letter is an "s", we want to substitute a "Z". Easy done: we just burn that logic into the callback function. <br /><br />
+
+<div class="codebox"><pre>
+function LastToUpper($m) {
+    $last = $m[2]=="s" ? "Z" : strtoupper($m[2]);
+    return $m[1].$last;
+   }
+   
+<b>The Output: </b>cooL kidZ capitalizE finaL letterZ
+</pre></div>
+<br />
+
+<b>Lighter Version: Use an Anonymous Function</b><br />
+Usually, we have no use for the substitution function except for the particular regex we're working on. The second method is the same, except that instead of passing a function name in the second argument, we define the function "inline" in the call to <i>preg_replace_callback</i>. <br /><br />
+
+<div class="codebox"><pre>
+$string = ("cool kids capitalize final letters");
+$regex = "~\b(\w+)(\w)\b~";
+$newstring = preg_replace_callback($regex,
+      function($m) {return $m[1].strtoupper($m[2]);}
+	  ,$string);
+echo $newstring;
+
+<b>Same Output:</b> cooL kidS capitalizE finaL letterS	
+</pre></div>
+<br />
+
+As you can see, our callback function has no name: it's an anonymous function, so we don't pollute the name space.
+<br /><br />
+
+With this, you're equipped to make some powerful substitutions.
+<br /><br />
+<br />
+
+<a id="split"></a>
+<h2>Splitting with <i>Preg_Split()</i></h2>
+You are probably familiar with the <i>explode()</i> function, which takes some text with elements delimited by a string (such as a comma, or three stars: ***) and splits the text along the delimiter, fanning the elements into an array.
+<br /><br />
+ For instance, the following would print an array with "break", "my" and "string".
+<br /><br />
+
+<div class="codebox"><pre>
+$string = ("break***my***string");
+print_r(explode("***",$string));
+</pre>
+</div>
+<br />
+
+
+Well, <i>preg_split</i> is the "adult" version of <i>explode()</i>. It too will split a string, but it will allow you to use variable delimiters, making it easy to extract interesting bits of text with unwanted (but specifiable) gunk in the middle.
+<br /><br />
+
+For instance, let's assume that this time, the delimiter (or unwanted part) is a C-style comment (with optional spaces on the side for good measure), such as "/* This part is useless to us */". For the purpose of this example, we assume that we know that the delimers are single C-style comments, meaning that there are no nested comments (that's a different exercise related to <a href="regex-cookbook.html#captureparen2">matching balanced parentheses</a></a>). 
+<br /><br />
+
+No worries. The following will output "better", "regex", "today".<br /><br />
+
+<div class="codebox"><pre>
+$string = ("better /* I want to improve */ regex/***COOL***/today");
+$regex = "~\s*/\*.*?\*/\s*~";
+print_r(preg_split($regex,$string));
+
+<b>The Output:</b> Array ( [0] => better [1] => regex [2] => today )
+</pre>
+</div>
+<br />
+
+
+Like <i>preg_replace</i>, <i>preg_split</i> has an optional parameter (in third place) that allows you to set a limit on the number of elements you want to fan to the array. There are also some flags that you can read about on the <a href="http://nz2.php.net/manual/en/function.preg-split.php" target="_blank">preg_split manual page</a>.
+
+<br /><br />
+And now, here's a way of looking at things that's sure to interest the algorithm lovers among you:<br /><br />
+
+<p class="messages">Often, you can use <i>preg_split</i> instead of <i>preg_match_all</i>. In a way, both return matches. <b>While <i>preg_match_all</i> specifies what you want, <i>preg_split</i> specifies what you want to remove.</b> (Or, as we'll see <a href="#splitbutkeep">below</a>, what we want to set apart.)</p><br />
+
+<a name=splitbutkeep></a>
+<b>Splitting without Losing</b><br />
+Sometimes you want to split a string without removing anything from it. Or we might only want to remove a certain section. Imagine a long ribbon with consecutive colors: red, blue, red, blue, red&hellip; So far, the splitting we have seen would remove all the reds to produce an array with all the blues. But another use of <i>preg_split</i> is to split the string into an array with the correct "bands of red and blue". For this, we use a flag: <i>PREG_SPLIT_DELIM_CAPTURE</i>.
+<br /><br />
+Here's how it works. In the example below, our delimiter is a series of digits, for instance "123". Instead of throwing them away, we want to keep them.
+<br /><br />
+
+
+<div class="codebox"><pre>
+$str = "We123Like456Delimiters";
+$regex = "~(\d+)~";
+print_r(preg_split($regex,$str,-1,PREG_SPLIT_DELIM_CAPTURE));
+
+<b>The Output:</b>
+Array: [0]=>We [1]=>123 [2]=>Like [3]=>456 [4]=>Delimiters
+</pre></div>
+<br />
+In our <i>preg_split</i> call, the third parameter -1 just states we don't want to limit the number of matches. What <i>PREG_SPLIT_DELIM_CAPTURE</i> actually does is to <b>insert any captured groups</b> into the array. This is why the <code>(\d+)</code> was in parentheses: we include the whole delimiter into the array.
+<br /><br />
+
+But we don't have to keep the entire delimiter. Imagine for instance that your delimiter is of the form @@ABC123, where ABC are three capital letters and 123 are three digits. If you want to fan "ABC" and "123" into the array but lose the "@@", you would do this:<br /><br />
+
+<div class="codebox"><pre>
+$str = "token1@@ABC123token2@@DEF456token3";
+$regex = "~@@([A-Z]{3})(\d{3})~";
+print_r(preg_split($regex,$str,-1,PREG_SPLIT_DELIM_CAPTURE));
+
+<b>The Output:</b>
+Array: [0]=>token1, [1]=>ABC, [2]=>123, [3]=>token2, [4]=>DEF,
+       [5]=>456, [6]=> token3
+</pre></div>
+<br /><br />
+
+<a id="splitinvisible"></a>
+<b>Splitting with an Invisible Delimiter</b><br />
+Here is a lovely feature of splitting string with regex. The <i>preg_split</i> function allows you to split a string with an invisible delimiter. For instance, consider a movie title written in camel case (perhaps because it was in a file name): <i>TheDayMyVoiceBroke</i>. You're interested in retrieving each word. But what's the delimiter?
+<br /><br />
+There is an "invisible" delimiter: any space where the next character is a capital letter. This can be expressed as a simple lookahead: <code>(?=[A-Z])</code>. You could call that a "zero-width delimiter".
+<br /><br />
+
+Let's see it at work:<br /><br />
+
+<div class="codebox"><pre>
+$string = ("TheDayMyVoiceBroke");
+$regex = "~(?=[A-Z])~";
+$words = preg_split($regex,$string);
+print_r($words);
+
+<b>The Output:</b>
+Array ( [0] => [1] => The [2] => Day [3] => My [4] => Voice [5] => Broke )
+</pre></div>
+<br />
+
+Magical!<br /><br />
+
+But maybe we want to concatenate the words of the movie into a string, with spaces between the words? Before you reach for <code>implode($words," ")</code>, consider that what we just did with <i>preg_split</i>, we can do with <i>preg_replace</i>. Here is the code and the output.<br /><br />
+
+<b>Replacing an Invisible Delimiter</b><br />
+
+<div class="codebox"><pre>
+$string = ("TheDayMyVoiceBroke");
+$regex = "~(?=[A-Z])~";
+echo preg_replace($regex," ",$string);
+
+<b>The Output:</b>
+The Day My Voice Broke
+</pre></div>
+
+<br /><br />
+
+
+<h2>More About <i>preg</i> Functions</h2>
+The above functions have a few settings I haven't shown. PHP also has a few other <i>preg</i> functions, but they are of minor interest compared with the ones presented here. You can read about them in the <a href="http://www.php.net/manual/en/ref.pcre.php" target="_blank">preg function section of the PHP manual</a>.
+<br /><br />
+
+In Chapter 10.4 (<em>"Missing" <i>preg</i> Functions</em>) of <a href="http://www.amazon.com/dp/0596528124?tag=onamazon-20" target="_blank"><em>Mastering Regex Expressions</em></a>, Jeffrey Friedl also presents three functions he has programmed to "round off" the <i>preg</i> functions. I recommend you read the book, but if you're in a hurry you can find the functions in the <a href="http://regex.info/listing.cgi?ed=3&amp;p=all" target="_blank">code section of regex.info</a>, Jeffrey's website. Hit Ctrl + F to search for "preg_regex_to_pattern", "preg_pattern_error" and "preg_regex_error".
+<br /><br />
+<br />
+
+<a id="K"></a>
+<h2>A Powerful Lookbehind Alternative: \K</h2>
+If your version of PHP is 5.2.4 or later (phpinfo is your friend), you can use a wonderful PCRE escape sequence: \K. In the middle of a pattern, \K says "reset the beginning of the reported match to this point". Anything that was matched before the \K goes unreported, a bit like in a lookbehind.<br /><br />
+
+For example, on the string "Marlon Brando", the pattern <code>(?i)marlon \Kbrando</code> will return "Brando". Well, you could get "Brando" with a capture group or a lookbehind, so what's the big deal?
+<br /><br />
+The key difference between \K and a lookbehind is that in PCRE, a lookbehind does not allow you to use quantifiers: the length of what you look for must be fixed. On the other hand, \K can be dropped anywhere in a pattern, so you are free to have any quantifiers you like before the \K.
+<br /><br />
+For instance, let's say you want to match "Brando xx" in "Marlon Brando xx" (where xx are digits) but only if the string sits somewhere between a &lt;tag&gt; and a &lt;/tag&gt;. You can't look behind for the start of the tag because you don't know how many characters are before "Marlon Brando", and variable-length lookbehinds are forbidden in PCRE.
+<br /><br />
+One option is to match everything and capture "Brando xx" in a Group. Option 2 is to use \K, saving us the overhead of a capture group:<br /><br />
+
+<div class="cinter">
+<code>(?i)&lt;tag&gt;(?:(?!&lt;/tag).)*marlon \Kbrando \d+</code></div>
+<br /><br />
+
+
+<h2>A Full "Advanced" PHP regex program that shows<br />
+how to perform common regex tasks</h2>
+
+Whenever I start playing with the regex features of a new language, the thing I always miss the most is a complete working program that performs the most common regex tasks—and some not-so-common ones as well.
+<br /><br />
+
+This is what I have for you in the following complete PHP regex program. The program is featured on my page about <a href="regex-best-trick.html">the best regex trick ever</a>.
+<br /><br />
+
+This program performs the six most common regex tasks. The tweak is that it has no interest in the overall matches: the data we're seeking is in capture Group 1, if it is set.<br /><br />
+
+As a side-benefit, the program and the article happen to provide an excellent overview of the <code>(*SKIP)(*FAIL)</code> syntax available in Perl and PHP. Just search throughout the article.
+<br /><br />
+
+✽ Here is the article's <a href="regex-best-trick.html#toc">Table of Contents</a><br />
+✽ Here is the <a href="regex-best-trick.html#codesamples">explanation for the code</a><br />
+✽ Here is the <a href="regex-best-trick.html#phpcode">PHP code</a><br />
+<br />
+<br />
+
+
+<a id="morephpregex"></a>
+<h2>More about PHP Regex</h2>
+For more details on PHP's PCRE regex flavor, I recommend a stroll through three pages of the PHP manual:<br /><br />
+✽ <a href="http://www.php.net/manual/en/reference.pcre.pattern.syntax.php" target="_blank">Pattern syntax</a><br />
+✽ <a href="http://www.php.net/manual/en/reference.pcre.pattern.modifiers.php" target="_blank">Modifiers</a> (e.g. case insensitive)
+<br />
+✽ <a href="http://www.php.net/manual/en/ref.pcre.php" target="_blank">Functions</a> (e.g. <i>preg_match</i>)<br /><br />
+
+
+If you are serious about learning all there is to know about PHP's PCRE regex flavor, then sooner or later you will want to head over to my <a href="https://www.rexegg.com/pcre-documentation.html" >PCRE documentation repository</a>. With the permission of Philip Hazel, the creator of PCRE, this page contains the documentation for the latest PCRE release as well as other historical releases. It also contains a table showing in which versions of PCRE new syntax features were introduced, as well as links to other PCRE-related material on the site.
+<br /><br />
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div><a href="regex-humor.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;Regex Humor</b>
+</a>
+<br /><br /><br />
+
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Be the First to Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-php.html" method="post" >
+<input type="hidden" name="token" value="a57e0aec7871e2000d211b4dea965f98" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a class="thispage" href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-php.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:07 GMT -->
+</html>

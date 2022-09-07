@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-vs-regular-expression.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Regular Expressions History. Discusses the history of regular expressions, in particular the difference between regex and regular expressions in the mathematical sense." />
+<title>Regex vs. Regular Expressions</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li class="current"><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Is a Regex the Same as a Regular Expression?</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+Yes. And No. At this stage, this is a semantic question—it depends on what one means by <i>regular expression</i>.<br /><br />
+
+Nowadays, 99 percent of people who mention regular expressions are really speaking about regex. For them (and for Rex), <i>regex</i> is an abbreviation of <i>regular expression</i>. Another common abbreviation (which is losing the abbreviation war) is <i>regexp</i>. Common plurals are <i>regexes</i>, <i>regexps</i> and even <i>regexen</i> (thank you, Larry Wall).<br /><br />
+<br />
+
+<a id="history"></a>
+<span class="em8"><a href="#history">(direct link)</a></span><br />
+<h2>A Short History of Regex</h2>
+What about the hundredth person? Actually, the proportion is probably closer to one in a thousand. But that one person has a special claim, because a long long time ago (the 1950s, at the dawn of computer science) a <i>regular expression</i> referred to what the mathematician Stephen Kleene described as a <i>regular language</i>, which itself referred to a mathematical property called <i>regularity</i>. Regular expression engines that conformed to this <i>regularity</i> were called <i>Deterministic Finite Automatons</i> (DFAs). The name of the father of regular expressions (Stephen Kleene) is immortalized in the <i>Kleene star</i>, the small character in <span class="socode">A*</span> that tells the engine that the character <i>A</i> must be matched zero or more times.
+<br /><br />
+
+In the late 1960s Ken Thompson of Bell Labs wrote them into the editor <i>QED</i>, and in the 1970s they made it into Unix programs and utilities such as <i>grep</i>, <i>sed</i> and <i>AWK</i>.<br /><br />
+
+These tools made text-matching much easier than the alternative—writing custom parsing programs for each task. Naturally, some saw the potential for even more powerful text-matching patterns. In the 1980s, programmers could not resist the urge to expand the existing regular expression syntax to make its patterns even more useful—most notably Henry Spencer with his <i>regex</i> library, then Larry Wall with the Perl language, which used then expanded Spencer's library.
+<br /><br />
+
+The engines that process this expanded regular expression syntax were no longer DFAs—they are called <i>Non-Deterministic Finite Automatons</i> (NFAs). At that stage, regex patterns could no longer said to be <i>regular</i> in the mathematical sense. This is why a small minority of people today (most of whom have email addresses ending with <i>.edu</i>) will maintain that what we call <i>regex</i> are not regular expressions.<br /><br />
+
+For the rest of us… Regex and regular expressions? Same-same.
+<br /><br />
+
+Perl had a huge influence on the flavors of regular expressions used in most modern engines today. This is why modern regular expressions are often called Perl-style. The differences in features across regex engines are considerable, so in my view speaking of <i>Perl-style regular expressions</i> only makes sense when one wants to make it clear one is not talking about the ivory tower brand of mathematically-correct expressions.
+<br /><br />
+
+But if you really want to avoid ambiguity, just say <i>regex</i>, as that is one word that white-coat computer scientists are not claiming.
+<br /><br />
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div>
+<a href="regex-quickstart.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;Quick-Start: Regex reference table</b>
+</a>
+<br /><br />
+
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-2 of 2 Threads</div>
+<a id="cid2583"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Solomon Ucko</span><span class="comment-location"> &ndash; Rockville, MD</span></div>
+<div class="comment-date">January 03, 2019 - 05:16</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Reiterating that regular = DFA = NFA</div><br />
+<div class = "comment-text">Could you please fix this? I see you&#039;ve replied, but the main text still needs to be corrected. I actually noticed this before reading the comment. Before:<br />
+<br />
+  The engines that process this expanded regular expression syntax were no longer DFAs&mdash;they are called Non-Deterministic Finite Automatons (NFAs). After (the wording may need a bit of additional reworking):<br />
+<br />
+  The engines that process this expanded regular expression syntax were no longer regular. They are certainly recursively enumerable, most likely also context-sensitive, and if so, most likely also context-free. I am slightly confused by whether or not context-free languages are also context-sensitive, given the wording. I&#039;m pretty sure they are considered to be, though.</div>
+</div>
+<a id="cid2584"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Solomon Ucko</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">January 03, 2019 - 14:20</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: Reiterating that regular = DFA = NFA</div><br />
+<div class = "comment-text">Hi Solomon,
+I don&#039;t have the brain cycles right now to carefully consider the adequate wording, but your comment is up.
+Thanks for caring. :)
+Regards,
+Rex
+</div>
+</div>
+<a id="cid1878"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Thomas McLeod</span><span class="comment-location"> &ndash; Boston, Mass.</span></div>
+<div class="comment-date">August 12, 2015 - 08:55</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Please check your theory</div><br />
+<div class = "comment-text">DFAs and NFAs have equivalent expressive power. In other words, for every NFA, there is an equivalent DFA, and visa-versa. So it is incorrect to say that these &quot;regex patterns could no longer said to be regular in the mathematical sense. &quot; They in fact do define regular languages. Some &quot;regex&quot; engines, however do go beyond regular languages to define &quot;context-free&quot; languages. These cannot be represented by an NFA (or DFA) and require a push-down automata (PDA).</div>
+</div>
+<a id="cid2090"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Thomas McLeod</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex Dwyer</span></div>
+<div class="comment-date">March 21, 2016 - 09:29</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Thomas, a bit muddled...</div><br />
+<div class = "comment-text">Thomas,<br />
+That&#039;s sort of right but sort of muddled. Deterministic Finite Automata, Nondeterministic Finite Automata, and regular expressions all generate/recognize exactly the set of  regular languages. However, the &quot;regular expressions&quot; in programming languages might better be described as &quot;extended regular expressions&quot;. The language of all strings with some number of As followed by a B followed by the same number of As is not a regular language (pumping lemma). However, it is accepted by the following regex:  (A*)B\1<br />
+&quot;Automata&quot; is plural. The singular is &quot;automaton&quot;.</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-vs-regular-expression.html" method="post" >
+<input type="hidden" name="token" value="f5c1e4e5df59c2fd0acfe7a8815f00c3" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a class="thispage" href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-vs-regular-expression.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:07 GMT -->
+</html>

@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-gotchas.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:22 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Regex Gotchas. Presents list of potential traps with regular expressions." />
+<title>Regular Expression Gotchas</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li class="current"><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Regex Gotchas</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+On this page, I'd like to collect some regex phenomena that may trip or puzzle you for a moment. Often, such little problems lead the regex apprentice to discover that he hadn't fully understood one aspect of regex he thought he had already mastered. For me, such <i>Gotcha!</i> moments are a great source of satisfaction and learning.
+<br /><br />
+
+I tried to write these problems in a Question and Answer format. The first ones are really simple in the sense that they would only trip you on your first day with regex. As the collection grows, I hope that further down the list even accomplished regexers will find something to arouse their interest.
+<br /><br />
+<br />
+<p class="messages">Please note that this page is a recent venture. There aren't many <i>Gotcha!</i> yet, but I intend to flesh out the collection over time.</p><br /><br />
+
+
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#insensitive">The Right Case</a><br />
+✽ <a href="#dotall">Stuck on a Line</a><br />
+✽ <a href="#boundaries">Only the Word, Please</a><br />
+✽ <a href="#empty">Empty-Handed</a><br />
+✽ <a href="#notenough">It Doesn't Match Enough</a><br />
+✽ <a href="#phantomreplacements">Phantom Replacements</a><br />
+✽ <a href="#atomic_lookaround">The Engine Doesn't Try All Options Inside the Lookahead</a><br />
+
+<br /><br />
+
+
+<a id="insensitive"></a>
+<span class="em8"><a href="#insensitive">(direct link)</a></span><br />
+<h2>The right case</h2>
+Question: I made this regex: <span class="socode">[a-z]+</span>. Why isn't it matching <i>Cat</i>?<br /><br />
+
+By default, a regex pattern is case-sensitive by default. <a href="regex-modifiers.html#i">How you turn on case-insensitivity</a> depends on your engine.
+
+<br /><br />
+<br />
+
+
+<a id="dotall"></a>
+<span class="em8"><a href="#dotall">(direct link)</a></span><br />
+<h2>Stuck on a Line</h2>
+Question: I made this regex: <span class="socode">My .* cat</span>. Why isn't it matching this string?<br />
+<i>My dog<br />and my cat</i><br /><br />
+
+By default, the <span class="socode">.</span> does not match line breaks. How you make it match carriage returns, new lines and other line break characters <a href="regex-modifiers.html#dotall">depends on your engine</a>.
+<br /><br />
+<br />
+
+<a id="boundaries"></a>
+<span class="em8"><a href="#boundaries">(direct link)</a></span><br />
+<h2>Only the Word, Please</h2>
+Question: I made this regex: <span class="socode">cat</span>. My tool finds a match in the word <i>certificate</i>, but I only want to find <i>cat on its own</i>. What to do?<br /><br />
+
+The easiest fix is to use <a href="regex-boundaries.html#wordboundary">word boundaries</a> <span class="socode">\b</span>, which match positions where one side is a word character (letter, digit, underscore) and the other side is not a word character (for instance it is the beginning of the string or a space character). This gives you:<br />
+<code class="cinter">\bcat\b</code><br />
+
+<b>Improved word boundary</b><br />
+The regex above will not find <i>cat</i> in <i>_cat25</i>, because there is no boundary between an underscore and a letter, nor between a letter and a digit: these are all what regex defines as <i>word characters</i>. If you think that digits and underscores should count as a word boundary, <span class="socode">\b</span> will therefore not work for you.<br /><br />
+
+If you would like to use a boundary that detects the edge between an ASCII letter and a non-letter, you can make it yourself. See the section about a <a href="regex-boundaries.html#real-word-boundary">DIY "real word boundary" on the page about regex boundaries</a>.<br />
+<br /><br />
+
+<a id="empty"></a>
+<span class="em8"><a href="#empty">(direct link)</a></span><br />
+<h2>Empty-Handed</h2>
+
+Question: I made this regex: <span class="socode">\d*|\w+</span>. The engine reports that there is a match, but it is empty. Why isn't it matching <i>Cat</i>?<br /><br />
+
+On the face of it, this pattern seems to match either digits or some word characters, so we might expect <i>Cat</i> to match. However, when the engine attempts a match at the position before the initial <i>C</i>, the <span class="socode">\d*</span> is able to match, since it is true that there are zero or more digits at that position. The match is returned, and the right side of the alternation is never visited.
+<br /><br />
+In all engines, if the engine is instructed to find multiple matches, it will also find other "empty" matches after the <i>C</i> and the other letters.<br /><br />
+<br /><br />
+
+One difference among engine is that Perl and PCRE (C, PHP, R…) will also match <i>Cat</i>. That is because after finding a zero-width match, these engines will attempt another match at the same position in the string, and backtrack into alternations and other subexpressions as needed to find a non-zero-width match. 
+<br /><br />
+<br />
+
+<a id="notenough"></a>
+<span class="em8"><a href="#notenough">(direct link)</a></span><br />
+<h2>It Doesn't Match Enough</h2>
+
+Question: I made this regex: <span class="socode">[129]|18</span> to match the numbers <i>1</i>, <i>2</i>, <i>9</i> or <i>18</i>. Why isn't it matching <i>18</i>?<br /><br />
+
+The character class <span class="socode">[129]</span> matches the <i>1</i> in <i>18</i>. The match is returned, and the right side of the alternation is never visited. Anchors or boundaries would resolve this problem: <span class="socode">^(?:[129]|18)$</span>
+<br /><br />
+
+<b>Conclusion:</b> when setting up an alternation, be mindful of what each branch matches, especially on the left side, and all the more so if you are using stars and question marks. If the leftmost alternation can never fail, for instance, you can be sure that other sides of the alternation will never match.<br /><br />
+<br />
+
+
+<a id="phantomreplacements"></a>
+<span class="em8"><a href="#phantomreplacements">(direct link)</a></span><br />
+<h2>Phantom Replacements</h2>
+
+Question: I made this regex: <span class="socode">X*</span> and want to use it with this replacement string: <span class="socode">Y</span>. When I run the replacement on string <i>X</i>, I get <i>YY</i>, and when I run it on <i>A</i>, I get <i>YAY</i>. What is happening?
+<br /><br />
+
+This is the same problem as in <a href="#unwantedmatches">Unwanted Matches</a>, but with a replacement. Against string <i>X</i>, the regex <span class="socode">X*</span> matches twice. At the position before the <i>X</i>, it matches <i>X</i>. At the position after the <i>X</i>, <span class="socode">X*</span> is allowed to match zero characters <i>X</i>, so it matches an empty string. All major languages except Python will replace both matches with a <i>Y</i>, giving you <i>YY</i>.
+<br /><br />
+Note that the Python exception goes away when you use Matthew Barnett's <i>regex</i> module instead of <i>re</i>: <span class="socode">print (regex.sub("(?V1)X*", "Y", "X") )</span> yields <i>YY</i> like every other engine.
+
+<br /><br />
+Likewise, against the string <i>A</i>, the regex <span class="socode">X*</span> matches twice. At the position before the <i>A</i>, it matches the empty string. At the position after the <i>A</i>, it also matches an empty string. All major languages will replace both matches with a <i>Y</i>, giving you <i>YAY</i>.
+<br /><br />
+Try it in Python:<br />
+<code class="cinter">print( re.sub("X*", "Y", "A") )</code>
+
+<br /><br /><br />
+
+
+<a id="atomic_lookaround"></a>
+<span class="em8"><a href="#atomic_lookaround">(direct link)</a></span><br />
+<h2>The Engine Doesn't Try All Options Inside the Lookahead</h2>
+Question: Here is my string:<br />
+<span class="mono cinter">_rabbit _dog _mouse DIC:cat:dog:mouse</span>
+The <i>DIC</i> section at the end is a list of allowed animals. I want to match all the <i>_tokens</i> named after an allowed animal, so I expect to match <i class="mono">_dog</i> and <i class="mono">_mouse</i>.<br />
+
+I made this regex:<br />
+<code class="cinter">_(?=.*:(\w+)\b)\1\b</code><br />
+But it only matches <i class="mono">_mouse</i>. It looks like the lookahead is not trying all the options. Why?<br /><br />
+
+Because <a href="regex-lookarounds.html#atomic">lookarounds are atomic</a> (the link explains this example in detail). Once the engine leaves a lookaround, its assertion has either returned <span class="mono">true</span> or <span class="mono">false</span>. From the engine's standpoint, that is all it wants to know. 
+<br /><br />
+If a lookaround returns <span class="mono">true</span>, the engine tries to match the next tokens. If something fails further down the pattern, the engine has no reason to revisit the lookaround: <span class="mono">true</span> is always <span class="mono">true</span>. 
+
+<br /><br /><br />
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div><a href="regex-cookbook.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;Regex Cookbook</b>
+</a>
+<br /><br /><br />
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Be the First to Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-gotchas.html" method="post" >
+<input type="hidden" name="token" value="0a3823b1e4ffde66a0cc82d7591f6f69" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a class="thispage" href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-gotchas.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:22 GMT -->
+</html>

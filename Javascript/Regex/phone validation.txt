@@ -1,0 +1,7 @@
+
+
+$('#postcode').attr('maxlength', '4');
+$('#postcode').keyup(function(){
+  let filtered = jQuery(this).val().replace(/[^\d]+/g, '');
+  jQuery(this).val(filtered);
+});

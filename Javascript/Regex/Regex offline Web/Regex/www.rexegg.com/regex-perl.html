@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-perl.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Perl Regex Tutorial. Discusses the Perl Regex features, provides code samples." />
+<title>Perl Regex Tutorial</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li class="current"><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Using Regular Expressions with Perl</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+
+<p class="messages">If you're less interested in Perl regex in itself than in <b><a href="regex-perl-one-liners.html">using Perl to build powerful command-line regex one-liners</a></b>, visit the page on that topic.<br /><br /></p><br />
+<h2>A Word about Perl Delimiters</h2>
+Before we start, a quick word about delimiters around Perl patterns is in order. You'll usually see Perl regex patterns expressed between forward slashes, as in <span class="socode">/this pattern/</span>, which is short for <span class="socode">m/this pattern/</span>. But you don't have to use forward slashes.
+<br /><br />
+In the "long form", where <i>m</i> for "match" or <i>s</i> for "substitute" precedes the pattern, you can use any delimiter you like. For instance, <span class="socode">m~some pattern~</span> is valid. As discussed elsewhere, this is extremely convenient when your input would otherwise require you to escape forward slashes, as in anything involving html tags or urls.
+<br /><br />
+<br />
+
+<a id="perlspecial"></a>
+<span class="em8"><a href="#perlspecial">(direct link)</a></span><br />
+<h2>What makes Perl regex special?</h2>
+By now, the bulk of Perl regex syntax has drifted to other engines. For instance the PCRE engine, while not identical to Perl regex, supports esoteric Perl syntax such as backtracking control verbs and branch reset. In some cases, the flow runs the other way: recursion and named groups started in PCRE and were later adopted by Perl.
+<br /><br />
+Other engines have also extended regex syntax in useful directions and can, in some respects, be said to be ahead of Perl. In that category, I would place .NET's infinite lookbehind, capture collections, character class subtraction, balanced groups and right-to-left matching mode; and the fuzzy matching from Matthew Barnett's <i>regex</i> engine for Python.
+<br /><br />
+So what makes Perl regex special today is not its syntax&mdash;unless we are talking about <a href="http://www.perl.com/pub/2002/06/04/apo5.html" target="_blank">Perl 6 regex</a>, which is another planet altogether and miles away from mainstream adoption.
+<br /><br />
+
+I'll fully admit to not being fluent in Perl (I fumble around everytime I need to do something more complicated than a <a href="regex-perl-one-liners.html">Perl regex one-liner</a>), but my impression as an outsider is that what makes Perl regex special today is two things:<br /><br />
+✽ Regex integrates intimately within Perl code<br />
+✽ You can use code inside your regular expressions<br />
+<br />
+
+These two things, of course, reduce to one: regex is tightly interwoven into the fabric of Perl. Indeed, to an outsider, Perl code often looks like one big regular expression.
+<br /><br />
+
+Let me give you what I consider an exquisite example of the power afforded by integrating code within regular expressions. Consider this line of code: <br /><br />
+
+<code class="cinter">if ('abc' =~ /\w+(?{print "$&\n";})(*F)/) {}</code>
+<br />
+
+The first thing to notice is that the <span class="socode">=~</span> operator (which stands for <i>matches</i>) does the heavy lifting performed by a match function in other languages. So the regular expression is not an argument in a function&mdash;it is specified directly on the right side of the <span class="socode">=~</span> operator, between the <span class="socode">/</span> delimiters. How compact!
+<br /><br />
+
+Forget the <span class="socode">(?{print "$&\n";})</span> fragment for a moment. The regex pattern itself is no more than <span class="socode">\w+(*F)</span>: match some word characters, then fail to match the <span class="socode">(*F)</span> token (the forced-failure token, which never matches), causing the engine to backtrack and gradually give up word characters while looking for another way to match. The magic is that each time the engine passes the <span class="socode">\w+</span>, before failing, it reads a capsule that contains a small piece of injected Perl code:<br /><br />
+
+<code class="cinter">(?{print "$&\n";})</code><br />
+
+The code itself is inside the braces: a single <i>print</i> statement <span class="socode">print "$&\n";</span> that outputs the current match (it helps to know that <span class="socode">$&</span> is a special variable that contains the match, just as <span class="socode">$1</span> contains the content of capture group 1). As a result, the program prints the list of temporary matches at each point where the engine finishes matching <span class="socode">\w+</span>, corresponding to a full path exploration:<br />
+
+<div class="mono pre">
+abc
+ab
+a
+bc
+b
+c
+</div>
+<br />
+And if that doesn't make you in awe of Perl regular expressions&hellip; Maybe nothing will.
+<br /><br />
+
+Please note that via the <span class="socode">(?C&hellip;)</span> <a href="pcre-callouts.html">callout syntax</a>, PCRE aims to provide similar functionality to Perl's "code capsules".
+
+<br />
+<br /><br />
+
+<h2>About this Page</h2>
+
+At the moment, I am not planning a fully fleshed-out guided tour of Perl regex, although I certainly intend to add plenty of tasty material to this page over time. My pages are always in motion.<br /><br />In the meantime, I don't want to leave you Perl coders out dry, so I have something special to get you started. Actually, two things: the first is a page on <a href="regex-perl-one-liners.html">using Perl to build powerful command-line regex one-liners</a>.<br /><br /><br />
+	
+<h2>A Perl program that shows<br />how to perform common regex tasks</h2>
+Whenever I start playing with the regex features of a new language, the thing I always miss the most is a complete working program that performs the most common regex tasks&mdash;and some not-so-common ones as well. <br /><br />
+
+This is what I have for you in the following complete Perl regex program. It's taken from my page about <a href="regex-best-trick.html">the best regex trick ever</a>, and it performs the six most common regex tasks. The first four tasks answer the most common questions we use regex for:<br /><br />
+
+✽ Does the string match?<br />
+✽ How many matches are there?<br />
+✽ What is the first match?<br />
+✽ What are all the matches?<br />
+<br />
+The last two tasks perform two other common regex tasks:<br /><br />
+✽ Replace all matches<br />
+✽ Split the string<br />
+<br />
+
+<b>If you study this code, you'll have a terrific starting point to start tweaking and testing with your own expressions with Perl.</b> Bear in mind that the code inspects values captured in Group 1, so you'll have to tweak&hellip; but you'll have a solid base to understand how to do basic things&amp;and fairly advanced ones as well.
+<br /><br />
+
+As you can imagine, I am not fluent in all of the ten or so languages showcased on the site. This means that although the sample code works, a Perl pro might look at the code and see a more idiomatic way of testing an empty value or iterating a structure. If some idiomatic improvements jump out at you, please <a href="#comform">shoot me a comment</a>.<br /><br />
+<p class="messages">Please note that usually you will choose to perform <b>only one</b> of the six tasks in the code, so your own code will be much shorter.</p>
+
+
+<br />
+<div class="cinter">
+<a href="javascript:void(0);" class="triggerToggle"><b>Click to Show / Hide code</b></a><br />
+or leave the site to view an <a rel="nofollow" href="http://ideone.com/9Sz3Av" target="_blank">online demo</a><br />
+</div>
+
+<div class="codebox hide toggleme"><pre>
+#!/usr/bin/perl
+$regex = '{[^}]+}|"Tarzan\d+"|(Tarzan\d+)';
+$subject = 'Jane" "Tarzan12" Tarzan11@Tarzan22 {4 Tarzan34}';
+# put Group 1 captures in an array
+my @group1Caps = ();
+while ($subject =~ m/$regex/g) {
+	print $1 . "\n";
+	if (defined $1) {push(@group1Caps,$1);	}
+}
+
+<b>######## The six main tasks we're likely to have ########</b>
+
+<b># Task 1: Is there a match?</b>
+print "*** Is there a Match? ***\n";
+if ( @group1Caps > 0)  { print "Yes\n"; }
+else { print ("No\n"); }
+
+<b># Task 2: How many matches are there?</b>
+print "\n*** Number of Matches ***\n";
+print scalar(@group1Caps);
+
+<b># Task 3: What is the first match?</b>
+print "\n\n*** First Match ***\n";
+if ( @group1Caps > 0)  { print $group1Caps[0]; }
+
+<b># Task 4: What are all the matches?</b>
+print "\n\n*** Matches ***\n";
+if ( @group1Caps > 0)  { 
+	foreach(@group1Caps) { print "$_\n"; } 
+	}
+
+<b># Task 5: Replace the matches</b>
+($replaced = $subject) =~ s/$regex/
+		if (defined $1) { "Superman"; } else {$&;} /eg;
+print "\n*** Replacements ***\n";
+print $replaced . "\n";
+
+<b># Task 6: Split</b>
+# Start by replacing by something distinctive,
+# as in Step 5. Then split.
+@splits = split(/Superman/, $replaced);
+print "\n*** Splits ***\n";
+foreach(@splits) { print "$_\n"; } 
+</pre></div>
+
+<br />
+
+
+
+Read the <a href="regex-best-trick.html#codesamples">explanation</a> or jump to the article's 
+<a href="regex-best-trick.html#toc">Table of Contents</a><br />
+<br /><br />
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div>
+<br />
+Smiles,
+<br /><br />
+Rex
+
+<br /><br />
+
+<script src="../ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+  $('.triggerToggle').click(function(){
+     $(this).parent().nextAll('.toggleme').toggle();
+  });
+});
+</script><div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Be the First to Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-perl.html" method="post" >
+<input type="hidden" name="token" value="c1ed9cd486fde5a26cb23eedcc400faa" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a class="thispage" href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-perl.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:07 GMT -->
+</html>

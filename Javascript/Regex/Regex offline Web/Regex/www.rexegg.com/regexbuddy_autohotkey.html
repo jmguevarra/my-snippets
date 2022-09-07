@@ -1,0 +1,132 @@
+﻿; this script is updated from time to time
+; get the latest version at http://www.RexEgg.com/regexbuddy-tutorial.html
+
+#NoEnv  ; Recommended for all scripts. Avoids checking empty variables to see if they are environment variables.
+#SingleInstance ; If already running, script is not allowed to run again.
+SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
+
+
+; -------------- RegexBuddy Section of the File -----------------
+; To add other sections for other applications, see the BONUS section at the bottom.
+
+; First, let's set up some keyboard shortcuts.
+#IfWinActive ahk_class TFormRegexBuddy
+!t::!5 ; map Alt + t to Alt + 5 which is test
+!u::!7 ; map Alt + u to Alt + 7 which is use
+!l::!8 ; map Alt + l to Alt + 8 which is library
+!e::!3 ; map Alt + e to Alt + 3 which is create
+!c::!4 ; map Alt + c to Alt + 4 which is convert
+!d::!6 ; map Alt + d to Alt + 6 which is debug
+!g::!9 ; map Alt + g to Alt + 9 which is grep
+!f::!0 ; map Alt + f to Alt + 0 which is forum
+!Enter::!f ; map Alt + Enter to Alt + F, which opens the list of languages
++Enter::!l ; map Shift + Enter to Alt + L, which is the actions in Match, Replace, Split
+F2::Click ; if a History preset is selected AND below the mouse, rename. Otherwise, whatever clicking does.
+^!Up:: ; map Ctrl + Alt + Up to Shift + F2, which moves up the selected History preset in the list
+ Send +{F2} 
+ Return
+^!Down:: ; map Ctrl + Alt + Down to Ctrl + Shift + F2, which moves down the selected History preset in the list
+ Send ^+{F2} 
+ Return
+^NumpadSub:: ; map Ctrl + Minus to Ctrl + Alt + F2, which deletes the selected History preset.
+; ^Del:: ; map Ctrl + Del to Ctrl + Alt + F2, which deletes the selected History preset. 
+ Send ^!{F2}  
+ Return 
+^NumpadAdd:: ; map Ctrl + Plus to F2, which duplicates the selected History preset. 
+ Send {F2}  
+ Return 
+!w:: ; map Alt + w to Shift + F5 which is this menu: whole file, line by line...
+  Send +{F5} 
+Return
+; end of section with basic shortcuts.
+
+
+; Second, let's create a message box to show all the shortcuts. 
+F12::
+  MsgBox,
+( 
+For more shortcuts, see the docs.
+
+=== Top-Toolbar ===
+Alt + Enter → Show Language List
+Alt + M → Match 
+Alt + R → Replace
+Alt + S → Split
+
+=== Tabs ===
+Alt + T → Test
+Alt + U → Use
+Alt + L → Library
+Alt + E → crEate / Explain
+Alt + C → Convert
+Alt + D → Debug
+Alt + G → Grep
+Alt + F → Forum
+
+=== History Pane ===
+Ctrl + Plus  → Add Item
+Ctrl + Minus → Remove Item
+Ctrl + Alt + Up   → Move Up
+Ctrl + Alt + Down → Move Down
+F2 → Rename item selected under the mouse
+
+=== Test Tab ===
+Alt + H → Toggle Highlighting
+Alt + W → Cycles "Whole file, Line by Line...)
+Shift + Enter → Action 
+
+=== Create Tab ===
+Alt + I → Insert Token
+
+)
+Return
+; End of message box to show the shortcuts
+
+
+#IfWinActive
+
+; Third, let's disable left-clicking on the History bar.
+; Why? Because it's waaay too easy to click the "Clear History" button.
+; You still have access to the functions through cool shortcuts or by right-clicking inside the pane.
+#If WinActive("ahk_class TFormRegexBuddy") && TextOfControlUnderMouse() = "History"
+LButton::
+    SplashTextOn 300, 100, AutoHotkey Message, To click History buttons`, disable the script.`nIn the meantime`, right-click in the History pane.
+    Sleep 3000 
+    SplashTextOff
+    Return
+#If
+; -------------- End hotkeys for RegexBuddy -----------------
+
+; -------------- TextOfControlUnderMouse --------------
+TextOfControlUnderMouse() {
+    MouseGetPos ,,, win_id, control_name
+    ControlGetText, control_text, %control_name%, ahk_id %win_id%
+    Return control_text
+} 
+
+
+; ============== BONUS ============== 
+; ADD sections for other programs!
+; for example:
+
+/*
+; -------------- Hotkeys for VisualStudio -----------------
+#IfWinActive ahk_exe devenv.exe 
+#IfWinActive
+; -------------- End hotkeys for VisualStudio -----------------
+*/
+
+; OR how about defining hotkeys for multiple editors?
+/*
+; ----------- Define a context group called Editors -----------  
+GroupAdd, Editors, ahk_class Notepad 
+GroupAdd, Editors, ahk_exe EditPadPro7.exe
+GroupAdd, Editors, ahk_exe pycharm.exe
+GroupAdd, Editors, ahk_exe devenv.exe  ; Visual Studio 2015
+
+; -------------- Hotkeys for Editors -----------------
+#IfWinActive ahk_group Editors
+#IfWinActive
+; -------------- End hotkeys for the Editors -----------------
+*/
+

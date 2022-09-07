@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-lookarounds.html?cp=1 by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:23 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Regex Lookahead and Lookbehind Tutorial. Explains the fine details of Lookahead and Lookbehind, including zero-width matches, overlapping matches and atomicity." />
+<title>Lookahead and Lookbehind Tutorial—Tips &amp;Tricks</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li class="current"><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Mastering Lookahead and Lookbehind</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+Lookarounds often cause confusion to the regex apprentice. I believe this confusion promptly disappears if one simple point is firmly grasped. It is that at the end of a lookahead or a lookbehind, the regex engine hasn't moved on the string. You can chain three more lookaheads after the first, and the regex engine still won't move. In fact, that's a useful technique. 
+<br /><br />
+
+
+<b>A quick syntax reminder</b><br />
+
+This page digs deep into the details of lookahead and lookbehind and assumes you've already become familiar with the basic syntax, perhaps by reading the <a href="regex-disambiguation.html#lookarounds" >lookaround section</a> of the reference on <span class="socode">(? … )</span> syntax.</i> As a quick reminder before we dive in, here are the four lookarounds.<br /><br />
+
+<table " border="0" style="table-layout:fixed;"><tr><th class="w100" scope="col"><b>Lookaround</b></th><th class="w180" scope="col"><b>Name</b></th><th class="w320" scope="col"><b>What it Does</b></th></tr><tr class="brown"><td><span class="mono">(?=foo)</span></td><td>Lookahead</td><td>Asserts that what immediately follows the current position in the string is <i>foo</i></td></tr><tr class="beige"><td><span class="mono">(?&lt;=foo)</span></td><td>Lookbehind</td><td>Asserts that what immediately precedes the current position in the string is <i>foo</i></td></tr><tr class="brown"><td><span class="mono">(?!foo)</span></td><td>Negative Lookahead</td><td>Asserts that what immediately follows the current position in the string is not <i>foo</i></td></tr><tr class="beige"><td><span class="mono">(?&lt;!foo)</span></td><td>Negative Lookbehind</td><td>Asserts that what immediately precedes the current position in the string is not <i>foo</i></td></tr></table>
+<br /><br />
+
+<a id="nav"></a>
+<span class="em8"><a href="#nav">(direct link)</a></span><br />
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#password">Lookahead Example: Simple Password Validation</a><br />
+✽ <a href="#order">The Order of Lookaheads Doesn't Matter… Almost</a><br />
+✽ <a href="#stand_their_ground">Lookarounds Stand their Ground</a><br />
+✽ <a href="#uses">Various Uses for Lookarounds</a><br />
+✽ <a href="#zero_width">Zero-Width Matches</a><br />
+✽ <a href="#position">Positioning the Lookaround Before or After the Characters to be Matched</a><br />
+✽ <a href="#back_to_the_future">Lookarounds that Look on Both Sides: Back to the Future</a><br />
+✽ <a href="#compound">Compound Lookahead and Compound Lookbehind</a><br />
+✽ <a href="#atomic">The Engine Doesn't Backtrack into Lookarounds (They're Atomic)</a><br />
+✽ <a href="#width">Fixed-Width, Constrained-Width and Infinite-Width Lookbehind</a><br />
+✽ <a href="#anchor">Lookarounds (Usually) Want to be Anchored</a><br />
+
+
+<br /><br />
+
+<a id="password"></a>
+<span class="em8"><a href="#password">(direct link)</a></span><br />
+<h2>Lookahead Example: Simple Password Validation</h2>
+Let's get our feet wet right away with an expression that validates a password. The technique shown here will be useful for all kinds of other data you might want to validate (such as email addresses or phone numbers). <br />
+Our password must meet four conditions:<br /><br />
+1. The password must have between six and ten word characters <span class="socode">\w</span><br />
+2. It must include at least one lowercase character <span class="socode">[a-z]</span><br />
+3. It must include at least <b>three</b> uppercase characters <span class="socode">[A-Z]</span><br />
+4. It must include at least one digit <span class="socode">\d</span><br />
+<br />
+
+We'll assume we're working in a regex flavor where <span class="socode">\d</span> only matches ASCII digits 0 through 9, unlike .NET and Python where that token can match any Unicode digit.<br /><br />
+
+
+<div class="pullquote R">
+With lookarounds, your feet stay planted on the string. You're just looking, not moving!
+</div>
+
+Our initial strategy (which we'll later tweak) will be to stand at the beginning of the string and <b>look ahead</b> four times—once for each condition. We'll look to check we have the right number of characters, then we'll look for a lowercase letter, and so on. If all the lookaheads are successful, we'll know the string is a valid password&hellip; And we'll simply gobble it all up with a plain <span class="socode">.*</span>
+<br /><br />
+
+<b>Let's start with condition 1</b><br />
+A string that is made of six-to-ten word characters can be written like this: <span class="socode">\A\w{6,10}\z</span><br />
+The <a href="regex-anchors.html#A"><span class="socode">\A</span> anchor</a> asserts that the current position is the beginning of the string. After matching the six to ten word characters, the <a href="regex-anchors.html#z"><span class="socode">\z</span> anchor</a> asserts that the current position is the end of the string.
+<br /><br />
+Within a lookahead, this pattern becomes <span class="socode">(?=\A\w{6,10}\z)</span>. This lookahead asserts: at the current position in the string, what follows is the beginning of the string, six to ten word characters, and the very end of the string.
+<br /><br />
+
+We want to make this assertion at the very beginning of the string. Therefore, to continue building our pattern, we want to anchor the lookahead with an <span class="socode">\A</span>. There is no need to duplicate the <span class="socode">\A</span>, so we can take it out of the lookahead. Our pattern becomes:<br />
+<code class="cinter">\A(?=\w{6,10}\z)</code><br />
+
+So far, we have an expression that validates that a string is entirely composed of six to ten word characters. Note that we haven't matched any of these characters yet: we have only looked ahead. The current position after the lookahead is still the beginning of the string. To check the other conditions, we just add lookaheads.<br /><br />
+
+
+<b>Condition 2</b><br />
+ For our second condition, we need to check that the password contains one lowercase letter. To find one lowercase letter, the simplest idea is to use <span class="socode">.*[a-z]</span>. That works, but the dot-star first shoots down to the end of the string, so we will always need to backtrack. Just for the sport, can we think of something more efficient? You might think of making the star quantifier reluctant by adding a <span class="socode">?</span>, giving us <span class="socode">.*?[a-z]</span>, but that too requires backtracking as a <a href="regex-quantifiers.html#lazy_expensive">lazy quantifier requires backtracking at each step</a>.<br /><br />
+ 
+ For this type of situation, I recommend you use something like <span class="socode">[^a-z]*[a-z]</span> (or even better, depending on your engine, the <a href="regex-disambiguation.html#atomic">atomic</a> <span class="socode">(?>[^a-z]*)[a-z]</span> or <a href="regex-quantifiers.html#possessive">possessive</a> version <span class="socode">[^a-z]*+[a-z]</span>—but we'll discuss that in the <a href="#atomictweak">footnotes</a>). The negated character class <span class="socode">[^a-z]</span> is the <i>counterclass</i> of the lowercase letter <span class="socode">[a-z]</span> we are looking for: it matches one character that is not a lowercase letter, and the <span class="socode">*</span> quantifier makes us match zero or more such characters. The pattern  <span class="socode">[^a-z]*[a-z]</span> is a good example of the principle of <a href="regex-style.html#contrast">contrast</a> recommended by the regex style guide.
+ <br /><br /> 
+
+
+Let's use this pattern inside a lookahead: <span class="socode">(?=[^a-z]*[a-z])</span> <br />
+The lookahead asserts: at this position in the string (i.e., the beginning of the string), we can match zero or more characters that are not lowercase letters, then we can match one lowercase letter: <span class="socode">[a-z]</span><br />
+Our pattern becomes:
+<br />
+<code class="cinter">\A(?=\w{6,10}\z)(?=[^a-z]*[a-z])</code><br />
+
+At this stage, we have asserted that we are at the beginning of the string, and we have looked ahead twice. We still haven't matched any characters. Note that on a logical level it doesn't matter which condition we check first. If we swapped the order of the lookaheads, the result would be the same. <br /><br />
+
+We have two more conditions to satisfy: two more lookaheads.
+<br /><br />
+
+<b>Condition 3</b><br />
+ For our third condition, we need to check that the password contains at least three uppercase letters. The logic is similar to condition 2: we look for an optional number of non-uppercase letters, then one uppercase letter… But we need to repeat that three times, for which we'll use the quantifier <span class="socode">{3}</span>. <br />
+ We'll use this lookahead: <span class="socode">(?=(?:[^A-Z]*[A-Z]){3})</span> <br /><br />
+The lookahead asserts: at this position in the string (i.e., the beginning of the string), we can do the following three times: match zero or more characters that are not uppercase letters (the job of the negated character class <span class="socode">[^A-Z]</span> with the quantifier <span class="socode">*</span>), then match one uppercase letter: <span class="socode">[A-Z]</span><br />
+Our pattern becomes:
+<br />
+<code class="cinter">\A(?=\w{6,10}\z)(?=[^a-z]*[a-z])(?=(?:[^A-Z]*[A-Z]){3})</code><br />
+
+At this stage, we have asserted that we are at the beginning of the string, and we have looked ahead three times. We still haven't matched any characters.
+<br /><br />
+
+<b>Condition 4</b><br />
+To check that the string contains at least one digit, we use this lookahead: <span class="socode">(?=\D*\d)</span>. Opposing <span class="socode">\d</span> to its counterclass <span class="socode">\D</span> makes good use of the <a href="regex-style.html#contrast">regex principle of contrast</a>.
+<br /><br />
+The lookahead asserts: at this position in the string (i.e., the beginning of the string), we can match zero or more characters that are not digits (the job of the "not-a-digit" character class <span class="socode">\D</span> and the <span class="socode">*</span> quantifier), then we can match one digit: <span class="socode">\d</span><br />
+Our pattern becomes:
+<br />
+<code class="cinter">\A(?=\w{6,10}\z)(?=[^a-z]*[a-z])(?=(?:[^A-Z]*[A-Z]){3})(?=\D*\d)</code><br />
+
+At this stage, we have asserted that we are at the beginning of the string, and we have looked ahead four times to check our four conditions. We still haven't matched any characters, but we have validated our string: we know that it is a valid password.
+<br /><br />
+
+If all we wanted was to validate the password, we could stop right there. But if for any reason we also need to match and return the entire string—perhaps because we ran the regex on the output of a function and the password's characters haven't yet been assigned to a variable—we can easily do so now.
+<br /><br />
+
+
+<b>Matching the Validated String</b><br />
+After checking that the string conforms to all four conditions, we are still standing at the beginning of the string. The five assertions we have made (the anchor <span class="socode">\A</span> and the four lookaheads) have not changed our position.
+
+
+At this stage, we can use a simple <span class="socode">.*</span> to gobble up the string: we know that whatever characters are matched by the dot-star, the string is a valid password. The pattern becomes:<br />
+<code class="cinter">\A(?=\w{6,10}\z)(?=[^a-z]*[a-z])(?=(?:[^A-Z]*[A-Z]){3})(?=\D*\d).*</code><br />
+
+<a id="n-1conds"></a>
+<span class="em8"><a href="#n-1conds">(direct link)</a></span><br />
+<b>Fine-Tuning: Removing One Condition</b><br />
+<div class="pullquote R">
+For n conditions,<br />
+use n-1 lookaheads
+</div>
+
+
+If you examine our lookaheads, you may notice that the pattern <span class="socode">\w{6,10}\z</span> inside the first one examines all the characters in the string. Therefore, we could have used this pattern to match the whole string instead of the dot-star <span class="socode">.*</span> <br /><br />
+
+This allows us to remove one lookahead and to simplify the pattern to this:<br /><br />
+
+<code class="cinter">\A(?=[^a-z]*[a-z])(?=(?:[^A-Z]*[A-Z]){3})(?=\D*\d)\w{6,10}\z</code><br />
+
+The pattern <span class="socode">\w{6,10}\z</span> now serves the double purpose of matching the whole string and of ensuring that the string is entirely composed of six to ten word characters. <br /><br />
+
+Generalizing this result, if you must check for n conditions, your pattern only needs to include n-1 lookaheads at the most. Often, you are even able to combine several conditions into a single lookahead. 
+<br /><br />
+
+You may object that we were able to use <span class="socode">\w{6,10}\z</span> because it happened to match the whole string. Indeed that was the case. But we could also have converted any of the other three lookaheads to match the entire string. For instance, taking the lookahead <span class="socode">(?=\D*\d)</span> which checks for the presence of one digit, we can add a simple <span class="socode">.*\z</span> to get us to the end of the string.<br /><br />
+
+The pattern would have become:<br />
+<code class="cinter">\A(?=\w{6,10}\z)(?=[^a-z]*[a-z])(?=(?:[^A-Z]*[A-Z]){3})\D*\d.*\z</code><br />
+
+By the way, you may wonder why I bother using the <span class="socode">\z</span> after the <span class="socode">.*</span>: shouldn't it get me to the end of the string? In general, not so: unless we're in <a href="regex-modifiers.html#dotall">DOTALL mode</a>, the dot doesn't match line breaks. Therefore, the <span class="socode">.*</span> only gets you to the end of the first line. After this, the string may have line breaks and many more line. A <span class="socode">\z</span> anchor ensures that after the <span class="socode">.*</span> we have reached not only the end of the line, but also the end of the string.
+<br /><br />
+In this particular pattern, the first lookaround <span class="socode">(?=\w{6,10}\z)</span> already ensures that there cannot be any line breaks in the string, so the final <span class="socode">\z</span> is not strictly necessary.
+<br /><br /><br />
+
+
+<a id="order"></a>
+<span class="em8"><a href="#order">(direct link)</a></span><br />
+<h2>The Order of Lookaheads Doesn't Matter… Almost</h2>
+In our password validation pattern, since the three lookaheads don't change our position in the string, we can rearrange them in any order without affecting the overall logic.
+<br /><br />
+
+While the order of lookaheads doesn't matter on a logical level, keep in mind that it may matter for matching speed. If one lookahead is more likely to fail than the other two, it makes little sense to place it in third position and expend a lot of energy checking the first two conditions. Make it first, so that if we're going to fail, we fail early—an application of the <a href="regex-style.html#design_to_fail"><i>design to fail</i> principle</a> from the regex style guide.
+<br /><br />
+
+
+In fact, this is what we do by placing the anchor <span class="socode">\A</span> in first position. Since it is an assertion that doesn't consume characters, it too could swap positions with any of the lookaheads. We'll see why this is a bad idea, but first…
+<br /><br />
+
+In passing, consider that <span class="socode">\A</span> can be written with lookarounds: in <a href="regex-modifiers.html#dotall">DOTALL mode</a>, where the dot matches any character including line breaks, the negative lookbehind <span class="socode">(?&lt;!.)</span> asserts that what precedes the current position is not <i>any character</i>—therefore the position must be the beginning of the string. Without DOTALL mode, the negative lookbehind <span class="socode">(?&lt;![\D\d])</span> asserts the same, since <span class="socode">[\D\d]</span> matches one character that is either a digit or a non-digit—in other words, any character.
+<br /><br />
+
+Now imagine we set <span class="socode">\A</span> in fourth position, after the three lookaheads. The resulting match would be the same, but it could take a lot more time. For instance, suppose the third lookahead (whose job it is to assert that the string contains at least one digit) fails. After failing to find a match at the first position in the string, the engine advances to the second position and tries the lookaheads again, one after the other. Once more, the third lookahead is bound to fail to find a digit. After each failure, the engine will start a new match attempt starting at the next position in the string. Even when the two first lookaheads succeed (and they may fail, as the uppercase or lowercase letter they check for may have been the lone one in the string, and at a position already passed), the third lookahead will always fail to find a digit. Therefore the anchor <span class="socode">\A</span> is never even attempted: the pattern fails before the engine reaches that token. <br /><br />
+
+In contrast, when <span class="socode">\A</span> is first, it can only match at the first position in the string. The third lookahead still fails, but when the engine tries to match at further positions, the <span class="socode">\A</span> immediately fails, so the engine doesn't need to waste any more time with the lookaheads.
+<br />
+
+
+<br /><br />
+
+<a id="stand_their_ground"></a>
+<span class="em8"><a href="#stand_their_ground">(direct link)</a></span><br />
+<h2>Lookarounds Stand their Ground</h2>
+
+If I seem to be flogging a dead horse here, it's only because this point is the most common source of confusion with lookarounds. As the password validation example made clear, lookarounds stand their ground. They look immediately to the left or right of the engine's current position on the string—but do not alter that position. <br /><br />
+
+Therefore, do not expect the pattern <span class="socode">A(?=5)</span> to match the <i>A</i> in the string <i class="mono">AB25</i>. Many beginners assume that the lookahead says that "there is a <i>5</i> somewhere to the right", but that is not so. After the engine matches the <i>A</i>, the lookahead <span class="socode">(?=5)</span> asserts that at the current position in the string, what immediately follows is a <i>5</i>. If you want to check if there is a <i>5</i> somewhere (anywhere) to the right, you can use <span class="socode">(?=[^5]*5)</span>.
+<br /><br />
+
+Moreover, don't expect the pattern <span class="socode">A(?=5)(?=[A-Z])</span> to match the <i>A</i> in the string <i class="mono">A5B</i>. Many beginners assume that the second lookahead looks to the right of the first lookahead. It is not so. At the end of the first lookahead, the engine is still planted at the very same spot in the string, after the <i>A</i>. When the lookahead <span class="socode">(?=[A-Z])</span> tries to assert that what immediately follows the current position is an uppercase letter, it fails because the next character is still the <i>5</i>. If you want to check that the 5 is followed by an uppercase letter, just state it in the first lookahead: <span class="socode">(?=5[A-Z])</span>
+<br /><br />
+
+
+So <i>lookahead</i> and <i>lookbehind</i> don't mean "look way ahead into the distance". They mean "look at the text immediately to the left or to the right". If you want to inspect a piece of string further down, you will need to insert "binoculars" inside the lookahead to get you to the part of the string you want to inspect—for instance a <span class="socode">.*</span>, or, ideally, more specific tokens.<br />
+<br /><br />
+
+
+
+<a id="uses"></a>
+<span class="em8"><a href="#uses">(direct link)</a></span><br />
+<h2>Various Uses for Lookarounds</h2>
+Before we dive into interesting but sometimes terse details, let's get excited about lookarounds by surveying some of their terrific uses.
+<br /><br />
+
+<b>Validation</b><br />
+The <a href="#password">password validation</a> section showed how the combination of several lookaheads can impose a number of conditions on the string to be matched, allowing us to validate it with a single pattern.
+<br /><br />
+
+<b>Restricting a Character Range (Subtraction, Intersection)</b><br />
+Suppose you want to match one word character <span class="socode">\w</span> as long as it is not the letter <i>Q</i>. There are several ways to do it without lookarounds:<br />
+✽ In engines that support <a href="regex-class-operations.html#subtraction">character class subtraction</a>, you can use <span class="socode">[\w-[Q]]</span> (.NET), <span class="socode">[\w&&[^Q]]</span> (Java and Ruby 1.9+) or <span class="socode">[\w--Q]</span> (Python with the alternate <i>regex</i> module)<br />
+✽ You can build a character class such as <span class="socode">[_0-9a-zA-PR-Z]</span><br />
+✽ You can use <span class="socode">[^\WQ]</span>—an example of an <a href="regex-interesting-character-classes.html#obnoxious">obnoxious double-negative character range</a>.
+<br /><br />
+
+If your engine doesn't support character class subtraction, the simplest may be to use the <a href="regex-class-operations.html#subtraction_workaround">workaround</a> shown on the page about class operations. This uses a lookahead to restrict the character class <span class="socode">\w</span>:<br />
+<code class="cinter">(?!Q)\w</code>
+After the negative lookahead asserts that what follows the current position is not a <i>Q</i>, the <span class="socode">\w</span> matches a word character.
+<br /><br />
+Not only is this solution easy to read, it is also easy to maintain if we ever decide to exclude the letter <i>K</i> instead of <i>Q</i>, or to exclude both: <span class="socode">(?![QK])\w</span><br /><br />
+
+Note that we can also perform the same exclusion task with a negative lookbehind:<br />
+<code class="cinter">\w(?&lt;!Q)</code>
+After the <span class="socode">\w</span> matches a word character, the negative lookbehind asserts that what precedes the current position is not a <i>Q</i>.
+<br /><br />
+
+Using the same idea, if we wanted to match one character in the Arabic script as long as it is not a number, we could use this pattern:<br />
+<code class="cinter">(?!\p{N})\p{Arabic}</code>
+This would work in Perl, PCRE (C, PHP, R…) and Ruby 2+. In .NET and Java, you would use <span class="socode">(?!\p{N})\p{IsArabic}</span>
+<br /><br />
+
+Likewise, we can use this technique to perform a DIY <a href="regex-class-operations.html#intersection">character class intersection</a>. For instance, to match one character in the Arabic script as long as it is a number, we transform the negative lookahead above to a positive lookahead. In the Perl / PCRE / Ruby version, this gives us:<br />
+<code class="cinter">(?=\p{N})\p{Arabic}</code>
+<br />
+
+This is basically the <a href="regex-lookarounds.html#password">password validation technique</a> with two conditions applied to a single character.
+
+<br /><br />
+Needless to say, you can interchange the content of the lookahead with the token to be matched:
+<code class="cinter">(?=\p{Arabic})\p{N}</code>
+<br />
+
+
+<b>Tempering the scope of a token</b><br />
+This use is similar to the last. Instead of removing characters from a class, it restricts the scope within which a token is allowed to match.<br /><br />
+
+For instance, suppose we want to match any character as long as it is not followed by <i class="mono">{END}</i>. Using a negative lookahead, we can use:<br />
+<code class="cinter">(?:(?!{END}).)*</code>
+Each <span class="socode">.</span> token is tempered by <span class="socode">(?!{END})</span>, which specifies that the dot cannot be the beginning of <i class="mono">{END}</i>. This technique is called <a href="regex-quantifiers.html#tempered_greed"><i>tempered greedy token</i></a> on the <i>Quantifiers page</i>.<br /><br />
+
+Another technique is:<br />
+<code class="cinter">(?:[^{]++|{(?!END}))*+</code>
+On the left side of the alternation, <span class="socode">[^{]++</span> matches characters that are not an opening brace. On the right side, <span class="socode">{(?!END})</span> matches an opening brace that is not followed by <i class="mono">END}</i>.  This technique appears in the <a href="regex-quantifiers.html#explicit_greed"><i>Explicit Greedy Alternation</i></a> section of the <i>Quantifiers page</i>.<br /><br />
+
+
+<b>Delimiter</b><br />
+Do you have a string where you want to start matching all characters once the first instance of <i>#START#</i> is passed? No problem, just use a lookbehind to make a delimiter:<br />
+<code class="cinter">(?&lt;=#START#).*</code>
+After the lookbehind asserts that what immediately precedes the current position is <i>#START#</i>, the dot-star <span class="socode">.*</span> matches all the characters to the right.
+<br /><br />
+
+Or would you like to match all characters in a string up to, but not including the characters <i>#END#</i>? Make a delimiter using a lookahead:<br />
+<code class="cinter">.*?(?=#END#)</code><br />
+
+You can, of course, combine the two:<br />
+<code class="cinter">(?&lt;=#START#).*?(?=#END#)</code><br />
+
+See the page on boundaries for advice on building fancy <a href="regex-boundaries.html#diy">DIY delimiters</a>.
+<br />
+<br />
+
+<a id="camelinsert"></a>
+<span class="em8"><a href="#camelinsert">(direct link)</a></span><br />
+<b>Inserting Text at a Position</b><br />
+Someone gave you a file full of film titles in CamelCase, such as <i>HaroldAndKumarGoToWhiteCastle</i>. To make it easier to read, you want to insert a space at each position between a lowercase letter and an uppercase letter. This regex matches these exact positions:
+<br />
+<code class="cinter">(?&lt;=[a-z])(?=[A-Z])</code><br />
+
+In your text editor's regex replacement function, all you have to do is replace the matches space characters, and spaces be inserted in the right spot.
+<br /><br />
+
+This regex is what's known as a "zero-width match" because it matches a position without matching any actual characters. How does it work? The lookbehind asserts that what immediately precedes the current position is a lowercase letter. And the lookahead asserts that what immediately follows the current position is an uppercase letter.
+<br /><br />
+
+
+<a id="camelsplit"></a>
+   <span class="em8"><a href="#camelsplit">(direct link)</a></span><br />
+<b>Splitting a String at a Position</b><br />
+We can use the exact same regex from the previous example to split the string <i class="mono">AppleOrangeBananaStrawberryPeach</i> into a list of fruits. Once again, the regex<br />
+<code class="cinter">(?&lt;=[a-z])(?=[A-Z])</code>
+matches the positions between a lowercase letter and an uppercase letter.
+<br /><br />
+
+In most languages, when you feed this regex to the function that uses a regex pattern to split strings, it returns an array of words.
+<br /><br />
+
+Note that Python's <i>re</i> module does not split on zero-width matches—but the far superior <i>regex</i> module does.
+<br /><br />
+
+
+<a id="overlapping"></a>
+<span class="em8"><a href="#overlapping">(direct link)</a></span><br />
+<b>Finding Overlapping Matches</b><br />
+Sometimes, you need several matches within the same word. For instance, suppose that from a string such as <i class="mono">ABCD</i> you want to extract <i>ABCD</i>, <i>BCD</i>, <i>CD</i> and <i>D</i>. You can do it with this single regex:<br />
+<code class="cinter">(?=(\w+))</code>
+When you allow the engine to find all matches, all the substrings will be captured to Group 1<br /><br />
+
+How does this work?<br /><br />
+
+At the first position in the string (before the <i>A</i>), the engine starts the first match attempt. The lookahead asserts that what immediately follows the current position is one or more word characters, and captures these characters to Group 1. The lookahead succeeds, and so does the match attempt. Since the pattern didn't match any actual characters (the lookahead only looks), the engine returns a zero-width match (the empty string). It also returns what was captured by Group 1: <i>ABCD</i><br /><br />
+
+The engine then moves to the next position in the string and starts the next match attempt. Again, the lookahead asserts that what immediately follows that position is word characters, and captures these characters to Group 1. The match succeeds, and Group 1 contains <i>BCD</i>.
+<br /><br />
+
+The engine moves to the next position in the string, and the process repeats itself for <i>CD</i> then <i>D</i>.
+<br /><br />
+
+In .NET, which has infinite lookbehind, you can find overlapping matches from the other side of the string. For instance, on the same string <i class="mono">ABCD</i>, consider this pattern:<br />
+<code class="cinter">(?<=(\w+))</code><br />
+It will capture <i>A</i>, <i>AB</i>, <i>ABC</i> and <i>ABCD</i>. To achieve the same in an engine that doesn't support infinite lookbehind, you would have to reverse the string, use the lookahead version <code>(?=(\w+))</code> then reverse the captures.<br />
+
+
+<br /><br />
+
+
+
+<a id="zero_width"></a>
+<span class="em8"><a href="#zero_width">(direct link)</a></span><br />
+<h2>Zero-Width Matches</h2>
+As we've seen, a lookaround looks left or right but it doesn't add any characters to the match to be returned by the regex engine. Likewise, an anchor such as <span class="socode">^</span> and a boundary such as <span class="socode">\b</span> can match at a given position in the string, but they do not add any characters to the match.<br /><br />
+
+Usually, lookaheads, lookbehinds, anchors and boundaries appear in patterns that contain tokens that do match characters, allowing the engine to return a matched string. For instance, in <span class="socode">(?&lt;=start_)\d+</span>, the engine matches and returns some digits, but not the prefix <i class="mono">start_</i>
+<br /><br />
+
+However, if a pattern only contains lookarounds, anchors and boundaries, the engine may be able to match the pattern without matching any characters. The resulting match is called a <i>zero-width match</i> because it contains no characters.<br /><br />
+
+This can be a useful technique, and we have already seen some applications of zero-width matches in the section on <a href="#uses">uses for lookarounds</a>. To bring them together under one heading, here are some of their main uses.
+<br /><br />
+
+<b>Validation</b><br />
+If you string several lookarounds in a row, you can validate that a string conforms to a set of rules, as in the <a href="#password">password validation technique</a>.
+<br /><br />
+
+We saw that when you have n conditions, if you also want to match the string, you usually need n-1 lookarounds at the most as <a href="#n-1conds">one condition can be removed</a> and used in the matching section of the pattern. But if all you want to do is validate, all the conditions can stay inside lookarounds, giving you a zero-width match. 
+<br /><br />
+
+<b>Inserting</b><br />
+You can use a zero-width match regex to match a position in a string and insert text at that position. For instance, by matching <span class="socode">(?m)^</span> (the beginning of a line in multiline mode) and replacing the match with <span class="socode">// </span>, you can add a prefix to every line of a file.<br /><br />
+
+Likewise, we saw how the zero-width pattern <span class="socode">(?&lt;=[a-z])(?=[A-Z])</span> allows you to <a href="#camelinsert">insert characters in a CamelCase word</a>.
+<br /><br />
+
+<b>Splitting</b><br />
+We saw how the same zero-width pattern <span class="socode">(?&lt;=[a-z])(?=[A-Z])</span> allows you to <a href="#camelsplit">split a CamelCase word</a> into its components.
+<br /><br />
+
+<b>Overlapping Matches</b><br />
+
+We saw how an unanchored lookaround that contains capture groups—such as <span class="socode">(?=(\w+))</span>—allows you to <a href="#overlapping">match overlapping string segments</a>.
+<br /><br /><br />
+
+
+
+<a id="position"></a>
+<span class="em8"><a href="#position">(direct link)</a></span><br />
+<h2>Positioning the Lookaround</h2>
+
+Often, you have two options for positioning a lookaround: before the text to be matched, or after. Usually, one of the options is more efficient because it requires less work of the engine.<br /><br />
+
+To illustrate this, here are examples for each kind of lookaround. I borrowed them from the <a href="regex-disambiguation.html#lookarounds">lookarounds section</a> of the main syntax page, where they are discussed in greater detail.
+<br /><br />
+
+<b>Lookahead</b><br />
+<span class="socode">\d+(?= dollars)</span> and <span class="socode">(?=\d+ dollars)\d+</span> both match <i>100</i> in <span class="mono">100 dollars</span>, but the first is more efficient because the engine needs to match <span class="socode">\d+</span> only once.
+<br /><br />
+
+<b>Negative Lookahead</b><br />
+<span class="socode">\d+(?! dollars)</span> and <span class="socode">(?!\d+ dollars)\d+</span> both match <i>100</i> in <span class="mono">100 pesos</span>, but the first is more efficient because the engine needs to match <span class="socode">\d+</span> only once.
+<br /><br />
+
+<b>Lookbehind</b><br />
+<span class="socode">(?&lt;=USD)\d{3}</span> and <span class="socode">\d{3}(?&lt;=USD\d{3})</span> both match <i>100</i> in <span class="mono">USD100</span>, but the first is more efficient because the engine needs to match <span class="socode">\d{3}</span> only once.
+<br /><br />
+
+<b>Negative Lookbehind</b><br />
+<span class="socode">(?&lt;!USD)\d{3}</span> and <span class="socode">\d{3}(?&lt;!USD\d{3})</span> both match <i>100</i> in <span class="mono">JPY100</span>, but the first is more efficient because the engine needs to match <span class="socode">\d{3}</span> only once.
+<br /><br />
+
+
+What may not be so clear is that each of these lookarounds can be used in two main ways: before the expression to be matched, or after it. These two ways have a slightly different feel. Please don't obsess over the differences; rather, just cruise through these simple examples to become familiar with the types of effects you can achieve.
+<br /><br />
+
+
+When you compare each pair, the two methods have a different <i>feel</i>. The point of the examples is not to make you memorize "the right position", but to expose you to those two basic feels. Once you're familiar with them, you will naturally think of rewriting a lookaround that feels too heavy. With a bit of practice, the efficient way of positioning your lookarounds will probably come to you naturally. 
+<br /><br />
+<br />
+
+
+
+
+<a id="back_to_the_future"></a>
+<span class="em8"><a href="#back_to_the_future">(direct link)</a></span><br />
+<h2>Lookarounds that Look on Both Sides: Back to the Future</h2>
+Suppose you want to match a two-digit number surrounded by underscores as in <span class="mono">_12_</span> but not the underscores.
+<br /><br />
+
+We have already seen three ways to do this:<br />
+✽ You can match everything and capture the digits to Group 1: <span class="socode">_(\d{2})_</span><br />
+✽  You can use a lookbehind and a lookahead: <span class="socode">(?&lt;=_)\d{2}(?=_)</span><br />
+✽ You can use <span class="socode">\K</span> to drop the first underscore from the match: <span class="socode">_\K\d{2}(?=_)</span><br />
+<br />
+
+There is a fourth technique I'd like to introduce you to. I call it the "back to the future lookbehind." There shouldn't be any reason to use it on its own, but sometimes within an intricate pattern it may just what you need, so it's nice to be familiar with it and add it to your repertoire.<br /><br />
+
+We can position our back-to-the-future lookbehind before or after the digits. Let's start with the <i>before</i> version:<br />
+<code class="cinter">(?&lt;=_(?=\d{2}_))\d+</code><br />
+
+Wowzy, what does this do? The lookbehind asserts that what immediately precedes the current position in the string is an underscore, then a position where the lookahead <span class="socode">(?=\d{2}_)</span> can assert that what immediately follows is two digits and an underscore.<br /><br />
+
+This is interesting for several reasons. First, we have a lookahead within a lookbehind, and even though we were supposed to look backwards, this lookahead jumps over the current position by matching the two digits and the trailing underscore. That's acrobatic.
+<br /><br />
+
+Second, note that even though it looks complex, this is a fixed-width lookbehind (the width is one character, the underscore), so it should work in all flavors of lookbehind. (However, it does not work in Ruby as Ruby does not allow lookaheads and negative lookbehinds inside lookbehind.)
+
+<br /><br />
+Another interesting feature is how the notion of "current position in the string" is not the same for the lookbehind and for the lookahead. You'll remember that <a href="#stand_their_ground">lookarounds stand their ground</a>, so that after checking the assertion made by a lookaround, the engine hasn't moved in the string. Are we breaking that rule?<br /><br />
+
+We're not. In the string <i class="mono">10 _16_ 20</i>, let's say the engine has reached the position between the underscore and the <i>1</i> in <i>16</i>. The lookbehind makes an assertion about what can be matched at that position. When the engine exits the lookbehind, it is still standing in that same spot, and the token <span class="socode">\d{2}</span> can proceed to match the characters <i>16</i>.
+<br /><br />
+
+But within the lookbehind itself, we enter a different little world. You can imagine that outside that world the engine is red, and inside the little world of the lookbehind, there is another little engine which is yellow. That yellow engine keeps track of its own position in the string. In most engines (.NET proceeds differently), the yellow engine is initially dropped at a position in the string that is found by taking the red engine's position and subtracting the width of the lookbehind, which is 1. The yellow engine therefore starts its work before the leading underscore. Within the lookbehind's little world, after matching the underscore token, the yellow engine's position in the string is between the underscore and the <i>1</i>. It is that position that the lookahead refers to when it asserts that at the current position in the string (according to the little world of the lookbehind and its yellow engine), what immediately follows is two digits and an underscore.<br /><br />
+
+<b>After the digits</b><br />
+Here is a second version where the "back-to-the-future lookbehind" comes after the digits:<br />
+<code class="cinter">\d+(?&lt;=_\d{2}(?=_))</code><br />
+
+The lookbehind states: what immediately precedes this position in the string is an underscore and two digits, then a position where the lookahead <span class="socode">(?=_)</span> can assert that what immediately follows the current position in the string (according to the yellow engine and the lookbehind's little world) is an underscore.
+<br /><br />
+
+This too is a fixed-width lookbehind (the width is three character, i.e. the leading underscore and the two digits), so it should work in all flavors of lookbehind except Ruby.
+<br /><br /><br />
+
+
+
+<a id="compound"></a>
+<span class="em8"><a href="#compound">(direct link)</a></span><br />
+<h2>Compound Lookahead and Compound Lookbehind</h2>
+The <a href="#back_to_the_future">back-to-the-future lookbehind</a> introduced us to what I call <i>compound lookarounds</i>, i.e., lookarounds that contain other lookarounds. You could also call them <i>nested lookarounds</i>, but for me the idea of compounding captures something more about the feel of working with these constructs.
+<br /><br />
+
+Let's look at some examples.<br /><br />
+
+<b>Token followed by one character, but not more</b><br />
+ How can you match a number that is followed by one underscore, but not more?<br /><br />
+
+You can use this:<br />
+<code class="cinter">\d+(?=_(?!_))</code>
+The lookahead asserts: what follows the current position in the string is one underscore, then a position where the negative lookahead <span class="socode">(?!_)</span> can assert that what follows is not an underscore. A less elegant variation would be <span class="socode">\d+(?=(?!__)_)</span>
+<br /><br />
+
+<b>Token preceded by one character, but not more</b><br />
+ How can you match a number that is preceded by one underscore, but not more?<br /><br />
+
+You can use this:<br />
+<code class="cinter">(?&lt;=(?&lt;!_)_)\d+</code>
+The lookbehind asserts: what precedes the current position in the string is a position where the negative lookbehind <span class="socode">(?&lt;!_)</span> can assert that what immediately precedes is not an underscore, then an underscore. A variation would be <span class="socode">(?&lt;=_(?&lt;!__))\d+</span>
+<br /><br />
+
+<b>Multiple Compounding</b><br />
+Needless to say, it won't be long until you find occasions to add levels of compounding beyond the two we've just seen. But that quickly becomes obnoxious, and it becomes simpler to rearrange the regex. For instance, building on the previous pattern,<br />
+<code class="cinter">(?&lt;=(?&lt;!(?&lt;!X)_)_)\d+</code>
+matches a number that is precede by an underscore that is not preceded by an underscore unless that underscore is preceded by an <i>X</i>.
+<br /><br />
+In .NET, PCRE, Java and Ruby, this could be simplified to <span class="socode">(?&lt;=(?&lt;!_)_|X__)\d+</span> <br />
+In Perl and Python, you could use <span class="socode">(?:(?&lt;=(?&lt;!_)_)|(?&lt;=X__))\d+</span>
+
+
+<br /><br /><br />
+
+
+
+<a id="atomic"></a>
+<span class="em8"><a href="#atomic">(direct link)</a></span><br />
+<h2>The Engine Doesn't Backtrack into Lookarounds…<br /><br />
+…because they're atomic</h2>
+<br />
+Here's a fun regex task. You have a string like this:<br />
+<span class="mono cinter">_rabbit _dog _mouse DIC:cat:dog:mouse</span><br />
+
+The <i>DIC</i> section at the end contains a list of allowed animals. Our job is to match all the <i>_tokens</i> named after an allowed animal. Therefore, we expect to match <i class="mono">_dog</i> and <i class="mono">_mouse</i>. A lookaround helps us do this:<br /><br />
+<code class="cinter">_(\w+)\b(?=.*:\1\b)</code><br />
+
+After matching the underscore, we capture a word to Group 1. Then the lookahead <span class="socode">(?=.*:\1\b)</span> asserts what follows the current position in the string is zero or more characters, then a colon, then the word captured to Group 1. As hoped, this matches both <i class="mono">_dog</i> and <i class="mono">_mouse</i>.<br /><br />
+
+Now suppose we try a "reversed" approach:<br /><br />
+
+<code class="cinter">_(?=.*:(\w+)\b)\1\b</code><br />
+
+This only matches <i class="mono">_mouse</i>. Why?<br /><br />
+
+First let's try to understand what this regex hopes to accomplish. It may not be that obvious, but it illustrates an important feature of lookarounds.
+<br /><br />
+After the engine matches the underscore, the lookahead <span class="socode">(?=.*:(\w+)\b)</span> asserts that what follows the current position in the string is any number of characters, then a colon, then a word (captured to Group 1). After passing that assertion, the back-reference <span class="socode">\1</span> matches what was captured into Group 1.
+<br /><br />
+
+Let's see how this works out. Remember that our string is <br />
+<span class="mono cinter">_rabbit _dog _mouse DIC:cat:dog:mouse</span><br />
+
+After the underscore that precedes <i>rabbit</i>, we expect the lookahead to fail because there is no <i>rabbit</i> in the <i>DIC</i> section—and it does. The next time we match an underscore is before <i>dog</i>. At that stage, inside the lookahead <span class="socode">(?=.*:(\w+)\b)</span>, the dot-star shoots down to the end of the string, then backtracks just far enough to allow the colon to match, after which the word <i>mouse</i> is matched and captured to Group 1. The lookahead succeeds. The next token <span class="socode">\1</span> tries to match <i>mouse</i>, but the next character in the string is the <i>d</i> from <i>dog</i>, so the token fails. At this stage, having learned everything about backtracking, we might assume that the regex engine allows the dot-star to backtrack even more inside the lookahead, up to the previous colon, which would then allow <span class="socode">(\w+)</span> to match and capture <i>mouse</i>. Then the back-reference <span class="socode">\1</span> would match <i>mouse</i>, and the engine would return a successful match.<br /><br />
+
+However, it does not work that way. Once the regex engine has left a lookaround, it will not backtrack into it if something fails somewhere down the pattern. On a logical level, that is because the official point of a lookaround is to return one of two values: <span class="mono">true</span> or <span class="mono">false</span>. Once a lookahead evaluates to <span class="mono">true</span> at a given position in the string, it is always true. From the engine's standpoint, there is nothing to backtrack. What would be the point—since the only other available value is <span class="mono">false</span>, and that would fail the pattern?
+<br /><br />
+
+The fact that the engine will not backtrack into a lookaround means that it is an <a href="regex-disambiguation.html#atomic">atomic block</a>. This property of lookarounds will rarely matter, but if someday, in the middle of building an intricate pattern, a lookahead refuses to cooperate… This may be the reason.
+<br /><br /><br />
+
+
+<a id="width"></a>
+<span class="em8"><a href="#width">(direct link)</a></span><br />
+<h2>Fixed-Width, Constrained-Width and Infinite-Width Lookbehind</h2>
+
+In strings such as <i class="mono">123456_ORANGE abc12_APPLE</i>, suppose you are interested in matching uppercase words, provided they are preceded by a prefix composed of digits and an underscore character. Therefore, in this string, you want to match <i>ORANGE</i> but not <i>APPLE</i>.
+<br /><br />
+
+It's worth remembering that in most regex flavors (.NET is one of the few exceptions), the following pattern is invalid:<br /><br />
+
+<code class="cinter">(?&lt;=\b\d+_)[A-Z]+</code><br />
+
+That is because the width of the text matched by the token <span class="socode">\d+</span> can be anything. Most engines require the width of the subexpression within a lookbehind to be known in advance, as in <span class="socode">(?&lt;=\d{3})</span>
+<br /><br />
+
+Some engines allow the width of the subexpression within a lookbehind to take various pre-determined values found on the various sides of an alternation, as in <span class="socode">(?&lt;=0|128|\d{6})</span>. Yet others allow the width to vary within a pre-determined range, as in <span class="socode">(?&lt;=d{2,6})</span>
+<br /><br />
+
+For details of what kinds of widths various engines allow in a lookbehind, see the <a href="regex-disambiguation.html#lookbehind_width">Lookbehind: Fixed-Width / Constrained Width / Infinite Width</a> section of the main syntax page. To honor the winners, I'll just repeat here that the only two programming-language flavors that support infinite-width lookbehind are .NET (C#, VB.NET, …) and Matthew Barnett's <a href="https://pypi.python.org/pypi/regex" target="_blank"><i>regex</i> module</a> for Python. I've also implemented an <a href="pcre-callouts.html#infinite_lb">infinite lookbehind demo for PCRE</a>.
+<br /><br />
+
+<b>Capture Group Inside Variable Lookbehind: Difference between Java and .NET</b><br />
+Both Java and .NET allow this pattern: <br />
+<code class="cinter">(?&lt;=(\d{1,5}))Z</code><br />
+
+.NET allows it because it supports infinite-width lookbehind. Java allows it because it supports lookbehind whose width falls within a defined range. However, they operate differently. As a result, against the string <i class="mono b">123Z</i>, this pattern will return different Group 1 captures in the two engines.<br /><br />
+
+✽ Java captures <i class="mono">3</i> to Group 1. The engine sees that the width of the string to be matched inside the lookbehind must fall between one and five characters. Java tries all the possible fixed-width patterns in the range, from the shortest to the longest, until one succeeds. The shortest possible fixed-width pattern is <span class="socode">(?&lt;=(\d{1}))</span>. The engine temporarily skips back one character in the string, tries to match <span class="socode">\d{1}</span> and succeeds. The lookaround succeeds, and Group 1 contains <i class="mono">3</i>.<br /><br />
+
+✽ .NET captures <i class="mono">123</i> to Group 1. The .NET engine has a far more efficient way of processing variable-width lookbehinds. Instead of trying multiple fixed-width patterns starting at points further and further back in the string, .NET reverses the string as well as the pattern inside the lookbehind, then attempts to match that single pattern on the reversed string. Therefore, in <i class="mono">123Z</i>, to try the lookbehind at the point before <i class="mono">Z</i>, it reverses the portion of string to be tested from <i class="mono">123</i> to <i class="mono">321</i>. Likewise, the lookbehind <span class="socode">(?&lt;=(\d{1,5}))</span> is flipped into the lookahead <span class="socode">(?=(\d{1,5}))</span>. <span class="socode">\d{1,5}</span> matches <i class="mono">321</i>. Reversing that string, Group 1 contains <i class="mono">123</i>. To only capture <i class="mono">3</i> as in Java, you would have to make the quantifier lazy: <code>(?<=(\d{1,5}?))Z</code>
+<br /><br />
+
+✽ Like .NET, the <i>regex</i> alternate regular expressions module for Python captures <i class="mono">123</i> to Group 1.<br />
+
+
+<br /><br />
+
+
+<b>Workarounds</b><br />
+
+There are two main workarounds to the lack of support for variable-width (or infinite-width) lookbehind:<br /><br />
+
+✽ Capture groups.<br />
+Instead of <span class="socode">(?&lt;=\b\d+_)[A-Z]+</span>
+, you can use <span class="socode">\b\d+_([A-Z]+)</span>, which matches the digits and underscore you don't want to see, then matches and captures to Group 1 the uppercase text you want to inspect. This will work in all major regex flavors.<br /><br />
+
+✽ The <span class="socode">\K</span> "keep out" verb, which is available in Perl, PCRE (C, PHP, R…), Ruby 2+ and Python\'s alternate <a href="https://pypi.python.org/pypi/regex" target="_blank"><i>regex</i> engine</a>.<br />
+<span class="socode">\K</span> tells the engine to drop whatever it has matched so far from the match to be returned. Instead of <span class="socode">(?&lt;=\b\d+_)[A-Z]+</span>, you can therefore use <span class="socode">\b\d+_\K[A-Z]+</span><br />
+<br />
+
+Compared with lookbehinds, both the <span class="socode">\K</span> and capture group workarounds have limitations:<br /><br />
+
+✽ When you look for multiple matches in a string, at the starting position of each match attempt, a lookbehind can inspect the characters behind the current position in the string. Therefore, against <i class="mono b">123</i>, the pattern <code>(?&lt;=\d)\d</code> (match a digit preceded by a digit) will match both <i class="mono">2</i> and <i class="mono">3</i>. In contrast, <i class="mono">\d\K\d</i> can only match <i class="mono">2</i>, as the starting position after the first match is immediately before the <i class="mono">3</i>, and there are not enough digits left for a second match. Likewise, <span class="socode">\d(\d)</span> can only capture <i class="mono">2</i>.
+<br /><br />
+
+✽ With lookbehinds, you can impose multiple conditions (similar to our <a href="#password">password validation technique</a>) by using multiple lookbehinds. For instance, to match a digit that is preceded by a lower-case Greek letter, you can use <code>(?&lt;=\p{Ll})(?&lt;=\p{Greek})\d</code>. The first lookbehind <span class="socode">(?&lt;=\p{Ll})</span> ensures that the character immediately to the left is a lower-case letter, and the second lookbehind <span class="socode">(?&lt;=\p{Greek})</span> ensures that the character immediately to the left belongs to the Greek script. With the workarounds, you could use <span class="socode">\p{Greek}\K\d</span> to match a digit preceded by a character in the Greek script (or <span class="socode">\p{Greek}(\d)</span> to capture it), but you cannot impose a second condition. To get over this limitation, you could capture the Greek character and use a second regex to check that it is a lower-case letter. 
+<br />
+
+
+<br /><br />
+
+
+<a id="anchor"></a>
+<span class="em8"><a href="#anchor">(direct link)</a></span><br />
+<h2>Lookarounds (Usually) Want to be Anchored</h2>
+
+Let's imagine we want to match a string consisting of one word, provided it contains at least one digit. This pattern offers a reasonable solution—one of several:<br />
+<code class="cinter">\A(?=\D*\d)\w+\z</code><br />
+
+The <a href="regex-anchors.html#A"><span class="socode">\A</span> anchor</a> asserts that the current position is the beginning of the string. The lookahead <span class="socode">(?=\D*\d)</span> asserts that at the current position (which is still the beginning of the string), we can match zero or more non-digits, then one digit. Next, <span class="socode">\w+</span> matches our word. Finally, the <a href="regex-anchors.html#z"><span class="socode">\z</span> anchor</a> asserts that the current position is the end of the string.
+<br /><br />
+
+Now consider what happens when we forget the anchor <span class="socode">\A</span> and use <span class="socode">(?=\D*\d)\w+\z</span>. To make our oversight seem less severe, let's assume we know that our string always contains an uninterrupted string of word characters. This guarantees that if we find a match, it will have to be the right one—at the beginning of the string, as we wanted. So what's the problem?
+<br /><br />
+
+Suppose we use our regex on a string composed of one hundred characters <i>V</i>. Since the string doesn't contain a single digit, you and I can immediately see that the regex must fail. Let's see how fast the engine comes to the same conclusion. 
+<br /><br />
+
+As always, the engine begins by trying to match the pattern at the first position in the string. Starting with the first token <span class="socode">(?=\D*\d)</span>, it tries to assert that at the current position, i.e. the beginning of the string, it can match zero or more non-digits, then one digit. Within the subexpression, the <span class="socode">\D*</span> matches all the <i>V</i> characters. The engine then tries to match a digit, but since we have reached the end of the string, that fails.
+<br /><br />
+
+If we're using a smart engine such as PCRE, at this stage the engine fails the lookaround for this first match attempt. That's because before starting the match attempt, the engine has studied the pattern and noticed that the <span class="socode">\D</span> and <span class="socode">\d</span> tokens are mutually exclusive, and it has turned the <span class="socode">*</span> quantifier into a possessive quantifier <span class="socode">*+</span>, a process known to PCRE as <i>auto-possessification</i> (see <a href="#atomic">footnote</a>).
+<br /><br />
+
+A less clever engine will backtrack, giving up all the <span class="socode">\D</span> characters it has matched one by one, each time attempting to match a <span class="socode">\d</span> after giving up a <span class="socode">\D</span>. Eventually, the engine runs out of characters to backtrack, and the lookahead fails.<br /><br />
+
+Once the engine understands that the lookahead must fail (whether it comes to this conclusion cleverly or clumsily), it gives up on the entire first match attempt. Next, as always in such cases, the engine moves to the next position in the string (past the first <i>V</i>) and starts a new match attempt. Again, the <span class="socode">\D*</span> eats up all the <i>V</i> characters—although this time, there are only 99 of them. Again, the lookahead fails, either fast if the engine is smart, or, more likely, after backtracking all the way back to the starting position.
+<br /><br />
+
+After failing a second time, the engine moves past the second <i>V</i>, starts a new match attempt, and fails… And so on, all the way to the end of the string.
+<br /><br />
+
+Because the pattern is not anchored at the beginning of the string, at each match attempt, the engine checks whether the lookahead matches at the current position. In doing so, in the best case, it matches 100 <i>V</i> characters, then 99 on the second attempt, and so on—so it needs about 5000 steps before it can see that the pattern will never match. In the more usual case, the engine needs to backtrack and try the <span class="socode">\d</span> at each position, adding two steps at each <i>V position</i>. Altogether, it needs about 15,000 steps before it can see that the pattern will never match.
+<br /><br />
+
+In contrast, with the original anchored pattern <span class="socode">\A(?=\D*\d)\w+\z</span>, after the engine fails the first match attempt, each of the following match attempts at further positions in the string fail instantly, because the <span class="socode">\A</span> fails before the engine gets to the lookahead. In the best case, the engine takes about 200 steps to fail (100 steps to match all the <i>V</i> characters, then one step at each of the further match attempts.) In the more usual case, the engine takes about 400 steps to fail (300 steps on the first match attempt, then one step at each of the further match attempts.)
+<br /><br />
+
+Needless to say, the ratio of (15,000 / 400) steps is the kind of performance hit we try to avoid in computing. This makes a solid case for helping the engine along by minimizing the number of times lookaheads must be attempted, either by using <a href="regex-anchors.html">anchors</a> such as <span class="socode">^</span>
+and <span class="socode">\A</span>, or by matching literal characters immediately before the lookahead.
+<br /><br />
+
+
+<b>One Exception: Overlapping Matches</b><br />
+There are times when we do want the engine to attempt the lookahead at every single position in the string. Usually, the purpose of such a maneuver is to match a number of overlapping substrings. For instance, against the string <span class="mono">word</span>, if the regex <span class="socode">(?=(\w+))</span> is allowed to match repeatedly, it will match four times, and each match will capture a different string to Group 1: <i>word</i>, <i>ord</i>, <i>rd</i>, then <i>d</i>. The section on <a href="#overlapping">overlapping matches</a> explains how this works.
+
+
+<br /><br />
+<br />
+
+
+
+<h2>Footnotes</h2>
+
+<a id="atomictweak"></a>
+<b>Atomic tweak</b><br />
+The <a href="regex-disambiguation.html#atomic">atomic</a> variation <span class="socode">(?>[^a-z]*)[a-z]</span> or <a href="regex-quantifiers.html#possessive">possessive</a> version <span class="socode">[^a-z]*+[a-z]</span> are tweaks that ensure that if the engine fails to find the lowercase letter, it won't "stupidly" backtrack, giving up the non-lowercase letters one by one to see if a lowercase letter might fit at that stage.
+<br /><br />
+Note that before they start matching, some engines notice the mutually exclusive character of <span class="socode">[a-z]</span> and its counterclass and automatically make the <span class="socode">*</span> quantifier possessive for you. This optimization is what PCRE calls <i>auto-possessification</i>. It allows you to turn it off with the <a href="regex-modifiers.html#pcre">Special Start-of-Pattern Modifier</a> <span class="socode">(*NO_AUTO_POSSESS)</span>—but why would you ever want to?
+<br /><br />
+<br />
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div><a href="regex-quantifiers.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;Mastering Quantifiers</b>
+</a>
+<br /><br /><br />
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-10 of 14 Threads</div>
+<a id="cid2175"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Marcelo Azevedo</span><span class="comment-location"> &ndash; Israel</span></div>
+<div class="comment-date">July 09, 2016 - 18:50</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Do you have any books you&#039;ve written</div><br />
+<div class = "comment-text">I really like the way you explain in this website<br />
+every detail is explained with examples and understandable</div>
+</div>
+<a id="cid2121"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Steven</span><span class="comment-location"> &ndash; Canberra Australia</span></div>
+<div class="comment-date">April 22, 2016 - 14:39</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Great examples</div><br />
+<div class = "comment-text">Great article, examples with detailed explanations for regexp newbies like me.</div>
+</div>
+<a id="cid2057"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">fucai</span></div>
+<div class="comment-date">February 18, 2016 - 12:55</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Awesome article!</div><br />
+<div class = "comment-text">It helps me open my mind about regex. I love the way you present.</div>
+</div>
+<a id="cid1471"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">sahil dhar</span></div>
+<div class="comment-date">June 16, 2014 - 03:26</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>MOST AWESOME WEBISTE FOUND ON REGEX</div><br />
+<div class = "comment-text">THANKS A LOT :)  bookmarked</div>
+</div>
+<a id="cid1464"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">jamin</span><span class="comment-location"> &ndash; Gandhinagar</span></div>
+<div class="comment-date">June 10, 2014 - 19:06</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Lookahead</div><br />
+<div class = "comment-text">Very Very helpful&hellip; Thank You</div>
+</div>
+<a id="cid1437"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Victor</span><span class="comment-location"> &ndash; Moscow, Russia</span></div>
+<div class="comment-date">May 21, 2014 - 22:53</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span></div><br />
+<div class = "comment-text">Awesome, enjoyed it!</div>
+</div>
+<a id="cid1417"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">anon</span><span class="comment-location"> &ndash; Hyderabad</span></div>
+<div class="comment-date">May 09, 2014 - 06:42</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>none</div><br />
+<div class = "comment-text">Very good article.</div>
+</div>
+<a id="cid1409"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Patterns</span></div>
+<div class="comment-date">May 04, 2014 - 03:02</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Thank you</div><br />
+<div class = "comment-text">Lookbehinds had been very confusing to me until I read this, specifically the fact that<br />
+<br />
+(a) the engine has not moved at the end of the lookaround(s), so<br />
+<br />
+(b) it is very important where in the regex you put any literals that do in fact move the engine, in relation to the lookbehind. So very clear now! You&#039;re a great teacher, very clear writing too.</div>
+</div>
+<a id="cid1377"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Mohit</span><span class="comment-location"> &ndash; Delhi, INDIA</span></div>
+<div class="comment-date">April 17, 2014 - 07:55</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Lookarounds</div><br />
+<div class = "comment-text">Nicely explained. Very easy to read and understand. Thnx.</div>
+</div>
+<a id="cid1322"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">NewWorld</span><span class="comment-location"> &ndash; Germany</span></div>
+<div class="comment-date">February 21, 2014 - 20:58</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span></div><br />
+<div class = "comment-text">Very well explained. Been put off lookarounds until now. Thanks a lot</div>
+</div>
+<br /><div class="cinter"><a  rel="nofollow" 
+		href="regex-lookarounds31ef.html?cp=2#comlist"><img src="../a.yu8.us/nav_next16.png" class="" width="16" height="16" alt="Next" /></a>&nbsp;&nbsp;</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-lookarounds.html" method="post" >
+<input type="hidden" name="token" value="91bb05d93b951673a4788ed2e67afd3b" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a class="thispage" href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-lookarounds.html?cp=1 by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:23 GMT -->
+</html>

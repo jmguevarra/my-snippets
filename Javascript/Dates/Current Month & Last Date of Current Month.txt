@@ -1,0 +1,37 @@
+<script>
+  
+  //End Date of Current Month
+  const endDate = function(eDigitText){
+    let endText = "";
+    let eDigit = parseInt(eDigitText.toString().slice(-1));
+    
+    if(eDigit === 1){
+      endText = "st";
+    }else if(eDigit === 2){
+      endText = "nd";
+    }
+    else if(eDigit === 3){
+      endText = "rd";
+    }else{
+      endText = "th";
+    }
+    return eDigitText + endText;
+  };
+  
+  //Dynamic Month & Last Date
+  const dt = new Date();
+  const months = ["Jan","Feb","Mar","Apr","May","June","July","Aug","Sep","Oct","Nov","Dec"];
+  let curMonth = months[dt.getMonth()]; //current month
+  let lastDate = new Date(dt.getFullYear(), dt.getMonth() + 1, 0).getDate(); 
+  
+  //Output to Tags
+  console.log( endDate( lastDate ) + curMonth );
+  
+ //const tagMonth = document.querySelector('#current-month');
+ //tagMonth.innerText = ;
+  
+  
+ 
+  
+  
+</script>

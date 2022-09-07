@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-quantifier-capture.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:22 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Capturing quantifiers and quantifier arithmetic in regular expressions. Discusses a potential feature extending regular expression syntax." />
+<title>Regex Tutorial&mdash;Quantifier Capture and Quantifier Arithmetic</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li class="current"><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Capturing Quantifiers and Quantifier Arithmetic</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+This page of the regular expressions "black belt program" discusses a special power that is only available to those who have managed to steal a green egg from the velociraptor by the cave near the mountain top: capturing quantifiers, and quantifier arithmetic. 
+<br /><br />
+
+I have not used this feature myself because I got lost on the way to the cave. Joke aside, quantifier capture is a feature I started wondering about in January 2014 and mulled over in the background until drafting this page three months later. It's a simple idea, so I imagined it would be implemented in some engines.
+<br /><br />
+
+However, after making enquiries from several people who write regex engines, it appears that the feature is not implemented at the moment. On April 13 2014, Jan Goyvaerts, who is probably the arch-expert on cross-engine syntax because he has to maintain many engines for RegexBuddy, wrote: <br /><br />
+<blockquote><div>
+	I do not know of any regex flavors that allow you to capture a quantifier by itself or that allow you to use a backreference inside a quantifier in any way.
+</div></blockquote>
+
+<br />
+
+If the situation changes, please <a href="#comform">write at the bottom of the page</a>.
+<br /><br />
+
+<h2>Quantifier Capture</h2>
+Sometimes, it would be handy to be able to "capture a quantifier"&mdash;meaning some way to capture the number of times a quantifier such as "+" or "*" is able to match.
+<br /><br />
+For instance, suppose you were interested in matching balanced lines such as these:<br /><br />
+<div class="cinter">
+<i>@@ "Snow White" == "1987" -- "Animation" // "Erich Kobler"</i> <b>or</b> <br />
+<i>@@@@ "Star Wars" ==== "1977" ---- "Science Fiction" //// "George Lucas" </i>	<b>but not</b> <br />
+<i>@@@ "Groundhog Day" = "1993" ----- "Comedy" // "Harold Ramis" </i>
+</div>
+<br />
+
+The point is that you want to make sure you have the same number of "@" characters as of "=" character, "-" characters and "/" characters.
+<br />
+For that purpose, a regex such as the following will not do because it will match all lines.<br /><br />
+
+<div class="cinter">
+	<code>^@+ "[^"]+" =+ "[^"]+" -+ "[^"]+" /+ "[^"]+"$</code>
+</div>
+<br />
+
+
+Balancing the number of {@,-,=,/} is fairly straightforward in languages that use .NET regex thanks to the <i>balancing groups</i> feature, and I give a <a href="#balancingGroups">demo</a> of this lower down. In PCRE, it is also possible but far less straightforward, as you need to use some neat tricks: the syntax is far too complex and error-prone for it to be useful on a regular basis. I explain these tricks  (which I did not invent) <a href="#pcreBalancing">lower on the page</a>.
+<br /><br />
+
+What we really need is a syntax such as the following:<br /><br />
+&bull; <code>(*)</code> captures the number of characters the star quantifier is able to match. Likewise, <code>(+)</code>, <code>(?)</code> and <code>({2,9})</code> capture the number of characters these quantifiers are able to match.<br /><br />
+&bull; <code>\q1</code> refers to the first captured quantifier, <code>\q2</code> refers to the second captured quantifier and so on.<br /><br />
+&bull; <code>\q+1</code> refers to the next captured quantifier. <code>\q+2</code> refers to the second-next captured quantifier, <code>\q-3</code> refers to the third-previous quantifier.<br /><br />
+
+
+With this syntax, we could easily match our desired pattern with the following regex:<br /><br />
+<div class="cinter">
+	<code>^@(+) "[^"]+" ={\q1} "[^"]+" -{\q1} "[^"]+" /{\q1} "[^"]+"$</code>
+</div>
+<br />
+
+Alternately, using relative addressing, you could use either of the following expressions, where the quantifier is captured further down the string..<br /><br />
+<div class="cinter">
+	<code>^@+{\q1} "[^"]+" ={\q1} "[^"]+" -{\q1} "[^"]+" /(+) "[^"]+"$</code><br />
+	<code>^@+{\q+2} "[^"]+" ={\q+1} "[^"]+" -(+) "[^"]+" /{\q-1} "[^"]+"$</code>
+</div>
+<br />
+<br />
+
+The syntax would also allow you to use captured quantifiers in range quantifiers such as <code>{\q1,\q2}</code>.
+<br /><br />
+
+<b>An Alternative to Recursion</b><br />
+In some cases, capturing quantifiers would elegantly replace recursion. For instance, suppose you want to match a number of zeros and ones framed by the same number of Ls and Rs, a in "LLL100110100RRR".<br /><br />
+
+With recursion, you can write:
+<div class="cinter">
+<code>L((?R)|[01]*)R</code>
+</div>
+<br />
+
+With captured quantifiers, you can write:
+<div class="cinter">
+<code>L(+)[01]+R{\q1}</code>
+</div>
+<br /><br />
+
+Usually, the non-recursive version would be easier to write and read.
+<br /><br />
+
+<h2>Quantifier Arithmetic</h2>
+A natural extension of capturing quantifiers is to play with the captured integers. For instance, it won't be long until you want to match twice as many (i.e., <i>2x</i>) instances of a certain character or sequence than you matched of another sequence or character. Or you might want to match three more instances (<i>x+3</i>), or some other function (such as <i>2x+5</i>).
+<br /><br />
+
+This could be implemented either directly in the syntax, or with the help of callbacks. <br /><br />
+
+A biologist looking at genomes comprised of the letters A, T, G and C might have a particular interest in finding sequences where a certain number x of "A"s are followed by any number of T and Gs, then "2x + 1" Cs, as in:<br /><br />
+
+<div class="cinter">
+<i><b>A</b>TGGTTTGT<b>CCC</b></i>, but not<br />
+<i><b>AAA</b>TGGTTTGT<b>CCC</b></i>
+</div>
+<br />
+
+Without callbacks, the syntax to accomplish this kind of arithmetic could become cumbersome. Here are two possible implementations, without and with callback:<br /><br />
+
+<div class="cinter">
+<code>A(+)[TG]+C{2*\q1+1}</code><br /><br />
+<code>A(+)[TG]+C{CALL_VERB somefunction(\q1)}</code><br /><br />
+</div>
+
+In conclusion, it seems to me that quantifier capture (as a first step) and quantifier arithmetic (as a second step) would nicely enhance the expressiveness of regular expressions and would be a logical extension of the syntax.
+<br /><br />
+
+
+<h2>Current Solutions to Balance the Number of Certain Characters</h2>
+If you don't have quantifier capture in your regex flavor, you can still check that strings like the one shown higher on the page are balanced. To make the example easier to understand, I simplified the kind of strings we are trying to validate:<br /><br />
+<div class="cinter">
+<i>L555M002R</i> <b>or</b> <br />
+<i>LLL88MMM7281RRR</i>	<b>but not</b> <br />
+<i>LLL88M7281RRR</i>
+</div>
+<br />
+
+
+The idea is that we want to make sure we have the same number of L, M, and R characters (think of them as "Left", "Middle" and "Right" separators.
+<br /><br /><br />
+
+<a id="balancingGroups"></a>
+<h2>.NET: Balancing Groups</h2>
+In languages that can tap into .NET regex, checking that a string such as <i>LL00MM11RR</i> has the same number of L, M, and R characters is fairly straightforward thanks to balancing groups:
+<br /><br />
+
+<code class="cinter em9">^(?:L(?&lt;c1>)(?&lt;c2>))+[^LM]+(?&lt;-c1>M)+[^MR]+(?&lt;-c2>R)+(?(c1)(?!))(?(c2)(?!))$</code><br />
+
+This is fairly long, but it is simple. <br /><br />
+
+&bull; First, notice that the string is anchored by <code>^</code> and <code>$</code> to prevent the engine from matching a balanced string within an unbalanced string.<br /><br />
+
+&bull; The non-capturing group <code>(?:L(?&lt;c1>)(?&lt;c2>))+</code> is quantified with a <code>+</code> and matches all the L characters. It also contains two named capture groups c1 and c2. These groups are empty, so they don't match anything; or, rather, they match an empty string. You may know that .NET deals with quantified capture groups in a special way: it <a href="regex-csharp.html#quantgroups">adds the successive captures of a given group to a collection of captures</a>. This means that each time an <i>L</i> is matched, a capture is added to the capture collection for named groups c1 and c2. We will use c1 and c2 as counters. By the time the engine exits the quantified non-capturing group, the c1 and c2 groups both hold the same number of captures, which is the number of Ls that were matched.<br /><br />
+
+&bull; The <code>[^LM]+</code> eats up all the characters up to the first <i>M</i>. <br /><br />
+
+&bull; The <code>(?&lt;-c1>M)+</code> is a quantified group that eats up all the Ms. It may look like it is a named group called "-c1", but <i>-c1</i> is .NET regex syntax to pop (and discard) the last capture in group c1. This means that each time we match an <i>M</i>, one c1 capture is thrown away. In essence, we are decrementing our c1 counter. If we have already matched as many Ms as Ls, group c1 is empty. If there are any Ms left at that point, when the engine tries to pop one capture from the c1 group, it cannot do so, and the regex fails. This ensures that there cannot be more Ms than Ls in the string. Later, we will add a check to ensure that there are no more Ls than Ls.<br /><br />
+
+&bull; The <code>[^MR]+</code> eats up all the characters up to the first <i>R</i>. <br /><br />
+
+&bull; The <code>(?&lt;-c2>R)+</code> matches all the Rs while decrementing c2, ensuring that there cannot be more Rs than Ms.<br /><br />
+
+&bull; The <code>(?(c1)(?!))</code> is a conditional that checks if capture group c1 is set. If c1 is set, the engine tries to match <code>(?!)</code>, which is a <a href="regex-tricks.html#fail">trick to force the regex to fail</a>. The conditional therefore forces the regex to fail if there are captures left in gorup c1, which would mean that we have not matched enough Ms to fully decrement our c1 "counter". This expression ensures that we cannot have more Ls than Ms.<br /><br />
+
+&bull; Likewise, <code>(?(c2)(?!))</code> ensures that we cannot have more Ls than Rs.
+<br /><br />
+
+That's a bit of syntax to explain, but I hope you'll agree that once you understand that syntax, writing such an expression is straightforward.
+<br /><br /><br />
+
+
+
+<a id="pcreBalancing"></a>
+<h2>PCRE: Balancing by Building Capture Groups Accretively</h2>
+
+In PCRE, checking that a string such as <i>LL00MM11RR</i> has the same number of L, M, and R characters is possible, but tricky.<br /><br />
+
+This trick and the next are shown for a more complicated pattern on this <a href="http://www.stackoverflow.com/q/23001137" target="_blank">Stack thread</a>. I have modified the recipes slightly for easier comprehension, but not in its essence. Later if you are interested you can inspect my <a href="#starwars">version for the "Star Wars pattern"</a>.
+<br /><br />
+
+I gave detailed comments in the code box below, but it may be helpful to have a high-level overview of certain aspects before diving in.<br /><br />
+
+Group 1 will capture all the "L" characters. Group 2 captures the Ms, Group 3 captures the Rs. 
+<br /><br />
+
+The expression is in two parts. First, we match all the Ls, and as we do so, a lookahead checks that we have at least as many Ms and Rs. Second, when we are done matching all the Ls and have satisfied ourselves that we have at least as many Ms and Rs as we want, we continue the match, specifying exactly the characters we want, which (among other effects) ensures we have no more Ms and Rs than needed.
+
+<br /><br />
+In the first part, as the engine matches each L character at a time, the content of Groups 1, 2 and 3 change each time a new "L" is matched. The parentheses of Group 2 actually refer to the current value of Group 2, i.e., \2, in the expression <code>(\2?+M)</code>. What does this do? After the first L is matched, Group 2 is undefined, and the "?" in <code>\2?+</code> makes \2 optional, allowing that part of the expression to match. Group 2 then matches the first M, and the value of Group 2 becomes "M". After the second L is matched, Group 2 is still "M", so the \2 in <code>(\2?+M)</code> matches "M", then we match the second "M", and the value of Group 2 becomes "MM". The "+" in <code>\2?+</code> ensures that if we fail to match the M that follows, the engine doesn't backtrack by activating the optional \2? and dropping the first M. Without the "+", we could match strings such as "LLL1M2R". See the <a href="regex-disambiguation.html#atomic" >section on atomic groups</a>.
+<br /><br />
+Please understand that although Group 2 looks like a self-reference, the expression in Group 2 refers to the previously stored value. Therefore, the value \2 of Group 2 after the closing parenthesis is not what it was <i>inside</i> the parentheses.
+<br /><br />
+
+Ready? Here we go.
+<br /><br />
+<div class="cinter">
+<code>^((?:L(?=[^M]*(\2?+M)[^R]*(\3?+R)))+)\d+\2\d+\3$</code>
+</div>
+<br />
+
+Easy, right?&hellip; Just kidding. Here is the commented break-down.
+<br /><br />
+
+<div class="codebox">
+	<pre>
+(?xm) # Free-spacing mode, multi-line
+^ # Assert Beginning of Line
+( # Begin Group 1
+  (?:     # Non-capturing group, which will be repeated
+  L       # Match one L
+  (?=     # Begin Lookahead
+    [^M]* # Match any chars that are not M
+    (     # Begin Group 2
+    \2?+  # Match Group 2 if possible, and if so
+          # do not later give up the match.
+          # In other words if Group 2 can be matched, match it.
+          # This could be expressed as (?(2)\2)+
+          # After we match the first L, Group 2 starts out undefined
+          # so the ? will be used.
+          # After we match the 2nd L, Group 2 is M
+          # so at that point we must match M.
+          # After we match the 3rd L, Group 2 is MM
+          # so at that point we must match MM.
+    M     # Match M
+    )     # End Group 2
+          # After matching the first L, Group 2 is M
+          # After matching the second L, Group 2 is MM
+          # After matching the third L, Group 2 is MMM
+          # etc.
+    [^R]*   # Match any chars that are not R
+    (\3?+R) # Group 3 follows the same principle as Group 2
+            # If you have a hard time following, simplify
+            # the test string
+            # and remove the Group 3 section
+  )    # End Lookahead
+  )+   # Repeat the non-capturing group
+)      # End Group 1
+
+# If we stopped right there, the regex would match strings
+# that have x characters L and at least x each of characters {M,R}
+# but possibly more: there would be no guarantee of balance
+
+# To validate that we have no more than needed,
+# we now match (or lookahead) precisely what we want
+# after all the L characters we have matched.
+
+\d+ # Match some digits
+\2  # Match the characters captured in Group 2
+\d+ # Match some digits
+\3  # Match the characters captured in Group 3
+$   # Assert End of Line
+	</pre>
+</div>
+<br />
+
+Hope you enjoyed this one! Working through it is a great exercise.
+<br /><br />
+But if it shows one thing, apart from the cleverness of certain coders, it's that realistically, to balance strings as we have done, you need something like the quantifier capture syntax advocated on this page.
+<br /><br />
+
+<a id="starwars"></a>
+In the unlikely case you'd like to see the same principle applied to the <i>@@@@ "Star Wars" ==== "1977" ---- "Science Fiction" //// "George Lucas" </i> example from the top, the code is <a href="regex_starwars.txt" rel="nofollow" target="_blank">here</a>.
+<br /><br />
+
+
+<a id="recursion"></a>
+<h2>PCRE: Balancing with Recursion</h2>
+
+As a reminder, we are trying to check that a string such as <i>LL00MM11RR</i> has the same number of L, M, and R characters.<br /><br />
+
+
+This method uses <a href="regex-recursion.html">regex recursion</a>. For those who jumped in to this point from another page, the task at hand is to validate balanced strings such as<br /><br />
+<div class="cinter">
+<i>L00M123R</i> <b>or</b> <br />
+<i>LLL22MMM1111RRR</i>	<b>but not</b> <br />
+<i>LLL22M1111RRR</i>
+</div>
+<br />
+
+The idea is that we want to make sure we have the same number of L, M, and R characters (think of them as "Left", "Middle" and "Right" separators. 
+<br /><br />
+
+The overall structure of this expression is that of a <a href="regex-lookarounds.html#password">password validation regex</a>. We have two lookaheads to validate some conditions, then we watch what we want, if possible. The first lookahead validates that the Ms balance with the Ls. The second lookahead validates that the Rs balance with the Ls.
+<br /><br />
+
+The structure of the first lookahead (which is equivalent to the second one) is as follows. We begin Group 1, which is the group whose pattern we will repeat (recursion). Group 1 matches "L, stuff, then M". The "stuff" in the middle is either another instance of Group 1 (L, stuff, M) or, if there are no more Ls to consume, any characters that are neither L nor M. If you trace this recursion on paper, you will see that for "LLL00MMM123RRR", within this lookahead the engine matches L (level 0), then L (level 1), then L00M (level 2), then M (closing level 1), then M (closing level 0).
+<br /><br />
+
+Ready? Here we go.<br /><br />
+
+<div class="codebox">
+	<pre>
+(?xm) # Free-spacing mode, multi-line
+^     # Assert Beginning of String
+
+# The function of the following lookahead is to check
+# that the Ms balance with the Ls
+(?=   # Begin Lookahead
+  (   # Begin Group 1
+      # Group 1 will match "L stuff M", where
+	  # "stuff" may recurse to "L stuff M"
+	  # The base case for "stuff" when we run out of Ls
+	  # will be characters that are neither L nor M.
+    L # Match L
+      (?> # Begin Atomic group
+        (?-1)   # Recursion to the next level:
+                # Match the pattern defined by the previous 
+                # defined group, i.e. Group 1, i.e. match the
+                # next L then what follows...
+        |       # OR (if we cannot match an L)
+        [^LM]++ # Match characters that are neither L nor M
+                # but do not give up the match
+                # if what follows fails (possessive)
+      ) # End Atomic Group
+    M   # Match M, completing the "L stuff M" of Group 1.
+  )     # End Group 1
+  (?!M) # Assert that the next character is not "M"
+) # End Lookahead
+
+# The next lookahead has the same structure as the previous one
+# Its function is to check that the Rs balance with the Ls
+(?=(L(?>(?-1)|[^LR]++)*R)(?!R)) 
+
+# We now know that the Ls, Ms and Rs are balanced
+# What's left to do is to actually match what we want.
+
+L+\d+M+\d+R+$        # Match what we want
+	</pre>
+</div>	
+<br /><br />
+
+Was that awesome?<br /><br />
+
+I thought so when I worked through these tricks! To understand them, I carefully commented each line in RegexBuddy, then worked an example on paper. I highly recommend this procedure as a way to understand such complex expressions.
+<br />
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div><a href="regex-tricks.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;Regex Tricks</b>
+</a>
+<br /><br /><br />
+
+
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-2 of 2 Threads</div>
+<a id="cid2538"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Chris Wagner</span></div>
+<div class="comment-date">August 21, 2018 - 08:06</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>The Perl Solution</div><br />
+<div class = "comment-text">The solution to this problem is trivial in Perl. It&#039;s also the simplest. No backtracking, no recursion, no back references. The key is the postponed sub regular expression and the inlined code block. (? {}) Execute any code based on the progress of the regular expression. (?? {}) Postponed sub expression that is calculated when it is encountered based on any code. The embedded qr creates the sub regex that is used. Here are two examples. One just in a boolean context and one that captures each segment of the string. The tokens L, M, and R can represent arbitrary regular expressions. ( it won&#039;t let me post this )<br />
+<br />
+This process can be used to instrument any regex and to add unlimited complexity to any regex process.
+
+This stupid form won&#039;t let me post a bracket character so here is the regex code with the character class brackets replaced by double curley brackets. Replace {{ and }} with square brackets. Pp &quot;LLL88MMM7281RRR&quot; =~ m/^(? {$L=0}) (? :L(? { $L++ }))++ {{^M}}*+ (?? { qr{M{$L}(? !M)} }) {{^R}}* (?? { qr{R{$L}} }) $/x;<br />
+1<br />
+<br />
+pp &quot;LLL88MMM7281RRR&quot; =~ m/^(? {$L=0}) ((? :L(? { $L++ }))++) ({{^M}}*+) ((?? { qr{M{$L}(? !M)} })) ({{^R}}*+) ((?? { qr{R{$L}} })) $/x;<br />
+(&quot;LLL&quot;, 88, &quot;MMM&quot;, 7281, &quot;RRR&quot;)</div>
+</div>
+<a id="cid2541"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Chris Wagner</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">August 21, 2018 - 09:25</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: The Perl Solution</div><br />
+<div class = "comment-text">Thank you Chris,
+I very much appreciate your solution for those of us who don&#039;t know Perl.</div>
+</div>
+<a id="cid2375"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Jerem Flowers</span></div>
+<div class="comment-date">July 08, 2017 - 22:42</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Quantifier Capture</div><br />
+<div class = "comment-text">Would love to see that in Javascript!</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-quantifier-capture.html" method="post" >
+<input type="hidden" name="token" value="816d4ed1310b18850f94c685b06a90a2" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a class="thispage" href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-quantifier-capture.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:24 GMT -->
+</html>

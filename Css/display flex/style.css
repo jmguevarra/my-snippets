@@ -1,0 +1,18 @@
+#id{
+    /*Flex Compatibility*/
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    /*Justify Content Compatibility*/
+    -webkit-justify-content: flex-end;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+
+    /*Flex Direction*/ 
+    flex-direction: column;
+    -webkit-flex-direction: column
+    -webkit-flex-flow: column wrap
+    -webkit-box-orient: vertical
+}

@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-python.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Python Regex Tutorial. Discusses the Python re and regex classes, provides working code for matching, replacing and splitting." />
+<title>Python Regex Tutorial</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li class="current"><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Using Regular Expressions with Python</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+Lately, I have been working hard on beefing up the site. There are exciting new pages, and old ones have shiny new sections. The Python regex tutorial is not fully ready for prime-time, but it's one of four at the top of my priority list. I'm working on it!
+<br /><br />
+In the meantime, I don't want to leave you Python coders out dry, so below there are <a href="#twoprograms">two programs</a> that show everything you need to get started with Python regex. But first, I feel that a word is in order about the feature set in the <i>re</i> module.
+<br /><br />
+
+<a id="missing_in_re"></a>
+<span class="em8"><a href="#missing_in_re">(direct link)</a></span><br />
+<h2>What's Missing from the <i class="mono">re</i> Module (lots!)…<br /><br />
+&ensp;…and why the alternate <i class="mono">regex</i> Module is One of the Best</h2>
+I'm sure you don't want to hear a lot of bad news right at the start, but this is both bad news and excellent news. You should know that <i class="mono">re</i>, the default regex engine for Python, is the second worst among all the major engines (granted, <a href="regex-javascript.html#crippled">JavaScript wins the loser contest</a> by a long margin.) You should also know that Python has an alternate regular expressions module called <a href="https://pypi.python.org/pypi/regex" target="_blank"><i class="mono">regex</i></a>, which is possibly the very best engine available in the major languages.
+<br /><br />
+
+<b>Missing from the <i class="mono">re</i> module</b><br />
+So what's missing from the <i class="mono">re</i> module?<br />
+Here is a list I've cobbled together. It's incomplete but will give you an idea:<br /><br />
+✽ Atomic groups and possessive quantifiers<br />
+✽ Unicode properties<br />
+✽ Variable-width lookbehind<br />
+✽ <span class="socode">\G</span><br />
+✽ <span class="socode">\K</span><br />
+✽ <span class="socode">\z</span><br />
+✽ Splitting on zero-width matches<br />
+✽ Subroutine calls and recursion<br />
+✽ Character class operations<br />
+✽ Branch reset<br />
+✽ <span class="socode">(*SKIP)(*FAIL)</span><br />
+✽ Advanced features for inline modifiers such as <span class="socode">(?i)</span>: setting them in the middle of a pattern, turning them off as in <span class="socode">(?-i)</span>, applying them to a subexpression as in <span class="socode">(?i:foo)</span><br />
+<br /><br />
+
+
+<b>Why I use the <i class="mono">regex</i> package</b><br />
+In my view, the alternate <a href="https://pypi.python.org/pypi/regex" target="_blank"><i class="mono">regex</i> package by Matthew Barnett</a> may possibly be the very best regex engine available in a mainstream programming language. Before you Perl fans send me flame letters, I'll explain why: the <i class="mono">regex</i> package combines some of the advanced features of .NET (infinite lookbehind, capture collections, character class operations, right-to-left matching) with some of the advanced features of Perl, PCRE and Ruby (subroutines and recursion). It even has a fuzzy matching feature.
+<br /><br />
+
+The recent addition of <span class="socode">\K</span>, <span class="socode">(?(DEFINE)&hellip;)</span> and <span class="socode">(*SKIP)(*FAIL)</span> make it a delight to translate advanced patterns from Perl or PCRE.
+
+If I could add anything to my perfect regex engine dreamlist to round up this amazing engine, it would be balancing groups and some kind of ground-breaking <a href="regex-quantifier-capture.html">quantifier capture</a> feature.
+<br /><br /><br />
+
+
+<b>An iPython Notebook presentation about the <i class="mono">regex</i> package</b><br />
+Around the time I was thinking of putting together a presentation about Python regex for our local Python meetup, I received a message from Rex Dwyer, who kindly shared a presentation he had made for his local Python users' group. Synchronicity!<br /><br />
+
+You can download the presentation <a href="http://www.github.com/rexdwyer/Splitsville" target="_blank">here</a>. It is an iPython notebook. I have confirmed that all the cells run in Jupyter for Python 3, but I haven't yet had the time to read the presentation.  
+<br /><br /><br />
+
+
+
+<a id="twoprograms"></a>
+<span class="em8"><a href="#twoprograms">(direct link)</a></span><br />
+<h2>Two Python programs that show<br />
+how to perform common regex tasks</h2>
+
+Whenever I start playing with the regex features of a new language, the thing I always miss the most is a complete working program that performs the most common regex tasks—and some not-so-common ones as well.
+<br /><br />
+This is what I have for you in the following complete Python regex programs. There are two programs: a "simple" one and an "advanced" one. Yes, these terms are subjective.
+<br /><br />
+
+<b>Both programs perform the six same most common regex tasks</b>, but in different contexts. The first four tasks answer the most common questions we use regex for:
+<br /><br />
+✽ Does the string match?<br />
+✽ How many matches are there?<br />
+✽ What is the first match?<br />
+✽ What are all the matches?<br />
+<br />
+The last two tasks perform two other common regex tasks:
+<br /><br />
+✽ Replace all matches<br />
+✽ Split the string<br />
+<br />
+If you study this code, you'll have a terrific starting point to start tweaking and testing with your own expressions with Python.
+<br /><br />
+
+<b>Differences between the "Simple" and "Advanced" program</b><br />
+<br />
+Here is the difference in a nutshell.<br />
+&bull; The simple program assumes that the overall match and its capture groups is the data we're seeking. This is what you would expect.
+<br />
+&bull; The advanced program assumes that we have no interest in the overall matches, but that the data we're seeking is in capture Group 1, if it is set.
+<br /><br />
+
+<b>Have fun tweaking</b><br />
+With these two programs in hand, you should have a solid base to understand how to do basic things&mdash;and fairly advanced ones as well. I hope you'll have fun changing the pattern, deleting code fragments you don't need and tweaking those you do need.
+<br /><br />
+
+<b>Disclaimer</b><br />
+As you can imagine, I am not fluent in all of the ten or so languages showcased on the site. This means that although the sample code works, a Python pro may look at the code and see a more idiomatic way of testing an empty value or iterating a structure. If some idiomatic improvements jump out at you, please shoot me a comment. 
+<br /><br />
+<br />
+<h2>Python Regex Program #1: Simple</h2>
+
+<p class="messages">Please note that usually you will choose to perform <b>only one</b> of the six tasks in the code, so your own code will be much shorter.</p><br />
+<div class="cinter">
+<a href="javascript:void(0);" class="triggerToggle"><b>Click to Show / Hide code</b></a><br />
+or leave the site to view an <a rel="nofollow" href="http://ideone.com/AxJfFH" target="_blank">online demo</a><br />
+</div>
+
+<div class="codebox hide toggleme"><pre>
+import re
+# import regex # if you like good times
+# intended to replace `re`, the regex module has many advanced
+# features for regex lovers. http://pypi.python.org/pypi/regex
+pattern = r'(\w+):(\w+):(\d+)'
+subject = 'apple:green:3 banana:yellow:5'
+regex = re.compile(pattern)
+
+<b>######## The six main tasks we're likely to have ########</b>
+
+<b># Task 1: Is there a match?</b>
+print("*** Is there a Match? ***")
+if regex.search(subject):
+	print ("Yes")
+else:
+	print ("No")
+
+<b># Task 2: How many matches are there?</b>
+print("\n" + "*** Number of Matches ***")
+matches = regex.findall(subject)
+print(len(matches))
+
+<b># Task 3: What is the first match?</b>
+print("\n" + "*** First Match ***")
+match = regex.search(subject)
+if match:
+	print("Overall match: ", match.group(0))
+	print("Group 1 : ", match.group(1))
+	print("Group 2 : ", match.group(2))
+	print("Group 3 : ", match.group(3))
+	
+<b># Task 4: What are all the matches?</b>
+print("\n" + "*** All Matches ***\n")
+print("------ Method 1: finditer ------\n")
+for match in regex.finditer(subject):
+	print ("--- Start of Match ---")
+	print("Overall match: ", match.group(0))
+	print("Group 1 : ", match.group(1))
+	print("Group 2 : ", match.group(2))
+	print("Group 3 : ", match.group(3))
+	print ("--- End of Match---\n")		
+
+print("\n------ Method 2: findall ------\n")
+# if there are capture groups, findall doesn't return the overall match
+# therefore, in that case, wrap the pattern in capturing parentheses
+# the overall match becomes group 1, so other group numbers are bumped up!
+wrappedpattern = "(" + pattern + ")"
+wrappedregex = re.compile(wrappedpattern)
+matches = wrappedregex.findall(subject)
+if len(matches)>0:
+	for match in matches:
+	    print ("--- Start of Match ---")
+	    print ("Overall Match: ",match[0])
+	    print ("Group 1: ",match[1])
+	    print ("Group 2: ",match[2])
+	    print ("Group 3: ",match[3])
+	    print ("--- End of Match---\n")		
+
+<b># Task 5: Replace the matches</b>
+# simple replacement: reverse group
+print("\n" + "*** Replacements ***")
+print("Let's reverse the groups")
+def reversegroups(m):
+	return m.group(3) + ":" + m.group(2) + ":" + m.group(1)
+replaced = regex.sub(reversegroups, subject)
+print(replaced)
+
+<b># Task 6: Split</b>
+print("\n" + "*** Splits ***")
+# Let's split at colons or spaces
+splits = re.split(r":|\s",subject)
+for split in splits:
+	    print (split)
+</pre></div>
+
+<br /><br />
+
+<h2>Python Regex Program #2: Advanced</h2>
+
+The second full Python regex program is featured on my page about <a href="regex-best-trick.html">the best regex trick ever</a>.
+<br /><br />
+
+✽ Here is the article's <a href="regex-best-trick.html#toc">Table of Contents</a><br />
+✽ Here is the <a href="regex-best-trick.html#codesamples">explanation for the code</a><br />
+✽ Here is the <a href="regex-best-trick.html#pythoncode">Python code</a><br />
+
+<br />
+<br />
+
+<a id="resplitzero"></a>
+<h2><i>re</i> does not split on zero-width matches</h2>
+In most regex engines, you can use lookarounds to split a string on a position, i.e. a zero-width match, obtained for instance by using boundaries or lookarounds. <br /><br />
+For instance, you would use <span class="socode">(?=-)</span> to split when the next character is a dash. <br /><br />
+However, for historical reasons—a <a href="http://bugs.python.org/issue3262" target="_blank">bug that is now too old to fix</a>—Python's <span class="socode">re.split</span> does not split on zero-width matches. For instance, <code>re.split("(?=-)", "a-beautiful-day")</code> returns <i>['a-beautiful-day']</i>.<br /><br />
+To split on zero-width matches in Python, we need to use the <span class="socode">regex</span> module in <span class="socode">V1</span> mode. For instance, <code>regex.split("(?V1)(?=-)", "a-beautiful-day")</code> will return <i>['a', '-beautiful', '-day']</i>—which is what we want.
+<br />
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div>
+<br />
+Smiles,
+<br /><br />
+Rex
+
+<br /><br />
+
+<script src="../ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+  $('.triggerToggle').click(function(){
+     $(this).parent().nextAll('.toggleme').toggle();
+  });
+});
+</script><div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Be the First to Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-python.html" method="post" >
+<input type="hidden" name="token" value="5f59000ddb02d3710d0517c63c4eec8a" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a class="thispage" href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-python.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:07 GMT -->
+</html>

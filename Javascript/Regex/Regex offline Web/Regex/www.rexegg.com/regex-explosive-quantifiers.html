@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-explosive-quantifiers.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Catastrophic Backtracking, Exponential Matches and Explosive Quantifiers. Shows how to detect and troubleshoot regex patterns that can backtrack forever—sometimes used for regular expression denial of service attacks." />
+<title>Catastrophic Backtracking—Exponential Matches—ReDos</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li class="current"><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>The Explosive Quantifier Trap</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+If you're not careful, you can easily build a regular expression that has the potential to backtrack for a billion years—longer than most of us are prepared to wait at 10am on a Monday morning. Furthermore, such expressions can be used for regular expression denial of service attacks (ReDos).
+<br /><br />
+This page aims to show you how to detect and troubleshoot such patterns. It's a companion to the tutorial about <a href="regex-quantifiers.html">mastering regex quantifiers</a>.
+<br /><br />
+
+
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#intro">Introduction</a><br />
+✽ <a href="#example">A Simple Example</a><br />
+✽ <a href="#identifying">Identifying Explosive Quantifiers</a><br />
+✽ <a href="#compound">Symptom: A Quantifier Compounds a Quantifier</a><br />
+✽ <a href="#contiguous">Symptom: Contiguous Quantified Tokens are Not Mutually Exclusive</a><br />
+✽ <a href="#alternation">Symptom: Tokens in Alternation are Not Mutually Exclusive</a><br />
+✽ <a href="#remote">Symptom: Remote Quantifiers Can Reach into Each Other's Territory</a><br />
+✽ <a href="#further_reading">Further Reading</a><br />
+
+
+
+<br /><br />
+
+
+
+<a id="intro"></a>
+<span class="em8"><a href="#intro">(direct link)</a></span><br />
+<h2>Introduction</h2>
+
+Backtracking is a wonderful feature of modern regex engines: if a token fails to match, the engine backtracks to any position where it could have taken a different path. A greedy quantifier may then give up one character, a lazy quantifier may expand to match one more, or the rightmost side of an alternation may be tried. If a pattern continues to fail, the engine systematically explores all available paths.<br /><br />
+
+We have already seen situations where a naive engine can explore more paths than it needs to. For instance, you may remember when we used the pattern <code>\b\d+E</code> to match a series of digits ending with an <i class="mono">E</i>. Using this pattern on the string <i class="mono b">1234</i>, after the <span class="socode">\d+</span> has finished its work the <span class="socode">E</span> token will fail to match. At that stage, it is wasteful for the engine to backtrack into the <span class="socode">\d+</span> and explore to see if the token <span class="socode">E</span> might have matched after the <i class="mono">2</i> or the <i class="mono">3</i>. <a href="regex-quantifiers.html#possessive">Possessive quantifiers</a> and <a href="regex-disambiguation.html#atomic">atomic groups</a> help us handle such situations by turning a quantified token or a subpattern into a block that cannot be backtracked into. In this example, the syntax for those is <code>\b\d++E</code> and <code>\b(?>\d+)E</code>.
+<br /><br />
+
+In this last example, the amount of potential backtracking needed is proportional to the length of the string. The potential damage isn't too severe. 
+<br /><br />
+
+However, you can write regular expressions where the potential for backtracking in relation to the length of the string is exponential. This is so wildly inefficient that your regex engine may well choke. It is therefore vital to learn to recognize such expressions. 
+<br /><br />
+
+When there is potential for wild backtracking, quantifiers are always at fault. To describe these situations, I speak of <b>explosive quantifiers</b>. In <a href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"  rel="nofollow" target="_blank">Mastering Regular Expressions</a>, Jeffrey Friedl refers to these situations as <i>exponential matches</i>, while in <a href="http://www.amazon.com/dp/1449319432?tag=onamazon-20"  rel="nofollow" target="_blank">The Regular Expressions Cookbook</a> Jan Goyvaerts and Steven Levithan speak of <i>catastrophic backtracking</i>. 
+<br /><br />
+<br />
+
+
+
+<a id="example"></a>
+<span class="em8"><a href="#example">(direct link)</a></span><br />
+<h2>A Simple Example</h2>
+Consider this simple pattern: <code>^(A+)*B</code><br />
+It is not as contrived as it looks: for instance, it could be a window to look at the problem raised by <span class="socode">^(A+|X)*B</span>, where <span class="socode">A</span> might stand <span class="socode">[aeiou]</span>
+<br /><br />
+
+Let's see what happens when we try to match the string <i class="mono b">AAAC</i> with that pattern <span class="socode">^(A+)*B</span>. First, <span class="socode">A+</span> matches all the <i class="mono">A</i> characters. The greedy <span class="socode">*</span> tries to repeat the <span class="socode">A+</span> token, but there are no characters left to match. The engine advances to the next token: <span class="socode">B</span> fails to match. The engine backtracks, the <span class="socode">A+</span> gives up the third <i class="mono">A</i>. The greedy <span class="socode">*</span> tries to repeat <span class="socode">A+</span> and matches the third <i class="mono">A</i>. The engine advances to the next token: <span class="socode">B</span> fails to match. The greedy <span class="socode">*</span> gives up the second <span class="socode">A+</span> token, i.e. the third <i class="mono">A</i>. The engine advances to the next token: <span class="socode">B</span> fails to match. Now the original <span class="socode">A+</span> gives up the second <i class="mono">A</i>… Do you see where this is going?
+<br /><br />
+
+<a id="combinations"></a>
+<span class="em8"><a href="#combinations">(direct link)</a></span><br />
+<b>Table of Combinations</b><br />
+The table below shows the combinations the engine will try for <span class="socode">(A+)*</span>. Since the <span class="socode">*</span> quantifies the <span class="socode">A+</span> token, several <span class="socode">A+</span> tokens can contribute to what <span class="socode">(A+)*</span> matches at any given time. Each column corresponds to the text matched by one of these <span class="socode">A+</span> substrings. But don't worry too much about the details of the table. What matters is the number of rows.<br /><br />
+
+<table " border="0" style="table-layout:fixed;"><tr><th class="w50" scope="col"><b><span class="mono">A+</span></b></th><th class="w50" scope="col"><b><span class="mono">A+</span></b></th><th class="w50" scope="col"><b><span class="mono">A+</span></b></th></tr><tr class="brown"><td>AAA</td><td>—</td><td>—</td></tr><tr class="beige"><td>AA</td><td>A</td><td>—</td></tr><tr class="brown"><td>AA</td><td>—</td><td>—</td></tr><tr class="beige"><td>A</td><td>AA</td><td>—</td></tr><tr class="brown"><td>A</td><td>A</td><td>A</td></tr><tr class="beige"><td>A</td><td>A</td><td>—</td></tr><tr class="brown"><td>A</td><td>—</td><td>—</td></tr><tr class="beige"><td>—</td><td>—</td><td>—</td></tr></table><br />
+
+When the engine finally gives up, it has tried to match the final <span class="socode">B</span> token eight times while <span class="socode">(A+)*</span> contained various strings. In fact on these eight attempts <span class="socode">(A+)*</span> only contained four distinct strings (the empty string, <i class="mono">A</i>, <i class="mono">AA</i> and <i class="mono">AAA</i>), but some of these were tried multiple times as they were matched in different ways.
+For instance, we reached <i class="mono">AAA</i> in four ways: <br /><br />
+✽ With one single <span class="socode">A+</span> token matching <i class="mono">AAA</i><br />
+✽ With one <span class="socode">A+</span> token matching <i class="mono">AA</i> and another matching <i class="mono">A</i><br />
+✽ With one <span class="socode">A+</span> token matching <i class="mono">A</i> and another matching <i class="mono">AA</i><br />
+✽ With three <span class="socode">A+</span> tokens all matching a single <i class="mono">A</i>.<br />
+<br />
+
+Note that we tried the final <span class="socode">B</span> token eight times, but it took many more steps for the engine to fail, because each time we reached the final <span class="socode">B</span> we had to backtrack. The debugger in regexbuddy says that it needs 28 steps before it can fail. In contrast, the possessive <span class="socode">^(A+)*+B</span> and the atomic <span class="socode">^(?>(A+)*)B</span> (which are fair comparisons for this simplified pattern) respectively fail after 5 and 7 steps. 
+<br /><br />
+
+I'm sure you can guess what happens when we try the pattern <code>^(A+)*B</code> against longer strings. The number of steps required to fail explodes.
+<br /><br />
+
+<table " border="0" style="table-layout:fixed;"><tr><th class="w120" scope="col"><b>Number of <i class="mono">A</i>s</b></th><th class="w480" scope="col"><b>Steps to Fail</b></th></tr><tr class="wasabi"><td>1, e.g. <i class="mono">AC</i></td><td>7</td></tr><tr class="greentea"><td>2, e.g. <i class="mono">AAC</i></td><td>14</td></tr><tr class="wasabi"><td>3, e.g. <i class="mono">AAAC</i></td><td>28</td></tr><tr class="greentea"><td>4</td><td>56</td></tr><tr class="wasabi"><td>5</td><td>112</td></tr><tr class="greentea"><td>10</td><td>3,584</td></tr><tr class="wasabi"><td>20</td><td>3,670,016&ensp;—&ensp;RegexBuddy has given up. How about your program?</td></tr><tr class="greentea"><td>100</td><td>4,436,777,100,798,802,905,238,461,218,816</td></tr></table><br />
+
+I'm sure you can see the pattern: for each <i class="mono">A</i> characters we add to the subject string, the number of steps required to reach failure doubles. From a computational standpoint, this exponential growth is a nightmare. For you big-O geeks out there, the complexity of exploring all the combinations is O(2<sup>n</sup>).
+<br /><br />
+
+Fortunately, RegexBuddy gives up at three million steps (to compute the last two rows, I just multiplied an earlier row by a power of two). But other tools may not give up, and if your language imposes no limit on backtracking or regex matching time, you could be shipping the kind of software everyone loves to rant about.
+<br /><br />
+<br />
+
+
+<a id="identifying"></a>
+<span class="em8"><a href="#identifying">(direct link)</a></span><br />
+<h2>Identifying Explosive Quantifiers</h2>
+We need to learn to recognize situations where this kind of explosion can occur. But how?
+<br /><br />
+
+Let us return mentally to the <a href="#combinations">table of combinations</a>—where each row represents a distinct way for various <span class="socode">A+</span> tokens to match some of the characters in <i class="mono">AAA</i>. In the simplest terms, you can reduce what is happening here as a situation where various <span class="socode">A+</span> tokens (which are spawned by the <span class="socode">*</span> quantifier) "negotiate" to divide up the "pie of characters" as the engine explores possible combinations. You can interpret the table's rows as a tug of war between three potential <span class="socode">A+</span> tokens. Of course this metaphor of "negotiation" or "tug of war" is not how things really happen—what we have is a regex engine systematically exploring all possible paths. But the metaphor is helpful in our search for symptoms.
+<br /><br />
+
+What we're looking to avoid is such tugs of wars: situations where multiple tokens (either explicitly present in the pattern or spawned on the fly by a quantifier) can match the same portion of the subject string. That's easier said than done because such situations can arise in a number of ways. The following sections aim to make us alert to four kinds of symptoms.
+<br /><br />
+
+
+<b>Narrowing the Definition of <i>Quantifier</i></b><br />
+In the following sections, when I mention quantifiers, let's agree that I won't be referring to  quantifiers that cause minimal or no repetition, such as the gentle <span class="socode">?</span> or the plain <span class="socode">{2}</span>.
+<br /><br />
+
+The quantifiers we worry about are those that can repeat a token many times, resulting in an explosion in the number of combinations the engine needs to explore. In that basket, we should include:<br />
+✽ The <i>plus</i> <span class="socode">+</span> (one or more)<br />
+✽ The <i>star</i> <span class="socode">*</span> (zero or more)<br />
+✽ Range quantifiers with no upper boundary, such as <span class="socode">{3,}</span><br />
+✽ Finite quantifiers with two or more digits, such as <span class="socode">{10}</span>. Remember that two to the tenth power is 1024 (in our example, the engine took 3,584 steps to fail a string with ten <i class="mono">A</i>s). In particularly vicious configurations, even smaller quantifiers can be explosive.<br />
+✽ Range quantifiers with a fixed upper boundary comprised of two or more digits, such as <span class="socode">{3,10}</span>—for the same reasons as above.<br />
+
+
+
+<br /><br />
+
+
+<a id="compound"></a>
+<span class="em8"><a href="#compound">(direct link)</a></span><br />
+<h2>Symptom: A Quantifier Compounds a Quantifier</h2>
+Whenever you see that a quantifier applies to a token that is already quantified, as in <span class="socode">(A+)*</span>, there is potential for the number of steps to explode. <br /><br />
+
+Often, the "compounding quantifier" pattern happens when the outside quantifier applies to an alternation, as in <code>(?:\D+|0(?!1))*</code>. Unless you pay attention, you can miss that the <span class="socode">(\D+…)*</span> constitutes an explosive quantifier.<br />
+<br />
+
+The lesson here is that when a quantifier needs to apply to another quantifier, we need to prevent the engine from backtracking. We achieve this either by:<br />
+✽ making the outer quantifier <a href="regex-quantifiers.html#possessive">possessive</a>, e.g. <code>(?:\D+|0(?!1))*+</code><br />
+or<br />
+✽ enclosing the expression in an <a href="regex-disambiguation.html#atomic">atomic group</a>, e.g. <code>(?>(?:\D+|0(?!1))*)</code> 
+
+<br /><br />
+<br />
+
+
+<a id="contiguous"></a>
+<span class="em8"><a href="#contiguous">(direct link)</a></span><br />
+<h2>Symptom: Contiguous Quantified Tokens are Not Mutually Exclusive</h2>
+Consider this pattern: <code>^\d+\w*@</code><br />
+The <span class="socode">\d</span> and the <span class="socode">\w</span> are both able to match digits: they are not mutually exclusive. <br /><br />
+
+Against a string such as <i class="mono b">123</i>, the pattern must fail. While trying all the possibilities in order to find the match, the engine will let the <span class="socode">\d+</span> give up characters that will be matched by the <span class="socode">\w*</span>. Exploring these paths takes time: the engine takes 16 steps to reach failure.<br /><br />
+
+Adding one digit to the test string, e.g. <i class="mono">1234</i>, the engine takes 25 steps to fail. With ten digits, it takes 121 steps. With 100 digits, it takes 10,201 steps. The situation is clearly far better than in the first example. The number of steps required to fail in relation to the size of the string does not grow exponentially, but it still explodes—without looking at it closely its complexity seems to be quadratic or thereabouts, i.e. O(n<sup>2</sup>). It takes 1,100 digits to reach a million steps. That's a lot more than many subject strings but a lot less than others—that's only a page-and-a-half of average text.
+<br /><br />
+
+The lesson here is to try to use contiguous tokens that are mutually exclusive, following the rule of <a href="regex-style.html#contrast">contrast</a> from the regex style guide.
+<br /><br />
+
+<br />
+
+
+<a id="alternation"></a>
+<span class="em8"><a href="#alternation">(direct link)</a></span><br />
+<h2>Symptom: Tokens in Alternation are Not Mutually Exclusive</h2>
+Let us now consider a variant of our last faulty pattern: <code>^(?:\d|\w)+@</code><br />
+This too will fail against <i class="mono b">123</i>. On the first attempt, each digit will be matched by a <span class="socode">\d</span> token, as it is the leftmost side of the alternation. When the <span class="socode">@</span> token fails to match, the engine will backtrack into each alternation and let the <span class="socode">\w</span> side match characters that were previously matched by the <span class="socode">\d</span>. The engine takes 60 steps to fail.<br /><br />
+
+Adding one digit to the test string, e.g. <i class="mono">1234</i>, the engine takes 124 steps to fail. With ten digits, it takes 8,188 steps. With 16 digits, it takes 524,284. For longer strings, RegexBuddy maxes out. The complexity of exploring all the combinations is O(2<sup>n</sup>).
+<br /><br />
+Clearly, this is far worse than the previous pattern <code>^\d+\w*@</code>, which at first sight looks fairly similar. Why? With the earlier pattern, the engine must find a match that is a series of digits <span class="socode">\d</span>, then optionally a series of word characters <span class="socode">\w</span>. The pie is always divided in that order—first <span class="socode">\d</span> tokens, then <span class="socode">\w</span> tokens. In contrast, the second pattern <code>^(?:\d|\w)+@</code> gives us many more ways to divide up the pie. The pie can be claimed by word characters tokens first, then digit tokens. Or by word character tokens and and digit tokens intermingled in every way imaginable.
+<br /><br />
+
+In the literature, this symptom is usually shown in the form <span class="socode">(A|AA)+</span>, but in my view that's not really helpful. Why would you ever write such a silly pattern? Of course <span class="socode">^(?:\d|\w)+@</span> is silly too, but it brings out the salient symptom, which is that various components in a quantified alternation are able to "compete" for the same characters.<br /><br />
+
+The lesson here is that when we build an alternation that is quantified, we must make sure that distinct branches cannot match the same characters.
+<br /><br />
+
+<b>Do character classes present the same risk?</b><br />
+Our vicious pattern <code>^(?:\d|\w)+@</code> could be written with a character class: <code>^[\d\w]+@</code><br /><br />
+
+Let's forget for a moment that we would never write such a silly pattern—like the others, it is only meant to help us explore potentially explosive patterns. On the face of it, this pattern does the exact same thing as the version with the alternation: at each step, the engine can match either a digit or a word character. Surely it too must explode when the engine fails to find a match, right?<br /><br />
+
+It is not so. Suppose we try <code>^[\d\w]+@</code> against the string <i class="mono b">123</i>. First, <span class="socode">[\d\w]+</span> greedily matches all the digits. For a moment, let's assume that each of those digits (<i class="mono">1</i>, <i class="mono">2</i>, <i class="mono">3</i>) was matched by the <span class="socode">\d</span> token inside the character class. Please note that we don't know this for a fact. One engine might notice that <span class="socode">\d</span> is a subset of <span class="socode">\w</span> and optimize the entire character class to <span class="socode">\w</span> before even starting the match attempt. Another engine might have its own set of rules about which tokens in a character class to try first.<br /><br />
+
+After the <span class="socode">@</span> token fails to match, the engine looks for positions to backtrack. First, the <span class="socode">[\d\w]+</span> gives up the <i class="mono">3</i>. The engine tries to match the <i class="mono">3</i> with the token <span class="socode">@</span>, and fails. At this stage, in the alternation version, the engine would have tried to match the <i class="mono">3</i> with the <span class="socode">\w</span> token on the right side of the alternation. In this case, however, the engine does not attempt the <span class="socode">\w</span> inside the <span class="socode">[\d\w]</span>.
+<br /><br />
+A character class constitutes a solid block, an atomic token. Once it matches a character, you don't backtrack into it to try different ways to make it match. When you give it up, you give it up.
+<br /><br />
+Therefore, after the <span class="socode">@</span> token fails to match the <i class="mono">3</i>, the engine's next move is to backtrack once more and force the <span class="socode">[\d\w]</span> to give up the <i class="mono">2</i>. Next, the <span class="socode">@</span> token fails to match the <i class="mono">2</i>. There is nothing left to backtrack, and the match attempt fails. In RegexBuddy's way of counting, reaching that point takes seven steps. The number of steps required to explore all the paths is directly proportional to the length of the string: the complexity is O(n), which is the best you can ask for, short of making the character class's quantifier <a href="regex-quantifiers.html#possessive">possessive</a> — <span class="socode">[\d\w]++</span> — or enclosing it in an <a href="regex-disambiguation.html#atomic">atomic group</a> <span class="socode">(?>[\d\w]+)</span>.
+<br />
+
+<br /><br />
+
+<a id="remote"></a>
+<span class="em8"><a href="#remote">(direct link)</a></span><br />
+<h2>Symptom: Remote Quantifiers Can Reach into Each Other's Territory</h2>
+If you're reading this page, I'm sure you can tell what's wrong with a pattern such as <br />
+<code class="cinter">^.*A.*AB</code><br />
+Suppose our string is <i class="mono b">AAAAA</i>. The first dot-star can match the whole string, nothing at all, or anything in between. The second dot-star can match a considerable portion of the string, nothing at all, or anything in between. Before the engine can determine that the match must fail, there will be a tug of war between the two dot-stars. It takes 53 steps for the RegexBuddy engine to fail on this short string, and 178 steps on a string that contains ten <i class="mono">A</i> characters.
+<br /><br />
+
+The regex in this example is so short—and we are so used to distrusting dot-stars—that it probably jumps out at you that one dot-star can overreach into the other's territory. But the same situation can arise in less obvious ways. <br /><br />
+
+Consider this pattern, which is only slightly longer than the previous one:<br />
+<code class="cinter">^\d*?1\d*?1B</code>
+The lazy <span class="socode">\d*?</span> seems to only want to extend up to the first <i class="mono">1</i>, while the second <span class="socode">\d*?</span> extends to the second <i class="mono">1</i>. That seems legit.<br /><br />
+
+But when the engine has trouble finding a match, the first <span class="socode">\d*?</span> can in fact jump over the first <i class="mono">1</i> if there are more ones to swallow. You may indeed remember from the <a href="regex-quantifiers.html#lazytrap">Lazy Trap</a> that lazy quantifiers can jump over the fence you thought you had made for them, because they expand as far as needed in order to allow a match. The delimiter <i class="mono">1</i> is not a true fence because the <span class="socode">\d</span> token can match it if it needs to.
+<br /><br />
+
+For instance, against the string <i class="b mono">11111C</i>, where the match must clearly fail, at one stage the first <span class="socode">\d*?</span> will match all the ones. It takes 59 steps for the engine to fail. With ten ones, it takes 189 steps, and with a hundred ones, it takes 15,354 steps. Once again, we have an explosive quantifier—although nowhere as bad as in our exponential example.
+<br /><br />
+
+If you thought the <span class="socode">^\d*?1\d*?1B</span> was easy to spot, consider that the same phenomenon could be embedded in something like this:<br />
+<code class="cinter">.*?{START} (lots of stuff in between) .*?{END}</code>
+<br />
+
+In my view, this is a lot harder to spot—unless you are sensitive to whether the tokens quantified by a lazy quantifier are able to match their intended delimiters.<br /><br />
+
+The lesson here is to carefully consider whether a quantified token might reach over into a section of the string that you had intended for another token to match.
+<br /><br />
+
+
+To contain the <span class="socode">.*?</span> in <span class="socode">.*?{START}</span> to the section before <span class="socode">{START}</span>, you need to tweak it or replace it using one of four techniques we have already seen:<br /><br />
+
+
+✽ Bundle the characters to be matched before <i class="mono">{START}</i> together with <i class="mono">{START}</i> into an <a href="regex-disambiguation.html#atomic">atomic group</a>, forbidding the engine to backtrack and expand the <span class="socode">.*?</span> past the first <i class="mono">{START}</i>: <span class="socode">(?>.*?{START})</span><br />
+✽ Use a <a href="regex-quantifiers.html#tempered_greed">Tempered Greedy Token</a>: <span class="socode">(?:(?!{START}).)*{START}</span><br />
+✽ Use an <a href="regex-quantifiers.html#explicit_greed">Explicit Greedy Alternation</a>: <span class="socode">(?:[^{]++|{(?!START}))*+{START}</span><br />
+✽ Use an <a href="regex-quantifiers.html#unrolled_staralt">Unrolled Star Alternation</a>: <span class="socode">[^{]*(?:(?:{(?!START}))+[^{]*)*{START}</span><br />
+
+
+<br /><br />
+
+
+<a id="further_reading"></a>
+<span class="em8"><a href="#further_reading">(direct link)</a></span><br />
+<h2>Further Reading</h2>
+<a href="regex-csharp.html#timeout">Time Out feature in C#</a><br />
+<a href="http://en.wikipedia.org/wiki/Redos" target="_blank">Regular Expression Denial of Service (ReDos)</a> [Wikipedia]<br />
+<a href="http://arxiv.org/pdf/1301.0849.pdf" target="_blank">Static Analysis for Regular Expression Denial-of-Service Attacks</a> [PDF]<br />
+
+
+
+
+<br /><br /><br />
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div><a href="regex-conditionals.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;A good long look at Regex Conditionals</b>
+</a>
+<br /><br /><br />
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-2 of 2 Threads</div>
+<a id="cid2605"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Brandi lee fehn</span><span class="comment-location"> &ndash; brandifehn61@gmail.com</span></div>
+<div class="comment-date">February 28, 2019 - 09:15</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Someone else has erased prices</div><br />
+<div class = "comment-text">Fehnbrandilee@gmail.com</div>
+</div>
+<a id="cid2438"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Osman Doluca</span><span class="comment-location"> &ndash; Izmir</span></div>
+<div class="comment-date">December 29, 2017 - 12:06</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Thanks</div><br />
+<div class = "comment-text">This is an masterpiece! You brought everything together about regex no matter the platform. Brilliant!</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-explosive-quantifiers.html" method="post" >
+<input type="hidden" name="token" value="fd497039458d62fdc2a846c736409900" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a class="thispage" href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-explosive-quantifiers.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+</html>

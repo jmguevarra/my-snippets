@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-tools.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:34 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Regex Tools. Discusses RegexBuddy, ABA Search Replace and other tools." />
+<title>Regex Tutorial&mdash;Regex Tools&mdash;RegexBuddy Review</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li class="current"><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Regex Tools</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+
+
+<a id="tools"></a>
+
+By "regex tools", I mean tools that either help you build your regular expressions, or where regex is at the core of the tool's function. In the page on <a href="regex-uses.html" target="_blank" >regex uses</a>, we saw other tools that happen to use regular expressions&mdash;but those are not the focus of this page.
+<br /><br />
+
+We'll be looking at three excellent tools. A few jump points:<br />
+✽ <a href="#rb">RegexBuddy</a><br />
+✽ <a href="#regex101">Regex101</a><br />
+✽ <a href="#aba">ABA Search and Replace</a><br />
+✽ <a href="#textdistill">TextDistill</a><br />
+✽ <a href="#other">Other tools</a><br />
+<br /><br />
+
+
+<a id="rb"></a>
+<a id="rb4"></a>
+<h2>RegexBuddy: the Rolls-Royce of regex tools</h2>
+<a rel="nofollow" target="_blank" href="http://www.regexbuddy.com/cgi-bin/affref.pl?aff=playful">RegexBuddy</a> is my absolute favorite regex tool. I can't do serious regular expressions work without it.<br /><br />
+
+This page used to have a short intro to the tool. Since then, I wrote the huge RegexBuddy tutorial I always dreamed of (the most comprehensive RegexBuddy tut I'm aware of), which now lives on my dedicated <a href="regexbuddy-tutorial.html">RegexBuddy tutorial</a> page.
+<br /><br />
+
+Don't have time to read it? Download a <a rel="nofollow" href="http://yu8.us/rbdemo" >free RegexBuddy trial</a>.
+
+
+<br /><br /><br />
+
+<a id="regex101"></a>
+<h2>Regex101</h2>
+<img src="../b.yu8.us/r101-explain.png" class="right dropshadow" width="300" height="140" alt="regex 101 explain" />
+
+Although RegexBuddy is my regex building tool of choice, some people do not want to invest in a standalone tool, do not run Windows, or prefer the community features of online tools. As of April 2014, my favorite online regex tool by far is <a href="http://www.regex101.com/" target="_blank">regex101</a>.<br /><br />
+
+The coding world is awash with online regex testers. New tools come out all the time, and old favorites often fail to keep up with the release of their supported engines' new versions.<br /><br />
+
+Recently, I have been impressed with regex101.<br /><br />
+
+Don't get me wrong. The features cannot possibly rival with RegexBuddy's depth. But regex101 is clean, it's easy to use, it has community features that RegexBuddy lacks, and, for many people, it may be the only regex tester they need. Here are the main features:<br /><br />
+
+<img src="../b.yu8.us/r101-menu.png" class="left dropshadow" width="200" height="486" alt="regex 101 menu" />
+✽ <b>Support for multiple flavors</b>. Regex101 supports PCRE, Javascript and Python.<br /><br />
+
+✽ <b>Regex tester with syntax highlighting</b>. The match panel does a great job of colorizing the regex syntax. It shows you capture groups, allows substitutions and provides a detailed explanation of each token.<br /><br />
+
+✽ <b>Debugger</b>. If your regex matches, the debugger panel shows you the steps taken by the engine.<br /><br />
+
+✽ <b>Code Samples</b>. The tool supplies you with samples to use your expression in the flavors supported.<br /><br />
+
+✽ <b>Saving a regex to a short link</b>. When you click the "save regex" button, you are supplied with a short link such as <a href="http://regex101.com/r/tP9zZ6" target="_blank" rel="nofollow">http://regex101.com/r/tP9zZ6</a> (try it!) This makes it easy to share expressions on forums.
+<br /><br />
+
+✽ <b>Chat</b>. There is a chat room via an integrated irc web client (qwebirc).<br /><br />
+
+✽ <b>Expressions submitted by users</b>. When you click the "community" button, you see a list of expressions submitted by users, ranked by number of votes.
+<br style="clear: left;" /><br />
+<br />
+
+<a id="aba"></a>
+<h2>ABA Search and Replace</h2>
+
+In late 2011, I fell in love with a compact tool called <a href="https://www.google.com/search?hl=en&amp;q=abareplace" target="_blank">ABA Search and Replace</a>. Searching for text (and replacing it) across multiple text files is not a new idea: <a href="http://en.wikipedia.org/wiki/Grep" target="_blank">grep</a> was born in 1973. The <a href="pcregrep-pcretest.html" target="_blank">best grep version for Windows</a> (as far as I know) is actually available on this site, on the next page. What's new is that Peter Kankowski, ABA's talented programmer, has <span class="blue">nailed the interface</span>. This program is a joy to work with. In fact, it is so good that I find myself inventing tasks just so I have the chance to use it.
+<br /><br />
+
+
+First, let's briefly review the alternatives. <a href="http://www.dearopus.com/" target="_blank">Directory Opus</a>, the stellar file manager for those who use a computer more than once a week, lets you build amazingly intricate searches (with or without regex) that can look at a file's contents, size, metadata and other attributes&mdash;but the interface does not respond like ABA's. Jan Goyvaerts has several tools with grep-like functionality, among which the expensive PowerGrep, whose interface I have not managed to understand. The grep-style features in Jan's RegexBuddy and EditPad Pro also leave me cold. The <a href="pcregrep-pcretest.html" target="_blank">PCRE Grep</a> command-line tool on the next page is light-weight and delightful, but it does not replace.
+<br /><br />
+
+Now a quick orientation to the ABA interface. At the top, three tabs: Search, Replace, Undo. (It's very cool that you can undo major replacements across many files. ABA does that by backing up your files. You specify the size of the file cache&mdash;only 20MB by default.)
+<br /><br />
+
+<div class="cinter">
+<img src="../b.yu8.us/r_aba.gif" class="goldborder dropshadow" width="603" height="283" alt="ABA Search Replace" />
+</div>
+<br />
+
+At the top of the picture, you can see the Search box, where you type or paste your regex. Then the Replace box, where you enter your replacement expression. Next, in the file box, you enter the name of the file you want to search, or a wildcard, such as *.txt. Finally, in the bottom pane, you see the matches and replacements. <br /><br />
+
+Now here's what I love about ABA:<br />
+✽ As you tweak your expression, the matches in the bottom panel change on the fly! So do the replacements. That is truly magical.<br />
+✽ The check boxes let you deselect instances you don't want to replace.<br />
+✽ You can copy all the lines that contain matches&mdash;or just the matching text. That's amazingly convenient when you are trying to trim down a huge file to a dozen lines of interesting data. <br />
+✽ the program supports variable-width lookbehinds (often helpful!)<br />
+<br />
+
+And basically, <span class="blue">it just works</span>. The other search-and-replace tools have an interface I don't find intuitive. <br /><br />
+
+Peter wrote his own regex engine so that ABA would support various encodings aside from ascii and utf-8&mdash;for instance, UTF-16 LE. 
+
+<br /><br />
+If you want to support good programming and treat yourself to a very cool powertool that is bound to save you hours of work sooner and later, I highly encourage you to spend the thirty bucks for a license, which at the moment includes free lifetime upgrades.
+<br /><br /><br />
+
+
+
+
+<a id="textdistill"></a>
+<h2>TextDistill</h2>
+The regex-oriented tool that most impressed me recently is <a href="http://www.textdistil.com/" target="_blank">TextDistill</a>. This (currently) free program firmly sits in a fascinating niche that seems largely ignored by software developers: text processing. Sure, you can search-and-replace in your text editor, or perform a number of advanced actions in a professional publishing package such as Indesign. But there is so much more you can do to a body of text.<br /><br />
+
+TextDistill fills the need to apply a stack of regex-directed actions to an input text. Pushing your original raw text (and its consecutive transformations) through that stack, you may end up at the other end with an unrecognizable polished jewel. This metamorphosis is the fruit of <em>distilling</em> the text through the various filters (called recipes), hence the product's name: <em>TextDistill</em>.
+<br /><br />
+
+The main window lets you create tabs, one for each text-processing project. When you first install TextDistill, several sample tabs are open: by exploring each of them, you can learn a lot about how the program works. <br /><br />
+
+<div class="cinter">
+<img src="../b.yu8.us/rexegg/text-distill3.png" class="goldborder dropshadow" width="600" height="320" alt="TextDistill" />
+</div><br />
+
+
+In each tab, there are four panes: the input text; the stack of recipes to apply to the text; details for the currently selected recipe; and the output text.
+
+<br /><br />
+
+For your stack of transformations, you can pick and choose from a number of pre-programmed recipes. Sure, you can apply a simple regex find-and-replace, and this will probably be your staple transformation. But there are a host of other transformations to pick from. For instance:<br />
+✽ Remove lines containing any of&hellip;<br />
+✽ Skip a number of lines<br />
+✽ Select first unique line matching&hellip;<br />
+✽ and many others.
+<br /><br />
+
+
+ The only other product I'm aware of in this space is <a href="http://www.datamystic.com/textpipe" target="_blank">Text Pipe</a>, which is offered at the kind of price where you start to think "Thanks but I'll just write a quick script"&mdash;in one word, obscene. 
+<br /><br />
+
+TextDistill uses <a href="regex-csharp.html">.NET regular expressions</a>, one of the most powerful regex engines available (together with PCRE, Perl and Mathew Barnett's <i>regex</i> module for Python). If you ever need to transform text in non-obvious ways, I highly recommend it.
+
+<br /><br /><br />
+
+
+
+<a id="other"></a>
+<h2>Other Regex Tools</h2> 
+Here are some regex creation tools I've tried or heard about. <br /><br />
+
+
+<a id="jgsoft"></a>
+<span class="em8"><a href="#jgsoft">(direct link)</a></span><br/>
+<b>Software by Jan Goyvaerts: official website, free trials</b><br />
+As you already know, I'm a big fan of the software by Jan Goyvaerts, the author of RegexBuddy. His product revolve around his outstanding regex engine. Here's a list of his products and free trials.<br /><br />
+
+✽ <a rel="nofollow" target="_blank" href="http://www.regexbuddy.com/cgi-bin/affref.pl?aff=playful">RegexBuddy</a>: the most powerful regex tool on Earth. A <a rel="nofollow" href="http://yu8.us/rbdemo" >free RegexBuddy trial</a> is available.<br />✽ <a rel="nofollow" target="_blank" href="http://www.editpadpro.com/cgi-bin/affref.pl?aff=playful">EditPad Pro</a>: the most regex-aware text editor. A <a rel="nofollow" href="http://yu8.us/eppdemo" >free EditPad Pro trial</a> is available.<br />✽ <a rel="nofollow" target="_blank" href="http://www.powergrep.com/cgi-bin/affref.pl?aff=playful">PowerGREP</a>: perhaps the most powerful text search and manipulation tool. A <a rel="nofollow" href="http://yu8.us/pgdemo" >free PowerGREP trial</a> is available.<br />✽ <a rel="nofollow" target="_blank" href="http://www.regexmagic.com/cgi-bin/affref.pl?aff=playful">RegexMagic</a>: build regex without knowing regex. A <a rel="nofollow" href="http://yu8.us/rmdemo" >free RegexMagic trial</a> is available.<br />✽ <a rel="nofollow" target="_blank" href="http://www.acetext.com/cgi-bin/affref.pl?aff=playful">AceText</a>: your text needs from a central location. A <a rel="nofollow" href="http://yu8.us/atdemo" >free AceText trial</a> is available.<br />✽ <a rel="nofollow" target="_blank" href="http://www.helpscribble.com/cgi-bin/affref.pl?aff=playful">HelpScribble</a>: create documentation files and website. A <a rel="nofollow" href="http://yu8.us/hsdemo" >free HelpScribble trial</a> is available.<br />✽ <a rel="nofollow" target="_blank" href="http://www.deploymaster.com/cgi-bin/affref.pl?aff=playful">DeployMaster</a>: no-nonsense installation builder. A <a rel="nofollow" href="http://yu8.us/dmdemo" >free DeployMaster trial</a> is available.<br /><br /><br />
+
+
+
+<a id="online"></a>
+<span class="em8"><a href="#online">(direct link)</a></span><br/>
+<b>Online Tools</b><br />
+✽ I'm quite fond of <a href="http://www.regexplanet.com/" target="_blank">RegexPlanet</a> because it supports an astounding array of flavors: Go, Haskell, Java, Javascript, .NET, Perl, PHP, Python, Ruby, tcl, XRegExp.<br /><br />
+✽ <a href="https://www.debuggex.com/r/vhNyLPRE5CbA4jVQ" target="_blank">Debuggex</a> is an interesting tool because it generates visualizations of your expressions. You can then share the links, as you'll see if you click the image.<br /><br />
+
+<div class="cinter">
+<a href="https://www.debuggex.com/r/vhNyLPRE5CbA4jVQ" target="_blank">
+	<img src="../b.yu8.us/debuggex-rexegg.png" class="goldborder dropshadow" width="550" height="117" alt="debuggex loves RexEgg" />
+</a>
+</div>
+<br />
+I'm not what one might call a "visual person", but it seems to me that the Debuggex visualizations could be a powerful way of walking such a person through a regular expression.
+<br /><br />
+
+✽ For JavaScript coders, <a href="https://nurulc.github.io/" target="_blank">RxInput</a> is a very interesting component that validates as you type, completing the field when no other matching paths are left. 
+<br /><br />
+
+✽ For Ruby, <a href="http://www.rubular.com/" target="_blank">Rubular</a> is also well-liked.<br /><br />
+✽ I used to like <a href="http://regex.larsolavtorvik.com/" target="_blank">Lars Olav's tester</a> for its three flavors, but it seems to have fallen a bit behind.<br /><br />
+
+<b>Stand-Alone Regex Testers</b><br />
+For desktop-side testing, I'll be perfectly frank: I don't see any tool can improving on my <a rel="nofollow" target="_blank" href="http://www.regexbuddy.com/cgi-bin/affref.pl?aff=playful">RegexBuddy</a> experience, so I haven't tested the tools below properly.
+<br /><br />
+
+But not everyone wants to pay for a regex tool. There are several free alternatives. I haven't tried any of them because I love RegexBuddy and I'm lazy. Here are links to tools I've heard of:<br /><br />
+&bull; <a href="http://www.ultrapico.com/expresso.htm" target="_blank">Expresso</a><br />
+&bull; <a href="http://osherove.com/tools" target="_blank">The Regulator</a><br />
+&bull; <a href="http://rad-software-regular-expression-designer.software.informer.com/" target="_blank">Rad Software Regular Expression Designer</a><br />
+
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div><br />
+<a href="pcregrep-pcretest.html" >
+<img src="../b.yu8.us/next_regex.png" class="left"  width="125" height="40" alt="next" />
+<b>&nbsp;Two marvelous PCRE tools:<br />
+&nbsp;grep with pcregrep, debug and optimize with pcretest</b>
+</a>
+<br /><br /><br />
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-5 of 5 Threads</div>
+<a id="cid2673"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Frank Bitterlich</span><span class="comment-location"> &ndash; Frankfurt, Germany</span></div>
+<div class="comment-date">September 02, 2019 - 17:56</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Another RegEx tool: ReX-T</div><br />
+<div class = "comment-text">Hi,<br />
+another tool you may want to list is ReX-T (https://apps.apple.com/de/app/rex-t/id1120211452). We just published version 4 and think it would complete your list (disclaimer: I&#039;m one of the developers. )</div>
+</div>
+<a id="cid2250"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">vixay</span></div>
+<div class="comment-date">November 18, 2016 - 05:51</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Verbal Expressions</div><br />
+<div class = "comment-text">Have you looked at verbal expressions? It&#039;s a verbose way to define regex using jquery like chain style. I think it&#039;s quite elegant and goes a long way to make regex human understandable. You should check it out and see if you can integrate it with your site here.</div>
+</div>
+<a id="cid2253"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to vixay</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">November 20, 2016 - 09:50</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: Verbal Expressions</div><br />
+<div class = "comment-text">Hi Vixay, 
+Thanks for your message. Not my cup of tea I&#039;m afraid. 
+Of course there are a number of ways people abstract regular expressions, from popular parsing libraries that use regex under the covers to RegexMagic, a product that aims to let you express the search with pull-down menus.
+Regards,
+R
+</div>
+</div>
+<a id="cid1254"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">karelv</span></div>
+<div class="comment-date">January 05, 2014 - 00:44</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>online tools</div><br />
+<div class = "comment-text">regex101.com is nice as well.</div>
+</div>
+<a id="cid1050"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">David Howes</span></div>
+<div class="comment-date">July 07, 2013 - 03:37</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>A new tool you might be interested in</div><br />
+<div class = "comment-text">Hi, Rex<br />
+<br />
+As an author of regex related material, I thought you might be interested in a new tool I have created. Textpression is a Windows application that allows users to avoid regex syntax and work visually with regex. Appreciate you probably get thousands of these requests, but any feedback would be welcome; especially via the Facebook page. Please also feel free to discuss Textpression with anyone and everyone you think might be interested. Many thanks for your time. David Howes (Textpression Software&#039;s Creator)<br />
+www. Textpression. Com<br />
+www. Facebook. Com/Textpression</div>
+</div>
+<a id="cid1057"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to David Howes</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Andy</span></div>
+<div class="comment-date">July 15, 2013 - 10:04</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: Textpression</div><br />
+<div class = "comment-text">Hi David,
+Thanks for writing. I am flat out in the middle of a coding project at the moment, but I&#039;d love to have a look when the skies part. In the meantime, I&#039;ve added your message to the Regex Tools page.
+Wishing you a fun week,
+Rex</div>
+</div>
+<a id="cid1003"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Ryan</span><span class="comment-location"> &ndash; CA</span></div>
+<div class="comment-date">September 24, 2012 - 10:33</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Another free regex tool option</div><br />
+<div class = "comment-text">This tool is similar to regexbuddy and built on the (fairly robust). NET regex libraries: http://www. Ultrapico. Com/Expresso. Htm<br />
+Worth looking at, especially while learning
+</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-tools.html" method="post" >
+<input type="hidden" name="token" value="6c1e857655eaac9f5ece612c48eace8b" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a class="thispage" href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-tools.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:38 GMT -->
+</html>

@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-java.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Java Regex Tutorial. Discusses the Java Regex features, provides code samples." />
+<title>Java Regex Tutorial</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li class="current"><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Using Regular Expressions with Java</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+Java regex is an interesting beast. On the one hand, it has a number of "premium" features, such as:<br /><br />
+
+✽ <a href="#classoperations">Character Class Intersection, Subtraction and Union</a><br />
+✽ <a href="regex-disambiguation.html#lookaround_support">Lookbehind that allows a variable width</a> within a specified range<br />
+✽ Methods that return the starting and ending point of a match in a string.<br />
+✽ Support for <span class="socode">\R</span> to match any kind of line break, including CRLF pairs.<br />
+✽ Support for the <span class="socode">\G</span> anchor (which asserts that the current position is the beginning of the string or the position immediately following the previous match)<br />
+✽ Support for the <span class="socode">\Q … \E</span> (<a href="regex-quickstart.html#blockescape">block escape</a>)<br />
+✽ <a href="regex-quantifiers.html#possessive">Possessive quantifiers</a>.<br />
+✽ The <span class="socode">(?d)</span> modifier (also accessible via the <span class="socode">UNIX_LINES</span> option). When this is on, the line feed character <span class="socode">\n</span> is the only one that affects the dot <span class="socode">.</span> (which doesn't match line breaks unless <a href="regex-modifiers.html#dotall">DOTALL</a> is on) and the anchors <span class="socode">^</span> and <span class="socode">$</span> (which match line beginnings and endings in <a href="regex-modifiers.html#multiline">multiline</a> mode.)<br /><br />
+
+On the other hand, Java regex has several unpleasant aspects, such as:<br /><br />
+✽ Absense of important other premium features found in .NET, Perl or PCRE—such as <span class="socode">\K</span>, <span class="socode">(*SKIP)(*F)</span>, subroutines and recursion.<br />
+✽ The absence of raw strings, forcing us to double escape backslashes in regex patterns<br />
+✽ A buggy lookbehind which has a number of undocumented effects.<br />
+<br /><br />
+
+
+
+<h2>About this Page</h2>
+
+At the moment, I am not planning a fully fleshed-out guided tour of Java regex, although I certainly intend to add plenty of tasty material to this page over time. My pages are always in motion.<br /><br />In the meantime, I don't want to leave you Java coders out dry, so I have something special to get you started.<br /><br /><br />
+	
+<h2>A Java program that shows<br />how to perform common regex tasks</h2>
+Whenever I start playing with the regex features of a new language, the thing I always miss the most is a complete working program that performs the most common regex tasks&mdash;and some not-so-common ones as well. <br /><br />
+
+This is what I have for you in the following complete Java regex program. It's taken from my page about <a href="regex-best-trick.html">the best regex trick ever</a>, and it performs the six most common regex tasks. The first four tasks answer the most common questions we use regex for:<br /><br />
+
+✽ Does the string match?<br />
+✽ How many matches are there?<br />
+✽ What is the first match?<br />
+✽ What are all the matches?<br />
+<br />
+The last two tasks perform two other common regex tasks:<br /><br />
+✽ Replace all matches<br />
+✽ Split the string<br />
+<br />
+
+<b>If you study this code, you'll have a terrific starting point to start tweaking and testing with your own expressions with Java.</b> Bear in mind that the code inspects values captured in Group 1, so you'll have to tweak&hellip; but you'll have a solid base to understand how to do basic things&amp;and fairly advanced ones as well.
+<br /><br />
+
+As you can imagine, I am not fluent in all of the ten or so languages showcased on the site. This means that although the sample code works, a Java pro might look at the code and see a more idiomatic way of testing an empty value or iterating a structure. If some idiomatic improvements jump out at you, please <a href="#comform">shoot me a comment</a>.<br /><br />
+<p class="messages">Please note that usually you will choose to perform <b>only one</b> of the six tasks in the code, so your own code will be much shorter.</p><br />
+<div class="cinter">
+<a href="javascript:void(0);" class="triggerToggle"><b>Click to Show / Hide code</b></a><br />
+or leave the site to view an <a rel="nofollow" href="http://ideone.com/kwgpqZ" target="_blank">online demo</a><br />
+</div>
+
+<div class="codebox hide toggleme"><pre>
+import java.util.*;
+import java.io.*;
+import java.util.regex.*;
+import java.util.List;
+
+class Program {
+public static void main (String[] args) throws java.lang.Exception	{
+
+String subject = "Jane\" \"Tarzan12\" Tarzan11@Tarzan22 {4 Tarzan34}";
+Pattern regex = Pattern.compile("\\{[^}]+\\}|\"Tarzan\\d+\"|(Tarzan\\d+)");
+Matcher regexMatcher = regex.matcher(subject);
+List&lt;String> group1Caps = new ArrayList&lt;String>();
+
+// put Group 1 captures in a list
+while (regexMatcher.find()) {
+	if(regexMatcher.group(1) != null) {
+		group1Caps.add(regexMatcher.group(1));
+		}
+	} // end of building the list
+
+<b>///////// The six main tasks we're likely to have ////////</b>
+
+<b>// Task 1: Is there a match?</b>
+System.out.println("*** Is there a Match? ***");
+if(group1Caps.size()>0) System.out.println("Yes");
+else System.out.println("No");
+
+<b>// Task 2: How many matches are there?</b>
+System.out.println("\n" + "*** Number of Matches ***");
+System.out.println(group1Caps.size());
+
+<b>// Task 3: What is the first match?</b>
+System.out.println("\n" + "*** First Match ***");
+if(group1Caps.size()>0) System.out.println(group1Caps.get(0));
+
+<b>// Task 4: What are all the matches?</b>
+System.out.println("\n" + "*** Matches ***");
+if(group1Caps.size()>0) {
+   for (String match : group1Caps) System.out.println(match);
+   }
+
+<b>// Task 5: Replace the matches</b>
+// if only replacing, delete the line with the first matcher
+// also delete the section that creates the list of captures
+Matcher m = regex.matcher(subject);
+StringBuffer b= new StringBuffer();
+while (m.find()) {
+    if(m.group(1) != null) m.appendReplacement(b, "Superman");
+    else m.appendReplacement(b, m.group(0));
+}
+m.appendTail(b);
+String replaced = b.toString();
+System.out.println("\n" + "*** Replacements ***");
+System.out.println(replaced);
+
+<b>// Task 6: Split</b>
+// Start by replacing by something distinctive,
+// as in Step 5. Then split.
+String[] splits = replaced.split("Superman");
+System.out.println("\n" + "*** Splits ***");
+for (String split : splits) System.out.println(split);
+
+} // end main
+} // end Program
+</pre></div>
+
+<br />
+
+
+
+
+Read the <a href="regex-best-trick.html#codesamples">explanation</a> or jump to the article's 
+<a href="regex-best-trick.html#toc">Table of Contents</a><br />
+<br /><br />
+
+
+<a id="classoperations"></a>
+<h2>Character Class Intersection, Subtraction and Union</h2>
+The syntax <span class="socode">[…&&[…]]</span> allows you to use a logical <b>AND</b> on several character classes to ensure that a character is present in them all. Intersecting with a negated character, as in <span class="socode">[…&&[^…]]</span> allows you to subtract that class from the original class.  For details, on the page about character class operations, see <a href="regex-class-operations.html#intersection">character class intersection</a> and <a href="regex-class-operations.html#subtraction_javaruby">character subtraction union in Java and Ruby</a>.
+<br /><br />
+
+Similarly, the syntax <span class="socode">[…[…]]</span> allows you to use a logical <b>OR</b> on several character classes to ensure that a character is present in either of them. For details, see <a href="regex-class-operations.html#union_javaruby">character class union in Java and Ruby</a> on the page about character class operations.
+<br /><br />
+
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div>
+<br />
+Smiles,
+<br /><br />
+Rex
+
+<br /><br />
+
+<script src="../ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+  $('.triggerToggle').click(function(){
+     $(this).parent().nextAll('.toggleme').toggle();
+  });
+});
+</script><div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Be the First to Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-java.html" method="post" >
+<input type="hidden" name="token" value="721c8b2d302ff945f02fdde9a713df0e" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a class="thispage" href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-java.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:07 GMT -->
+</html>

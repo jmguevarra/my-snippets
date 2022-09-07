@@ -1,0 +1,73 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script defer>
+  
+  
+$('.product').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 2000,
+    dots: false,
+    arrows: true,
+    adaptiveHeight: false,
+  	prevArrow: $("#lp-pom-image-785"),
+  	nextArrow: $("#lp-pom-image-784"),
+  });  
+  
+
+var filtered = false;
+
+$("#lp-pom-box-762").addClass('sienna-filter');
+$("#lp-pom-box-761").addClass('beachwood-filter');
+$("#lp-pom-box-763").addClass('soho-filter');
+  
+  
+var title = $(".title");
+var description = $(".description");
+
+$('.sienna-filter').on('click', function () {
+  		$(".slick-arrow").show();
+        $('.product').slick('slickUnfilter');
+        $('.product').slick('slickFilter', '.sienna');
+        $('.active').removeClass('active');
+        $('.sienna-filter').addClass('active');
+        filtered = true;
+        title.text('Lot 801 Nirvana Way, 3 BR 2.5 Bath 2 Car | $439,900^');
+        description.text('This stunning home comes complete with stainless steel appliances, stone benches, landscaping and more.');
+});
+$('.beachwood-filter').on('click', function () {
+  		$(".slick-arrow").hide();
+        $('.product').slick('slickUnfilter');
+        $('.product').slick('slickFilter', '.beachwood');
+        $('.active').removeClass('active');
+        $('.beachwood-filter').addClass('active');
+        filtered = true;
+        title.text('Lot 136 Enchantment Way, 4 BR 2 Bath 2 Car | $518,020^^^');
+        description.text('High ceilings, outdoor living and built-in storage are designed to create the perfect family lifestyle in this spacious family home.');
+});
+$('.soho-filter').on('click', function () {
+  		$(".slick-arrow").show();
+        $('.product').slick('slickUnfilter');
+        $('.product').slick('slickFilter', '.soho');
+        $('.active').removeClass('active');
+        $('.soho-filter').addClass('active');
+        filtered = true;
+        title.text('Lot 958 Mindful Circuit, 3 BR 2.5 Bath 2 Car | $472,468^^');
+        description.text('This home is cleverly zoned with open-plan living downstairs and all three spacious bedrooms upstairs.');
+});
+
+  
+  
+	$('.product').slick('slickUnfilter');
+        $('.product').slick('slickFilter', '.sienna');
+        $('.active').removeClass('active');
+        $('.sienna-filter').addClass('active');
+        filtered = true;
+        title.text('Lot 801 Nirvana Way, 3 BR 2.5 Bath 2 Car | $439,900^');
+        description.text('This stunning home comes complete with stainless steel appliances, stone benches, landscaping and more.');  
+  
+  
+});
+</script>

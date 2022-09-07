@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-trick-conditional-replacement.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="How to specify the regex replacement for a string depending on its value. Presents regex trick for use in a text editor." />
+<title>Conditional Replacement&mdash;Regex Trick</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li class="current"><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Conditional Regex Replacement in Text Editor</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+
+
+Often, the need arises to replace matches with different strings depending on the match itself. For instance, let's say you want to match words for colors, such as <i>red</i> and <i>blue</i>, and replace them with their French equivalents&mdash;<i>rouge</i> and <i>bleu</i>.
+<br /><br />
+
+Therefore, the string:<br />
+<div class="cinter">
+<span class="mono">blue cheese, a red nose</span><br />
+</div>
+should turn into:<br />
+<div class="cinter">
+<span class="mono">bleu cheese, a rouge nose</span> 
+</div>
+<br />
+
+Using regex, this is no problem is most programming languages, where you can call a function to compute replacements. (Depending on context , such functions may be called <i>lambdas</i>, <i>delegates</i> or <i>callbacks</i>.) <br /><br />
+
+In fact, if you wanted you could compute replacements by talking to a NASA server and requesting a piece of data from a machine on the moon. From this light, regex replacements are really flexible. You can do whatever you like.
+<br /><br />
+
+
+In a text editor, however, it's a different story. You can insert new text, you can insert text matched by capture groups, but there is no syntax for conditional insertion, e.g, inserting <i>bleu</i> if you matched <i>blue</i>—at least not in any of the tools I know. The purpose of this page is to show you a trick I came up with that allows you to do just that. 
+<br /><br />
+
+Note that this technique will only work in flavors that allow you to set a capture within a lookahead. You'll also need an editor with strong regex capabilities, such as EditPad Pro or Notepad++.
+
+<br /><br />
+I'll show you two similar idea (using a <i>replacement pool</i> or a <i>dictionary</i>) and some variations. <br /><br /><br />
+
+
+<a id="pool"></a>
+<span class="em8"><a href="#pool">(direct link)</a></span><br/>
+<h2>Conditional Replacement using a Replacement Pool</h2>
+In this version, at the bottom of the file, we temporarily paste a "pool" with the possible replacement texts. Keeping our example, we just paste <i>bleu rouge</i>.
+<br /><br />
+In the editor, the text looks like this:<br /><br />
+
+<span class="mono">blue cheese, a red nose.<br />
+bleu rouge</span>
+<br /><br />
+
+
+
+We then use a pattern that matches <i>blue</i> or <i>red</i>. If it matches <i>blue</i>, we lookahead for <i>bleu</i>, which we know we'll find at the pool in the bottom, and capture it. We do the same for red. In free-spacing mode, the regex looks like this:<br /><br />
+
+<div class="codebox pre">(?sx)
+\bblue\b(?=.*(bleu))
+|
+\bred\b(?=.*(rouge))
+</div>
+<br /><br />
+
+Or, on one line: <br /><br />
+
+<div class="cinter">
+<code>(?s)\bblue\b(?=.*(bleu))|\bred\b(?=.*(rouge))</code>
+</div>
+<br />
+
+What do we replace our matches with? In the <i>blue</i> match case, the replacement is captured to Group 1. In the <i>red</i> case, it is captured to Group 2. When one group is set, the other is empty, so gluing them together with <span class="socode">\1\2</span> just results in the one that is set: <br /><br />
+<div class="cinter">
+<span class="mono">bleu</span> <span class="operator">+</span> "" yields <span class="mono">bleu</span><br />
+"" <span class="operator">+</span> <span class="mono">rouge</span> yields <span class="mono">rouge</span><br />
+</div>
+<br />
+Following this principle, if we had five replacements, our replacement string would be <span class="socode">\1\2\3\4\5</span>
+<br /><br />
+Here's an <a target="_blank" href="https://www.regex101.com/r/We97pa/2">online demo</a>.
+<br /><br />
+
+<a id="branchreset"></a>
+<span class="em8"><a href="#branchreset">(direct link)</a></span><br/>
+<b>Variation: branch reset</b><br />
+In regex flavors that support the <a href="regex-disambiguation.html#branchreset"><span class="socode">(?|...)</span> branch reset</a> syntax, you can capture the replacements to a unique group, so the replacement string becomes a simple <span class="socode">\1</span>
+<br /><br />
+
+In the regex, you just need to wrap the alternation in a branch reset:<br /><br />
+
+<div class="codebox pre">(?sx)
+(?| # branch reset: both captures go to Group 1
+  \bblue\b(?=.*(bleu))
+  |
+  \bred\b(?=.*(rouge))
+)
+</div>
+ 
+<br /><br />
+
+Even if you have five replacements, the replacement string will still be <span class="socode">\1</span>. Here's an <a target="_blank" href="https://www.regex101.com/r/We97pa/3">online demo</a>.
+<br /><br />
+<br />
+
+
+<a id="dictionary"></a>
+<span class="em8"><a href="#dictionary">(direct link)</a></span><br/>
+<h2>Conditional Replacement using a Dictionary</h2>
+
+In this version of my conditional replacement trick, instead of pasting a <i>replacement pool</i> at the bottom, we paste a "dictionary".
+<br /><br />
+
+<div class="cinter">Dictionary:blue=bleu:red=rouge:green=vert</div><br /><br />
+
+My choice of the term "dictionary" is not innocent. Of course in this case we have a dictionary in the everyday sense. But this could also be a dictionary in the computing sense, i.e. a data structure that contains pairs of unique keys and not-necessarily unique values. In some languages, this is called a <i>hash table</i> or an <i>associative array</i>. 
+<br /><br />
+
+Our text input becomes something like this:<br /><br />
+
+<span class="mono">
+blue cheese, a red nose.<br />
+Dictionary:blue=bleu:red=rouge:green=vert</span>
+<br /><br />
+
+For our regex, let's start with this:<br /><br />
+
+<div class="cinter">
+<code>(?s)\b(blue|red)\b(?=.*:\1=(\w+)\b)</code>
+</div>
+<br />
+
+This matches either color, then looks further in the file for a dictionary entry of the form <span class="socode">:original=translation</span>, capturing the translation to Group 2. Our replacement is therefore <span class="socode">\2</span> (here's a <a target="_blank" href="https://www.regex101.com/r/We97pa/8">demo</a>).<br /><br />
+
+Of course if there's a chance that the actual text would contain segments that look like dictionary entries, the regex would have to be refined.<br /><br /> 
+<br />
+
+<a id="translation"></a>
+<span class="em8"><a href="#translation">(direct link)</a></span><br/>
+
+<b>Variation when matches are dense (full translation)</b><br />
+In the previous pattern, we specifically look for the literals <span class="mono">blue</span> and <span class="mono">red</span> because we do not want to give the engine the burden of looking up every word in the dictionary. However, when nearly every word in your file is a match to be translated, including every word in the regex becomes burdensome. Instead, we can simplify the regex by just matching any word:<br /><br />
+
+
+<div class="cinter">
+<code>(?s)\b(\w+)\b(?=.*:\1=(\w+)\b)</code>
+</div>
+<br />
+
+The replacement is still <span class="socode">\2</span>. Here's a <a target="_blank" href="https://www.regex101.com/r/We97pa/7">demo</a>.
+
+
+<br /><br />
+<br />
+
+
+<a id="japanese"></a>
+<span class="em8"><a href="#japanese">(direct link)</a></span><br/>
+
+<h2>Example with Ten Replacements: Translating Japanese Digits</h2>
+Several years after writing this trick, this very question came up on the RegexBuddy forum. In Japanese, digits can either be represented with the native Kanji characters (imported from Chinese), or with roman numerals. There are Unicode code points dedicated to the roman numerals in Japanese, separate from their ASCII code points, and the goal of the question was to translate these Japanese code points to their ASCII counterparts. 
+<br /><br /> 
+
+This seems like a perfect chance to showcase the technique with more than the two replacements of our simple example. <br /><br />
+
+The four versions are shown. This is the exact same technique as above, so no explanation is needed. (If you have a question, please use the form at the bottom.) 
+<br /><br />
+
+Here is the text to be transformed, and the desired output. You might not see the difference until you stare at the shape of the digits.<br /><br />
+
+<b>==== Original ====</b><br />
+<span class="mono pre">０ zero 
+１ ichi 
+２ ni 
+３ san 
+４ shi 
+５ go
+６ roku
+７ shichi
+８ hachi
+９ kyuu
+</span>
+<br /><br />
+
+<b>==== Desired Output ====</b><br />
+<span class="mono pre">0 zero
+1 ichi 
+2 ni 
+3 san 
+4 shi 
+5 go
+6 roku
+7 shichi
+8 hachi
+9 kyuu
+</span>
+<br /><br />
+
+
+<b>1. Pool trick</b><br />
+At the bottom of the text, we paste this pool: <span class="socode">0123456789</span>
+<br /><br />
+
+Our first regex is:<br /><br />
+
+<div class="codebox pre">(?sx)
+０(?=.*(0))
+|１(?=.*(1))
+|２(?=.*(2))
+|３(?=.*(3))
+|４(?=.*(4))
+|５(?=.*(5))
+|６(?=.*(6))
+|７(?=.*(7))
+|８(?=.*(8))
+|９(?=.*(9))
+</div>
+<br />
+
+Our replacement is <span class="socode">\1\2\3\4\5\6\7\8\9${10}</span>
+<br />
+
+See <a target="_blank" href="https://regex101.com/r/71huIx/1">online demo</a>.
+<br /><br />
+<br />
+
+<b>2. Pool trick, branch reset version</b><br />
+
+With a branch reset, our replacement is just <span class="socode">\1</span><br /><br />
+
+The regex becomes:<br /><br />
+<div class="codebox pre">(?sx)
+(?|
+０(?=.*(0))
+|１(?=.*(1))
+|２(?=.*(2))
+|３(?=.*(3))
+|４(?=.*(4))
+|５(?=.*(5))
+|６(?=.*(6))
+|７(?=.*(7))
+|８(?=.*(8))
+|９(?=.*(9))
+)</div>
+<br /><br />
+
+See <a target="_blank" href="https://regex101.com/r/71huIx/2">online demo</a>.
+<br /><br />
+<br />
+
+<b>3. Dictionary trick, specific matches</b><br />
+
+For the dictionary trick, we'll paste this at the bottom of our text:<br />
+<span class="socode">Dictionary:０=0:１=1:２=2:３=3:４=4:５=5:６=6:７=7:８=8:９=9</span>
+<br /><br />
+
+We can use this regex:
+
+<div class="codebox pre">(?sx)(０|１|２|３|４|５|６|７|８|９)
+(?=.*:\1=(\w+)\b)</div>
+<br /><br />
+
+For the replacement, we use <span class="socode">\2</span>. See <a target="_blank" href="https://regex101.com/r/71huIx/3">online demo</a>.
+<br /><br /><br />
+
+
+<b>4. Dictionary trick, variable matches</b><br />
+Here we simplify the regex to:<br /><br /> 
+
+<div class="codebox pre">(?sx)(\b\w+\b)
+(?=.*:\1=(\w+)\b)</div>
+<br /><br />
+
+
+Note that the <span class="socode">\w+</span> caters for cases where the dictionary contains more than digits. If we know the dictionary only contains digits, we can use:<br /><br />
+
+<div class="codebox pre">(?sx)(\p{Nd})
+(?=.*:\1=(\w+)\b)</div>
+<br /><br />
+
+The replacement is still <span class="socode">\2</span>. See <a target="_blank" href="https://regex101.com/r/71huIx/4">online demo</a>.
+<br /><br />
+<br />
+
+
+
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div>
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-2 of 2 Threads</div>
+<a id="cid2843"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Thiago</span><span class="comment-location"> &ndash; Brazil</span></div>
+<div class="comment-date">August 22, 2020 - 00:00</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>compliment</div><br />
+<div class = "comment-text">That idea is just very nice! I Just came across it, and it solved my problem. Very likely I&#039;ll be using this idea again in the future. Just wanted to say, I like the way you think! Congrats!</div>
+</div>
+<a id="cid2679"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Bartleby the Scrivener</span><span class="comment-location"> &ndash; Indianapolis</span></div>
+<div class="comment-date">September 30, 2019 - 18:56</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Conditional replace in regex</div><br />
+<div class = "comment-text">This is absolute genius! Thank you for sharing it!</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-trick-conditional-replacement.html" method="post" >
+<input type="hidden" name="token" value="e95947a460723058d1f79cc6e02e6e3e" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a class="thispage" href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-trick-conditional-replacement.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:07 GMT -->
+</html>

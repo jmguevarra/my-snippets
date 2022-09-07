@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-capture.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Regular Expression Capture Groups. Discusses the details of back-references and group numbering." />
+<title>Regex Capture Groups and Back-References</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li class="current"><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Capture Group Numbering &amp; Naming: The Gory Details</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+Capture groups and back-references are some of the more fun features of regular expressions. You place a sub-expression in parentheses, you access the capture with <span class="socode">\1</span> or <span class="socode">$1</span>&hellip; What could be easier?<br /><br />
+
+For instance, the regex <code>\b(\w+)\b\s+\1\b</code> matches repeated words, such as <i>regex regex</i>, because the parentheses in <span class="socode">(\w+)</span> capture a word to Group 1 then the back-reference <span class="socode">\1</span> tells the engine to match the characters that were captured by Group 1.
+<br /><br />
+
+Yes, capture groups and back-references are easy and fun. But when it comes to numbering and naming, there are a few details you need to know, otherwise you will sooner or later run into situations where capture groups seem to behave oddly.<br /><br />
+
+
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#beyond9">How do Capture Groups Beyond <span class="socode">\9</span> get Referenced?</a><br />
+✽ <a href="#namedgroups">Naming Groups—and referring back to them</a><br />
+✽ <a href="#groupnumbers">How Capture Groups Get Numbered</a><br />
+✽ <a href="#dupe_names">Duplicating Group Names</a><br />
+✽ <a href="#spawn_groups">Generating New Capture Groups Automatically (You Can't!)</a><br />
+✽ <a href="#reset_groups">Resetting Capture Groups like Variables (You Can't!)</a><br />
+✽ <a href="#relative_references">Relative Back-References and Forward-References</a><br />
+✽ <a href="#no-autocapture">Disabling Capture Groups</a>{<br />
+
+<br /><br />
+
+
+<a id="beyond9"></a>
+<span class="em8"><a href="#beyond9">(direct link)</a></span><br />
+<h2>How do Capture Groups Beyond <span class="socode">\9</span> get Referenced?</h2>
+Normally, within a pattern, you create a back-reference to the content a capture group previously matched by using a backslash followed by the group number—for instance <span class="socode">\1</span> for Group 1. (The <a href="#replaceg10">syntax for replacements</a> can vary.)<br /><br />
+
+In practice, you rarely need to create back-references to groups with numbers above 3 or 4, because when you need to juggle many groups you tend to create named capture groups. However, if you spend time in the smoky corridors of regex, at one time or another you're sure to wonder what is the correct syntax to create back-references to Groups 10 and higher.
+<br /><br />
+
+So in a regular expression, what does <span class="socode">\10</span> mean?
+<br /><br />
+
+
+
+It looks ambiguous: on the face of it, that could refer either to Group 10, or to Group 1 followed by a zero. In fact, the meaning does depend on the regex engine. If Group 10 has been set, all major engines treat <span class="socode">\10</span> as a back-reference to Group 10. If there is no Group 10, however, Java translates <span class="socode">\10</span> as a back-reference to Group 1, followed by a literal <span class="socode">0</span>; Python understands it as a back-reference to Group 10 (which will fail); and C#, PCRE, JavaScript, Perl and Ruby understand it as an instruction to match "the backspace character" (whatever that is)&hellip; because 10 is the octal code for the backspace character in the ASCII table!
+
+<br /><br />
+To avoid this kind of ambiguity, here is the proper syntax to create a back-reference to Group 10.<br /><br />
+
+✽ C#, Ruby: <span class="socode">\k&lt;10></span><br />
+✽ PCRE, Perl: <span class="socode">\g{10}</span><br />
+✽ Java, JavaScript, Python: no special syntax (use <span class="socode">\10</span>—knowing that if Group 10 is not set Java will treat this as Group 1 then a literal <span class="socode">0</span>, while JavaScript will treat it as the elusive "backspace character")<br />
+<br />
+
+<a id="replaceg10"></a>
+<b>Replacement Syntax for Group 10</b><br />
+As you probably know, there is no standard across engines to insert capture groups into replacements. Some engines use the <span class="socode">\1</span> syntax, some use <span class="socode">$1</span>, some allow both. So how do you insert Group 10 in a replacement?<br /><br />
+
+✽ C#: <span class="socode">${10}</span><br />
+✽ Java, JavaScript, Perl, PHP: <span class="socode">$10</span> (if Group 10 has not been set, Java and JavaScript insert Group 1 then the literal <span class="socode">0</span>, while Perl and PHP treat this as a back-reference to an undefined group)<br />
+✽ Python, Perl, PHP: <span class="socode">\10</span>  (if Group 10 has not been set, Python and and PHP treat this as a back-reference to an undefined group, while Perl inserts the backspace character, whatever that means)<br />
+✽ Ruby does not allow Group numbers above <span class="socode">\1</span> in replacements (use a named group).<br />
+<br /><br />
+
+
+<a id="namedgroups"></a>
+<span class="em8"><a href="#namedgroups">(direct link)</a></span><br />
+<h2>Naming Groups—and referring back to them</h2>
+
+In this section, to summarize named group syntax across various engines, we'll use the simple regex <span class="socode">[A-Z]+</span> which matches capital letters, and we'll name it <span class="socode">CAPS</span>.<br /><br />
+
+✽ .NET (C#, VB.NET&hellip;), Java: <span class="socode">(?&lt;CAPS>[A-Z]+)</span> defines the group, <span class="socode">\k&lt;CAPS></span> is a back-reference, <span class="socode">${CAPS}</span> inserts the capture in the replacement string.<br /><br />
+
+✽ Python: <span class="socode">(?P&lt;CAPS>[A-Z]+)</span> defines the group, <span class="socode">(?P=CAPS)</span> is a back-reference, <span class="socode">\g&lt;CAPS></span> inserts the capture in the replacement string.<br /><br />
+
+✽ Perl: <span class="socode">(?&lt;CAPS>[A-Z]+)</span> defines the group, <span class="socode">\k&lt;CAPS></span> is a back-reference. The <span class="socode">P</span> syntax (see Python) also works. <span class="socode">$+{CAPS}</span> inserts the capture in the replacement string.<br /><br />
+
+✽ PHP: <span class="socode">(?&lt;CAPS>[A-Z]+)</span> defines the group, <span class="socode">\k&lt;CAPS></span> is a back-reference. The <span class="socode">P</span> syntax (see Python) also works. To insert the capture in the replacement string, you must either use the group's number (for instance <span class="socode">\1</span>) or use <span class="socode">preg_replace_callback()</span> and access the named capture as <span class="socode">$match['CAPS']</span>
+<br /><br />
+
+✽ Ruby: <span class="socode">(?&lt;CAPS>[A-Z]+)</span> defines the group, <span class="socode">\k&lt;CAPS></span> is a back-reference. To insert the capture in the replacement string, you must use the group's number, for instance <span class="socode">\1</span>.<br /><br />
+
+✽ JavaScript does not have named groups (along with lookbehind, inline modifiers and <a href="regex-javascript.html#crippled">other useful features</a>.)
+<br />
+<br /><br />
+
+
+
+<a id="groupnumbers"></a>
+<span class="em8"><a href="#groupnumbers">(direct link)</a></span><br />
+<h2>How Capture Groups Get Numbered</h2>
+
+This section starts with basics and moves on to more advanced topics. You can skip the topics that don't pertain to your regex engine or to regex features you aren't planning to use in the coming days, but the next three paragraphs (in which I've made sure to insert a streak of yellow) are required reading if you want to understand how group numbering works.
+
+<br /><br />
+In a regex pattern, <span class="yglo">every set of capturing parentheses from left to right as you read the pattern gets assigned a number, whether or not the engine uses these parentheses when it evaluates the match.</span> This left-to-right numbering is strict—with the exceptions of the <a href="#branchreset">branch reset feature</a> in Perl and PCRE (PHP, R&hellip;) and of <a href="#dupe_names">duplicated group names</a> in .NET. If the first capture group as you read the expression from the left never gets captured (probably because it lives on the wrong side of an <span class="socode">|</span> alternation operator), it is still Group 1, even though it will be empty. 
+<br /><br />
+<div class="pullquote R">
+Capture groups get numbered from left to right. End of story. 
+</div>
+
+<b>Capture Groups with Quantifiers</b><br />
+In the same vein, <span class="yglo">if that first capture group on the left gets read multiple times by the regex because of a star or plus quantifier, as in <code>([A-Z]_)+</code>, it never becomes Group 2.</span> For good and for bad, for all times eternal, Group 2 is assigned to the second capture group from the left of the pattern as you read the regex. What happens to the number of the first group when it gets captured multiple times? It remains Group 1.
+<br /><br />
+
+<b>The Returned Value for a Given Group is the Last One Captured</b><br />
+Since a capture group with a quantifier holds on to its number, what value does the engine return when you inspect the group? <span class="yglo">All engines return the last value captured.</span> For instance, if you match the string <i>A_B_C_D_</i> with <code>([A-Z]_)+</code>, when you inspect the match, Group 1 will be <i>D_</i>. With the exception of the .NET engine, all intermediate values are lost. In essence, Group 1 gets overwritten each time its pattern is matched. 
+<br /><br />
+
+
+<a id="capturecollection"></a>
+<span class="em8"><a href="#capturecollection">(direct link)</a></span><br />
+<b>The .NET Exception: Capture Collections</b><br />
+As far as I know, the only engine that doesn't throw away intermediate captures is the .NET engine, available for instance through C# and VB.NET. In the above example, when you inspect the match and request the value for Group 1, C# will also return <i>D_</i>. But it will also make available to you a CaptureCollection object that stores all the values captured for Group 1 along the way. To see how this works, see the <a href="regex-csharp.html#quantgroups">CaptureCollection section of the C# page</a>.
+<br /><br />
+
+<b>Perl, PHP, R, Python: Group Numbering with Subroutines and Recursion</b><br />
+Some engines—such as Perl, PCRE (PHP, R, Delphi&hellip;) and Matthew Barnett's <i>regex</i> module for Python—allow you to <a href="regex-recursion.html" >repeat a part of a pattern (a subroutine) or the entire pattern (recursion)</a>. For instance, <code>([A-Z])_(?1)</code> could be used to match <i>A_B</i>, as <span class="socode">(?1)</span> repeats the pattern inside the Group 1 parentheses, i.e. <span class="socode">[A-Z]</span>. The subroutine should be considered as a function call: in a sense, it has its own "local variable", i.e. its own version of Group 1. Likewise, each depth level of a recursion has its own version of Group 1 (and therefore no matter how many times you recurse, Group 1 is always Group 1 for a given depth).
+<br /><br />
+What this means is that when <code>([A-Z])_(?1)</code> is used to match <i>A_B</i>, the Group 1 value returned by the engine is <i>A</i>. It also means that <code>(([A-Z])\2)_(?1)</code> will match <i>AA_BB</i> (Group 1 will be <i>AA</i> and Group 2 will be <i>A</i>). Whatever Group 1 values were used in the subroutine or recursion are discarded.
+<br /><br />
+In PCRE but not Perl, one interesting twist is that the "local" version of a Group in a subroutine or recursion starts out with the value set at the next depth level up the ladder, until it is overwritten. This means that in PCRE, <code>([A-Z]\2?)([A-Z])_(?1)</code> would match <i>AB_CB</i> (but not in Perl). I covered this point in the section on <a href="regex-recursion.html#recursivegroups" >group contents and numbering in recursive patterns</a>. 
+<br /><br />
+
+
+<a id="define"></a>
+<span class="em8"><a href="#define">(direct link)</a></span><br />
+<b>Perl, PHP, R: Group Numbering in Pre-Defined Subroutines</b><br />
+Perl and PCRE (PHP, R&hellip;) allow you to pre-define and name a subpattern. This allows you to build beautifully modular expressions.
+<br /><br />
+
+The main syntax page explains <a href="regex-disambiguation.html#define">the <span class="socode">(?(DEFINE) … )</span> syntax</a> in detail, but we'll look at a short example to refresh our memory. There is also a beautiful example on the page on <a href="regex-trick-numbers-in-english.html">matching numbers in plain English</a>.
+
+<br /><br />
+
+<span class="socode">(?(DEFINE)(?&lt;CAPS>[A-Z]+))</span> lets you define a subpattern called <i>CAPS</i> that matches uppercase letters. Thereafter, you can drop <span class="socode">(?&CAPS)</span> anywhere in your expression to match upper-case letters. How does group numbering work with these defined subpatterns?
+<br /><br />
+You should think of these defined subpatterns as function calls: capture groups used by a subpattern won't be available outside. To complicate matters, the subroutine itself is assigned a number, so remember to count it when counting group numbers from left to right.<br /><br />
+For instance, in <code>(?(DEFINE)(?&lt;TWOCAPS>([A-Z])\2))(?&TWOCAPS)</code>, the subpattern <span class="socode">(?&lt;TWOCAPS>([A-Z])\2))</span> counts as Group 1 and can in fact be called with <span class="socode">(?1)</span> instead of <span class="socode">(?&TWOCAPS)</span>. In turn, <span class="socode">([A-Z])</span> counts as Group 2, so that the entire <i>TWOCAPS</i> pattern matches two identical upper-case letters. However, the regex <code>(?(DEFINE)(?&lt;TWOCAPS>([A-Z])\2))(?&TWOCAPS)\2</code> will fail on <i>AAA</i> because the final <span class="socode">\2</span> is outside the subroutine and therefore refers to a group that has not been set at that depth. However, <code>(?(DEFINE)(?&lt;TWOCAPS>([A-Z])\2))(?&TWOCAPS)(?2)</code> would match <i>AAB</i>, as <span class="socode">(?2)</span> refers to the pattern of Group 2, i.e. <span class="socode">[A-Z]</span>.
+<br /><br />
+
+Remember that we number groups from left to right: therefore, after the <i>TWOCAPS</i> definition, the next available group number is 3. As a result, <code>(?(DEFINE)(?&lt;TWOCAPS>([A-Z])\2))(?&TWOCAPS)([BC])\3</code> will happily match <i>AABB</i>, as Group 3 <span class="socode">([BC])</span> captured the first <i>B</i>.
+<br /><br />
+
+
+<a id="branchreset"></a>
+<span class="em8"><a href="#branchreset">(direct link)</a></span><br />
+<b>Branch Reset (Perl and PCRE, e.g. PHP and R)</b><br />
+There are two exceptions to the strict left-to-right numbering. One is the numbering with <a href="#dupe_names">duplicated group names</a> in .NET. The other is <i>branch reset</i> syntax <span class="socode">(?|&hellip;(this)&hellip;|&hellip;(that)&hellip;)</span>available in Perl and PCRE. A branch reset is introduced by <span class="socode">(?|</span>. In the pseudo-example above, the groups capturing <span class="socode">(this)</span> and <span class="socode">(that)</span> would be assigned the same number. <br /><br />
+
+For details and examples, see the <a href="regex-disambiguation.html#branchreset">Branch Reset</a> section of the main regex syntax page.
+<br /><br />
+
+
+<a id="dupe_names"></a>
+<span class="em8"><a href="#dupe_names">(direct link)</a></span><br />
+<b>Duplicating Group Names</b><br />
+
+In .NET, PCRE (C, PHP, R…), Perl and Ruby, you can use the same group name at various places in your pattern. (In PCRE you need to use the <span class="socode">(?J)</span> modifier or <span class="socode">PCRE_DUPNAMES</span> option.) In these engines, this regex would be valid:<br /><br />
+
+<code class="cinter">:(?&lt;token>\d+)|(?&lt;token>\d+)#</code><br />
+
+This particular example could be handled by <a href="regex-disambiguation.html#branchreset">branch reset syntax</a> (supported by Perl and PCRE), but in more complex constructions the feature can come in handy.<br /><br />
+
+In PCRE, Perl and Ruby, the two groups still get numbered from left to right: the leftmost is Group 1, the rightmost is Group 2.<br /><br />
+
+In .NET, there is only one group number—Group 1. This is one of the two exceptions to capture groups' left-to-right numbering, the other being <a href="#branchreset">branch reset</a>. If the group matches in several places, all captures get added to the capture collection for Group 1 (or named group <i>token</i>). See the section on <a href="regex-csharp.html#reuseGroupName">named group reuse</a>.
+
+
+<br /><br />
+
+
+
+<b>Conclusion on Group Numbering</b><br />
+Once you understand the strict left-to-right numbering of capture groups, much potential confusion about "which group should capture what" melts away.  
+<br /><br />
+This numbering mode may seem annoying when it stands in the way of intricate logic you would love to inject in your regex. But it's simple and consistent, and that wins the day. 
+<br /><br />
+The two following sections present examples that illustrate the main traps of group numbering we just saw, hopefully helping drill them down.
+<br />
+
+
+<br /><br />
+
+
+
+<a id="spawn_groups"></a>
+<span class="em8"><a href="#spawn_groups">(direct link)</a></span><br />
+<h2>Generating New Capture Groups Automatically (You Can't!)</h2>
+One of the wonderful features of regular expressions is that you can apply quantifiers to patterns. As you know, <span class="socode">\d+</span> repeatedly eats up digits. As you also know, you can capture pieces of the subject. For instance, the regex <span class="socode">(\d)</span> captures a digit into group 1.<br /><br />
+
+So what happens if you put the two together into this regex?<br /><br />
+<code class="cinter">(\d)+</code>
+<br />
+
+When I was a young dinosaur, I romantically hoped that if I applied that regex to the string <i>1234</i>, the engine would eat each of the digits, one at a time, capturing them into four groups that could later be referenced using <span class="socode">\1</span>, <span class="socode">\2</span>, <span class="socode">\3</span> and <span class="socode">\4</span>. Was I deluded!
+<br /><br />
+
+Things don't work that way—although alone among the crowd, <a href="#capturecollection">.NET capture collections</a> offer something nearly identical. 
+
+
+The capturing parentheses you see in a pattern only capture a single group. So in <code>(\d)+</code>, capture groups do not magically mushroom as you travel down the string. Rather, they repeatedly refer to Group 1, Group 1, Group 1&hellip; If you try this regex on <i>1234</i> (assuming your regex flavor even allows it), Group 1 will contain <i>4</i>&mdash;i.e. the last capture.
+<br /><br />
+In essence, Group 1 gets overwritten every time the regex iterates through the capturing parentheses.<br /><br />
+
+The same happens if you use <a href="regex-recursion.html" >recursive patterns</a> instead of quantifiers. 
+<br /><br />
+And the same happens if you use a named group: <code>(?P&lt;MyDigit&gt;\d)+</code><br /><br />
+The group named MyDigit gets overwritten with each digit it captures. That is less surprising, and this scenario helps explain the first, because the two phrasings are equivalent. It may not jump out at you from the raw symbols, but in the regex <code>(\d)+</code>, the set of parentheses refers to a specific group&mdash;Group 1&mdash;even though that group is not explicitly named, as it is in <code>(?P&lt;MyDigit&gt;\d)+</code>. The name is implied.
+<br /><br />
+If you were hoping to use a quantifier to spawn multiple captures as the engine travels down the string, forget about it—unless you use <a href="#capturecollection">.NET capture collections</a>, a feature that lets you inspect the successive captures made by a quantified group.
+<br /><br />
+
+But there's always a solution. For instance, the "match all" feature of your language lets you break down the string into chunks, each with its set of captures, which you can put back together if need be. For instance, you could use:<br /><br />
+
+✽ <a href="regex-csharp.html">C#</a>: <span class="socode">Matches()</span> or iterate with <span class="socode">Match()</span> and <span class="socode">NextMatch()</span><br />
+✽ <a href="regex-python.html">Python</a>: <span class="socode">finditer</span> or <span class="socode">findall</span><br />
+✽ <a href="regex-php.html">PHP</a>: <span class="socode">preg_match_all()</span><br />
+✽ <a href="regex-java.html">Java</a>: <span class="socode">matcher()</span> with <span class="socode">while&hellip; find()</span><br />
+✽ <a href="regex-javascript.html">JavaScript</a>: <span class="socode">match()</span> or iterate with <span class="socode">exec()</span><br />
+✽ <a href="regex-perl.html">Perl</a>: <span class="socode">$subject =~ m!</span><br />
+✽ <a href="regex-ruby.html">Ruby</a>: <span class="socode">subject.scan</span><br />
+<br />
+<br />
+
+
+<a id="reset_groups"></a>
+<span class="em8"><a href="#reset_groups">(direct link)</a></span><br />
+<h2>Resetting Capture Groups like Variables (You Can't!)</h2>
+
+Closely related to the desire (explored above) to spawn new capture groups by using a quantifier, there is the temptation to try and capture a certain named group at different points in the regex—perhaps using a sophisticated machinery of conditionals as you might be used to doing in a programming language. <br /><br />
+For instance, you might try to write this to set the <span class="socode">PriorError</span> group at various places in the pattern, much like a variable or a flag:<br /><br />
+
+<div class="codebox">
+(?x) # free-spacing mode<br /><br />
+# this regex attempts to match &quot;dog&quot;,<br /> 
+# allowing for a one-character error, e.g. dig or bog, but not bug<br /><br />
+d? # &quot;d&quot; is the first character. It is optional. <br /><br />
+(?(?&lt;!d)(?P&lt;PriorError&gt;o)|.) # If the previous character is not d, set PriorError and require &quot;o&quot;. Otherwise (no error so far), accept any character.<br /><br />
+(?(PriorError)g # If PriorError is set, require g (no more errors!)<br /><br />
+| (?:(?&lt;!o)(?P&lt;PriorError&gt;g)|.))  # Otherwise (no prior error), if the previous character is not o, set PriorError and require g (no more errors!),  otherwise accept any character<br /><br />
+</div>
+<br />
+This is real cool regex code (I wrote it as a juvenile.) The only problem is that it doesn't work: You are not allowed to set a capture group at two places in the regex.<br /><br />
+
+Regular expressions just aren't a language were you can set and reset variables anywhere you like in a pattern—with the possible exception of a few intricate tricks, for instance using .NET's balancing groups. For some operations, to get what you want, you may need to use more than one regex.
+<br />
+<br /><br />
+
+<a id="relative_references"></a>
+<span class="em8"><a href="#relative_references">(direct link)</a></span><br />
+<h2>Relative Back-References and Forward-References</h2>
+
+Perl and PCRE allow you to make back-references by specifying the relative position of the capture group, for instance: <span class="socode">\g{-2}</span>
+<br /><br />
+
+Likewise, PCRE (as of 10.23) but not Perl allows you to make forward-references by specifying the relative position of the capture group, for instance: <span class="socode">\g{+2}</span>
+<br /><br /><br />
+
+
+<a id="no-autocapture"></a>
+<span class="em8"><a href="#no-autocapture">(direct link)</a></span><br />
+<h2>Disabling Capture Groups</h2>
+In Perl (unsure as of when) and PCRE 10.30+, <span class="socode">(?n)</span> tells the engine to treat all groups as non-capture group. This means that <span class="socode">(subpattern)</span> becomes equivalent to <span class="socode">(?:subpattern)</span>
+<br /><br />
+
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div>
+<a href="regex-lookarounds.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;Mastering Lookahead and Lookbehind</b>
+</a>
+<br /><br /><br />
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-1 of 1 Threads</div>
+<a id="cid1983"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Ken</span><span class="comment-location"> &ndash; US</span></div>
+<div class="comment-date">November 05, 2015 - 09:47</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Great discussion of a complex topic</div><br />
+<div class = "comment-text">Great discussion of a complex topic, thank you! The other sites I found left me more confused than when I started&hellip; The &quot;You Can&#039;t&quot; topics were very helpful too.</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-capture.html" method="post" >
+<input type="hidden" name="token" value="01a2635454222a892d704e0fa027dd90" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a class="thispage" href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-capture.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+</html>

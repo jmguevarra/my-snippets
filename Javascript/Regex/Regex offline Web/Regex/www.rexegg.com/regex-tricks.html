@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-tricks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:02 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Regex Tricks. Collection of tricks with regular expressions." />
+<title>Regular Expression Tricks</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li class="current"><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Regex Syntax Tricks</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+On this page, I'd like to collect some useful regex tricks. The idea here is not to assemble a cookbook of regex recipes to match this or that—for that, see the <a href="regex-cookbook.html">cookbook page</a> and the many pages of tricks linked on the left.
+<br /><br />
+
+Rather, the idea is to present more general <i>regex syntax tricks</i>—by which I mean that each of these tricks can be seen as a way to accomplish something which, if you read the manual to the letter, might first seem impossible as it is not covered by the syntax. 
+<br /><br />
+
+The earlier of these tricks will be well-known to regex heads, but I hope that even avid regexers will find something new further down.
+<br /><br />
+
+
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#fail">Forcing failure: regex constructs that never match</a><br />
+✽ <a href="#parity">Parity and beyond: check that string length is a multiple of n</a><br />
+✽ <a href="#upper_lower">Uppercase word that later appears in lowercase</a><br />
+✽ <a href="#pseudo-atomic-groups">Atomic Groups for Engines that Don't Support It</a><br />
+✽ <a href="#pseudo-define">Pre-Defined Subroutines for Engines that Don't Support It</a><br />
+✽ <a href="#staralt">Mimic an Alternation Quantified by a Star</a><br />
+✽ <a href="#misc">Miscellaneous Tricks</a><br />
+<br /><br />
+
+
+
+
+<a id="fail"></a>
+<span class="em8"><a href="#fail">(direct link)</a></span><br />
+<h2>Forcing Failure: Regex Constructs that Never Match</h2>
+
+Sometimes, you want to stop the regex engine in its track by throwing in an expression that always fails. Once the engine fails to match an expression or token, it attempts to backtrack in the hope of finding another path that succeeds. You might wish to exploit this path exploration, or design your pattern so that this backtracking never succeeds&mdash;below we'll examine <a href="#whyfail">why we might want a token that never matches</a>.
+
+Before looking at the "standard solution", let's explore some options.
+<br /><br />
+
+To force the engine to choke and turn back, one strategy is to require two incompatible things, such as using a lookahead to assert that the next character is an <i>a</i>, then immediately trying to match one character that is not an <i>a</i>: <span class="socode">(?=a)[^a]</span>. This can simply never match.
+<br /><br />
+
+You can do the same with shorthand classes: <span class="socode">(?=\d)\D</span>, <span class="socode">(?=\w)\W</span> or <span class="socode">(?=\s)\S</span>. And you can twist the logic any way you like, as in <span class="socode">(?=[^a])a</span>, or by using a negative lookahead, as in <span class="socode">(?!a)a</span>. This latter version asserts that what follows is not an <i>a</i>, then tries to match an <i>a</i>. 
+<br /><br />
+
+This last pattern suggests that there is no need to involve entire character classes such as <span class="socode">\D</span> or <span class="socode">[^a]</span>. Indeed, <span class="socode">(?=z)a</span> is just as quite effective as our original <span class="socode">(?=a)[^a]</span>.<br /><br />
+
+With word boundaries, you could use <span class="socode">\b\B</span> (requiring that a position be both a boundary and not a boundary), <span class="socode">A\bA</span> (requiring a boundary between two letters, where there is none) or <span class="socode">=\BA</span> (requiring a non-boundary where there is a boundary). Ideas involving anchors <span class="socode">^</span> and <span class="socode">$</span> are less reliable because of multi-line mode.
+<br /><br />
+
+<b>Standard Solution</b><br />
+To force a regex engine to fail and turn back, the most-used expression is probably this:<br /><br />
+<code class="cinter">(?!)</code><br />
+Its compactness is unbeatable. How does it work? <span class="socode">(?! … )</span> is a negative lookahead asserting that what is in the parentheses after the <span class="socode">?!</span> cannot be matched. In <span class="socode">(?!)</span> there is nothing between the <span class="socode">(?!</span> and the closing parentheses, an absence that the engine interprets as the empty string.
+<br /><br />
+The regex engine translates <span class="socode">(?!)</span> as "assert that at this position, the empty string cannot be matched." The empty string can always be matched, so engine fails to match the <span class="socode">(?!)</span> assertion. This causes it to backtrack in search of a different match, if any can be found.<br /><br />
+
+I first came across this little gem in the <a rel="nofollow" href="http://www.amazon.com/dp/1449319432?tag=onamazon-20" target="_blank"><i>Regular Expressions Cookbook</i></a>, but I don't know who invented it.<br /><br />
+
+
+In Perl, PCRE (C, PHP, R&hellip;) and Python's alternate <a href="https://pypi.python.org/pypi/regex" target="_blank"><i>regex</i> engine</a>, there is a special token that can never match, forcing the engine to fail and causing it to backtrack in search of another match. It can be written <span class="socode">(*FAIL)</span> or <span class="socode">(*F)</span>. Internally, PCRE optimizes <span class="socode">(?!)</span> to <span class="socode">(*F)</span>.
+<br /><br />
+
+You can read all about <span class="socode">(*FAIL)</span> on my page about <a href="backtracking-control-verbs.html">backtracking control verbs</a>.
+<br />
+<br />
+
+<a id="whyfail"></a>
+<b>Why would you want a token that never matches?</b><br />
+Among other uses, tokens that always fail come in handy:<br />
+- in conditionals that check for balancing conditions in the string (e.g. the engine found an "opening construct", now you want it to match the corresponding closing construct),<br />
+- to explore the branches of a match tree.
+<br /><br />
+For details, please read the <a href="backtracking-control-verbs.html#failusecases">use cases</a> for on my page about backtracking control verbs.
+<br /><br />
+
+<b>When I use this trick, is the regex match guaranteed to fail?</b><br />
+Not necessarily. While the <span class="socode">(?!)</span> construct and its equivalents never match, that doesn't imply that the patterns containing them won't match: after failing to match <span class="socode">(?!)</span>, the engine attempts to backtrack, and it may find an alternate path that succeeds.
+<br /><br />
+
+If your pattern is designed in such a way that backtracking is fruitless, the match attempt will fail.
+<br /><br />
+
+If you want to guarantee failure in all cases, please read <a href="backtracking-control-verbs.html#failthematch">how to force the match attempt to fail</a> on my page about backtracking control verbs.
+<br /><br />
+<br />
+
+<a id="parity"></a>
+<span class="em8"><a href="#parity">(direct link)</a></span><br />
+<h2>Parity and beyond: check that string length is a multiple of n</h2>
+
+Without using string functions, can you check that a string has an even number of characters? This is easily done:<br /><br />
+
+<code class="cinter">^(?:..)+$</code><br />
+
+The non-capturing group <span class="socode">(?:..)</span> matches two characters. The <span class="socode">+</span> quantifier repeats that one or more times.<br /><br />
+
+To check that a string's length is a multiple of n, a more general version would be <span class="socode">^(?:.{n})+$</span><br /><br />
+
+If your string spans several lines, you could start out with something like <span class="socode">(?s)\A(?:.{n})+\z</span>, using the single-line (DOTALL) mode <span class="socode">s</span> to ensure that the dot matches line breaks, and the <span class="socode">A</span> and <span class="socode">z</span> anchors to anchor the whole string. Each line break character will count as one character, so this is probably less useful.
+<br /><br />
+<br />
+
+
+
+<a id="upper_lower"></a>
+<span class="em8"><a href="#upper_lower">(direct link)</a></span><br />
+<h2>Find an Upper-Case Word that Later Appears in Lowercase</h2>
+
+This idea was shown on the <a href="regex-disambiguation.html#modifiers">inline modifiers</a> section of the main syntax page.
+<br /><br />
+
+<code class="cinter">(\b[A-Z]+\b)(?=.*(?=\b[a-z]+\b)(?i)\1)</code>
+The upper-case word is captured to Group 1. Then we match characters up to a point where the lookahead <span class="socode">(?=[a-z]+\b)</span> can assert that what follows is a lower-case word, then we set case-insensitive mode on and we match the content of Group 1.
+<br /><br />
+In .NET we could use a lookbehind instead of the double lookahead:<br />
+<code class="cinter">(\b[A-Z]+\b)(?=.*\b[a-z]+\b(?i)(?<=\1))</code>
+
+<br /><br />
+<br />
+
+
+<a id="pseudo-atomic-groups"></a>
+<span class="em8"><a href="#pseudo-atomic-groups">(direct link)</a></span><br />
+<h2>Atomic Groups for Engines that Don't Support It</h2>
+
+Among the major engines, JavaScript and Python share the dubious distinction of not supporting <a href="regex-disambiguation.html#atomic">atomic grouping syntax</a>, such as <span class="socode">(?>A+)</span>
+<br /><br />
+
+This hack lets you get around it: <span class="socode">(?=(A+))\1</span>. The lookahead asserts that the expression we want to make atomic—i.e. <span class="socode">A+</span>—can be found at the current position, and the parentheses capture it. The back-reference <span class="socode">\1</span> then matches it. So far, this is just a long-winded way of matching <span class="socode">A+</span>. The magic happens if a token fails to match further down in the pattern. The engine will not backtrack into a lookaround, and for good reason: if its assertion is true at a given position, it's true! Therefore, Group 1 keeps the same value, and the engine has to give up what was matched by <span class="socode">A+</span> in one block.<br /><br />
+
+The page on <a href="regex-disambiguation.html">Reducing <span class="socode">(? &hellip; )</span> Syntax Confusion</a> looked at <a href="regex-disambiguation.html#atomic">two examples of atomic groups</a>. Referring to that page for what they do, here are the equivalent "pseudo-atomic" groups in JavaScript and Python:<br /><br />
+
+
+<code class="cinter">(?>A+)[A-Z]C</code>
+translates to <br />
+<code class="cinter">(?=(A+))\1[A-Z]C</code>
+<br /><br />
+
+and <br />
+<code class="cinter">(?>A|.B)C</code>
+translates to <br />
+<code class="cinter">(?=A|.B)\1C</code>
+<br /><br />
+<br />
+
+<a id="pseudo-define"></a>
+<span class="em8"><a href="#pseudo-define">(direct link)</a></span><br />
+<h2>Pre-Defined Subroutines for Engines that Don't Support It</h2>
+Perl, PCRE (C, PHP, R…) and Python's alternate <a href="https://pypi.python.org/pypi/regex" target="_blank"><i>regex</i> engine</a> support the terrific <a href="regex-disambiguation.html#define"><span class="socode">(?(DEFINE) … )</span> syntax</a> that allows you to pre-define named regex subroutines and to use them to build beautiful modular patterns such as the the regex to <a href="regex-trick-numbers-in-english.html">match numbers in plain English</a>.
+<br /><br />
+
+At present, the only other engine I know that supports <a href="regex-disambiguation.html#subroutines">subroutines</a>, Ruby 1.9+, does not support the <span class="socode">(?(DEFINE) … )</span> syntax</a>. I came up with this trick in order to use pre-defined subroutines in these two engines.<br /><br />
+
+As with <span class="socode">(?(DEFINE) … )</span>, the idea is to place the definitions in a section at the beginning of the regex—although you can put them anywhere before the subroutine is called. Each definition looks like this:<br /><br /> 
+
+<code class="cinter">(?:(?&lt;foo> … )(?!))?</code><br />
+
+Here the name of the subroutine is <i>foo</i>, and the actual subroutine goes in the place of the ellipsis <span class="socode">…</span>. For instance, <span class="socode">(?:(?&lt;uc_word>\b[A-Z]+\b)(?!))?</span> defines a subroutine for a word in all-caps.<br /><br />
+
+Once the subroutine is defined, you call it with <span class="socode">\g&lt;foo></span> (Ruby). This makes it very convenient to call patterns repeatedly (especially if they are long), to maintain them in one place, and so on.
+<br /><br />
+
+<b>How does the trick work?</b><br />
+Before we look at a full-length example, let's discuss how this works. The external parentheses in <span class="socode">(?:(?&lt;foo> … )(?!))?</span> define a non-capturing group. The group is made optional by the <span class="socode">?</span> quantifier. As we'll soon see, the non-capturing group always fails, and the <i>zero-or-one</i> quantifier <span class="socode">?</span> is what allows us to go on after that internal failure. <br /><br />
+
+Within the non-capturing group, we start with a standard named group definition <span class="socode">(?&lt;foo> … )</span>. This both creates a <a href="regex-disambiguation.html#namedcapture">named group</a> and a <a href="regex-disambiguation.html#named-subroutines">named subroutine</a>.<br /><br />
+
+The engine doesn't know that at this stage we only aim to <i>define</i> the subroutine without actually matching characters. Therefore, if it finds characters that match the pattern in the named group, it matches them. We don't want that—as our goal in our definitions is to simply define without moving our position in the string. 
+<br /><br />
+
+This is why after defining the named group and subroutine, we force the non-capturing group to fail by using <span class="socode">(?!)</span>, which we saw earlier in the page with the <a href="#fail">forced failure trick</a>. Of course we don't want the whole regex to fail, which is why we use the <span class="socode">?</span>quantifier to make the non-capturing group optional. 
+<br /><br />
+
+<b>Full Example</b><br />
+
+This example is identical to the one in the section on <a href="regex-disambiguation.html#define">pre-defined subroutines</a>: it defines a basic grammar, allowing us to match sentences such as <i>five blue elephants solve many interesting problems</i> and <i>many large problems resemble some interesting cars</i><br /><br />
+
+
+This is for <b>Ruby:</b><br /><br />
+
+<div class="codebox"><pre>
+(?x)   # whitespace mode
+<b>#######  DEFINITIONS  #########</b>
+# pre-define quant subroutine 
+(?:(?&lt;quant>many|some|five)(?!))?
+
+# pre-define adj subroutine 
+(?:(?&lt;adj>blue|large|interesting)(?!))?
+
+# pre-define object subroutine
+(?:(?&lt;object>cars|elephants|problems)(?!))?
+
+# pre-define noun_phrase subroutine
+(?:(?&lt;noun_phrase>\g&lt;quant>\ \g&lt;adj>\ \g&lt;object>)(?!))?
+
+# pre-define verb subroutine
+(?:(?&lt;verb>borrow|solve|resemble)(?!))?
+#######  END DEFINITIONS  #######
+
+<b>##### The regex matching starts here #####</b>
+\g&lt;noun_phrase>\ \g&lt;verb>\ \g&lt;noun_phrase>	
+	
+</pre></div>
+<br /><br />
+
+
+<a id="staralt"></a>
+<span class="em8"><a href="#staralt">(direct link)</a></span><br />
+<h2>Mimic an Alternation Quantified by a Star</h2>
+You want to match a series or <i class="mono">joe_</i> or <i class="mono">bob_</i> tokens, as in:<br />
+<span class="mono">joe_joe_joe_bob_joe_bob_</span><br />
+We allow an empty match.
+<br /><br />
+Your first thought is probably <code>(?:bob_|joe_)*</code><br />
+But can you perform the same task without using an alternation?<br /><br />
+
+This will do it:<br />
+<code class="cinter">(?:bob_)*(?:(?:joe_)+(?:bob_)*)*</code><br />
+
+After <span class="socode">(?:bob_)*</span> matches zero or more <i class="mono">bob_</i> tokens, we match (zero or more times) one or more <i class="mono">joe_</i> tokens followed by zero or more <i class="mono">bob_</i> tokens.
+<br /><br />
+
+In more general terms, <span class="socode">(A|B)*</span> becomes <span class="socode">A*(?:B+A*)*</span>.
+<br /><br />
+
+We use this technique in the <a href="regex-quantifiers.html#unrolled_staralt">Unrolled Star Alternation</a> solution to the <a href="regex-quantifiers.html#greedytrap">Greedy Trap</a> problem.<br />
+<br /><br />
+
+<a id="misc"></a>
+<span class="em8"><a href="#misc">(direct link)</a></span><br />
+<h2>Miscellaneous Tricks</h2>
+
+In this section, I would like to add links to tricks that are described on other pages but do not fully satisfy this page's specification of <i>regex syntax tricks</i> that perform tasks that may not at first seem like they are covered by the engine's syntax.
+<br /><br />
+
+✽ <a href="regex-boundaries.html#double-negative-delimiter">double-negative delimiters</a><br />
+✽ I've implemented an <a href="pcre-callouts.html#infinite_lb">infinite lookbehind demo for PCRE</a>.<br />
+
+
+
+<br /><br />
+
+
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div><a href="regex-cookbook.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;Regex Cookbook</b>
+</a>
+<br /><br /><br />
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-1 of 1 Threads</div>
+<a id="cid2282"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Ozz</span><span class="comment-location"> &ndash; Israel</span></div>
+<div class="comment-date">January 28, 2017 - 02:46</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>A simpler &#039;Mimic of Alternation&#039;?</div><br />
+<div class = "comment-text">In your last example on this page,<br />
+why does (A|B)* becomes A*(? :B+A*)*? Isn&#039;t it much simpler that (A|B)* becomes (A*B*)*? P.S. My name is &quot;Oz&quot;.</div>
+</div>
+<a id="cid2283"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Ozz</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">January 28, 2017 - 08:19</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: A simpler &#039;Mimic of Alternation&#039;?</div><br />
+<div class = "comment-text">Hi Oz,
+Because of this:
+http://www.rexegg.com/regex-explosive-quantifiers.html
+</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-tricks.html" method="post" >
+<input type="hidden" name="token" value="e0e490a284c714dcaca947bde837e673" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a class="thispage" href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-tricks.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:02 GMT -->
+</html>

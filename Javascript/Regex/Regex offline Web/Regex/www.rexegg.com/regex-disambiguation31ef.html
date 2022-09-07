@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-disambiguation.html?cp=2 by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:12 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Regex syntax clarification. Examines all pieces of regex syntax that start with (?." />
+<title>Advanced Regex Tutorial&mdash;Regex Syntax</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li class="current"><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Reducing <span class="socode">(? &hellip; )</span> Syntax Confusion</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+
+<a id="syntaxconfusion"></a>
+
+
+<div class="pullquote R">
+What the (? &hellip; )<br />A question mark inside a parenthesis: So many uses!<br />I thought I would bring them all together in one place.<br /><br />
+</div>
+
+I don't know the fine details of the <a href="regex-vs-regular-expression.html#history">history of regular expressions</a>. Stephen Kleene and Ken Thompson, who started them, obviously wanted something very compact. Maybe they were into hieroglyphs, maybe they were into cryptography, or maybe that was just the way you did things when you only had a few kilobytes or RAM. 
+<br /><br />
+The heroes who expanded regular expressions (such as Henry Spencer and Larry Wall) followed in these footsteps. One of the things that make regexes hard to read for beginners is that many points of syntax that serve vastly different purposes all start with the same two characters: <br /><br />
+
+<code class="cinter">(?</code><br />
+
+
+In the regex tutorials and books I have read, these various points of syntax are introduced in stages. But <span class="socode">(?: &hellip; )</span> looks a lot like <span class="socode">(?= &hellip; )</span>, so that at some point they are bound to clash in the mind of the regex apprentice. To facilitate study, I have pulled all the <span class="socode">(? &hellip; )</span> usages I know about into one place. I'll start by pointing out three confusing couples; details of usage will follow.
+<br /><br />
+
+
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#confusingcouples">Confusing Couples</a><br />
+✽ <a href="#lookarounds">Lookahead and Lookbehind: <span class="socode">(?= &hellip; )</span>, <span class="socode">(?! &hellip; )</span>, <span class="socode">(?&lt;= &hellip; )</span>, <span class="socode">(?&lt;! &hellip; )</span></a><br />
+✽ <a href="#noncap">Non-Capturing Groups: <span class="socode">(?: &hellip; )</span> and <span class="socode">(?is: &hellip; )</span></a><br />
+✽ <a href="#atomic">Atomic Groups: <span class="socode">(?> &hellip; )</span></a><br />
+✽ <a href="#namedcapture">Named Capture: <span class="socode">(?&lt;foo> &hellip; )</span> and <span class="socode">(?P&lt;foo> &hellip; )</span></a><br />
+✽ <a href="#modifiers">Inline Modifiers: <span class="socode">(?isx-m)</span></a><br />
+✽ <a href="#subroutines">Subroutines: <span class="socode">(?1)</span></a><br />
+✽ <a href="#recursion">Recursion: <span class="socode">(?R)</span></a><br />
+✽ <a href="#conditionals">Conditionals: <span class="socode">(?(A)B)</span> and <span class="socode">(?(A)B|C)</span></a><br />
+✽ <a href="#define">Pre-Defined Subroutines: <span class="socode">(?(DEFINE)(&lt;foo> &hellip; )(&lt;bar> &hellip; ))</span> and <span class="socode">(?&amp;foo)</span></a><br />
+✽ <a href="#branchreset">Branch Reset: <span class="socode">(?| &hellip; )</span></a><br />
+✽ <a href="#inlinecomments">Inline Comments: <span class="socode">(?# &hellip; )</span></a><br />
+✽ <a href="#codecapsule">Code Capsule: <span class="socode">(?{&hellip;})</span></a><br />
+✽ <a href="#pcrecallouts">PCRE Callouts: <span class="socode">(?C&hellip;)</span></a><br />
+✽ <a href="#versioncheck">Version Check: <span class="socode">(?(VERSION>=x) &hellip; )</span></a><br />
+✽ <a href="#ignore-whitespace">Ignore ALL Unescaped Whitespace: <span class="socode">(?xx)</span></a><br />
+✽ <a href="#no-autocapture">Disable auto-capture: <span class="socode">(?n)</span></a><br />
+
+<br /><br />
+
+
+<a id="confusingcouples"></a>
+<span class="em8"><a href="#confusingcouples">(direct link)</a></span><br />
+<h2>Confusing Couples</h2>
+
+<b>Confusing Couple #1: <span class="socode">(?: &hellip; )</span> and <span class="socode">(?= &hellip; )</span></b> <br />
+These false twins have very different jobs. (?: &hellip; )</span> contains a non-capturing group, while <span class="socode">(?= &hellip; )</span> is a lookahead.
+<br /><br />
+
+<b>Confusing Couple #2: <span class="socode">(?&lt;= &hellip; )</span> and <span class="socode">(?&gt; &hellip; )</span></b> <br />
+<span class="socode">(?&lt;= &hellip; )</span> is a lookbehind, so <span class="socode">(?&gt; &hellip; )</span> must be a lookahead, right? Not so. <span class="socode">(?&gt; &hellip; )</span> contains an atomic group. The actual lookahead marker is <span class="socode">(?= &hellip; )</span>. More about all these guys below.
+<br /><br />
+
+<b>Confusing Couple #3: <span class="socode">(?(1) &hellip; )</span> and <span class="socode">(?1)</span></b> <br />
+This pair is delightfully confusing. The first is a <a href="#conditionals" >conditional expression</a> that tests whether Group 1 has been captured. The second is a <a href="#recursive" >subroutine call</a> that matches the sub-pattern contained within the capturing parentheses of Group 1.
+<br /><br />
+
+Now that these three "big ones" are out of the way, let's drill into the syntax. 
+<br /><br />
+<br />
+
+
+<a id="lookarounds"></a>
+<span class="em8"><a href="#lookarounds">(direct link)</a></span><br />
+<h2>Lookarounds: <span class="socode">(?&lt;= &hellip; )</span> and <span class="socode">(?= &hellip; )</span>,<br /><br />
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<span class="socode">(?&lt;! &hellip; )</span> and <span class="socode">(?! &hellip; )</span></h2>
+Collectively, lookbehinds and lookaheads are known as lookarounds. This section gives you basic examples of the syntax, but further down the track I encourage you to read the dedicated <a href="regex-lookarounds.html" >regex lookaround page</a>, as it covers subtleties that need to be grasped if you'd like lookaheads and lookbehinds to become your trusted friends.
+<br /><br />
+
+In the meantime, if there is one thing you should remember, it is this: <span class="yglo">a lookahead or a lookbehind does not "consume" any characters on the string</span>. This means that after the lookahead or lookbehind's closing parenthesis, the regex engine is left standing on the very same spot in the string from which it started looking: it hasn't moved. From that position, then engine can start matching characters again, or, why not, look ahead (or behind) for something else&mdash;a useful technique, as we'll later see.
+
+<br /><br />
+Here is how the syntax works. <br /><br />
+
+<a id="lookahead"></a>
+<span class="em8"><a href="#lookahead">(direct link)</a></span><br />
+<b>Lookahead After the Match:</b> <code>\d+(?= dollars)</code><br />
+<b>Sample Match:</b> <i>100</i> in <span class="mono">100 dollars</span><br />
+<b>Explanation:</b> <span class="socode">\d+</span> matches the digits <i>100</i>, then the lookahead <span class="socode">(?= dollars)</span> asserts that at that position in the string, what immediately follows is the characters "<i>&ensp;dollars</i>"<br /> <br />
+
+
+<b>Lookahead Before the Match:</b> <code>(?=\d+ dollars)\d+</code><br />
+<b>Sample Match:</b> <i>100</i> in <span class="mono">100 dollars</span><br />
+<b>Explanation:</b> The lookahead <span class="socode">(?=\d+ dollars)</span> asserts that at the current position in the string, what follows is digits then the characters "<i>&ensp;dollars</i>". If the assertion succeeds, the engine matches the digits with <span class="socode">\d+</span>.<br /><br />
+
+Note that this pattern achieves the same result as <span class="socode">\d+(?= dollars)</span> from above, but it is less efficient because <span class="socode">\d+</span> is matched twice. A better use of looking ahead before matching characters is to <a href="regex-lookarounds.html#password">validate multiple conditions</a> in a password.
+<br /><br />
+
+
+<a id="negative-lookahead"></a>
+<span class="em8"><a href="#negative-lookahead">(direct link)</a></span><br />
+<b>Negative Lookahead After the Match:</b> <code>\d+(?!\d| dollars)</code><br />
+<b>Sample Match:</b> <i>100</i> in <i class="mono">100 pesos</i><br />
+<b>Explanation:</b> <span class="socode">\d+</span> matches <i>100</i>, then the negative lookahead <span class="socode">(?!\d| dollars)</span>  asserts that at that position in the string, what immediately follows is neither a digit nor the characters "<i>&ensp;dollars</i>"<br /><br />
+
+<b>Negative Lookahead Before the Match:</b> <code>(?!\d+ dollars)\d+</code><br />
+<b>Sample Match:</b> <i>100</i> in <i class="mono">100 pesos</i><br />
+<b>Explanation:</b> The negative lookahead <span class="socode">(?!\d+ dollars)</span> asserts that at the current position in the string, what follows is not digits then
+the characters "<i>&ensp;dollars</i>". If the assertion succeeds, the engine matches the digits with <span class="socode">\d+</span>.<br /><br />
+
+Note that this pattern achieves the same result as <span class="socode">\d+(?!\d| dollars)</span> from above, but it is less efficient because <span class="socode">\d+</span> is matched twice. A better use of looking ahead before matching characters is to <a href="regex-lookarounds.html#password">validate multiple conditions</a> in a password.<br /><br />
+
+
+<a id="lookbehind"></a>
+<span class="em8"><a href="#lookbehind">(direct link)</a></span><br />
+<b>Lookbehind Before the match:</b> <code>(?&lt;=USD)\d{3}</code><br />
+<b>Sample Match:</b> <i>100</i> in <i class="mono">USD100</i><br />
+<b>Explanation:</b> The lookbehind <span class="socode">(?&lt;=USD)</span> asserts that at the current position in the string, what precedes is the characters "<i>USD</i>". If the assertion succeeds, the engine matches three digits with <span class="socode">\d{3}</span>.<br /><br />
+
+
+<b>Lookbehind After the match:</b> <code>\d{3}(?&lt;=USD\d{3})</code><br />
+<b>Sample Match:</b> <i>100</i> in <i class="mono">USD100</i><br />
+<b>Explanation:</b> <span class="socode">\d{3}</span> matches <i>100</i>, then the lookbehind <span class="socode">(?&lt;=USD\d{3})</span>  asserts that at that position in the string, what immediately precedes is the characters "<i>USD</i>" then three digits.<br /><br />
+
+Note that this pattern achieves the same result as <span class="socode">(?&lt;=USD)\d{3}</span> from above, but it is less efficient because <span class="socode">\d{3}</span> is matched twice.
+
+<br /><br />
+
+
+<a id="negative-lookbehind"></a>
+<span class="em8"><a href="#negative-lookbehind">(direct link)</a></span><br />
+<b>Negative Lookbehind Before the Match</b>: <code>(?&lt;!USD)\d{3}</code><br />
+<b>Sample Match:</b> <i>100</i> in <i class="mono">JPY100</i><br />
+<b>Explanation:</b> The negative lookbehind <span class="socode">(?&lt;!USD)</span> asserts that at the current position in the string, what precedes is not the characters "<i>USD</i>". If the assertion succeeds, the engine matches three digits with <span class="socode">\d{3}</span>.<br /><br />
+
+<b>Negative Lookbehind After the Match</b>: <code>\d{3}(?&lt;!USD\d{3})</code><br />
+<b>Explanation:</b> <span class="socode">\d{3}</span> matches <i>100</i>, then the negative lookbehind <span class="socode">(?&lt;!USD\d{3})</span>  asserts that at that position in the string, what immediately precedes is not the characters "<i>USD</i>" then three digits.<br /><br />
+
+Note that this pattern achieves the same result as <span class="socode">(?&lt;!USD)\d{3}</span> from above, but it is less efficient because <span class="socode">\d{3}</span> is matched twice.
+
+<br /><br />
+
+
+<a id="lookaround_support"></a>
+<span class="em8"><a href="#lookaround_support">(direct link)</a></span><br />
+<b>Support for Lookarounds</b><br />
+
+All major engines have some form of support for lookarounds—with some important differences. For instance, JavaScript doesn't support lookbehind, though it supports lookahead (one of the many <a href="regex-javascript.html#crippled">blotches on its regex scorecard</a>). Ruby 1.8 suffered from the same condition.<br /><br />
+
+<a id="lookbehind_width"></a>
+<span class="em8"><a href="#lookbehind_width">(direct link)</a></span><br />
+<b>Lookbehind: Fixed-Width / Constrained Width / Infinite Width</b><br />
+One important difference is whether lookbehind accepts variable-width patterns.<br /><br />
+
+✽ At the moment, I am aware of only three engines that allow infinite repetition within a lookbehind—as in <span class="socode">(?&lt;=\s*)</span>: .NET, Matthew Barnett's outstanding <a href="https://pypi.python.org/pypi/regex" target="_blank"><i>regex</i> module for Python</a>, whose features far outstrip those of the standard <i>re</i> module, and the JGSoft engine used by Jan Goyvaerts' software such as EditPad Pro. I've also implemented an <a href="pcre-callouts.html#infinite_lb">infinite lookbehind demo for PCRE</a>.
+<br /><br />
+
+
+✽ Java accepts quantifiers within lookbehind, as long as the length of the matching strings falls within a pre-determined range. For instance, <span class="socode">(?&lt;=cats?)</span> is valid because it can only match strings of three or four characters. Likewise, <span class="socode">(?<=A{1,10})</span> is valid.
+<br /><br />
+
+✽ PCRE (C, PHP, R &hellip;), Java and Ruby 2+ allow lookbehinds to contain alternations that match strings of different but pre-determined lengths (such as <span class="socode">(?&lt;=cat|raccoon)</span>)
+<br /><br />
+
+✽ Perl and Python require a lookbehind to match strings of a fixed length, so <span class="socode">(?&lt;=cat|racoons)</span> will not work.
+<br /><br />
+
+To master lookarounds, there is a bit more you should really know. For these finer details, visit the <a href="regex-lookarounds.html" target="_blank">lookaround page</a>.
+<br /><br />
+<br />
+
+
+
+
+<a id="noncap"></a>
+<span class="em8"><a href="#noncap">(direct link)</a></span><br />
+<h2>Non-Capturing Groups: <span class="socode">(?: &hellip; )</span></h2>
+In regex as in the <span class="socode">(2+3)*(5-2)</span> of arithmetic, parentheses are often needed to group components of an expression together. For instance, the above operation yields 15. Without the parentheses, because the <span class="socode">*</span> operator has higher precedence than the <span class="socode">+</span> and <span class="socode">-</span>, <span class="socode">2+3*5-2</span> is interpreted as <span class="socode">2+(3*5)-2</span>, yielding&hellip; er&hellip; 15 (a happy coincidence).
+<br /><br />
+
+In regex, normal parentheses not only group parts of a pattern, they also capture the sub-match to a capture group. This is often tremendously useful. At other times, you do not need the overhead.
+<br /><br />
+
+In .NET, this capturing behavior of parentheses can be overridden by the <span class="socode">(?n)</span> flag or the <span class="socode">RegexOptions.ExplicitCapture</span> option. But in all flavors, .NET included, it is far more common to use <span class="socode">(?: &hellip; )</span>, which is the syntax for a non-capturing group. Watch out, as the syntax closely resembles that for a lookahead <span class="socode">(?= &hellip; )</span>.
+<br /><br />
+
+For instance <span class="socode">(?:Bob|Chloe)</span> matches <i>Bob</i> or <i>Chloe</i>—but the name is not captured.<br /><br />
+
+
+Within a non-capturing group, you can still use capture groups. For instance, <span class="socode">(?:Bob says: (\w+))</span> would match <i>Bob says: Go</i> and capture <i>Go</i> in Group 1.<br />
+<br />
+
+Likewise, you can capture the content of a non-capturing group by surrounding it  with parentheses. For instance, <span class="socode">((?:Bob|Chloe)\d\d)</span> would capture "Chloe44".<br /><br />
+
+<a id="nocap-with-modifier"></a>
+<span class="em8"><a href="#nocap-with-modifier">(direct link)</a></span><br />
+<b>Mode Modifiers within Non-Capture Groups</b><br />
+On all engines that support inline modifiers such as <span class="socode">(?i)</span>, except Python, you can blend the the non-capture group syntax with mode modifiers. Here are some examples:<br />
+✽ <span class="socode">(?i:Bob|Chloe)</span> This non-capturing group is case-insensitive.<br />
+✽ <span class="socode">(?ism:^BEGIN.*?END)</span> This non-capturing group matches everything between "begin" and "end" (case-insensitive), allowing such content to span multiple lines (the <span class="socode">s</span> modifier), starting at the beginning of any line (the <span class="socode">m</span> modifier allows the <span class="socode">^</span> anchor to match the beginning of any line).<br />
+✽ <span class="socode">(?i-sm:^BEGIN.*?END)</span> As above, but turns off the "s" and "m" modifiers<br />
+<br />
+
+See below for more on <a href="#modifiers" >inline modifiers</a>.
+<br /><br />
+<br />
+
+
+
+<a id="atomic"></a>
+<span class="em8"><a href="#atomic">(direct link)</a></span><br />
+<h2>Atomic Groups: <span class="socode">(?&gt; &hellip; )</span></h2>
+An atomic group is an expression that becomes solid as a block once the regex leaves the closing parenthesis. If the regex fails later down the string and needs to backtrack, a regular group containing a quantifier would give up characters one at a time, allowing the engine to try other matches. Likewise, if the group contained an alternation, the engine would try the next branch. An atomic group won't do that: it's all or nothing.<br /><br />
+
+<b>Example 1: With Alternation</b><br />
+<code class="cinter">(?>A|.B)C</code><br />
+This will fail against <i>ABC</i>, whereas <span class="socode">(?:A|.B)C</span> would have succeeded. After matching the <i>A</i> in the atomic group, the engine tries to match the <i>C</i> but fails. Because it is atomic, it is unable to try the <span class="socode">.B</span> part of the alternation, which would also succeed, and allow the final token <span class="socode">C</span> to match.<br /><br />
+
+<b>Example 2: With Quantifier</b><br />
+<code class="cinter">(?>A+)[A-Z]C</code><br />
+This will fail against <i>AAC</i>, whereas <span class="socode">(?:A+)[A-Z]C</span> would have succeeded. After matching the <i>AA</i> in the atomic group, the engine tries to match the <span class="socode">[A-Z]</span>, succeeds by matching the <i>C</i>, then tries to match the token <span class="socode">C</span> but fails as the end of the string has been reached. Because the group is atomic, it is unable to give up the second <i>A</i>, which would allow the rest of the pattern to match.<br /><br />
+
+If, before the atomic group, there were other options to which the engine can backtrack (such as quantifiers or alternations), then the whole atomic group can be given up in one go.
+<br /><br />
+
+
+<b>When are Atomic Groups Important?</b><br />
+When a series of characters only makes sense as a block, using an atomic group can prevent needless backtracking. This is explored on the section on <a href="regex-quantifiers.html#possessive">possessive quantifiers</a>. In such situations atomic quantifiers can be useful, but not necessarily mission-critical.
+<br /><br />
+On the other hand, there are situations where atomic quantifiers can save your pattern from disaster. They are particularly useful:<br /><br />
+✽ In order to avoid the <a href="regex-quantifiers.html#lazytrap"><b>Lazy Trap</b></a> with patterns that contain <b>lazy quantifiers</b> whose token can eat the delimiter<br />
+✽ To avoid certain forms of the <a href="regex-explosive-quantifiers.html"><b>Explosive Quantifier Trap</b></a><br />
+<br />
+
+
+
+<b>Supported Engines, and Workaround</b><br />
+Atomic groups are supported in most of the major engines: .NET, Perl, PCRE and Ruby. For engines that don't support atomic grouping syntax, such as Python and JavaScript, see the well-known <a href="regex-tricks.html#pseudo-atomic-groups">pseudo-atomic group workaround</a>.
+<br /><br />
+
+
+
+<a id="possessive"></a>
+<span class="em8"><a href="#possessive">(direct link)</a></span><br />
+<b>Alternate Syntax: Possessive Quantifier</b><br />
+When an atomic group only contains a token with a quantifier, an alternate syntax (in engines that support it) is a possessive quantifier, where a <span class="socode">+</span> is added to the quantifier. For instance, <br />
+✽ <span class="socode">(?>A+)</span> is equivalent to <span class="socode">A++</span><br />
+✽ <span class="socode">(?>A*)</span> is equivalent to <span class="socode">A*+</span><br />
+✽ <span class="socode">(?>A?)</span> is equivalent to <span class="socode">A?+</span><br />
+✽ <span class="socode">(?>A{…,…})</span> is equivalent to <span class="socode">A{…,…}+</span>
+<br /><br />
+
+This works in Perl, PCRE, Java and Ruby 2+. <br />
+For more, see the <a href="regex-quantifiers.html#possessive">possessive quantifiers section</a> of the quantifiers page.
+<br /><br />
+
+
+
+<b>Non-Capturing</b><br />
+Atomic groups are non-capturing, though as with other non-capturing groups, you can place the group inside another set of parentheses to capture the group's entire match; and you can place parentheses inside the atomic group to capture a section of the match. 
+<br /><br />
+
+Watch out, as the atomic group syntax is confusingly similar to the <a href="#lookarounds">lookbehind syntax <span class="socode">(?<= &hellip; )</span></a>.
+<br /><br /><br />
+
+
+
+
+<a id="namedcapture"></a>
+<span class="em8"><a href="#namedcapture">(direct link)</a></span><br />
+<h2>Named Capture: <span class="socode">(?&lt;foo> &hellip; )</span>,<br /><br />
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<span class="socode">(?P&lt;foo> &hellip; )</span> and <span class="socode">(?P=foo)</span></h2>
+
+When you cut and paste a piece of a pattern, Group 3 can suddenly become Group 1. That's a problem if you were using a back-reference <span class="socode">\3</span> or replacement <span class="socode">$3</span>.
+<br /><br />
+
+One way around this problem is named capture groups. The syntax varies across engines (see <a href="regex-capture.html#namedgroups">Naming Groups—and referring back to them</a> for the gory details). It's worth noting that named group also have a number that obeys the <a href="regex-capture.html#groupnumbers">left-to-right numbering rules</a>, and can be referenced by their number as well as their name.
+<br /><br />
+
+In short, the two capturing flavors are <span class="socode">(?&lt;foo> &hellip; )</span> and <span class="socode">(?P&lt;foo> &hellip; )</span>. For instance, in the right engines,<br /><br />
+<code class="cinter">^(?&lt;intpart>\d+)\.(?&lt;decpart>\d+)$</code>
+or
+<code class="cinter">^(?P&lt;intpart>\d+)\.(?P&lt;decpart>\d+)$</code><br />
+would both match a string containing a decimal number such as <i>12.22</i>, storing the integer portion to a group named <i>intpart</i>, and storing the decimal portion to a group named <i>decpart</i>.
+<br /><br />
+
+To create a back-reference to the <i>intpart</i> group in the pattern, depending on the engine, you'll use <span class="socode">\k&lt;intpart></span> or <span class="socode">(?P=intpart)</span>. To insert the named group in a replacement string, depending on the engine, you'll either use <span class="socode">${intpart}</span>, <span class="socode">\g&lt;intpart></span>, <span class="socode">$+{intpart}</span>or the group number <span class="socode">\1</span>. For the gory details, see <a href="regex-capture.html#namedgroups">Naming Groups—and referring back to them</a>.
+<br /><br />
+
+
+<b>To name, or not to name?</b><br />
+I'll admit that I don't use named groups a whole lot, but some people love them.
+<br /><br />
+
+Sure, named captures are bulkier than a quick <span class="socode">(capture)</span> and reference to <span class="socode">\1</span>—but they can save hassles in expressions that contain many groups.
+<br /><br />
+
+Do they make your patterns easier to read? That's subjective. For my part, if the regex is short, I always prefer numbered groups. And if it is long, I would rather read a regex with numbered groups and good comments in free-spacing mode than a one-liner with named groups. 
+<br /><br />
+<br />
+
+
+
+
+<a id="modifiers"></a>
+<span class="em8"><a href="#modifiers">(direct link)</a></span><br />
+<h2>Inline Modifiers: <span class="socode">(?isx-m)</span></h2>
+
+All popular regex flavors <a href="regex-javascript.html#crippled">apart from JavaScript</a> support inline modifiers, which allow you to tell the engine, in a pattern, to change how to interpret the pattern. For instance, <span class="socode">(?i)</span> turns on case-insensitivity. Except in Python, <span class="socode">(?-i)</span> turns it off. 
+<br /><br />
+
+If a modifier appears at the head of the pattern, it modifies the matching mode for the whole pattern—unless it is later turned off. But (except in Python) a modifier can appear in mid-pattern, in which case in only affects the portion of the pattern that follows.
+<br /><br />
+
+Modifiers can be combined: for instance, <span class="socode">(?ix)</span> turns on both case-insensitive and free-spacing mode. <span class="socode">(?ix-s)</span> does the same, but also turns off single-line (a.k.a <span class="socode">DOTALL</span>) mode.
+<br /><br />
+
+<b>Summary of inline modifiers</b><br />
+
+✽ <span class="socode">(?i)</span> turns on <a href="regex-modifiers.html#i">case insensitive mode</a>.<br /><br />
+
+✽ Except in Ruby, <span class="socode">(?s)</span> activates "<a href="regex-modifiers.html#dotall">single-line mode</a>", a.k.a. <span class="socode">DOTALL</span> modes, allowing the dot to match line break characters. In Ruby, the same function is served by <span class="socode">(?m)</span><br /><br />
+
+✽ Except in Ruby, <span class="socode">(?m)</span> activate "<a href="regex-modifiers.html#multiline">multi-line mode</a>", which allows the dollar <span class="socode">$</span> and caret <span class="socode">^</span> assertions to match at the beginning and end of lines. In Ruby, <span class="socode">(?m)</span> does what <span class="socode">(?s)</span> does in other flavors—it activates <span class="socode">DOTALL</span> mode.<br /><br />
+
+✽ <span class="socode">(?x)</span> Turns on the <a href="regex-modifiers.html#freespacing">free-spacing mode</a> (a.k.a. whitespace mode or comment mode). This allows you to write your regex on multiple lines—like on the example on the home page—with comments preceded by a <span class="socode">#</span>. <b>Warning:</b> You will usually want to make sure that <span class="socode">(?x)</span> appears immediately after the quote character that starts the pattern string. For instance, if you try placing it on a newline because it would look better, the engine will try matching the newline characters before it activates free-spacing mode.<br /><br />
+
+✽ In .NET, <span class="socode">(?n)</span> turns on "<a href="regex-modifiers.html#n">named capture only</a>" mode, which means that regular parentheses are treated as non-capture groups.<br /><br />
+
+✽ In Java, <span class="socode">(?d)</span> turns on "<a href="regex-modifiers.html#d">Unix lines mode</a>" mode, which means that the dot and the anchors <span class="socode">^</span> and <span class="socode">$</span> only care about line break characters when they are line feeds <span class="socode">\n</span>.<br />
+
+<br />
+
+
+
+<b>Combining Non-Capture Group with Inline Modifiers</b><br />
+As we saw in the section on non-capture groups, you <a href="#nocap-with-modifier">can blend mode modifiers into the non-capture group syntax</a> in all engines that support inline modifiers—except Python. For instance, <span class="socode">(?i:bob)</span> is a non-capturing group with the case insensitive flag turned on. It matches strings such as "bob" and "boB"<br />
+<br />
+
+But don't get carried away: you cannot blend inline modifiers with any random bit of regex syntax. For instance, the following are all illegal: <code class="bad">(?i=bob)</code>, <code class="bad">(?iP&lt;name&gt;bob)</code> and <code class="bad">(?i&gt;bob)</code><br />
+<br />
+
+<b>Using Inline Modifiers in the Middle of a Pattern</b><br />
+Usually, you'll use your inline modifiers at the start of the regex string to set the mode for the entire pattern. However, changing modes in the middle of a pattern can be useful, so I'll give you two examples.
+<br /><br />
+
+<code class="cinter">(\b[A-Z]+\b)(?i).*?\b\1\b</code>
+This ensures that an upper-case word is repeated somewhere in the string, in any letter-case. First we capture an upper-case word to Group 1 (for instance <i>DOG</i>), then we set case-insensitive mode, then <span class="socode">.*?</span> matches any characters up to the back-reference <span class="socode">\1</span>, which could be <i>dog</i> or <i>dOg</i>. As a neat variation, <span class="socode">(\b[A-Z]+\b).*?\b(?=[a-z]+\b)(?i)\1\b</span> ensures that the back-reference is in lower-case.<br /><br />
+
+<code class="cinter">^(\w+)\b.*\r?\n(?s).*?\b\1\b</code>
+This ensures that the first word of the string is repeated on a different line. First we capture a word to Group 1, then we get to the end of the line with <span class="socode">.*</span>, match a line break, then set <span class="socode">DOTALL</span> mode—allowing the <span class="socode">.*?</span> to match across lines, which brings us to our back-reference <span class="socode">\1</span>.
+
+<br /><br />
+
+
+
+<a id="unset-all"></a>
+<span class="em8"><a href="#unset-all">(direct link)</a></span><br />
+<b>Unsetting all modifiers: <span class="socode">(?^)</span></b><br>
+As of PCRE 10.32, <span class="socode">(?^)</span> unsets all <span class="mono">ismnx</span> modifiers.
+<br><br>
+<br>
+
+
+
+<a id="subroutines"></a>
+<span class="em8"><a href="#subroutines">(direct link)</a></span><br />
+<h2>Subroutines: <span class="socode">(?1)</span> and <span class="socode">(?&amp;foo)</span></h2>
+
+As you well know by now, when you create a capture group such as <span class="socode">(\d+)</span>, you can then create a back-reference to that group—for instance <span class="socode">\1</span> for Group 1—to match the very characters that were captured by the group. For instance, <span class="socode">(\w+) \1</span> matches <i>Hey Hey</i>.
+<br /><br />
+
+In Perl, PCRE (C, PHP, R &hellip;) and Ruby 1.9+, you can also repeat the actual <i>pattern</i> defined by a capture Group. In Perl and PCRE, the syntax to repeat the pattern of Group 1 is <span class="socode">(?1)</span> (in Ruby 2+, it is <span class="socode">\g&lt;1></span>)<br /><br />
+
+For instance, <br />
+<code class="cinter">(\w+) (?1)</code><br />
+will match <i>Hey Ho</i>. The parentheses in <span class="socode">(\w+)</span> not only capture <i>Hey</i> to Group 1—they also define Subroutine 1, whose pattern is <span class="socode">\w+</span>. Later, <span class="socode">(?1)</span> is a call to subroutine 1. The entire regex is therefore equivalent to <span class="socode">(\w+) \w+</span><br /><br />
+
+Subroutines can make long expressions much easier to look at and far less prone to copy-paste errors.
+<br /><br />
+
+
+<a id="relative_subroutines"></a>
+<span class="em8"><a href="#relative_subroutines">(direct link)</a></span><br />
+<b>Relative Subroutines</b><br />
+Instead of referring to a subroutine by its number, you can refer to the relative position of its defining group, counting left or right from the current position in the pattern. For instance, <span class="socode">(?-1)</span> refers to the last defined subroutine, and <span class="socode">(?+1)</span> refers to the next defined subroutine. Therefore,<br /><br />
+<code class="cinter">(\w+) (?-1)</code> and
+<code class="cinter">(?+1) (\w+)</code><br />
+
+are both equivalent to our first example with numbered group 1. In Ruby 2+, for relative subroutine calls, you would use <span class="socode">\g<-1></span> and <span class="socode">\g<+1></span>.
+<br /><br />
+
+
+<a id="named-subroutines"></a>
+<span class="em8"><a href="#named-subroutines">(direct link)</a></span><br />
+<b>Named Subroutines</b><br />
+Instead of using numbered groups, you can use named groups. In that case, in Perl and PHP the syntax for the subroutine call will be <span class="socode">(?&amp;group_name)</span>.  In Ruby 2+ the syntax is <span class="socode">\g&lt;some_word></span>. For instance, <br />
+<code class="cinter">(?&lt;some_word>\w+) (?&amp;some_word)</code>
+is equivalent to our first example with numbered group 1.
+<br /><br />
+
+
+<b>Pre-Defined Subroutines</b><br />
+So far, when we defined our subroutines, we also matched something. For instance, <span class="socode">(\w+)</span> defines subroutine 1 but also immediately matches some word characters. It so happens that Perl, PCRE and Python's alternate <a href="https://pypi.python.org/pypi/regex" target="_blank"><i>regex</i> engine</a> have terrific syntax that allows you to <b>pre-define a subroutine</b> without initially matching anything. This syntax is extremely useful to build large, modular expressions. We will look at it in the corresponding section: <a href="#define">Defined Subroutines: <span class="socode">(?(DEFINE)(&lt;foo> &hellip; ))(&lt;bar> &hellip; ))</span></a><br /><br />
+
+
+<b>Subroutines and Recursion</b><br />
+If you place a subroutine such as <span class="socode">(?1)</span> within the very capture group to which it refers—Group 1 in this case—then you have a recursive expression. For instance, the regex <span class="socode">^(A(?1)?Z)$</span> contains a recursive sub-pattern, because the call <span class="socode">(?1)</span> to subroutine 1 is embedded in the parentheses that define Group 1.
+<br /><br />
+If you try to trace the matching path of this regex in your mind, you will see that it matches strings like <i>AAAZZZ</i>, strings which start with any number of letters <i>A</i> and end with letters <i>Z</i> that perfectly balance the <i>A</i>s. After you open the parenthesis, the <span class="socode">A</span> matches an <i>A</i>&hellip; then the optional <span class="socode">(?1)?</span> opens another parenthesis and tries to match an <i>A</i>&hellip; and so on.<br /><br />
+
+We'll look at recursion syntax in the next section. There is also a <a href="regex-recursion.html">page dedicated to recursion</a>.<br /><br />
+
+
+<b>Warning</b><br />
+Note that the <span class="socode">(?1)</span> syntax looks confusingly similar to the <span class="socode">?(1)</span> found in <a href="#conditionals" >conditionals</a>.
+<br /><br />
+<br />
+
+
+
+<a id="recursion"></a>
+<span class="em8"><a href="#recursion">(direct link)</a></span><br />
+<h2>Recursive Expressions: <span class="socode">(?R)</span> &hellip; and old friends</h2>
+A recursive pattern allows you to repeat an expression within itself any number of times. This is quite handy to match patterns where some tokens on the left must be balanced by some tokens on the right.<br /><br />
+
+Recursive calls are available in PCRE (C, PHP, R&hellip;), Perl, Ruby 2+ and the alternate <i>regex</i> module for Python. <br /><br />
+
+<b>Recursion of the Entire Pattern: <span class="socode">(?R)</span></b><br />
+To repeat the entire pattern, the syntax in Perl and PCRE is <span class="socode">(?R)</span>. In Ruby, it is <span class="socode">\g&lt;0></span>.<br /><br />
+
+For instance, <br />
+<code class="cinter">A(?R)?Z</code>
+matches strings or substrings such as <i>AAAZZZ</i>, where a number of letters <i>A</i> at the start are perfectly balanced by a number of letters <i>Z</i> at the end. The initial token <span class="socode">A</span> matches an <i>A</i>&hellip; Then the optional <span class="socode">(?R)?</span> tries to repeat the whole pattern right there, and therefore attempts the token <span class="socode">A</span> to match an <i>A</i>&hellip; and so on.
+
+<br /><br />
+
+<b>Recursion of a Subroutine: <span class="socode">(?1)</span> and <span class="socode">(?-1)</span></b><br />
+You also have recursion when a <a href="#subroutines">subroutine</a> calls itself. For instance, in<br />
+<code class="cinter">^(A(?1)?Z)$</code>
+subroutine 1 (defined by the outer parentheses) contains a call to itself. This regex matches entire strings such as <i>AAAZZZ</i>, where a number of letters <i>A</i> at the start are perfectly balanced by a number of letters <i>Z</i> at the end.<br /><br />
+
+As we saw in the <a href="#subroutines">section on subroutines</a>, you can also call a subroutine by the relative position of its defining group at the current position in the pattern. Therefore, <br />
+<code class="cinter">^(A(?-1)?Z)$</code>
+performs exactly like the above regex.
+
+<br /><br />
+There is much more to be said about recursion. See the page dedicated to <a href="regex-recursion.html" >recursive regex patterns</a>.<br />
+<br />
+<br />
+<br />
+
+
+
+<a id="conditionals"></a>
+<span class="em8"><a href="#conditionals">(direct link)</a></span><br />
+<h2>Conditionals: <span class="socode">(?(A)B)</span> and <span class="socode">(?(A)B|C)</span></h2>
+
+This section covers the basics on conditional syntax. For more, you'll want to explore the page dedicated to <a href="regex-conditionals.html">regex conditionals</a>.
+<br /><br />
+
+In <span class="socode">(?(A)B)</span>, condition A is evaluated. If it is true, the engine must match pattern B. In the full form <span class="socode">(?(A)B|C)</span>, when condition A is not true, the engine must match pattern C. Conditionals therefore allow you to inject some <i>if(&hellip;) then {&hellip;} else {&hellip;}</i> logic into your patterns.
+<br /><br />
+
+Typically, condition A will be that a given capture group has been set. For instance, <span class="socode">(?(1)})</span> says: If capture Group 1 has been set, match a closing curly brace. This would be useful in<br />
+<code class="cinter">^({)?\d+(?(1)})$</code><br />
+
+Likewise, <span class="socode">(?(foo)…)</span> checks if the capture group named <i>foo</i> has been set.
+<br /><br />
+
+This pattern matches a string of digits that may or may not be embedded in curly braces. The optional capture Group 1 <span class="socode">({)?</span> captures an opening brace. Later, the conditional checks if capture 1 was set, and if so it matches the closing brace.
+<br /><br />
+
+Let's expand this example to use the "else" part of the syntax:<br />
+<code class="cinter">^(?:({)|")\d+(?(1)}|")$</code><br />
+
+This pattern matches strings of digits that are either embedded in double quotes or in curly braces. The non-capture group <span class="socode">(?:({)|")</span> matches the opening delimiter, capturing it to Group 1 if it is a curly brace. After matching the digits, <span class="socode">(?(1)}|")</span> checks whether Group 1 was set. If so, we match a closing curly brace. If not, we match a double quote.
+<br /><br />
+
+<b>Lookaround in Conditions</b><br />
+In <span class="socode">(?(A)B)</span>, the condition you'll most frequently see is a check as to whether a capture group has been set. In .NET, PCRE and Perl (but not Python and Ruby), you can also use lookarounds: <br />
+<code class="cinter">\b(?(?<=5D:)\d{5}|\d{10})\b</code><br />
+If the prefix <i>5D:</i> can be found, the pattern will match five digits. Otherwise, it will match ten digits. Needless to say, that is not the only way to perform this task.
+<br /><br />
+
+
+<a id="condrel"></a>
+<span class="em8"><a href="#condrel">(direct link)</a></span><br />
+<b>Checking if a relative capture group was set</b> <br />
+<span class="socode">(?(1)A)</span> checks whether Group 1 was set. In PCRE, instead of hard-coding the group number, we can also check whether a group at a relative position to the current position in the pattern has been set: for instance, <span class="socode">(?(-1)A)</span> checks whether the previous group has been set. Likewise, <span class="socode">(?(+1)A)</span> checks whether the next capture group has been set. (This last scenario would be found within a larger repeating group, so that on the second pass through the pattern, the next capture group may indeed have been set on the previous pass.)
+<br /><br />
+
+<a id="condsub"></a>
+<span class="em8"><a href="#condsub">(direct link)</a></span><br />
+<b>Checking if a recursion level was reached</b><br />
+This is not the place to be talking in depth about recursion, which has a <a href="#recursion">section below</a> and a <a href="regex-recursion.html">dedicated page</a>, but for completion I should mention two other uses of conditionals, available in Perl and PCRE:<br /><br />
+
+✽ <span class="socode">(?(R)A)</span> tests whether the regex engine is currently working within a recursion depth (reached from a recursive call to the whole pattern or a subroutine).<br />
+✽ <span class="socode">(?(R1)A)</span> tests whether the current recursion level has been reached by a recursive call to subroutine 1.<br />
+See examples <a href="regex-conditionals.html#recursivecheck">here</a>.
+<br /><br />
+
+<b>Availability of Regex Conditionals</b><br />
+Conditionals are available in PCRE, Perl, .NET, Python, and Ruby 2+. In other engines, the work of a conditional can usually be handled by the careful use of lookarounds.
+<br /><br />
+
+
+<b>Similar Syntax</b><br />
+Note that the <span class="socode">(?(1)B)</span> syntax can look confusingly similar to <span class="socode">(?1)</span> which stands for a <a href="#subroutines" >regex subroutine</a>, where the regex pattern defined by Group 1 must be matched.
+<br /><br />
+<br />
+
+
+
+<a id="define"></a>
+<span class="em8"><a href="#define">(direct link)</a></span><br />
+<h2>Pre-Defined Subroutines: <span class="socode">(?(DEFINE)(&lt;foo> &hellip; )(&lt;bar> &hellip; ))</span><br /><br />
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;and <span class="socode">(?&amp;foo)</span></h2>
+
+Available in Perl, PCRE (and therefore C, PHP, R&hellip;) and Python's alternate <a href="https://pypi.python.org/pypi/regex" target="_blank"><i>regex</i> engine</a>, pre-defined subroutines allow you to produce regular expressions that are beautifully modular and start to feel like clean procedural code.
+<br /><br />
+
+Within a <span class="socode">(?(DEFINE) … )</span> block, you can pre-define one or several named subroutines without matching any characters at that time. You can even pre-define subroutines based on other subroutines. When you get to the matching part of the regex, this allows you to match complex expressions with compact and readable syntax—and to match the same kind of expressions in multiple places without needing to repeat your regex code.
+<br /><br />
+
+This makes your regex more maintainable, both because it is easier to understand and because you don't need to fix a sub-pattern in multiple places.
+<br /><br />
+
+But an example is worth a thousand words, so let's dive in. If you like, you can play with the pattern and sample text in this <a href="http://regex101.com/r/tD0yO1/2" target="_blank">online demo</a>.<br /><br />
+
+A quick note first: in case you wonder what the <span class="socode">\ </span> are all about, they simply match one space character. The regex is in free-spacing mode—the <span class="socode">x</span> flag is implied but could be made part of the pattern using the <span class="socode">(?x)</span> modifier. In free-spacing mode, spaces that you do want to match must either be escaped as in <span class="socode">\ </span> or specified inside a character class as in <span class="socode">[ ]</span>.
+<br /><br />
+
+
+
+<div class="codebox">
+<pre>
+<b>(?(DEFINE)  # start DEFINE block</b>
+  # pre-define quant subroutine 
+  (?&lt;quant>many|some|five)
+
+  # pre-define adj subroutine
+  (?&lt;adj>blue|large|interesting)                   
+
+  # pre-define object subroutine
+  (?&lt;object>cars|elephants|problems)                
+
+  # pre-define noun_phrase subroutine
+  (?&lt;noun_phrase>(?&quant)\ (?&adj)\ (?&object))   
+
+  # pre-define verb subroutine
+  (?&lt;verb>borrow|solve|resemble)
+)          # end DEFINE block
+
+<b>##### The regex matching starts here #####</b>
+(?&noun_phrase)\ (?&verb)\ (?&noun_phrase)
+</pre>
+</div>
+<br />
+
+
+This regex would match phrases such as:<br />
+✽ <i>five blue elephants solve many interesting problems</i><br />
+✽ <i>many large problems resemble some interesting cars</i><br />
+<br />
+
+Note that the portion that does the matching is extremely compact and readable:<br />
+<code class="cinter">(?&noun_phrase)\ (?&verb)\ (?&noun_phrase)</code>
+<br />
+
+The subroutine <i>noun_phrase</i> is called twice: there is no need to paste a large repeated regex sub-pattern, and if we decide to change the definition of <i>noun_phrase</i>, that immediately trickles to the two places where it is used.
+<br /><br />
+
+Note also that <i>noun_phrase</i> itself is built by assembling smaller blocks: its code <span class="socode">(?&quant)\ (?&adj)\ (?&object)</span> uses the <i>quant</i>, <i>adj</i> and <i>object</i> subroutines.
+<br /><br />
+
+With this kind of modularity, you can build regex cathedrals. There is a beautiful example on the page with the regex to <a href="regex-trick-numbers-in-english.html">match numbers in plain English</a>.
+<br /><br />
+
+<b>A Note on Group Numbering</b><br />
+Please be mindful that each named subroutine consumes one capture group number, so if you use capture groups later in the regex, remember to count from left to right. The gory details are on the page about <a href="regex-capture.html#define">Capture Group Numbering &amp; Naming</a>.
+<br /><br />
+<br />
+
+
+
+
+<a id="branchreset"></a>
+<span class="em8"><a href="#branchreset">(direct link)</a></span><br />
+<h2>Branch Reset: <span class="socode">(?| &hellip; )</h2>
+
+
+If you've read the page about <a href="regex-capture.html#groupnumbers" >Capture Group Numbering &amp; Naming</a>, you'll remember that capture groups get numbered from left to right. Therefore, if you have two sets of capturing parentheses, they have two group numbers. Sometimes, you might wish that these two sets of parentheses might capture to the same numbered group.
+<br /><br />
+
+Perl and PCRE (and therefore C, PHP, R…) have a feature that let you reuse a group number when capturing parentheses are present on different sides of an alternation. 
+<br /><br />
+
+This is rather abstract, so let's take an example. Let's say you want to match a number, but only in three situations:<br />
+✽ If it follows an <i>A</i>, as in <i>A00</i><br />
+✽ If it precedes a <i>B</i>, as in <i>11B</i><br />
+✽ If it is sandwiched between <i>C</i> and <i>D</i>, as in <i>C22D</i><br /><br />
+
+This poses no problem using lookahead and lookbehind, but the branch reset syntax <span class="socode">(?| … )</span> gives you another—potentially more readable—option:<br />
+
+<code class="cinter">(?|A(\d+)|(\d+)B|C(\d+)D)</code><br />
+
+After the initial <span class="socode">(?|</span>, which introduces a branch reset, the group has a three-piece alternation (two <span class="socode">|</span>). Each of those contains a capture group <span class="socode">(\d+)</span>. The number of all of those capture groups is the same: Group 1.
+<br /><br />
+
+You are not limited to one group. For instance, if you are also interested in capturing a potential suffix after the number (which can happen in the situations <i>11B</i> and <i>C55D</i>), place another set of parentheses wherever you find a suffix:<br />
+<code class="cinter">(?|A(\d+)|(\d+)(B)|C(\d+)(D))</code><br />
+
+Using this regex to match the string <i>A00 11B C22D</i>, you obtain these groups:<br />
+
+<pre class="mono">
+Match      Group 1: Number      Group 2: Suffix
+-----      ---------------      ---------------
+A00        00                   (not set)
+11B        11                   B
+C22D       22                   D
+</pre>
+<br />
+
+<b>How Useful is Branch Reset?</b><br />
+When I first <a href="https://www.rexegg.com/pcre-doc/_latest/pcrepattern.html#SEC15">read about branch reset</a> in the <a href="https://www.rexegg.com/pcre-documentation.html">PCRE documentation</a> a few years ago, I was excited and certain I'd use it often. Since then, I've written several thousand regular expression patterns, but I've used branch reset less than a handful of times. It's probably my fault for always jumping on other ways to do things first, but this leaves me with a sense that the feature is not all that useful after all.
+<br /><br />
+That being said, on rare occasions, it's just the most direct and elegant way of doing things.
+<br /><br />
+Let's look at one more example, less contrived than the first—which was pared down in order to explain the feature.
+<br /><br />
+
+<b>A Branch Reset Example: Tokenization with Variable Formats</b><br />
+To me, this is an example where branch reset seems to offer benefits over competing idioms.<br /><br />
+
+Suppose you want to parse strings such as<br />
+<i>song:"Sweet Home Alabama" fruit:apple color:blue motto:"Don't Worry"</i><br />
+into pairs of keys and values. When the value following the colon is between quotes, you only want the inside of the quotes. Therefore, you expect something like:
+<br /><br />
+
+<pre class="mono">
+Group 1	   Group 2
+-------    -------
+song	   Sweet Home Alabama
+fruit	   apple
+color	   blue
+motto	   Don't Worry	
+</pre>
+<br />
+
+This branch reset regex will get you there:<br /><br />
+<code class="cinter">(\S+):(?|([^"\s]+)|"([^"]+))</code>
+<br />
+
+Group 1 <span class="socode">(\S+)</span> is a straight capture group that captures the key. In the branch reset, the two sets of capturing parentheses allow you to capture different kinds of values in different formats to the same group, i.e. Group 2. You can check the group captures in the right pane of this <a href="http://regex101.com/r/dU5lQ3/2" target="_blank">online regex demo</a>.
+<br /><br />
+To me, this alternative with a conditional and a lookbehind…<br />
+<code class="cinter">(\S+):"?((?(?&lt;!")[^"\s]+|[^"]+))</code>
+…feels a little less satisfying. But hey, it works too.
+<br /><br />
+<br />
+
+
+<a id="inlinecomments"></a>
+<span class="em8"><a href="#inlinecomments">(direct link)</a></span><br />
+<h2>Inline Comments: <span class="socode">(?# &hellip; )</h2>
+
+By now you must be familiar with the free-spacing mode, which makes it possible to unroll long regexes and comment them out, as in the many code boxes on this site. To turn on free-spacing for an entire pattern, the syntax varies:<br />
+✽ the <span class="socode">(?x)</span> modifier works in .NET, Perl, PCRE, Java, Python and Ruby.<br />
+✽ the <span class="socode">x</span> flag can be added after the pattern delimiter in Perl, PHP and Ruby.<br />
+✽ .NET lets you turn on the <span class="socode">RegexOptions.IgnorePatternWhitespace</span> option.<br />
+✽ Python lets you turn on <span class="socode">re.VERBOSE</span>
+<br /><br />
+
+What if you only want to insert a single comment without turning on free-spacing mode for the entire pattern? In Perl, PCRE (and therefore C, PHP, R&hellip;), Python and Ruby, you can write an inline comment with this syntax: <span class="socode">(?# &hellip; )</span>
+<br /><br />
+
+For instance, in: <br /><br />
+<code class="cinter">(?# the year)\d{4}</code><br />
+<span class="socode">\d{4}</span> matches four digits, while <span class="socode">(?# the year)</span> tells you what we are trying to match. <br /><br />
+
+How useful is this? Not very. I almost never use this feature: when I want comments, I just turn on free-spacing mode for the whole regex.
+<br /><br />
+
+
+
+<a id="codecapsule"></a>
+<span class="em8"><a href="#codecapsule">(direct link)</a></span><br />
+<h2>Code Capsule: <span class="socode">(?{&hellip;})</span></h2>
+<a href="regex-perl.html">Perl regex</a> has a magical feature: the ability to insert fragments of code to be executed in the middle of a pattern evaluation.
+<br /><br />
+The syntax <span class="socode">(?{&hellip;})</span> creates a code capsule. When the engine encounter it, Perl executes the statements within the curly braces <span class="socode">{&hellip;}</span>.<br /><br />
+
+A delightful example is given on the section about <a href="regex-perl.html#perlspecial">what makes Perl special</a>. Here is a more basic one.<br /><br />
+
+Consider the pattern <span class="socode">(?:[a-z])+</span>, which simply matches a sequence of lower-case letters. In the non-capture group, we'll inject a code capsule that prints the temporary match, which Perl represents with the <span class="socode">$&</span> variable. The code is <span class="socode">{print "Temp match: '$&'\n";}</span>, and the capsule is <span class="socode">(?{print "Temp match: '$&'\n";})</span>.<br /><br />
+This allows you to see the match being built, as shown in the output below.
+<br /><br />
+
+<div class="codebox pre">if ('abcd' =~
+/(?:[a-z](?{print "Temp match: '$&'\n";}))+/
+) {}
+
+# Output:
+# Temp match: 'a'
+# Temp match: 'ab'
+# Temp match: 'abc'
+# Temp match: 'abcd'
+</div><br />
+
+
+<br />
+
+<a id="pcrecallouts"></a>
+<span class="em8"><a href="#pcrecallouts">(direct link)</a></span><br />
+<h2>PCRE Callouts: <span class="socode">(?C&hellip;)</h2>
+
+The <span class="socode">(?C&hellip;)</span> token enables PCRE to provide a similar feature to Perl's code capsules. When the token is encountered, if a callout function has been specified when invoking the match function, the engine temporarily suspends the matching and passes control to the callout function.
+<br /><br />
+
+For details, please see my page about <a href="pcre-callouts.html">PCRE callouts</a>.
+<br /><br /><br />
+
+<a id="versioncheck"></a>
+<span class="em8"><a href="#versioncheck">(direct link)</a></span><br />
+<h2>Version Check: <span class="socode">(?(VERSION>=x) &hellip; )</h2>
+This is a feature I am proud to have suggested to Philip Hazel, the father of PCRE.
+<br /><br />
+In PCRE2 (versions of PCRE 10.0 and beyond), you can check what version of PCRE you are using. This is useful because PCRE is often embedded in environments such as Apache, PHP or text editors such as Notepad++, where you may not know which version of PCRE is being used, and therefore which features are available.
+<br /><br />
+
+To check whether the current version is over version 10, use something such as <i>YES</i> as your subject, and try to match it with this pattern:<br /><br />
+
+<code class="cinter">(?(VERSION>=10)YES)</code><br />
+If it matches, the version is 10 or later.<br /><br />
+
+As another example, you could use <i>LATER // EARLIER</i> as your subject, and match it with this:<br /><br />
+
+<code class="cinter">(?(VERSION>=10.5)LATER|EARLIER)</code><br />
+
+Depending on your version, PCRE2 will either match <i>LATER</i> or <i>EARLIER</i>.
+<br /><br />
+    <br />
+
+<a id="ignore-whitespace"></a>
+<span class="em8"><a href="#ignore-whitespace">(direct link)</a></span><br />
+    <h2>Ignore ALL Unescaped Whitespace: <span class="socode">(?xx)</span></h2>
+As of PCRE 10.30 (and some version of Perl I haven't checked), this flag tells the engine to ignore all unescaped whitespace in the pattern, including inside character classes. It is therefore like <span class="socode"><a href="regex-modifiers.html#freespacing">(?x)</a></span> on steroids.
+    <br /><br />
+
+
+<a id="no-autocapture"></a>
+<span class="em8"><a href="#no-autocapture">(direct link)</a></span><br />
+<h2>Disable capture groups: <span class="socode">(?n)</span></h2>
+In .NET and as of PCRE 10.30 (and some version of Perl I haven't checked), this flag tells the engine to treat all groups as non-capture group, so that <span class="socode">(this)</span> becomes equivalent to <span class="socode">(?:this)</span>
+<br /><br />
+
+
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div>
+
+<a href="regex-capture.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;Everything You've Wanted to know about Capture Groups</b>
+</a>
+<br /><br /><br />
+
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">11-11 of 11 Threads</div>
+<a id="cid995"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Skrell</span></div>
+<div class="comment-date">November 22, 2012 - 08:21</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>amazing</div><br />
+<div class = "comment-text">These articles you post on regular expressions are among the best, I&#039;ve found on the entire internet! No joke! Much appreciated!!!
+</div>
+</div>
+<a id="cid996"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Skrell</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Andy</span></div>
+<div class="comment-date">November 22, 2012 - 21:13</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Re: amazing</div><br />
+<div class = "comment-text">Hi Skrell, thank you very much for your supportive comment. I&#039;m glad to know that someone likes these pages! They took weeks to write and I&#039;ve been surprised by how little time visitors have spent on them. To enjoy a certain presentation of technical information I guess we must be of like minds at least in some small way. :) Wishing you a fun end of the week, -A
+</div>
+</div>
+<br /><div class="cinter"><a rel="nofollow" 
+		href="regex-disambiguation3c57.html?cp=1#comlist"><img src="../b.yu8.us/nav_previous16.png" class="" width="16" height="16" alt="Previous" /></a>&nbsp;&nbsp;</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-disambiguation.html" method="post" >
+<input type="hidden" name="token" value="baa9fdbbd0cfb9fb4d745182199fdd9f" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a class="thispage" href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-disambiguation.html?cp=2 by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:13 GMT -->
+</html>

@@ -1,0 +1,51 @@
+(?xm) # Free-spacing mode, multi-line
+^ # Assert Beginning of Line
+( # Begin Group 1
+  (?: # Non-capturing group, which will be repeated
+  @ # Match one @
+  (?=  # Begin Lookahead
+    [^=]* # Match any chars that are not =
+    ( # Begin Group 2
+    \2?+ # Match Group 2 if possible, and if so
+         # do not later give up the match
+         # in other words if Group 2 can be matched, match it
+         # in other words (?(2)\2)
+         # After we match the first @, Group 2 starts out undefined
+         # so the ? will be used
+         # After we match the 2nd @, Group 2 is =
+         # so at this point we must match =
+         # After we match the 3rd @, Group 2 is ==
+         # so at this point we must match ==
+    = # Match =
+    ) # End Group 2
+      # After matching the first @, Group 2 is =
+      # After matching the second @, Group 2 is ==
+      # After matching the third @, Group 2 is ===
+
+    [^-]*  # Match any chars that are not -
+    (\3?+-) # Group 3 follows the same principle as Group 2
+            # If you have a hard time following, simplify
+            # the test strings
+            # and remove the Group 3 and Group 4 sections
+
+    [^/]* # Match any chars that are not /
+    (\4?+/) # Group 4 follows the same principle as Group 2
+  )    # End Lookahead
+  )+ # Repeat the non-capturing group
+) # End Group 1
+
+# If we stopped right there, the regex would match strings
+# that have x @ and at least x {=,-,/} but possibly more: 
+# no guarantee of balance
+
+# To validate that we have no more, we now match (or lookahead)
+# what we want after the @@@@
+
+(\s"[^"]+") # Group 5: Match a space then stuff within double quotes
+\s\2 # Match a space then the characters captured by Group 2
+(?5) # Match the pattern defined by Group 5, i.e. a space then stuff within double quotes
+\s\3 # Match a space then the characters captured by Group 3
+(?5) # Match the pattern defined by Group 5, i.e. a space then stuff within double quotes
+\s\4 # Match a space then the characters captured by Group 4
+(?5) # Match the pattern defined by Group 5, i.e. a space then stuff within double quotes
+$ # Assert End of Line				

@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-uses.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="About the various uses of Regular Expressions. Mentions regex for Apache, mySQL, PHP programming, searching, replacing and other uses." />
+<title>Regex Tutorial&mdash;Regular Expressions have Many Uses</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li class="current"><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>The Many Uses of Regex</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+<p class="messages">August 2014: Lately I've added many new regex pages and been making major overhauls to old ones. I have not yet had time to revise this page, so <b>please be aware that it is not up the same standard as most pages in the tutorial.</b> I know, and I'm working on it. :)<br /></p><br />
+
+<a id="multiplelives"></a>
+
+Regex is the gift that keeps giving. Once you learn it, you discover it comes in handy in many places where you hadn't planned to use it. On this page, we'll first look at a number of contexts and programs where you may find regex. Then we'll have a quick look at some regex flavors you may run into. Finally, we'll study some examples of regex patterns in contexts such as:<br /><br />
+✽ <a href="#opus">File Renaming</a><br />
+✽ <a href="#textsearch">Text Search</a><br />
+✽ <a href="#apache">Web directives (Apache)</a><br />
+✽ <a href="#mysql">Database queries (MySQL)</a>
+<br /><br />
+
+<p class="messages">Disclaimer: I haven't edited this page in a while. As a result, the content is not as polished as most of my other pages. I hope to get to it soon.</p><br /><br />
+
+<h2>Situations where Regex can Save the Day</h2>
+
+Here are some of the thing regular expressions can help you do.<br /><br />
+
+1. Grabbing text in files or validating text input <span class="yglo">when programming</span> in languages such as C, Java or PHP.<br /><br />
+
+
+2. <span class="yglo">Searching (and possibly replacing) text in files</span> when using an advanced text editor such as <a rel="nofollow" href="http://yu8.us/editpad" target="_blank">EditPad Pro</a> and Notepad++ on Windows (or TextWrangler / BBEdit on OSX), a standalone replace tool such as ABA Replace, or good old grep (the linked page has the <a href="pcregrep-pcretest.html" >best command-line grep for Windows</a>).<br /><br />
+
+A few words about the tools just mentioned. Among text editors, EditPad Pro is in a league of its own because its regex engine was programmed by the creator of <a href="regex-tools.html#tools">RegexBuddy</a>. If you want to try EditPad Pro, <a rel="nofollow" href="http://yu8.us/epdemo" target="_blank"><b>download the free trial</b></a>. The free Notepad++ used to be deficient in the regex department, but since version 6, it has been using the excellent PCRE engine&mdash;though the interface is still clunky. On OSX, the free TextWrangler its big brother BBEdit both claim to use PCRE. What they don't say is that the PCRE version they use is 4.0 from 17 February 2003—or so it appears to me, as it supports <span class="socode">[:blank:]</span> from 4.0 but not <span class="socode">\X</span> from 5.0. This means that a lot of juicy features are missing. Still, a ten-year-old PCRE is a lot better than JavaScript.
+<br /><br />
+
+For replacement in text files, I love <a href="regex-tools.html#aba" target="_blank">ABA Replace</a>. It does one job, and does it brilliantly: searching for and replacing text in a file, or many files at once. In the result window, the results change instantaneously as you tweak the expression, much as in <a href="regex-tools.html#tools">RegexBuddy</a>.
+<br /><br />
+
+<div class="pullquote R">
+I use regex to rename files, to search in files, to make large-scale substitutions in code, in code (PHP), with databases (mySQL) and to direct my web server (Apache).
+</div>
+
+
+3. Searching and replacing across pages of code when using in an IDE such as Visual Studio, Komodo IDE or even Dreamweaver's crippled ECMAScript flavor.<br /><br />
+
+4. For advanced search and replace when using creativity software such as Adobe Indesign.<br /><br />
+
+5. <span class="yglo">Renaming a hundred files at a time</span> in an advanced file manager such as <a href="http://www.dearopus.com/" target="_blank">Directory Opus</a> or a renamer such as PFrank (Win) or A Better Finder Rename (OSX).<br /><br />
+
+I should hasten up to add that there really isn't anything "like" Directory Opus. Opus is a unique tool&mdash;in my view the most important productivity tool a Windows user can have! Why such an extravagant-sounding statement? Because for most users, an enormous amount of computer time disappears unnoticed in the black hole of file operations&mdash;looking for, moving and renaming files. If you haven't seen it yet, you really owe it to yourself to <a href="http://www.dearopus.com/" target="_blank">take a tour of Directory Opus features</a> or install the <a rel="nofollow" href="https://www.gpsoft.com.au/DScripts/order.asp?coupon=LN111117DC" target="_blank">nag-free, fully functional 60-day trial</a>. 
+<br /><br />
+
+6. <span class="yglo">Searching from the command line</span> using <a href="regex-perl-one-liners.html">Perl one-liners</a> and utilities such as <a href="pcregrep-pcretest.html" target="_blank">grep</a>, <i>sed</i> and <i>awk</i>.<br /><br />
+
+7. Finding records in a database.<br /><br />
+
+8. Telling <span class="yglo">Apache</span> how to behave with certain IP addresses, urls or browsers, in htaccess for instance.<br />
+<br />
+
+9. Helping you while away the tedious afternoon office hours by exchanging regex challenges with your colleagues.
+<br /><br />
+
+
+If I've missed an important category, please shoot me a comment at the bottom of the page.
+<br /><br />
+<br />
+
+<h2>Regex Flavors</h2>
+
+As I'm sure you're aware, regular expressions are known by different names: <i>regex</i> or the increasingly infrequent <i>regexp</i>, and their plural <i>regexes</i>, <i>regexps</i> or <i>regexen</i>.<br /><br />
+
+More importantly, regex also comes in many flavors. In the window of <a rel="nofollow" href="http://yu8.us/regexbuddy" target="_blank" >RegexBuddy</a>, a fabulous little regex tool I can't work without (more about it later, <a href="regexbuddy-trial.html">free trial download here</a>), I can choose between contexts such as <i>C#, Python, Java, PHP, Perl, Ruby, JavaScript, Scala</i>, and many more. You see, everyone who implements a regex engine does so a little differently from anyone else.
+<br /><br />
+
+The engines behind these flavors fall into two main groups: <br />
+✽ regex-directed (or NFA, which stands for <i>Nondeterministic Finite Automaton</i>)<br />
+✽ text-directed (or DFA, which stands for <i>Deterministic Finite Automaton</i>)<br />
+<br />
+
+When you can choose between NFA or DFA, NFA is usually the fastest. That is indeed the most common implementation in modern languages.<br /><br />
+
+It may very well be that the flavor of regex you use does not coincide with anything I use, though that would be bad luck indeed. Here are some of the flavors of regex I frequently use, and their context:<br /><br />
+
+✽ .NET flavor, when programming in C#.<br />
+✽ PCRE flavor, when programming in PHP and for Apache.<br />
+✽ Matthew Barnett's <i>regex</i> module for Python.<br />
+✽ POSIX Extended Regular Expression flavor (ERE) in mySQL.<br />
+✽ JGSoft flavor, for search and replace in EditPad Pro.<br />
+✽ Java, JavaScript, Perl, Ruby and Objective-C flavors, when answering questions on forums.<br />
+✽ TR1 flavor, to rename files in Directory Opus.<br />
+✽ ABA flavor (loosely based on Henry Spencer's library) in ABA Search Replace.
+<br />
+<br />
+
+What works with one flavor very often works with the other&mdash;but there are important subtleties which I'll try to bring out as we study the features.
+<br /><br />
+
+
+<h2>Command-Line Searching and Replacing</h2>
+
+Without knowing the Perl language, if you know regex, you can make powerful Perl one-line commands to execute in your operating system's shell. For instance, you can wrap the simple <span class="socode">\bc\w+</span> regex inside some Perl one-liner template code to match or replace all of a file's words that start with the letter <i>c</i>. For more details, see my page about <a href="regex-perl-one-liners.html">How to build Perl regex one-liners</a>.<br /><br />
+
+Among command-line utilities that understand regex, you may come across grep, sed, awk and others. Among those, <span class="socode">grep</span> is the most famous. My page about <a href="pcregrep-pcretest.html" target="_blank">grep</a> contains examples, as well as a download to what in my view is best version of grep for Windows (it uses the <span class="socode">PCRE</span> engine).
+<br />
+<br />
+
+
+
+<a id="opus"></a>
+<h2>Regex Examples for File Renaming</h2>
+
+For this section, we will use the regex syntax of <a href="http://www.dearopus.com/" target="_blank">Directory Opus</a>. (On the Mac, I would use a dedicated file renamer called <a href="http://www.publicspace.net/ABetterFinderRename/" target="_blank">A Better Finder Rename</a>, which apart from its regex functions is a little jewel as it allows non-geeks to build complex rename operations in a series of simple steps or "layers".)
+<br /><br />
+
+The rename function in Opus allows you to save your favorite regex patterns. Since you rarely perform exactly the same rename operation, I tend to save regexes that I can reopen and quickly tweak to meet my needs.<br /><br />
+Here are a few of my saved patterns.<br /><br />
+
+<b>Changing the File Extension</b><br />
+The extension in the replacement pattern below is "rar". Edit it to suit your needs.<br /><br />
+
+Search pattern: <code>^(.*\.)[^.]+$</code><br />
+Replace: <code>\1rar</code><br /><br />
+
+Translation: At the beginning of the file name, greedily match any characters then a dot, capturing this to Group 1. The greedy dot-star will shoot to the end of the file name, then backtrack to the last dot. This capture is the stem of the file name. After this capture, match any character that is a non-dot: the extension. Replace all of this with the content of Group 1, expressed as <span class="socode">\1</span> or <span class="socode">$1</span> (this is the captured stem and includes the dot) and "rar".<br />
+<br />
+
+<b>Removing a Character from the File Name</b><br />
+You could do this with a simple search-and-replace, but, to get accustomed to regex, here is a convoluted way to do it. The aim is to zap all dashes.<br /><br />
+
+Search pattern: <code>^([^-]*)-(.*)#</code><br />
+Replace: <code>\1\2</code><br /><br />
+
+Translation: Match and capture any non-dash characters to Group 1, match a dash, then eat up any characters, capturing those in Group 2. Replace the file name with the first group immediately followed by the second group (the dash is gone). The hash character on the first line (#) tells the DOpus engine to perform that substitution until the string stops changing. That way, all dashes are zapped one by one.
+<br /><br />
+
+<b>Replacing Dots with Spaces in File Names</b><br />
+
+This pattern is for times when you have 95 files that look something like this:<br /><br />
+<div class="codebox">
+<b>File names to be cleaned:</b><br />
+...<br />
+Funny.TV.Show.Season.2.Episode.08.avi<br />
+Funny.TV.Show.Season.2.Episode.09.avi<br />
+Funny.TV.Show.Season.2.Episode.10.avi<br />
+Funny.TV.Show.Season.2.Episode.11.avi<br />
+...<br /><br />
+<b>The cleaned up names look like this:</b><br />
+...<br />
+Funny TV Show Season 2 Episode 09.avi<br />
+Funny TV Show Season 2 Episode 10.avi<br />
+...<br />
+</div>
+<br />
+
+Search pattern: <code>([^.]+)\.(.*?)\.([^.]+)$#</code><br />
+Replace: <code>\1 \2.\3</code><br /><br />
+
+Translation: The pattern is a bit long, so let's unroll it.<br /><br />
+
+<div class="codebox">
+([^.]+)&nbsp;&nbsp;&nbsp;# Greedily eat anything that is not a dot and capture that substring in group 1<br /><br />
+\.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Match a dot<br /> <br />
+(.*?)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Lazily eat up anything and capture that substring in group 2<br /> <br />
+\.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Match a dot (this is the dot before the file extension)<br /><br />
+([^.]+)$&nbsp;&nbsp;# Greedily eat up anything that is not a dot, until the end of the filename, capturing that in group 3 (this is the extension)<br />
+</div>
+<br />
+The final hash character (#) tells Opus to repeat the replace operation until there are no dots left to eat and the filename has been cleaned up. The replace string takes the captured groups and inserts a space in place of each dot.
+<br /><br />
+
+<b>Swapping Two Parts of a Filename</b> <br />
+
+Suppose you have named a lot of movie files according to this pattern:<br /><br />
+8.2 Groundhog Day (1993).avi<br /><br />
+The number at the front is the movie's IMDB rating. The number between parentheses at the end is the movie's release year. One day, you decide that instead of sorting movies by their rating, you really want to sort them by year, which means that in the file name, you'd like to swap the position of the rating and year. You want your files to look like this: 
+<br /><br />
+(1993) Groundhog Day 8.2.avi
+<br /><br />
+
+Without regular expressions, you are in trouble.
+<br /><br />
+
+This is actually a fairly common scenario. It could happen for any collection of files you have tagged, such as music tracks or topo maps. Here is a regular expression that works in this case.
+<br /><br />
+
+Search pattern: <code>^(\d\.\d)([^(]*)(\([\d]{4}\))(.*)</code><br />
+Replace: <code>\3\2\1\4</code><br /><br />
+
+Let's unroll the regex:<br /><br />
+
+<div class="codebox">
+^(\d\.\d)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# At the beginning, in Group 1, capture a digit, a dot and a digit. That's the IMDB rating.<br /><br />
+([^(]*)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# In the second group, greedily capture anything that is not an opening parenthesis.<br /><br />
+(\([\d]{4}\))&nbsp;&nbsp;# In the third group, capture an opening parenthesis (which needs to be escaped in the regex), four digits, and a closing parenthesis.<br /> <br />
+(.*)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# In the last group, capture anything.<br />
+</div>
+<br />
+
+The replace pattern simply takes the four groups and changes their order.
+<br /><br />
+
+<a id="textsearch"></a>
+<h2>Regex Examples for Text File Search</h2>
+
+What good are text editors if you can't perform complex searches? I checked these sample expressions in EditPad Pro, but they would probably work in Notepad++ or a regex-friendly IDE.
+
+<br /><br />
+
+<b>Seven-Letter Word Containing "hay"</b> <br />
+<div class="pullquote R">
+Some examples may seem contrived, but having a small library of ready-made regex at your fingertips is fabulous.
+</div>
+Search pattern: <code>(?=\b\w{7}\b)\w*?hay\w*</code><br />
+Translation: Look right ahead for a seven-letter word (the \b boundaries are important). Lazily eat up any word characters followed by "hay", then eat up any word characters. We know that the greedy match has to stop because the word is seven characters long.
+<br /><br />
+
+Here, in our word, we allow any characters that regex calls "word characters", which, besides letters, also include digits and underscores. If we want a more conservative pattern, we just need to change the lookup:<br /><br />
+Traditional word (only letters): <code>(?i)(?=\b[A-Z]{7}\b)\w*?hay\w*</code><br />
+<br />
+
+In this pattern, in the lookup, you can see that I replaced <span class="socode">\w{7}</span> with <span class="socode">[A-Z]{7}</span>, which matches seven capital letters. To include lowercase letters, we could have used <span class="socode">[A-Za-z]{7}</span>. Instead, we used the case insensitive modifier <span class="socode">(?i)</span>. Thanks to this modifier, the pattern can match "HAY" or "hAy" just as easily as "hay". It all depends on what you want: regex puts the power is in your hands.
+<br /><br />
+
+<b>Line Contains both "bubble" and "gum"</b><br />
+Search pattern: <code>^(?=.*?\bbubble\b).*?\bgum\b.*</code><br />
+Translation: While anchored a the beginning of the line, look ahead for any characters followed by the word <i>bubble</i>. We could use a second lookahead to look for <i>gum</i>, but it is faster to just match the whole line, taking care to match <i>gum</i> on the way.
+<br /><br />
+
+<b>Line Contains "boy" or "buy"</b><br />
+Search pattern: <code>\bb[ou]y\b</code><br />
+Translation: Inside a word (inside two \b boundaries), match the character <i>b</i>, then one character that is either <i>o</i> or <i>u</i>, then <i>y</i>. 
+<br /><br />
+
+<b>Find Repeated Words, such as "the the"</b><br />
+This is a popular example in the regex literature. I don't know about you you, but it doesn't happen all that often often that mistakenly repeated words find their way way into my text. If this example is so popular, it's probably because it's a short pattern that does a great job of showcasing the power of regex.
+<br /><br />
+You can find a million ways to write your repeated word pattern. In this one, I used POSIX classes (available in Perl and PHP), allowing us to throw in optional punctuation between the words, in addition to optional space. 
+<br /><br />
+
+Search pattern: <code>\b([[:alpha:]]+)[ [:punct:]]+\1</code><br />
+Translation: After a word delimiter, in group one, capture a positive number of letters, then eat up space characters or punctuation marks, then match the same word we captured earlier in group one.
+<br /><br />
+If you don't want the punctuation, just use an <span class="socode">\s+</span> in place of <span class="socode">[ [:punct:]]+</span>.
+<br /><br />
+Remember that <span class="socode">\s</span> eats up <i>any</i> white-space characters, including newlines, tabs and vertical tabs, so if this is not what you want use <span class="socode">[ ]+</span> to specify space characters. The brackets are optional, but they make the space character easier to spot, especially in a variable-width font.
+<br /><br />
+
+<b>Line does Not Contain "boy"</b><br />
+Search pattern: <code>^(?!.*boy).*</code><br />
+Translation: At the beginning of the line, if the negative lookahead can assert that what follows is not "any characters then <i>boy</i>", match anything on the line.
+<br /><br />
+
+<b>Line Contains "bubble" but Neither "gum" Nor "bath"</b><br />
+Search pattern: <code>^(?!.*gum)(?!.*bath).*?bubble.*</code><br />
+Translation: At the beginning of the line, assert that what follows is not "any characters then <i>gum</i>", assert that what follows is not "any characters then <i>bath</i>", then match the whole string, making sure to pick up <i>bubble</i> on the way.<br /><br />
+
+<b>Email Address</b><br />
+If I ever have to look for an email address in my text editor, frankly, I just search for <span class="socode">@</span>. That shows me both well-formed addresses, as well as addresses whose authors let their creativity run loose, for instance by typing <span class="socode">DOT</span> in place of the period. 
+<br /><br />
+When it comes to validating user input, you want an expression that checks for well-formed addresses. There are thousands of email address regexes out there. In the end, none can really tell you whether an address is valid until you send a message and the recipient replies.
+<br /><br />
+The regex below is borrowed from chapter 4 of Jan Goyvaert's excellent book, <a href="http://www.amazon.com/dp/1449319432?tag=onamazon-20" target="_blank"><em>Regular Expressions Cookbook</em></a>. I'm in tune with Jan's reasoning that what you really want is an expression that works with 999 addresses out of a thousand, an expression that doesn't require a lot of maintenance, for instance by forcing you to add new top-level domains ("dot something") every time the powers in charge of those things decide it's time to launch names ending in something like dot-phone or dot-dog. 
+<br /><br />
+Search pattern: <code>(?i)\b[A-Z0-9._%+-]+@(?:[A-Z0-9-]+\.)+[A-Z]{2,6}\b</code><br /><br />
+Let's unroll this one:<br /><br />
+<div class="codebox">
+(?i)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Turn on case-insensitive mode<br /><br />
+\b&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Position engine at a word boundary<br /><br />
+[A-Z0-9._%+-]+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Match one or more of the characters between brackets: letters, numbers, dot, underscore, percent, plus, minus. Yes, some of these are rare in an email address.<br /><br />
+@&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Match @<br /><br />
+(?:[A-Z0-9-]+\.)+&nbsp;&nbsp;# Match one or more strings followed by a dot, such strings being made of letters, numbers and hyphens. These are the domains and sub-domains, such as <i>post.</i> and <i>microsoft.</i> in </i>post.microsoft.com</i><br /><br />
+[A-Z]{2,6}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Match two to six letters, for instance US, COM, INFO. This is meant to be the top-level domain. Yes, this also matches DOG. You have to decide if you want achieve razor precision, at the cost of needing to maintain your regex when new TLDs are introduced.<br /><br /> 
+\b&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Match a word boundary<br /><br />
+</div>
+<br />
+<br />
+
+<a id="apache"></a>
+<h2>Regex Examples for Web Server Directives (Apache)</h2>
+If you are running Apache, chances are you have regular expressions somewhere in your .htaccess file or in your httpd.conf configuration file. Like PHP, Apache uses PCRE-flavor regular expressions. 
+<br /><br />
+Here are a few examples.
+<br /><br />
+
+<b>Redirecting to a New Directory</b> <br />
+Sometimes, you decide to change your directory structure. Visitors who follow an old link will request the old urls. Here is how a regex in htaccess can help. <br /><br />
+
+<code>RewriteRule old_dir/(.*)$ new_dir/$1 [L,R=301]</code>
+<br /><br />
+Explanation: The old url is captured in Group 1, and appended at the end of the new path.<br /><br />
+
+<b>Targeting Certain Browsers</b> <br />
+<br />
+
+<code>BrowserMatch \bMSIE no-gzip</code><br />
+<br />
+This directive checks if the user's browser name contains "MSIE" (with a word boundary before the "M"). If so, Apache applies what follows on the line. (In this case, no-gzip tells Apache not to compress content.)
+<br /><br />
+
+<b>Targeting Certain Files</b> <br />
+<br />
+<div class="codebox">
+&lt;FilesMatch &quot;\.html?$&quot;&gt;<br />
+Header set Cache-Control &quot;max-age=43200&quot;<br />
+&lt;/FilesMatch&gt;<br />
+</div>
+<br />
+The first line of this htaccess directive for file caching has a small regex matching files ending with a dot and "htm" or "html". 
+<br /><br />
+
+<b>Other Regular Expressions in Apache</b> <br />
+<code>RewriteCond %{HTTP_USER_AGENT} ^Zeus.*?Webster  </code> <br />
+Purpose: In a rewrite rule, tests for certain user agents.<br /><br />
+
+<code>RewriteCond %{HTTP_REFERER} ^http://www\.google\.com$</code><br />
+Purpose: In a rewrite rule, tests for a specific referrer. <br /><br />
+
+<code>RewriteCond %{REMOTE_ADDR} 192\.168\.\d\d.*</code><br /> 
+Purpose: In a rewrite rule, tests for an IP range.<br /><br />
+
+<code>RewriteCond %{TIME_HOUR} ^13$</code><br /> 
+Purpose: In a rewrite rule, check if the hour is 1pm.<br />
+<br />
+
+
+
+There are other uses of regex in Apache. These examples should give you a taste. For background information, you may want to look at the <a href="http://httpd.apache.org/docs/2.2/rewrite/intro.html" target="_blank">manual page for mod_rewrite</a>, the <a href="http://httpd.apache.org/docs/2.2/mod/mod_rewrite.html" target="_blank">mod_rewrite page</a>, the <a href="http://httpd.apache.org/docs/2.2/rewrite/remapping.html" target="_blank">rewrite guide</a> and the <a href="http://httpd.apache.org/docs/2.2/rewrite/advanced.html" target="_blank">advanced rewrite guide</a>.
+<br /><br />
+
+<b>Is Apache using the same PCRE version as PHP?</b><br />
+Not necessarily. To see which version of PCRE PHP uses, look at the result of <span class="socode">phpinfo()</span> and search for PCRE. In addition to the version number, you will find a reference to a directory: something like <span class="socode">pcre-regex=/opt/pcre</span>. Another way to find that folder is to run <span class="socode">ldd /some/path/php | grep pcre</span> in the shell, where "some/path" is the path returned by "which php".
+
+<br /><br />You can use that directory in a shell command line to get more information on your PCRE version:<br />
+<code>/opt/pcre/bin/pcretest -C</code><br />
+<br />
+
+
+On cPanel, EasyApache installs PCRE in the /opt folder, so if PHP reports the folder above, you can expect that mod_rewrite and PHP are using the same version of PCRE (unless there is a bug in cPanel). <br /><br />
+
+On other installs, you may want to find all the installed versions of pcretest to see which versions are installed:<br />
+<code>find / -name pcretest</code><br /><br />
+
+
+<a id="mysql"></a>
+<h2>Regex Examples to locate Records in a Database (MySQL)</h2>
+
+To illustrate the basic use of regex in MySQL, here's an example that selects records whose YourField field ends with "ty".<br /><br />
+
+<code>SELECT * FROM YourDatabase WHERE YourField REGEXP 'ty$';</code><br />
+<br />
+
+Here's a second example that select fields that do <b>not</b> contain a digit:<br /><br />
+
+<code>SELECT * FROM YourDatabase WHERE YourField NOT REGEXP "[[:digit:]]";</code><br />
+<br />
+
+You can use RLIKE in place of REGEXP, as the two are synonyms. But why would you?
+<br /><br />
+
+Regular expressions in MySQL are aimed to comply with POSIX 1003.2, also known as Harry Spencer's "regex 7" library. The <a href="http://dev.mysql.com/doc/refman/5.0/en/regexp.html" target="_blank">MySQL documentation page for REGEXP</a> states that it is incomplete, but that the full details are included in MySQL source distributions, in the regex.7 file&hellip; Okay, that's a drag, but let's download the source. Oh, no, you can't, you need a special installer just to download the source. Nevermind, here is a copy of the <a href="http://phpunixman.sourceforge.net/index.php/man/regex/7" target="_blank">regex(7) manual page</a>. 
+
+<br /><br />
+If you build queries in a programming language before sending them to MySQL, you have to pay particular attention to escaping contentious characters in the regex string. Your language probably has a function that will get the string ready to be passed to the database.
+
+<br /><br />
+
+If you are used to Perl-like regular expressions, MySQL's POSIX flavor will sound like baby talk. If you need more power, you may consider the <a href="http://www.mysqludf.org/lib_mysqludf_preg/" target="_blank">PCRE library for MySQL</a>. Since I upgrade my MySQL server for major releases, the risk of forward incompatibility is a bit high and I stick with regex(7). 
+<br /><br />
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div><a href="regex-style.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;The Elements of Regex Style</b>
+</a>
+<br /><br /><br />
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-1 of 1 Threads</div>
+<a id="cid1812"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">rich painter</span><span class="comment-location"> &ndash; Colorado</span></div>
+<div class="comment-date">May 24, 2015 - 13:31</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>what about the contexts for sed and egrep?</div><br />
+<div class = "comment-text">I&#039;m an old unix guy and lived with the early regular expressions for a very long time. I still script with sed. I spent a number of hours today reading and evaluating many of the web-, linux- and windows-based tools to assist in testing and creating regular expressions. What I find interesting is that I can&#039;t find one of these tools that allows one to restrict the engine to the sed (or egrep) contexts. This would be extremely helpful. I was actually surprised at seeing all the &quot;other flavors&quot; leaving the stalwarts no where to be found. Why is this? I would like to see these supported because it is best to use the most efficient method and one can&#039;t get much more efficient than sed. Regards<br />
+oldunixguy</div>
+</div>
+<a id="cid1814"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to rich painter</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">May 24, 2015 - 16:28</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: what about the contexts for sed and egrep?</div><br />
+<div class = "comment-text">You&#039;re quite right Rich,
+The tools I use don&#039;t have an egrep or sed mode.
+regexbuddy has does have a Perl mode, and there&#039;s a lot you can do on &#039;nix with perl one-liners (there&#039;s a page on the site with examples, in case you haven&#039;t seen it yet.)</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-uses.html" method="post" >
+<input type="hidden" name="token" value="67ae504e9227c1f0ed74d934d8cdef40" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a class="thispage" href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-uses.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+</html>

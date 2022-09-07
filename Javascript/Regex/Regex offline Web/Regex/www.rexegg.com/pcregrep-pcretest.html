@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/pcregrep-pcretest.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:24 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Grepping with PCRE and testing PCRE expressions. Explains the pcregrep (grep) and pcretest PCRE regex utilities, including PCRE2 versions. Includes download of Windows binaries." />
+<title>Grep in PCRE with pcregrep (or pcre2grep)&mdash;Test PCRE regex with pcretest (or pcre2test)</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li class="current"><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Two Tools: Grep in PCRE, Test your PCRE patterns</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+
+This page focuses on two little-known but delightful tools that are part of the official <a href="http://www.pcre.org/" target="_blank">PCRE</a> distribution: <span class="socode">pcregrep</span> and <span class="socode">pcretest</span>. It also lets you download Windows versions of both tools. 
+<br /><br />
+
+The first tool is a <em>grep utility</em> that uses the PCRE engine. For those who haven't spent much time in unix, grep is a command-line utility to search text patterns (using regular expressions of course) inside a set of files&mdash;all the files on your hard drive if that's your pleasure.<br /><br />
+
+The second is another command-line utility, one that will allow you to debug or test the performance of PCRE patterns far more thoroughly than you could through an interface such as PHP. 
+<br /><br />
+
+
+Like the rest of the PCRE library, the tools are available in source form on the PCRE website. On this page, I aim to make available Windows executables of the current version of the tools as soon as they are released. 
+<br /><br /><br />
+
+
+<h2>PCRE1</h2>
+A <b>lot</b> of tools and languages are still using the PCRE1 branch (which is currently in bugfix mode), so please don't think you need to poopoo it! I try to keep up with the new versions that get released (bug fixes).
+<br><br><br>
+
+
+<h2>PCRE2</h2>
+Versions of <a href="https://www.rexegg.com/pcre-documentation.html">PCRE</a> 10.0 and above are called <i>PCRE2</i>. In PCRE2 releases, the grep and test utilities are called <span class="socode">pcre2grep</span> and <span class="socode">pcre2test</span>.<br /><br />
+Whenever you see <i>pcregrep</i> or <i>pcretest</i> on this page, substitute with <i>pcre2grep</i> or <i>pcre2test</i> if you are using PCRE2.
+<br /><br /><br />
+
+
+<a id="download"></a>
+<h2>Downloading the Tools</h2>
+In this section, you can download Windows binaries of pcregrep and pcretest that I've compiled from the PCRE source code. In other words, these programs are ready to run. I would like to always have the latest version for you to download.
+<br /><br />
+
+There are a number of compile options for pcregrep and pcretest. The ones below are "fully loaded" and include the "just-in-time", "utf" and "unicode_properties" options. As of 8.35, they are also compiled with the ANYCRLF option.
+<br /><br />
+
+✽ Read the <a href="http://www.pcre.org/licence.txt" target="_blank"><b>license</b></a><br />
+✽ Download pcregrep (or pcre2grep) and pcretest (or pcre2test)<br />
+<br />
+<br><br>
+
+
+<h2>PCRE2 Branch</h2>
+<table " border="0" style="table-layout:fixed;"><tr><th class="w200" scope="col"><b>Version</b></th><th class="w200" scope="col"><b>pcregrep</b></th><th class="w200" scope="col"><b>pcretest</b></th></tr><tr class="blue"><td>10.35 (9 May 2020)</td><td><a href="dl/1-recapa328.html?f=pcre2grep-1035.zip" target="_blank">download</a></td><td><a href="dl/1-recapc5ee.html?f=pcre2test-1035.zip" target="_blank">download</a></td></tr><tr class="green"><td>10.34 (21 Nov 2019)</td><td><a href="dl/1-recapb43d.html?f=pcre2grep-1034.zip" target="_blank">download</a></td><td><a href="dl/1-recap445a.html?f=pcre2test-1034.zip" target="_blank">download</a></td></tr><tr class="blue"><td>10.33</td><td><a href="dl/1-recape918.html?f=pcre2grep-1033.zip" target="_blank">download</a></td><td><a href="dl/1-recap5091.html?f=pcre2test-1033.zip" target="_blank">download</a></td></tr><tr class="green"><td>10.22</td><td><a href="dl/1-recap459f.html?f=pcre2grep-1022.zip" target="_blank">download</a></td><td><a href="dl/1-recap5980.html?f=pcre2test-1022.zip" target="_blank">download</a></td></tr><tr class="blue"><td>10.21</td><td><a href="dl/1-recap22f0.html?f=pcre2grep-1021.zip" target="_blank">download</a></td><td><a href="dl/1-recapda43.html?f=pcre2test-1021.zip" target="_blank">download</a></td></tr><tr class="green"><td>10.20</td><td><a href="dl/1-recapdc6e.html?f=pcre2grep-1020.zip" target="_blank">download</a></td><td><a href="dl/1-recap36dd.html?f=pcre2test-1020.zip" target="_blank">download</a></td></tr><tr class="blue"><td>10.10</td><td><a href="dl/1-recapd3df.html?f=pcre2grep-1010.zip" target="_blank">download</a></td><td><a href="dl/1-recap3272.html?f=pcre2test-1010.zip" target="_blank">download</a></td></tr></table><br /><br>
+<h2>PCRE1 Branch</h2>
+<table " border="0" style="table-layout:fixed;"><tr><th class="w200" scope="col"><b>Version</b></th><th class="w200" scope="col"><b>pcregrep</b></th><th class="w200" scope="col"><b>pcretest</b></th></tr><tr class="blue"><td>8.44 (12 Feb 2020)</td><td><a href="dl/1-recapa436.html?f=pcregrep-844.zip" target="_blank">download</a></td><td><a href="dl/1-recap0974.html?f=pcretest-844.zip" target="_blank">download</a></td></tr><tr class="green"><td>8.43 (23 Feb 2019)</td><td><a href="dl/1-recap6682.html?f=pcregrep-843.zip" target="_blank">download</a></td><td><a href="dl/1-recapd508.html?f=pcretest-843.zip" target="_blank">download</a></td></tr><tr class="blue"><td>8.38</td><td><a href="dl/1-recap43c9.html?f=pcregrep-838.zip" target="_blank">download</a></td><td><a href="dl/1-recapfafd.html?f=pcretest-838.zip" target="_blank">download</a></td></tr><tr class="green"><td>8.37</td><td><a href="dl/1-recapa71d.html?f=pcregrep-837.zip" target="_blank">download</a></td><td><a href="dl/1-recap22d7.html?f=pcretest-837.zip" target="_blank">download</a></td></tr><tr class="blue"><td>8.36</td><td><a href="dl/1-recap2d31.html?f=pcregrep-836.zip" target="_blank">download</a></td><td><a href="dl/1-recapc2cb.html?f=pcretest-836.zip" target="_blank">download</a></td></tr><tr class="green"><td>8.35</td><td><a href="dl/1-recap61e5.html?f=pcregrep-835.zip" target="_blank">download</a></td><td><a href="dl/1-recap8c95.html?f=pcretest-835.zip" target="_blank">download</a></td></tr><tr class="blue"><td>8.34</td><td><a href="dl/1-recap961a.html?f=pcregrep-834.zip" target="_blank">download</a></td><td><a href="dl/1-recap13b3.html?f=pcretest-834.zip" target="_blank">download</a></td></tr><tr class="green"><td>8.32</td><td><a href="dl/1-recap169d.html?f=pcregrep-832.zip" target="_blank">download</a></td><td><a href="dl/1-recap67a5.html?f=pcretest-832.zip" target="_blank">download</a></td></tr><tr class="blue"><td>8.31</td><td><a href="dl/1-recap4c7c.html?f=pcregrep-831.zip" target="_blank">download</a></td><td><a href="dl/1-recapf00c.html?f=pcretest-831.zip" target="_blank">download</a></td></tr></table><br />
+
+
+Before we dive into how to use pcregrep and pcretest, some thanks are in order.
+<br /><br />
+
+<h2>A Few Words of Thanks</h2>
+This "little page" is only possible because of a long chain of work by a lot of highly-skilled people. I will start in reverse order, with the last (in that long chain) but not least.<br /><br />
+ When I started on this page, it had been twenty years since I'd compiled any of my own C code, and I was anxious at the thought of compiling in the age of Windows 7. I tried compiling PCRE with the CMake option mentioned in the help file, but got stuck for a silly reason. Of course I had no way of knowing that it was a silly reason. Daniel Richard took the time to examine my workflow and pinpoint what I was doing wrong. Thanks to him, I was able to solve the problem in minutes, which gave me the great joy of compiling PCRE on my own machine. Thank you, Daniel. 
+<br /><br />
+Before Daniel, there are the makers of MinGW and CMake, the two open-source projects that allowed me to so easily compile the source code into Windows executables. I don't know who these guys are, but they're awesome. <br /><br />
+
+On the PCRE side, some people&mdash;I don't know their names&mdash;maintain the CMake file that makes it possible for jokers like me to compile PCRE. Thanks, guys! 
+<br /><br />
+
+Finally, to Philip Hazel (the father of the PCRE project), Zoltan Herczeg (the keeper of the Just-In-Time compiler) and others on their team, I am immensely grateful for that wonderful engine that has given me so much pleasure.  
+<br /><br />
+
+May you all live long lifes on beautiful streets lined with chocolate fountains.
+<br /><br />
+
+
+
+<h2>Installation Notes</h2>
+
+No installation is required for either pcregrep or pcretest. However, if you want the grep tool to be at your fingertips when you need it, here is what I suggest you do.<br /><br />
+
+✽ <span class="blue">Rename pcregrep.exe to grep.exe.</span> Life is too short to type extra letters.<br />
+✽ Copy grep.exe to the <code>C:\Windows\System32</code> folder. This system folder is in the system's path variable, which means that when you try to run a program, Windows looks there. That will allow you to run pcregrep (now called grep) from any folder. I <span class="blue">copy pcretest to the same folder</span>, that way I don't need to remember where it lives.
+<br /><br />
+
+To run grep, open a command prompt, which is never more than five keyboard strokes away: Windows key, type "cmd", press Enter. If you use a marvellous program called <a href="http://www.dearopus.com/" target="_blank">Directory Opus</a> (probably the ultimate productivity application for Windows), you can also invoke a command prompt from the current folder by using a keyboard shortcut such as Ctrl + Shift + R. That's what I do. 
+<br /><br />
+
+From the command prompt&hellip; Start grepping, debugging or optimizing!
+<br /><br />
+
+<h2>Quick Outline</h2>
+The page is rather long, so I want to give you an idea of the outline.<br /><br />
+✽ The section about pcregrep starts immediately below.<br />
+✽ To <a href="#pcretest"><b>skip to pcretest</b></a>, click the link.<br />
+
+
+<br />
+
+<h2>What's special about pcregrep?</h2>
+There are other versions of grep for Windows floating around. It's only natural, as so many unix people are attached to their command-line tools. This is no recent phenomenon: I remember a time in the mid-1980s when I was given a floppy disk with a number of unix-like commands, such as "ls" (filled with options) or "cp" or "mv". These were designed to replace the DOS commands we all used at the time. There was no "move" command in DOS. These unix-like utilities were awesome, and I used them for many years. 
+<br /><br />
+
+One grep version I tried lately is the one bundled with Cygwin. I don't like it because the regular expression syntax it uses is rudimentary. It has a "-P" flag for Perl-like regex, but the manual states that it is experimental, and indeed it worked poorly when I tried it. So I looked for a command-line Windows grep with solid regex matching, but I couldn't find anything&hellip; Until I remembered pcregrep, which I had one come across and hoped to compile some day. I spend more time in PHP than in other coding environments, so PCRE is my "home" regex flavor and I have come to love it. So what could beat pcregrep?
+<br /><br />
+
+I should mention that pcregrep searches, but it does not replace. For replacing text across files on Windows, my workhorse is "ABA Replace", an amazing GUI tool with solid regex matching. You can read my <a href="regex-tools.html#aba">review of ABA Replace</a> on the Tools page. And yes, there are other GUI tools, such as the search function of Directory Opus, or PowerGrep, which is "not for me", even though I love some of Jan's other software.
+<br /><br />
+
+
+
+
+<h2>Using pcregrep</h2>
+
+<span class="blue">Remember, we renamed <b>"pcregrep"</b> to <b>"grep"</b> to save on keyboard strokes.</span>
+For the most part, the pcregrep utility has the same syntax as the usual GNU grep. If you don't know that syntax, don't worry, we'll start from scratch. Here is the basic pcregrep syntax. <br /><br />
+<blockquote><div class="cinter">
+<code>grep list_of_options regex_pattern files_to_match</code>
+</div></blockquote>
+<br />
+
+The full syntax is in the manual file which is included in the <a href="#download">download</a>. But manual pages can be confusing, so here are some examples that work on my Windows machine. <br /><br />
+
+
+<table " border="0" style="table-layout:fixed;"><tr><th class="w200" scope="col">Command</th><th class="w400" scope="col">Description</th></tr><tr class="blue"><td>grep --help</td><td>Displays a list of the options you can use with the command. You can send the output to a file with "grep --help > grephelp.txt". But note that the manual page in the download has much more detail.</td></tr><tr class="green"><td>grep toto *</td><td>Looks for the string "toto" in all files in the current directory. Returns all the lines that match, with a little context. Complains that it cannot open directories.</td></tr><tr class="blue"><td>grep -s toto *</td><td>As above, but the "s" option makes the engine <b>s</b>hut up (or silent) about the fact that it cannot open directories. That should probably be the default option on Windows&mdash;if you don't want to see the warnings, just get into the habit of adding an s to your options when you are searching all files.</td></tr><tr class="green"><td>grep -s toto *.txt</td><td>As above, but only looks in all files with a "txt" extension.</td></tr><tr class="blue"><td>grep -s \btoto\d{3}\b *.txt</td><td>As above, except that instead of looking for a simple string, we are using a regex pattern. <b>Note that there is no delimiter.</b> See the rest of the site for pattern syntax. This particular regex will match strings such as "toto123" as long as they are not embedded in a string of "word characters". You get the idea: going forward, to focus on grep features, many examples will use simple text matches instead of regex.</td></tr><tr class="green"><td>grep -r toto .</td><td>Looks for the string toto in all files, recursively from the current folder.</td></tr><tr class="blue"><td>grep -r --include=.*\.txt toto .</td><td>Looks for the string toto in all files, recursively from the current folder, but only in files with a "txt" extension. Note than pcregrep uses a PCRE regex to specify the names of the files in which to search.</td></tr><tr class="green"><td>grep -r --exclude=.*\.dat toto .</td><td>Specifies file names to exclude from the search, using a PCRE regex to define the set of files to exclude.</td></tr><tr class="blue"><td>grep -ri toto .</td><td>As four lines above, with the addition of the "i" option, which makes the search case-insensitive and allows the command to match "toTO". The "-ri" also showcases how to combine short options.</td></tr><tr class="green"><td>grep -r (?i)toto .</td><td>As above, but setting case-insensitivity in the regex itself. See the <a href="regex-disambiguation.html">page about (? syntax</a>.</td></tr><tr class="blue"><td>grep -f patterns.dat *.txt</td><td>Reads patterns from a file called patterns.dat (one pattern per line, up to 100 patterns) and matches each pattern against all files with a "txt" extension!</td></tr><tr class="green"><td>grep -v toto *.txt</td><td>In<b>v</b>erts the match, so that only lines that <b>do not</b> match the pattern are reported.</td></tr><tr class="blue"><td>grep -o \btoto\w\b *.txt</td><td>The "o" option <b>o</b>nly reports each line's match, without the context.</td></tr><tr class="green"><td>grep -l toto *.txt</td><td>The "l" option says to only list the names of the files that contain a match, without showing the matches</td></tr><tr class="blue"><td>grep -L toto *.txt</td><td>The "L" option says to only list the names of the files that <b>do not</b> contain a match. Not the same as "-vl", which shows files that contain lines that do not match (some lines may match).</td></tr><tr class="green"><td>grep -n toto *.txt</td><td>Adds the line number to the reported match.</td></tr><tr class="blue"><td>grep -c toto *.txt</td><td>Only reports the number of matches in each file.</td></tr><tr class="green"><td>grep -NANYCRLF toto *.txt</td><td>By default, because this is Windows, grep treats \r\n (CRLF) as a new line. This option makes grep treat CR, LF or CRLF as new lines, which comes in handy if you are testing Unix files. See the manual for other options such as -NLF</td></tr><tr class="blue"><td>grep -so1 toto(\d{3}) *</td><td>We saw the s option before (silent). The "o1" option tells pcregrep to <b>only report the Group 1 matches</b>&mdash;in this case, the three digits after "toto". You could likewise specify -o2 to only report Group 2 captures. This option should have an alias "g" for "group", in order to avoid confusion with "o" which "<b>o</b>nly report the match (no context)".</td></tr></table><br />
+Note that you don't have to use quotes around patterns, but you can, and indeed you must if your pattern happens to contain white space. Quotes are fine, but remember not to use delimiters on your patterns&mdash;this is not PHP.
+<br /><br />
+
+There are many other cool options. For instance, you can specify how much context to display around each match. For a full reference, see the manual page.
+
+<br /><br />
+<b>About the --color Option</b><br />
+
+Feel free to skip ahead to the much more exciting <b><a href="#pcretest">pcretest section</a></b>, as these are just notes so I can remember a feature that I haven't yet managed to use the way I'd like.
+<br /><br />
+
+Like GNU grep, pcregrep has an option to color the match, making it stand out from the context: <code>grep --color toto *</code><br /><br />
+Sadly, this does not work in the Windows shell (cmd.exe) and results in this strange output: "&larr;[1;31mtoto&larr;[00m", while no color is displayed. This is a limitation of the Windows shell rather than pcregrep. The PCREGREP_COLOR option, set to "1;31" by default in the make files, is an ANSI code that can manipulate colors on terminals that accepts these codes, as on unix. Windows is a different OS, so we shouldn't expect it to work. <br /><br />
+
+You can easily change the overall background and text color of the cmd shell, either from the menu (click on the icon at the top left), or from the command-line, by passing strings such as "color=1B" when launching cmd ("1" stands for a blue background, "B" stands for very light blue text). But to my knowledge there is no way to manipulate the color of individual text in cmd.exe. 
+<br /><br />
+
+The work-around is to use a different terminal. I tried pcregrep in <a href="http://sourceforge.net/projects/console/" target="_blank">Console</a>, and the color option works, but I haven't yet figured out how to integrate Console in my system so that it launches in the right path. (I normally launch command shells from <a href="http://www.dearopus.com/" target="_blank">Directory Opus</a> with a Ctrl + Shift + R shortcut, and they open in the right folder, in admin mode).
+<br />
+<br />
+
+<b>Last Words about pcregrep</b><br />
+I hope you get as much pleasure out of having that powerful grep utility at your fingertips as I do.<br /><br />
+
+Okay, it's time to look at pcretest!<br /><br />
+
+<a id="pcretest"></a>
+
+<h2>Using pcretest</h2>
+
+In my mind, pcretest has two great uses: <span class="blue">optimization and debugging</span>.<br /><br />
+
+First, let's talk about <b>debugging</b>. You could feed pcretest a pattern such as <code>~\btoto(\w+)\b~</code>, and a subject such as "slkj&nbsp;tototata&nbsp;lkj". With the right parameters, pcretest would show you the exact path it took in order to produce a match:<br /><br />
+
+<div class="codebox">
+--->slkj&nbsp;tototata&nbsp;lkj<br />
+&nbsp;+0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\b<br />
+&nbsp;+2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t<br />
+&nbsp;+3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o<br />
+&nbsp;+4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t<br />
+&nbsp;+5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;&nbsp;^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o<br />
+&nbsp;+6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;&nbsp;&nbsp;^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(\w+)<br />
+&nbsp;+7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;&nbsp;&nbsp;^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\w+<br />
++10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br />
++11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\b<br />
++13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+&nbsp;0:&nbsp;tototata<br />
+&nbsp;1:&nbsp;tata<br />
+</div>
+<br />
+
+I hope you'll agree that this is rather nifty. It could come in handy for an expression that fails for unknown reasons. You'll be able to see exactly what is going on.
+<br />
+<br />
+
+Now let's talk about <b>optimization</b>. The pcretest utility lets you run a regex on some data a million times (or however many time you like), and it reports the average time it needed to find a match. <br /><br />
+
+This makes it easy to compare alternate expressions. When you read about techniques to optimize your regular expressions, you may be interested in running tests on alternate regex phrasings. You can do that in your programming language&mdash;I used PHP to test many tweaks suggested in <a href="http://www.amazon.com/dp/0596528124?tag=onamazon-20" target="_blank">Jeffrey Friedl's book</a>&mdash;but pcretest gives you an even more powerful test bench. By the way, PCRE must have been seriously optimized since Jeffrey's book came out, because as mentioned in my page about <a href="regex-tricks.html" target="_blank">regex tricks</a>, none of the tweaks I tried seemed to make much difference. Perhaps partly thanks to Jeffrey's hints?
+<br /><br />
+
+Before looking at the pcretest command itself, you need to know that it usually operates on an input file. The file contains the regex to be tested, and the lines of text to test. The regex is on the first line, and must be enclosed in delimiters. Here is an example of a file that would work, with the regex delimited by tildes ("~"). The regex is shown in bold for emphasis, but that would not be part of the text file.<br /><br />
+<div class="codebox">
+<b>~toto\d{3}~</b><br />
+aslkj 242<br />
+slkj totos lkj<br />
+sdlkj toto444 sdfs<br />
+sadflkj <br />
+</div>
+<br />
+
+If you wanted, you could add more regexes and data to that file. Just leave a blank line after the end of the data, then start your next regex, then add the data for that regex. Here is a file that would work with pcretest and contains two regexes. You can add as many regexes and lines of data as you like.
+<br /><br />
+
+<div class="codebox">
+<b>~toto\d{3}~</b><br />
+aslkj 242<br />
+slkj totos lkj<br />
+sdlkj toto444 sdfs<br />
+sadflkj <br /><br />
+<b>~\btoto(\w+)\b~</b><br />
+aslkj 242<br />
+slkj tototata lkj<br />
+</div>
+<br />
+
+The regexes can use the entire PCRE syntax, whether in the pattern itself (for instance with (?s) or \K), or after the delimiter, for instance with the G flag.
+<br />
+<br />
+There is one particularly interesting flag for debugging: "C". It's the flag that produced the "trace output" I showed you a few paragraphs ago. To get that output, I just added "C" to the pattern in the IN.txt file: <code>~\btoto(\w+)\b~C</code>.
+<br /><br />
+
+But enough about the input file. Let's now talk about the command itself. Here are some sample uses of pcretest that you could try with either of the files above. For a full reference, I highly recommend you read the manual page, which is part of the <a href="#download">download</a>.
+<br /><br />
+
+<table " border="0" style="table-layout:fixed;"><tr><th class="w240" scope="col">Command</th><th class="w360" scope="col">Description</th></tr><tr class="blue"><td>pcretest -help</td><td>Displays a list of the options you can use with the command. You can send the output to a file with "pcretest -help > testhelp.txt". But note that the manual page in the download has much more detail.</td></tr><tr class="green"><td>pcretest -C</td><td>Ouputs some information about the version of pcretest you are running, such as whether it supports UTF-8.</td></tr><tr class="blue"><td>pcretest IN.txt OUT.txt</td><td>Reads the regex and data from IN.TXT, outputs the result to OUT.txt, reporting the matches for each line. In the case of the second regex, which includes a capture group, pcretest also reports the Group 1 match.</td></tr><tr class="green"><td>pcretest -t 100000 IN.txt OUT.txt</td><td>As above, but runs 100,000 times, and reports both the matches and the average time per run. Start without the -t option, just in case there is an error in your expression.</td></tr></table><br /><br />
+
+There are a number of other options, some of which I don't even understand. So if you feel so inclined, dig into the manual page, and have fun with it!
+
+<br />
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div>
+<a href="regex-php.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;PHP Regex</b>
+</a>
+<br /><br /><br />
+
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-5 of 5 Threads</div>
+<a id="cid2400"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Ilya</span><span class="comment-location"> &ndash; Russia</span></div>
+<div class="comment-date">August 27, 2017 - 20:19</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>a correction to the article</div><br />
+<div class = "comment-text">Hello, Rex, and thank you very much for the site. It should probably be noted in the article that in pcre2test the modifier &quot;C&quot; is changed to &quot;auto_callout&quot;, so if one downloads the latest compiled version (it&#039;s 10.22 at the moment) of pcretest linked from the page and tries the example pattern (~\btoto(\w+)\b~C) you gave, pcre2test throws the &quot;** Unrecognized modifier &#039;C&#039; in &#039;C&#039;&quot; error. It took me a while to figure out what the problem is :)<br />
+<br />
+Please don&#039;t publish this message, just correct the article if you think you should. Ilya.</div>
+</div>
+<a id="cid1344"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">NewWorld</span><span class="comment-location"> &ndash; Germany</span></div>
+<div class="comment-date">March 11, 2014 - 03:07</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Many thanks</div><br />
+<div class = "comment-text">I was having problems with Cygwin&#039;s grep and multi-line patterns, so thanks for the recommendation to use pcregrep instead. I love your site; everything is explained clearly. I finally learnt how to use lookaheads and behinds thanks to your clear instructions. Really great site. Thanks again.</div>
+</div>
+<a id="cid1295"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Glen</span></div>
+<div class="comment-date">February 13, 2014 - 05:55</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>problem with pcregrep for Windows</div><br />
+<div class = "comment-text">I tried the latest version on your site, saying:<br />
+<br />
+   pcregrep the pcregrep.txt<br />
+<br />
+It prints every line of the input. If I use an invalid pattern like &quot;zzz&quot;, it prints nothing.</div>
+</div>
+<a id="cid1297"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Glen</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">February 13, 2014 - 09:39</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span></div><br />
+<div class = "comment-text">Hi Glen,
+<br /><br />
+That sounds like expected behavior... if each line of the input contains &quot;the&quot;. Is that not the case? Remember that a &quot;line&quot; can take several screen lines up to the next carriage return. <br />
+I tested what you said, and if I remove &quot;the&quot; from one of the lines of input, that line does not show in the output (as expected).<br />
+If you want to see more sober output, you can try something like
+<br /><br />
+pcregrep -no the test.txt
+<br /><br />
+For how this works, please see the examples on the page, as well as the documentation inside the zip file.
+<br /><br />
+Warm regards,
+<br /><br />
+Andy
+</div>
+</div>
+<a id="cid1240"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Cesar Romani</span></div>
+<div class="comment-date">December 21, 2013 - 17:50</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>pcregrep doesn&#039;t work</div><br />
+<div class = "comment-text">I&#039;m using pcregrep on Windows 7. I have a folder with text files in utf-8 encoding, which contain the word &quot;espa&ntilde;ol. &quot; If I open cmd on that folder and do:<br />
+pcregrep -u -I espa&ntilde;ol *.txt<br />
+<br />
+I don&#039;t get anything. Many thanks in advance,<br />
+<br />
+&mdash; <br />
+Cesar</div>
+</div>
+<a id="cid1242"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Cesar Romani</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Andy</span></div>
+<div class="comment-date">December 21, 2013 - 20:28</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: pcregrep doesn&#039;t work</div><br />
+<div class = "comment-text">Hi Cesar,
+pcregrep works. Your PCRE syntax is not correct.
+No time to help you, please download the regexbuddy demo from the right column of my website to troubleshoot your PCRE syntax.
+Cordially,
+Rex
+</div>
+</div>
+<a id="cid1229"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Gary</span></div>
+<div class="comment-date">December 11, 2013 - 16:13</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>using --color with cmd.exe</div><br />
+<div class = "comment-text">There are a few ways to use the &mdash;color flag in cmd.exe. I used to use rlwrap.exe from cygwin but it had a few cygwin dependencies and was a bit heavy for just wrapping grep. If you wanted to wrap a full readline in cmd.exe it works great though. Now I use ansicon and it&#039;s very simple and much faster than rlwrap was. You can get the source from github under adoxa/ansicon and compile or they have a prebuilt one you can download. It&#039;s builds a single exe and 2 dll&#039;s (x86 &amp; x64). I just run it like &quot;ansicon.exe grep &mdash;color toto *&quot; which just   uses it for that one command. You can also run ansicon.exe by itself to enable for the current cmd.exe or you can install to autorun so it runs on every new cmd.exe. You can also use color prompts or other tools with ansi color output. I enjoyed your article and the info on pcretest, which was exactly what I was looking for.</div>
+</div>
+<a id="cid1244"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Gary</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">December 22, 2013 - 18:52</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: using --color with cmd.exe</div><br />
+<div class = "comment-text">Hi Gary,
+Thanks for the great tip!
+Wishing you a fun weekend,
+Rex</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/pcregrep-pcretest.html" method="post" >
+<input type="hidden" name="token" value="e8c99c0a3c9bbe27a7da7d60144facd4" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a class="thispage" href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/pcregrep-pcretest.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:34 GMT -->
+</html>

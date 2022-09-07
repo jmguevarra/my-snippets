@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-cookbook.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Regular Expressions Cookbook. Collection of Regex recipes for validation, matching and other purposes." />
+<title>Regex Tutorial&mdash;Regex Cookbook</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li class="current"><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Regex Cookbook</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+This page presents recipes for regex tasks you may have to solve. If you learn by example, this is a great spot to spend a regex vacation.
+<br /><br />
+
+The page is a work in progress, so please forgive all the gaps: I thought it would be preferable to have an incomplete page now than a complete page in 25 years&mdash;if that is possible. I also haven't proofed this page as thoroughly as the others, so please report any bugs using the <a href="#comform">form at the bottom</a>.
+<br /><br />
+
+In <a href="http://www.amazon.com/dp/1449319432?tag=onamazon-20" target="_blank">O'Reilly's <em>Regex Cookbook</em></a>, many of the recipes focus on ultra-specialized tasks such as matching Canadian postal codes or US social security numbers. I have a lot of respect for <a href="regex-books.html#jan" target="_blank" >Jan Goyvaerts</a>, but for me that's a little weak. 
+<div class="pullquote R">
+If you learn by example, this is a great spot to spend a regex vacation.
+</div>
+To me, many of the "recipes" are a repeat of the same general concept. I don't find this approach conducive to challenging the mind and expanding one's understanding of regular expressions. So here I try the approach I would have liked to see in the book. This page tries to present expressions that are "topologically different" from one another to expose you to as many uses of regex syntax as possible&mdash;hoping to help the regex student improve his or her fluency. Making all examples "different" is not always possible (or desirable), but that's the general idea.
+<br /><br />
+
+It's hard to place expressions into neat categories as there can be considerable overlap, but here is the general organization of the expressions on this page:<br /><br />
+1. <a href="#capturing">Capturing</a><br />
+2. <a href="#validating">Validating</a><br />
+3. <a href="#finding">Finding</a><br />
+4. <a href="#replacing">Replacing and Inserting</a><br />
+<br />
+
+I'll acknowledge that these distinctions are often a bit arbitrary, but they give you different things to look at.
+<br /><br />
+
+
+
+<a id="capturing"></a>
+<h2>Capturing</h2>
+
+<a href="#getvalues">How do I parse the values of a complex string, such as a url's GET parameters? [parsing]</a><br />
+<a href="#captureparen">How do I capture text inside a set of parentheses? [parentheses]</a><br />
+<a href="#captureparen2">How do I match text inside a set of parentheses that contains other parentheses? [complex parentheses]</a><br />
+
+
+<br />
+<a id="getvalues"></a>
+<b>How do I parse the values of a complex string, such as a url's GET parameters?</b> <br />
+
+
+Suppose you wanted to extract the values for day, name and fruit from this string: <i>site.org?day=7&amp;name=adam&amp;fruit=apple</i><br />
+It is very likely you would have ready-made tools to extract these values, such as the GET array. But if you had to do it with regex, you could use this:<br />
+<code>\?day=(\d)&amp;name=([^&amp;]+)&amp;fruit=(\w+)</code><br />
+The values are captured in Groups 1, 2 and 3. If not all strings contained all the parameters, you could make the components optional:<br />
+<code>\?(?:day=(\d))?&amp;?(?:name=([^&amp;]+))?&amp;?(?:fruit=(\w+))?</code>
+<br /><br />
+
+<a id="captureparen"></a>
+<b>How do I capture text inside a set of parentheses?</b> <br />
+
+This is a common request on forums. You have a file with text such as <i>Acapulco airport (ACA)</i> and you want to grab the text in the parentheses.
+<br /><br />
+
+Here is a recipe to capture the text inside <b>a single set</b> of parentheses: <code>\(([^()]*)\)</code> <br /><br />
+First we match the opening parenthesis: <code>\(</code>. Then we greedily match any number of any character that is neither an opening nor a closing parenthesis (we don't want nested parentheses for this example: <code>[^()]*</code>. This is the content of the parentheses, and it is placed within a set of regex parentheses in order to capture it into Group 1. Last, we match the closing parenthesis: <code>\)</code>.
+<br /><br />
+
+
+<a id="captureparen2"></a>
+<b>How do I match text inside a set of parentheses that contains other parentheses?</b><br />
+This requires a small tweak and a regex flavor that supports recursion. We're still going to match the opening parenthesis at the very start and the closing parenthesis at the very end. Inside, we'll match "stuff that's not parentheses" (or nothing), followed by zero or more sequences of (i) a repeat the whole pattern (expressed below as (?R), and (ii) more "stuff that's not parentheses" (expressed below as (?2)).
+<br /><br />
+
+<code>\((([^()]*+)(?:(?R)(?2))*)\)</code>
+<br /><br />
+
+I can't guarantee that this works in every situation as recursive patterns are fickle, but here's PHP code that tests the expression on various sets of nested parentheses.<br /><br />
+
+<div class="codebox">
+&lt;?php<br />
+$regex='~\((([^()]*+)(?:(?R)(?2))*)\)~';<br />
+$strings=array('Airport: (ACA)','equation1: (1+(a+b))','equation2: (1+(a+b)+c)','equation3: (1+(a+b)+(2+2)+c)',<br />
+'equation4: (1+(a+b)+(2+(7/5)-2)+c)');<br />
+foreach($strings as $string) <br />
+if(preg_match($regex,$string,$match)) echo $string.' &lt;b&gt;capture:&lt;/b&gt; '.$match[1].'&lt;br /&gt;';<br />
+?&gt;<br />
+</div>
+
+This is a bit different from the expression offered by Jeffrey Friedl in <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20" target="_blank"><em>Mastering Regex Expressions</em></a>: <code>(?:[^()]++|\((?R)\))*</code>, which you'd have to tweak before you could pop it in the code above in order to capture the contents of the parentheses: <code>\(((?:[^()]++|(?R))*)\)</code>. In my tests, I have found this expression to be up to twenty percent faster when the match works as planned, but slower by the same amount when a parenthesis is missing.
+<br /><br />
+
+
+
+<a id="validating"></a>
+<h2>Validating</h2>
+
+What you can validate, you can also search for, so this section is also about <a href="#finding">finding</a><br /><br />
+
+<a href="#numberover15">How do I validate that a number is over 15? [values]</a><br />
+<a href="#time">How do I validate that a time string is well-formed? [formats]</a><br />
+<a href="#unorderedlist">How do I validate that a list is made of certain items, in any order? [unordered list]</a><br />
+<a href="#stringonce">How can I validate that a string contains the text "75", but only once? [password validation technique]</a><br />
+<a href="#binary">How can I validate that a binary string contains ten 1s at the most? [reverse password validation technique]</a><br />
+
+
+<br />
+
+<a id="numberover15"></a>
+<b>How do I validate that a number is over 15?</b><br />
+This example gives you an idea of what you have to do to validate numbers within a certain range using regular expressions&mdash;and of why you should probably look for other methods first. Because you are working on the string, rather than values, you have to think of the position of the digits that may be used to create the numbers within your range. Here are two approaches to validating a number over 15.<br /><br />
+
+<code>^(?:1[5-9]|[2-9]\d|[1-9]\d\d+)$</code><br /> 
+With this approach, we progress in numerical order with multiple alternations, first trying to match numbers between 15 and 19, then numbers between 20 and 99, then numbers 100 and above.
+<br /><br />
+
+<code>^(?:1(?:[5-9]|\d\d+)|[2-9]\d+)$</code><br />
+With this approach, we look at two cases: either the first digit is a 1, or it is anything else.
+<br /><br />
+
+
+<a id="time"></a>
+<b>How do I validate that a time string is well-formed?</b> <br />
+
+Here's an expression I came up with.<br />
+<code>^(?:([0]?\d|1[012])|(?:1[3-9]|2[0-3]))[.:h]?[0-5]\d(?:\s?(?(1)(am|AM|pm|PM)))?$</code><br />
+<br />
+It matches times in a variety of formats, such as 10:22am, 21:10, 08h55 and 7.15 pm.
+<br /><br />
+
+
+<a id="unorderedlist"></a>
+<b>How do I validate that a list is made of certain items, in any order?</b> <br />
+
+Scenario: you want to make sure that the string only contains items from a list, delimited by a comma (for instance). These items could be objects, numbers, names. For instance: 212, 415, 850. Here is a general solution:<br /><br />
+Example 1: <code>^(?:peas|onions|carrots)(?:,(?:peas|onions|carrots))*+$</code><br />
+Example 2: <code>^(?:415|212|850)(?::(?:415|212|850))*+$</code> (note that here the delimiter is a colon.)<br /><br />
+
+Explanation: You need one of the words to be present at least once. Then it is optionally followed by a comma and another word, multiple times.<br /><br />
+
+If you are using PCRE, you can use the repeating syntax for a more compact, maintainable expression: <code>^(peas|onions|carrots)(?:,(?1))*+$</code><br />
+<br />
+
+<a id="stringonce"></a>
+<b>How can I validate that a string contains the text "75", but only once?</b> <br />
+This is similar to the password validation presented on the <a href="regex-lookarounds.html" target="_blank">Lookaround page</a>: you set a number of conditions before matching the string.<br />
+<code>^(?=.*?75)(?!.*?75.*?75).*$</code>
+<br /><br />
+
+
+<a id="binary"></a>
+<b>How can I validate that a binary string contains ten 1s at the most? ("reverse password validation technique")</b><br />
+
+This is a variation on the <a href="regex-lookarounds.html#password" target="_blank">password validation technique</a>: we look ahead to make sure that the string <i><b>does not</b></i> contain what we <i><b>don't</b></i> want, then we match.<br /><br />
+
+<div class="cinter">
+<code>^(?!0*(?:10*){10}1)[01]+$</code>
+</div>
+<br />
+
+After anchoring the expression, in the negative lookakead, we build a generic binary string that has at least 11 ones. This is what we don't want. To build that string, we state that it can start with any number of zeros. Once the zeroes are consumed, we have a one, followed by optional zeroes. That's our first one. We repeat this ten times, bringing us to ten ones. Finally, we add one last one to get over the limit.
+<br /><br />
+
+
+
+<a id="finding"></a>
+<h2>Finding</h2>
+
+<a href="#oneto10digits">How do I match a number with one to ten digits? [boundaries]</a><br />
+<a href="#badword">How can I match all lines except those that contain a certain word? [exclusion]</a><br />
+<a href="#paragraphs">How can I match paragraphs that contain MyWord, but only proper paragraphs starting with two carriage returns? [paragraphs]</a><br />
+<a href="#dollars">Match numbers followed by letter or end of string</a><br />
+<a href="#pairs in slots">Match pairs of characters in the correct slots</a><br />
+
+<br />
+Okay, let's start easy.<br /><br />
+
+<a id="oneto10digits"></a>
+<b>How do I match a number with one to ten digits?</b><br />
+You could do something like <code>\b\d{1,10}\b</code>. The boundaries are there to make sure you don't match a portion of a twenty-digit number when you really only want to match a number that has ten digits at the most. For this kind of simple max, I really recommend you print out the <a href="regex-quickstart.html">cheat sheet</a>.
+<br /><br />
+
+<a id="badword"></a>
+<b>How can I match all lines except those that contain a certain word?</b> <br />
+Typically, this would be used in a case where you want to capture something on each line, except those that present certain features. Let's go with the simple case where you want to match all lines, except those that contain "BadWord". This will match your lines:<br /><br />
+
+<div class="cinter">
+	<code>(?m)^(?!.*?BadWord).*$</code>
+</div>
+<br />
+
+If you want to exclude BadWord only when it stands on its own, set it apart with the <code>\b</code> boundary:<br /><br />
+<div class="cinter">
+	<code>(?m)^(?!.*?\bBadWord\b).*$</code>
+</div>
+<br />
+
+Also note that this is a potential application of <a href="regex-best-trick.html">the best regex trick ever</a>, for which I won't repeat the details&mdash;but know that you'll need to examine Group 1 captures, for which the page provides you with sample code in various languages.<br /><br />
+<div class="cinter">
+	<code>(?m)^.*?\bBadWord\b.*$|(^.*$)</code>
+</div>
+<br />
+
+
+<a id="dollars"></a>
+<b>Match numbers followed by letter or end of string</b><br />
+In the string <i>00-11A22B33_44</i>, suppose you are interested in matching numbers, provided they are followed by a letter or the end of the string. <br /><br />
+You can solve that with:
+<code class="cinter">\d+(?=[A-Z]|$)</code><br />
+
+The lookahead <span class="socode">(?=[A-Z]|$)</span> asserts: what follows is either an uppercase character, or the end of the string—exactly what we want. The trick here is to not be shy to use the <span class="socode">$</span> anchor in a context where it is not on its own, at the end of the string. <i>Dollars are people too!</i>
+
+<br /><br />
+If you've only seen basic regex tutorials, you could be forgiven for assuming that the <span class="socode">^</span>  anchor only ever appears at the very beginning of an expression, while the <span class="socode">$</span> anchor always sits quietly at the very end.
+<br /><br />
+
+You can use anchors anywhere in your pattern. They are assertions like any other.
+<br /><br />
+
+
+<a id="paragraphs"></a><b>How can I match paragraphs that contain MyWord, but only proper paragraphs starting with two carriage returns?</b></a><br />
+This question is about finding text within specific formatting. If a paragraph starts with a single carriage return, you are not interested. You are only interested in the first paragraph or those set off by two carriage returns.
+<br /><br />
+
+On systems where a carriage return only inserts a newline character (such as Unix), you could start with this:<br /><br />
+<div class="cinter">
+	<code>(?m)^(?<=^\A|\n\n).*?SomeWord.*$</code>
+</div>
+<br />
+
+The lookbehind ensures that the line is either the first in the text, or that it is preceded by two newlines. On Windows, in the place of <code>\n\n</code>, you would want <code>\r\n\r\n</code>. <br /><br />
+
+
+For something portable, on PCRE, use \R, which matches any newline sequence. Your expression would look like this:
+<br /><br />
+
+<div class="cinter">
+	<code>(?m)^(?<=^\A|\R\R).*?SomeWord.*$</code>
+</div>
+<br />
+
+
+<a id="pairs in slots"></a>
+<b>Match pairs of characters in the correct slots</b><br />
+Suppose you want to match all two-digit numbers that start with a <i>6</i>. Further, you think of your string as a series of pairs, so you would want to match <i>68</i> in <i>11<b>68</b>22</i>, but not in <i>1<b>68</b>122</i>.<br /><br />
+
+Let's proceed step by step. To match the first pair that starts with a 6, you could use<br /> 
+<code class="cinter">^(?:[^6].)*(6\d)</code>
+and retrieve the match from Group 1. The anchor <span class="socode">^</span> ensures that we start looking at the beginning of the string. The non-capture group <span class="socode">(?:[^6].)*</span> matches zero or more pairs of characters that do not start with a <i>6</i> (using the <a href="regex-tricks.html#parity">parity trick</a> to stay in sync with the two-character slots in the string), then the parentheses around <span class="socode">(6\d)</span> capture our match to Group 1.
+<br /><br />
+In Perl, PCRE (PHP, R…) or Ruby 2+, we could do away with the capturing group and match the string directly by using <span class="socode">\K</span>, which forces the engine to drop what was matched previously: <span class="socode">^(?:[^6].)*\K6\d</span>. Likewise, in .NET, we could use infinite lookbehind: <span class="socode">(?<=^(?:[^6].)*)6\d</span><br /><br />
+
+But we don't want to match just one pair: from <i>00611122665564</i>, we want to extract <i>61</i>, <i>66</i> and <i>64</i>. This is a place where the match continuation anchor <span class="socode">\G</span> comes in very handy. <span class="socode">\G</span> matches the beginning of the string, or the position immediately following the previous match. It is supported in .NET, Perl, PCRE (PHP, R…), Java and Ruby. It will ensure that our second and next matches do not fall out of sync with the two-character slots in the string. Here is the general option with capture groups:<br /><br />
+<code class="cinter">\G(?:[^6].)*(6\d)</code><br />
+
+In engines that support <span class="socode">\K</span>, we would use <span class="socode">\G(?:[^6].)*\K(6\d)</span> to get a direct match.<br />
+And in .NET, we would use an infinite lookbehind: <span class="socode">(?<=\G(?:[^6].)*)(6\d)</span>
+
+
+<br />
+<br /><br />
+<a id="replacing"></a>
+<h2>Replacing and Inserting</h2>
+
+I suggest you try to think of the regex replace feature of your language or text editor as not only a way to <b>replace</b> text, but also to <b>insert</b>. Remember that a regex pattern can match not only text strings but also <i>positions</i> in text. For instance, the pattern <span class="socode">^</span> matches the beginning of a string or line (depending on the engine and mode), and <span class="socode">(?=@)</span> matches a position preceding an <i>AT</i>—without matching the characters themselves. When you use a replacement function on a position match, where no actual characters are matched, you are not really replacing anything: rather, you are <i>inserting</i> characters at the matched position.
+<br /><br />
+
+
+<a href="#insert-line-endings">Insert text at the beginning (or end) of a line</a> <br />
+<a href="#tagdelimiter">How do I replace one tag delimiter with another? ["surround" replacement]</a><br />
+<a href="#selectivereplacement">How do I replace the string "//" in a whole file, but only when it is part of a path? [selective replacement]</a><br />
+<a href="#curlyquotes">How do I replace curly Quotes ("smart quotes") with straight quotes? [utf8]</a><br />
+<a href="#selectivetransform">How do I convert a whole string to lowercase <i>except</i> certain words? [selective transformation]</a><br />
+<a href="#blacklist">How do I replace all words that appear on the black list, but not those on the white list? [black list]</a><br />
+<a href="#unclosedtags">How do I fix unclosed tags? [forced failure]</a><br />
+
+<br />
+
+<a id="insert-line-endings"></a>
+<b>Insert text at the beginning (or end) of a line</b> <br />
+To insert text at the beginning of a line, we simply match the position at the beginning of the line, without matching any characters. To do so, in all engines except Ruby, we must <a href="regex-modifiers.html#multiline">turn on multi-line mode</a>, which allows the <span class="socode">^</span> anchor to match at the beginning of lines. <br /><br />
+
+For instance, in .NET, Java, Perl, PCRE (PHP, R, …) and Python, you can use this regex to search:<br />
+<code class="cinter">(?m)^</code>
+and replace with your chosen line prefix.<br /><br />
+
+Likewise, to insert a suffix at the end of lines, you can use this regex to search:<br />
+<code class="cinter">(?m)$</code>
+and replace with your chosen line suffix.<br /><br />
+
+<a id="tagdelimiter"></a>
+<b>How do I replace one tag delimiter with another?</b> <br />
+Let's say you want to replace [square brackets] with &lt;pointy brackets&gt; without changing the stuff in the brackets.<br /><br />
+Search: <code>\[([^]]+)]</code><br />
+This search expression matches an opening bracket, then anything that is not a closing bracket, then a closing bracket. The content of the brackets is captured in Group 1. <br /><br />
+Replace: <code>&lt;\1&gt;</code><br />
+The replacement expression just places the capture (Group 1) within a brand new set of pointy brackets.
+<br /><br />
+
+<a id="selectivereplacement"></a>
+<b>How do I replace the string "//" in a whole file, but only when it is part of a path?</b> <br />
+
+Let's say in a page of text you want to replace all instances of // or \\ with a single forward slash. No problem, that's what your replace function is designed to do. In PHP: <code>$string=preg_replace('~//|\\\\~','/',$string);</code> (the backslashes need to be escaped).<br />By the way, this is a great example of why something like a tilde (~) often works better than / as a delimiter. With / as a delimiter, the regex would look like this: <code>$string=preg_replace('/\/\/|\\\\/','/',$string);</code>.
+<br /><br />
+
+The real "problem" is if you wanted to replace all instances of //, but <b>only</b> in parts of your text file that look like this: <i>Document=root//folder1//folder2//(maybe_more_folders)//file.extension</i><br />
+✽ You can't do a plain replace, as instances of // that you don't want to touch would also be replaced.<br />
+✽ You can't capture the various parts of the file path into groups and build a generic replace string, because you don't know how many subfolders are in the string.<br /><br />
+
+For this kind of problem, I use two distinct solutions depending on the context and my mood. <br /><br />
+
+Solution #1: Variable-Width Lookbehind.<br />
+This simple solution works in ABA and RegexBuddy (.NET flavor), which have variable-width lookbehinds. You search for <code>(?&lt;=Document=.*)//</code> and replace with a single slash.
+<br /><br />
+
+Solution #2: Replace function with Callback. <br />
+This solution works if your programming language has a replace function that allows you to call another function. The replace function passes the whole match. The "callback function" works on the match and returns the replacement string. In this instance, <code>Document=[^/]*+(?&gt;//[^\s]+)</code> matches the type of string we are looking for. In PHP, we can use:<br />
+<div class="codebox">
+$string=preg_replace_callback('~Document=[^/]*+(?&gt;//[^\s]+)~',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function ($match) {return str_replace('//','/',$match[0]);},<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$string);
+
+</div>
+
+<br />
+Solution #3: Multiple replacements.<br />
+This solution works in environments where you can run a replace operation multiple times (until you exhaust any replacements to be made). For instance, in this case, we can safely assume that no path will have a hundred subfolders, so we can run the replace operation a hundred times. On my system, I can run this kind of operation in Directory Opus (for file renaming) and EditPad Pro.<br /><br />
+
+The trick here is to build an expression that will continue to match the string you want to alter, even after you have made several replacements. In our example, 
+<code>(Document=[^/]*+(?&gt;/(?!/)[^/\s]+)*+)(//)</code> will capture before the first // in Group 1, then capture the first //. You replace the match with \1 and a single /, then you repeat the operation as many times as necessary.
+<br /><br />
+
+
+
+<a id="curlyquotes"></a>
+<b>How do I replace curly Quotes ("smart quotes") with straight quotes?</b> <br />
+This is not a hard regex problem: we just want to replace some characters with some other character. It's a character set problem. You need to know every unicode code point (or the few ASCII codes) for curly quotes. The regex is self-explanatory: I'll just give you the solution, first for utf-8 then for ASCII.
+<br /><br />
+
+For utf-8 text (which is what I have on my website), I use the two replace lines in the code below. <br /><br />
+<div class="codebox">
+&lt;?php<br />
+$string='“Take me to ‘the station’ ”, he said.';<br />
+echo 'Before: '.$string.'&lt;br /&gt;';<br />
+$string=preg_replace('~[\x{0091}\x{0092}\x{2018}\x{2019}\x{201A}\x{201B}\x{2032}\x{2035}]~u',&quot;'&quot;,$string); // single curly quotes<br />
+$string=preg_replace('~[\x{0093}\x{0094}\x{201C}\x{201D}\x{201E}\x{201F}\x{2033}\x{2036}]~u','&quot;',$string); // double curly quotes<br />
+echo 'After: '.$string;<br />
+?&gt;<br />
+</div><br />
+
+<i>Output:</i><br />
+Before: &ldquo;Take me to &lsquo;the station&rsquo; &rdquo;, he said.<br />
+After: &quot;Take me to 'the station' &quot;, he said.<br />
+<br />
+
+For ASCII-encoded text, you can use this:<br />
+
+<div class="codebox">
+&lt;?php<br />
+$string='“Take me to ‘the station’ ”, he said.';<br />
+echo 'Before: '.$string.'&lt;br /&gt;';<br />
+$string=preg_replace('~[\x145\x146]~',&quot;'&quot;,$string); // single curly quotes<br />
+$string=preg_replace('~[\x147\x148]~','&quot;',$string); // double curly quotes<br />
+echo 'After: '.$string;<br />
+?&gt;<br />
+</div><br />
+
+<a id="selectivetransform"></a>
+<b>How do I convert a whole string to lowercase <i>except</i> certain words?</b> <br />
+Input: Tomatoes AND orangeS AND ParsleY<br />
+We want to convert the whole sentence to lowercase, except the word AND. Here are three ways to handle this.<br />
+<br />
+1. Match all words except AND, and replace them to their lowercase version using a callback function (preg_replace_callback in PHP).<br />
+Match: <code>(?!\bAND\b)\s*\b\w+\s*</code><br /><br />
+
+Here is a working example:<br />
+<div class="codebox">
+&lt;?php<br />
+$string='Tomatoes AND orangeS AND ParsleY';<br />
+$regex='~(?!\bAND\b)\s*\b\w+\s*~';<br />
+$string=preg_replace_callback($regex,function ($m) {return strtolower($m[0]);} ,$string);<br />
+echo $string;<br />
+?&gt;<br />
+</div><br />
+
+2. Progressively match the whole string, capturing word groups in Group 1 and 'AND' in Group 2, then rebuild the string.<br />
+This is heavier programmatically, but, according to my benchmarks (running each piece of code a million times), it is a 33% faster&mdash;thanks to the averted callbacks.<br /><br />
+
+<div class="codebox">
+&lt;?php<br />
+$string='Tomatoes AND orangeS AND ParsleY';<br />
+$regex=',((?!\bAND\b)\s*\b\w+\s*)(\bAND\b|$),';<br />
+preg_match_all($regex, $string, $matches, PREG_PATTERN_ORDER );<br />
+$size=count($matches[1]);<br />
+$string='';<br />
+for ($i=0;$i&lt;$size;$i++) $string.=strtolower($matches[1][$i]).$matches[2][$i];<br />
+echo $string.&quot;&lt;br /&gt;&quot;;<br />
+?&gt;<br />
+</div>
+<br />
+
+
+3. Use <a href="regex-best-trick.html">the best regex trick ever</a>, for which I won't repeat the details&mdash;but know that you'll need to examine Group 1 captures, for which the page provides you with sample code in various languages.<br /><br />
+<div class="cinter">
+	<code>(?m)^.*?\bBadWord\b.*$|(^.*$)</code>
+</div>
+<br />
+
+
+<a id="blacklist"></a>
+<b>How do I replace all words that appear on the black list, but not those on the white list?</b><br />
+Let's say you want to replace all instances of the word <i>sax</i> with with '###', even when it is part of other words such as "saxophone", but not when it is part of "Essax" and other words on a white list. And let's say you have a whole blacklist of "bad words" words besides "sax", each word with its own whitelist of acceptable uses.<br /><br />
+
+Crafting a custom regex for each word is a bit long. The easier procedure is to replace each instance of the "bad words" that occur in a white list word with something distinctive. For instance, add "@@@" to the end of every white list word that contains "sax"&mdash;turning "Essax" into "Essax@@@". With a simple lookahead, you can then replace sax everywhere, except when it is part of a word that ends in "@@@": <code>sax(?!\w*@@@)</code>. Last, all you have to do is zap all the "@@@".
+<br /><br />
+
+<a id="unclosedtags"></a>
+<b>How do I fix unclosed tags?</b> <br />
+Here is an example I'm particularly fond of because it's a great use of conditionals. The problem: in this string<br />
+a&lt;1bc&lt;2&gt;3&gt;de&lt;&lt;4f5g<br />
+the numbers are supposed to live in complete tags, like so: &lt;1&gt;<br />
+Sometimes the opening tag is missing, sometimes the closing tag is missing, sometimes there are multiple opening tags, sometimes the tag is properly formed. To match these numbers, if we make both tags optional, as in <code>&lt;*(\d+)&gt;*</code>, then we will erroneously match the 5, which is supposed to be tagged. To ensure there is at least one tag, one solution is to say "match opening tags and optionally match closing tags, OR optionally match opening tags and match closing tags. This looks like this: 
+
+<div class="cinter">
+Match: <code>&lt;+(\d+)&gt;*|&lt;*(\d+)&gt;+</code><br />
+Replacement: <code>&lt;\1\2&gt;</code>
+</div>
+<br />
+This works great, but the alternation can give the engine a lot of work. Isn't there a way to say "at least one of the tags has to be present"? With conditionals, there is:
+<br /><br />
+<div class="cinter">
+Match: <code>(&lt;)*(\d+)(&gt;)*(?(1)|(?(3)|(?!)))</code><br />
+Replacement: <code>&lt;\2&gt;</code><br />
+</div>
+
+The first part of the expression matches optional opening tags, a number, and optional closing tags. The opening tags are captured in Group 1. The number is captured in Group 2. The closing tags are captured in Group 3. After all this matching takes place (without using an alternation), a conditional expression checks that at least one of the two tags was present (and therefore captured). Here is the logic:<br />
+IF Group 1 was captured: <code>(?(1)</code>&hellip;THEN no need to match anything,<br />
+OTHERWISE (no Group 1 capture),<br />
+IF Group 3 was captured: <code>(?(3)</code>&hellip;THEN no need to match anything,<br />
+OTHERWISE (neither tag group was captured), THEN <b>fail</b>: <code>(?!)</code>.<br />
+<br />
+
+The key here is to force the regex to fail unless we are happy with the match. (See <a href="regex-tricks.html#fail" target="_blank">forced regex failure</a> on the tricks page for more about forcing a regex to fail.)
+<br /><br />
+Now tell me&hellip; how neat is that?
+<br /><br />
+
+
+
+
+Smiles,
+<br /><br />
+Rex
+<br />
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div><a href="regex-tools.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;Regex Tools, Books and Online Resources</b>
+</a>
+<br /><br /><br />
+
+
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-1 of 1 Threads</div>
+<a id="cid2651"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Jacob Hawks</span></div>
+<div class="comment-date">July 10, 2019 - 01:16</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>I love your site!</div><br />
+<div class = "comment-text">Hey Dude! This site is awesome! I can tell you&#039;ve really put a lot of work and thought into it. It&#039;s been a while since I&#039;ve dipped into Regex, but I&#039;m excited to re-learn it<br />
+<br />
+Under Capturing in the third title you have a spelling error, is says to instead of do. &quot;How to I match text inside a set of parentheses that contains other parentheses? &quot; <br />
+<br />
+Just wanted to give you a heads up. I love your site! Jacob Hawks</div>
+</div>
+<a id="cid2652"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Jacob Hawks</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">July 10, 2019 - 09:52</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: I love your site!</div><br />
+<div class = "comment-text">Hey man, thanks for the kind words and typo report! Really appreciate it. Fixed. Wishing you a great day.</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-cookbook.html" method="post" >
+<input type="hidden" name="token" value="15843b4ad2daf0dbba8bf4f76e522b20" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a class="thispage" href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-cookbook.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:07 GMT -->
+</html>

@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/pcre-callouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:22 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Describes callouts in PCRE and PCRE2. Includes code examples in C#." />
+<title>PCRE Callouts</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li class="current"><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>PCRE Callouts</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+PCRE has a terrific feature: callouts, specified with the syntax <span class="socode">(?C&hellip;)</span>, where the dots stand for an optional argument. For instance, <span class="socode">(?C)</span>, <span class="socode">(?C12)</span> and <span class="socode">(?C'beyond the digits')</span> are all valid callouts.<br /><br />
+
+If you call PCRE's matching function in the standard way, when the engine encounters <span class="socode">(?C&hellip;)</span>, it ignores it and continues its match attempt.<br /><br />
+
+However, if you specify a <i>callout function</i> before calling PCRE's matching function, then when the engine encounters <span class="socode">(?C&hellip;)</span>, it temporarily suspends the match and passes control to that callout function, to which it provides information about the match so far. The callout function then performs any task you see fit, then it returns a code to the engine, letting it know whether to proceed normally with the rest of the match.
+<br /><br />
+
+This feature enables PCRE to supply similar functionality to <a href="regex-disambiguation.html#codecapsule">Perl's code capsules</a>.
+<br /><br />
+
+
+The goal of this page is to provide you with working code to get you started with callouts.
+<br /><br />
+
+<a id="toc"></a>
+<span class="em8"><a href="#toc">(direct link)</a></span><br />
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+
+✽ <a href="#basicsyntax">Basic Syntax</a><br />
+✽ <a href="#calloutfunction">The Callout Function</a><br />
+✽ <a href="#testingcallouts">Testing PCRE Callouts</a><br />
+✽ <a href="#pcre_net">Testing PCRE Callouts using PCRE.NET</a><br />
+✽ <a href="#prog1">Program 1: Exploring Substrings</a><br />
+✽ <a href="#prog2">Program 2: Exploring Callout Properties</a><br />
+✽ <a href="#autocallout">Program 3: Debugging with Auto Callout</a><br />
+✽ <a href="#infinite_lb">Program 4: Infinite Lookbehind</a><br />
+✽ <a href="#uses">Uses for Callouts</a><br />
+✽ <a href="#details">Further Details</a><br />
+<br /><br />
+
+<a id="basicsyntax"></a>
+<span class="em8"><a href="#basicsyntax">(direct link)</a></span><br />
+<h2>Basic Syntax</h2>
+The basic syntax for a callout within a PCRE pattern is <span class="socode">(?C&hellip;)</span>
+<br />
+The optional argument in the dots takes two forms: either an integer or a string, as in <span class="socode">(?C12)</span> or <span class="socode">(?C'beyond the digits')</span>.
+<br /><br />
+
+The argument is passed to the callout function, which can choose to use it or ignore it.
+<br /><br />
+
+
+<b>Argument as Identifier</b><br />
+One way to use the callout arguments is as identifiers. If you have several callouts in your pattern, the callout function can then test the value of the identifier to handle various cases.
+<br /><br />
+
+
+<b>Argument as Value</b><br />
+You can also instruct the callout function to do something directly with the value of the argument. For instance, if you have several callouts with integers&mdash;say <span class="socode">(?C8)</span>, <span class="socode">(?C16)</span>, <span class="socode">(?C32)</span>&mdash;the callout function might use the value in an expression. Likewise, if the argument is a string, the callout function might use that value directly, for instance by displaying it.
+<br /><br />
+
+<b>Argument as Code</b><br />
+In a dynamic language, a string callout argument might even contain a piece of code to be evaluated at run-time&hellip; Go for it, implement that on your company's website, everyone will love that security feature!
+<br /><br />
+
+
+<b>Form of the Argument</b><br />
+- You can ommit an argument and just use <span class="socode">(?C)</span>, in which case the argument will be set to <i>0</i>.
+<br />
+- If using an integer argument, the value must be 255 or less.
+<br />
+- If using a string identifier, various delimiters are possible: a set of <i>{curly braces}</i>, or a pair of one of the identifiers in character class <span class="socode">[`'"^%#]</span><br />
+- The delimiter can be escaped within the identifier by doubling it, as in <span class="socode">(?C'What''s Up?')</span><br />
+
+<br />
+<br />
+
+
+
+<a id="calloutfunction"></a>
+<span class="em8"><a href="#calloutfunction">(direct link)</a></span><br />
+<h2>The Callout Function</h2>
+The callout function can perform any tasks you see fit. It receives a lot of information about the match: the current position in the string and the pattern, the temporary match, and more&mdash;we'll explore these values in Program 2.
+<br /><br />
+
+
+<a id="return"></a>
+<span class="em8"><a href="#return">(direct link)</a></span><br />
+<b>Return Values</b><br />
+After the callout function has done its job, you make it return a value to the engine.
+<br /><br />
+- A zero tells the engine to resume its match attempt where it left off. <br />
+- A positive value tells the engine to fail at the current position in the pattern, just like a <span class="socode">(?!)</span> construct or a <a href="backtracking-control-verbs.html#prune"><span class="socode">(*FAIL)</span></a>. This causes the engine to start backtracking in search of a matching path.<br />
+- A negative value tells the engine to fail the overall match (the current match attempt fails, and no further attempts are attempted).<br />
+<br /><br /><br />
+
+
+
+
+<a id="testingcallouts"></a>
+<span class="em8"><a href="#testingcallouts">(direct link)</a></span><br />
+<h2>Testing PCRE Callouts</h2>
+To work with PCRE callouts, you either need to be using the PCRE library directly or to work in a language or tool that has implemented the callout feature.
+<br /><br />
+In a tool (such as Notepad++, which supports PCRE), this is unlikely: how would you specify the callout function?
+<br /><br />
+In a language other than C and C++ (which can call PCRE's functions directly), callouts may not be a priority for the developers of the language. For instance, in PHP, the <span class="socode">preg_match</span> function makes no room for callouts.<br /><br />
+
+If you're using a .NET language such as C#, Visual Basic or F#, you're in luck.
+<br /><br /><br />
+
+<a id="pcre_net"></a>
+<span class="em8"><a href="#pcre_net">(direct link)</a></span><br />
+<h2>Testing PCRE Callouts using PCRE.NET</h2>
+Out of the box, .NET has a terrific regex engine. But on the <a href="regex-csharp.html#pcre.net">page about C# regex, I also praise PCRE.NET</a>, an alternate engine for .NET, a wrapper around the PCRE library provided by Lucas Trzesniewski. With this interface to PCRE, you can access all of PCRE's rich syntax, including callouts.
+<br /><br />
+
+PCRE.NET is a snap to add to any .NET project. In Visual Studio,<br /><br />
+✽ Press Ctrl + Q for the Quick Launch window, type <i>nuget</i> and select <i>Manage Nuget Packages for Solution</i>.<br />
+✽ In the search window, type <i>pcre.net</i>, making sure that the filters pull-down is set to <i>All</i>.<br />
+✽ Install.<br />
+
+<br />
+
+To whet your appetite for callouts, I will provide two short but fully functional C# programs that demonstrate PCRE's callout functionality. The notes after each program explain some salient features of the API.
+<br /><br />
+<br />
+
+
+<a id="prog1"></a>
+<span class="em8"><a href="#prog1">(direct link)</a></span><br />
+<h2>Program 1: Exploring Substrings</h2>
+This program replicates the delightful <a href="regex-perl.html#perlspecial">Perl capsule explained on this page</a>:<br /><br />
+
+<code class="cinter">if ('abc' =~ /\w+(?{print "$&\n";})(*F)/) {}</code>
+<br />
+
+It prints out substrings of the test string <i>abc</i>:<br />
+<pre class="mono">abc
+ab
+a
+bc
+b
+c
+</pre>
+<br />
+
+For the <i>why</i>, please read <a href="regex-perl.html#perlspecial">the explanations</a>.
+<br /><br />
+
+Here is C# code to do the same. Granted, it is longer than the Perl one-liner, but you already knew that Perl and C# are different beasts.
+<br /><br />
+
+
+<div class="codebox pre">using System;
+using PCRE;
+
+class Program
+{
+  static void Main()
+  {
+    string subject = "abc";
+    var combo_regex = new PcreRegex(@"\w+(?C'temp: ')(*FAIL)");
+    combo_regex.Match(subject,
+        callout =>
+        {
+          Console.WriteLine(callout.String + callout.Match.Value);
+          return PcreCalloutResult.Pass;
+        }
+    );
+    Console.WriteLine("Press Key");
+    Console.ReadKey();
+  }
+}
+</div>
+<br />
+
+Here is the output:<br /><br />
+
+<div class="codebox pre">temp: abc
+temp: ab
+temp: a
+temp: bc
+temp: b
+temp: c
+Press Key
+</div>
+<br />
+
+
+<b>Callout Specified as Lambda</b><br />
+The key feature is that when we call the <span class="socode">Match</span> constructor, in addition to the standard subject string, we pass the callout function. There are several ways to pass the callout function. In this example, for brevity, we pass a lambda.
+<br /><br />
+If you plan to reuse the callout function, it probably makes sense to pass it as a delegate. We will see how to do that in a later example.
+<br /><br />
+
+<b>Argument used as Value</b><br />
+One interesting feature is that the callout's argument is the string "<i>temp:&nbsp;</i>"
+<br />
+This string is output on every temporary match report via <span class="socode">callout.String</span>
+<br /><br />
+
+<b>Return Values</b><br />
+Note that the callout returns <span class="socode">PcreCalloutResult.Pass</span><br />
+This maps to the zero value that tells the engine to resume the match attempt where it left off. The other possible return values are:<br /><br />
+✽ <span class="socode">PcreCalloutResult.Fail</span>, equivalent to 1, telling the engine to fail the current match attempt, after which the engine, as usual, advances to the next position in the string and starts a new match attempt.<br /><br />
+✽ <span class="socode">PcreCalloutResult.Abort</span>, equivalent to -1, telling the engine to fail the overall match (the current match attempt fails, and the engine does not advance in the string to try other attempts).<br />
+<br />
+
+
+<b>Match object discarded</b><br />
+Usually, when we call <span class="socode">combo_regex.Match()</span>, we assign the resulting match object to a variable. In this case, we don't care about the match object, so no assignment was made.
+<br /><br />
+
+
+
+<b>Alternate implementation</b><br />
+In the section on the callout function's <a href="#return">return values</a>, I mentioned that a positive value acts like a <span class="socode">(*FAIL)</span>. This means we can obtain the same result as above by removing the <span class="socode">(*FAIL)</span> and returning a positive value, which PCRE.NET expresses as <span class="socode">PcreCalloutResult.Fail</span>.<br /><br />
+
+This fragment outputs the same temporary matches as before:<br /><br />
+
+<div class="codebox pre">string subject = "abc";
+var combo_regex = new PcreRegex(@"\w+(?C)",
+                  PcreOptions.NoAutoPossess);
+combo_regex.Match(subject,
+  callout =>
+  {
+    Console.WriteLine(callout.Match.Value);
+    return PcreCalloutResult.Fail;
+  }
+);
+</div>
+<br />
+
+But there is one subtlety: <span class="socode">PcreOptions.NoAutoPossess</span>, coming up next.
+<br /><br />
+
+<a id="ghostofautopossess"></a>
+<span class="em8"><a href="#ghostofautopossess">(direct link)</a></span><br />
+<b>The Ghost of Autopossess (and of other Optimizations)</b><br />
+The <span class="socode">PcreOptions.NoAutoPossess</span> option sets PCRE's <span class="socode">PCRE2_NO_AUTO_POSSESS</span> option, which can also be turned inline by the <span class="socode"><a href="regex-modifiers.html#autopossess">(*NO_AUTO_POSSESS)</a></span> start of pattern modifier. (Except that at the moment of writing there seems to be a bug with this latter syntax.)
+<br /><br />
+As a reminder, the autopossess optimization turns some quantifiers into possessive quantifiers when the token that follows is incompatible with the quantified token (there is no shared ground, so no reason to backtrack). For instance, <span class="socode">\d+\D</span> is automatically optimized to <span class="socode">\d++\D</span>. For the same reason, the <span class="socode">\w+</span> in our pattern is automatically optimized to <span class="socode">\w++</span>.<br /><br />
+
+We need to turn that off, otherwise when the callout returns a positive value, the engine cannot backtrack into the atomic <span class="socode">\w++</span>, so the match attempt fails without further exploration. In this case, the  engine advances to the next position in the string to try the next match attempt, yielding this much shorter output:<br /><br />
+
+<div class="codebox pre">abc
+bc
+c
+</div>
+<br />
+
+For the same reason, if you want to make sure that callouts always work as you expect, you should turn off other optimizations as well. Putting all the optimization killers in one place:<br /><br />
+
+- <span class="socode">PCRE2_NO_AUTO_POSSESS</span>, set inline with <span class="socode"><a href="regex-modifiers.html#autopossess">(*NO_AUTO_POSSESS)</a></span> or in PCRE.NET with <span class="socode">PcreOptions.NoAutoPossess</span><br /><br />
+
+- <span class="socode">PCRE2_NO_START_OPTIMIZE</span>, set inline with <span class="socode">(*NO_START_OPT)</span> or in PCRE.NET with <span class="socode">PcreOptions.NoStartOptimize</span><br /><br />
+
+- <span class="socode">PCRE2_NO_DOTSTAR_ANCHOR</span>, set inline with <span class="socode">PCRE2_NO_DOTSTAR_ANCHOR</span> or in PCRE.NET with <span class="socode">PcreOptions.NoDotStarAnchor</span><br />
+
+
+<br /><br />
+
+
+
+
+<a id="prog2"></a>
+<span class="em8"><a href="#prog2">(direct link)</a></span><br />
+<h2>Program 2: Exploring Callout Properties</h2>
+This second program is designed to explore the properties of the <span class="socode">PcreCallout</span> object passed to the callout function.
+<br /><br />
+
+
+The simple pattern <span class="socode">(?:([A-Z])\d(?C8))+</span> matches one uppercase letter followed by one digit, multiple times, for instance <i>Q1G5</i>. After matching each digit, we find the callout token <span class="socode">(?C8)</span>. The <i>8</i> is a simple identifier that is passed to the callout function just in case we want to do something with it&mdash; which would come in handy if we had multiple callouts.
+<br /><br />
+
+
+Please excuse the minimal indentation: I wanted all lines to fit inside the code box.
+<br /><br />
+
+<div class="codebox pre">using System;
+using PCRE;
+
+class Program
+{
+static void Main()
+{
+// This function shows info about the args it receives
+Func&lt;PcreCallout, PcreCalloutResult> callout_info =
+  delegate (PcreCallout info)
+  {
+  // In the pattern string, the position after (?C12) is 17
+  Console.WriteLine("\nPosition in the Pattern: "
+  + info.PatternPosition);
+
+  // The position in the string when the callout is called:
+  // 2, 4, 6
+  Console.WriteLine("Position in the String: "
+  + info.CurrentOffset);
+
+  // This will print the 12 in C12
+  Console.WriteLine("Callout Number: " + info.Number);
+  // If we has a sting identifier, as in (?C'combo'), we
+  // would access it via s.String. See Program # 1.
+
+  // We didn't call Match with a string offset: 0
+  Console.WriteLine("StringOffset: " + info.StringOffset);
+
+  // The last group capture: Group 1
+  Console.WriteLine("Last Capture Group: " + info.LastCapture);
+
+  // Value of the last capture
+  Console.WriteLine("Last Capture: "
+  + info.Match.Groups[info.LastCapture].Value);
+
+  // Temporary Match
+  Console.WriteLine("Temporary Match: " + info.Match.Value);
+
+  return PcreCalloutResult.Pass;
+  };
+
+var callout_info_regex = new PcreRegex(@"(?:([A-Z])\d(?C12))+");
+string subject = "A1B2C3";
+var firstmatch = callout_info_regex.Match(subject, callout_info);
+
+if (firstmatch.Success)
+  {
+  Console.WriteLine("\nOverall Match: " + firstmatch.Value);
+  }
+
+Console.WriteLine("Press Key");
+Console.ReadKey();
+}
+}
+</div>
+<br />
+
+
+Here is the output:<br /><br />
+<div class="codebox pre">Callout Number: 12
+StringOffset: 0
+Last Capture Group: 1
+Last Capture: A
+Temporary Match: A1
+
+Position in the Pattern: 18
+Position in the String: 4
+Callout Number: 12
+StringOffset: 0
+Last Capture Group: 1
+Last Capture: B
+Temporary Match: A1B2
+
+Position in the Pattern: 18
+Position in the String: 6
+Callout Number: 12
+StringOffset: 0
+Last Capture Group: 1
+Last Capture: C
+Temporary Match: A1B2C3
+
+Overall Match: A1B2C3
+Press Key
+</div>
+<br /><br />
+
+<b>Callout Specified as Delegate</b><br />
+In the previous example, we passed the callout function as a lambda. In this example, we create a function that can be reused (it shows information about the callout arguments) so we pass it as a delegate.
+<br /><br />
+
+The <span class="socode">Match</span> constructor has one more argument than usual: the callout delegate.<br /><br />
+<code>callout_info_regex.Match(subject, callout_info);</code>
+<br /><br />
+
+
+<b>Capture Collection</b><br />
+Normally, in PCRE, when a capture group is quantified, as in <span class="socode">(?:(\d)\D)+</span>, the engine only returns the last value of the capture group. That is how most engines work. In contrast, the standard .NET engine has a feature called <a href="regex-csharp.html#quantgroups">capture collections</a> that let you examine all intermediate captures.
+<br /><br />
+
+PCRE callouts take you some of the way in the direction of capture collections. In this example, each pass displays the last capture group.
+<br />
+<br /><br />
+
+
+<a id="autocallout"></a>
+<span class="em8"><a href="#autocallout">(direct link)</a></span><br />
+<h2>Program 3: Debugging with Auto Callout</h2>
+If you set the <span class="socode">PCRE2_AUTO_CALLOUT</span> option, the engine acts as though there were a callout after each token. Each callout has the same argument: 255, as in <span class="socode">(?C255)</span>
+<br /><br />
+
+This option can be interesting if you want to inspect the progression of a match attempt&mdash;perhaps for debugging. Note that this kind of functionality is also offered in PCRE's bundled <a href="pcregrep-pcretest.html#pcretest"><span class="socode">pcretest</span></a> utility.
+<br /><br />
+
+Here is a simple example in PCRE.NET, where the option is called <span class="socode">AutoCallout</span>. The simple pattern <span class="socode">\d+9\b</span> is designed to cause backtracking against our test string <i>1492 1999</i>.
+<br /><br />
+
+
+<div class="codebox pre">using System;
+using PCRE;
+
+class Program
+{
+  static void Main()
+  {
+    var end_with_9 = new PcreRegex(@"\d+9\b",
+                    PcreOptions.AutoCallout);
+    string subject = "1492 1999";
+
+    var the_match = end_with_9.Match(subject,
+      call =>
+      {
+        Console.WriteLine(call.Match);
+        return PcreCalloutResult.Pass;
+      });
+
+    if (the_match.Success)
+    {
+      Console.WriteLine("\nOverall Match: "
+                        + the_match.Value);
+    }
+
+    Console.WriteLine("Press Key");
+    Console.ReadKey();
+  }
+}
+</div>
+<br />
+
+Here is the output:<br /><br />
+
+<div class="codebox pre">1492
+149
+14
+149
+1
+
+492
+49
+4
+49
+
+92
+9
+
+2
+
+1999
+199
+1999
+1999
+
+Overall Match: 1999
+Press Key
+</div>
+
+
+<br /><br /><br />
+
+
+<a id="infinite_lb"></a>
+<span class="em8"><a href="#infinite_lb">(direct link)</a></span><br />
+<h2>Program 4: Infinite Lookbehind</h2>
+
+One feature famously absent from Perl and PCRE is infinite lookbehind. The following program shows two simple ways of implementing this feature using a callout. The code is shown in C#, but Method 1 would work in any language that provides a full API to PCRE. Note that the code is meant as a stub&mdash;for instance error handling is absent.
+<br /><br />
+
+Before diving in, here are the general ideas.
+<br /><br />
+
+<b>One Callout to Rule them All</b><br />
+If you're going to use a lot of callouts, and especially some fancy features such as infinite lookbehind, it makes sense to me to make one big callout function that can handle a number of common cases. <br /><br />
+
+You might object that a collection of small methods is better. But remember, when we call the match function, we can only pass a single callout. Your pattern, on the other hand, might include several callouts to which you'd like to assign different tasks. This is when you need one callout that can handle multiple cases. If it grows too big, sure, you can let it distribute the work to other methods, but it remains the one entry point.
+<br /><br />
+In the demo program, the <span class="socode">CalloutSwitch</span> delegate checks for callouts of this form: <span class="socode">(?C'keyword:action')</span>. Of course other forms can be checked as well. We will implememt lookbehind with two methods, which will be passed with callouts in these shapes:<br /><br />
+✽ Method 1 (pure PCRE): <span class="socode">(?C'infinite:c+ba')</span><br />
+✽ Method 2 (Frankenstein): <span class="socode">(?C'.net_lb:(?<=abc+)')</span><br />
+
+
+<br />
+
+<b>Method 1: Pure PCRE Lookbehind Solution</b><br />
+
+✽ In the position where you want an infinite lookbehind such as <span class="socode">(?&lt;=abc+)</span>, place a callout such as <span class="socode">(?C'infinite:c+ba')</span>. Note that the lookbehind pattern has been reversed.
+<br />
+✽ In the callout, we parse the reversed lookbehind regex out of the argument: <span class="socode">c+ba</span><br />
+✽ We use the string position argument to extract a substring from the subject start up to that point, and reverse that substring.<br />
+✽ We attempt to match the reversed regex on the reversed substring, and pass a zero or "force backtrack" return value depending on whether that match attempt succeeds or fails.
+<br /><br />
+
+
+Two details are worthy of note:<br />
+1. we must anchor the lookbehind pattern, so that the forward matching function only looks for it at the position immediately preceding the cursor. Instead of appending a <span class="socode">^</span>, we accomplish this with PCRE's <span class="socode">PCRE2_ANCHORED</span> option (expressed as <span class="socode">PcreOptions.Anchored</span> in PCRE.NET)<br />
+2. We disable optimizations (see <a href="#ghostofautopossess">the Ghost of Autopossess</a>).
+<br /><br />
+
+<b>Method 2: Frankenstein Solution (PCRE marries .NET regex)</b><br />
+Reversing the pattern in the lookbehind as in the first method is not always obvious (we'll explore some limitations below). For such situations, I provide a <i>Frankenstein solution</i> that calls .NET regex from within a PCRE callout.
+<br /><br />
+
+This time, the callout looks like <span class="socode">(?C'.net_lb:(?<=abc+)')</span>
+<br /><br />
+
+And now&hellip; the code.
+<br /><br />
+
+
+<div class="codebox pre">using System;
+using System.Linq;
+using PCRE;
+using System.Text.RegularExpressions;
+
+class Program
+{
+  static string subject;
+
+  <b>// simple display of match results</b>
+  public static void display_match(PcreMatch theMatch)
+  {
+    Console.WriteLine(subject
+    + " => "
+    + (theMatch.Success ? "Match = " + theMatch.Value
+                          : "No Match"));
+  }
+
+  <b>// One Callout to Rule them All</b>
+  /* Stub of callout delegate to handle lookbehinds
+     and other constructs.
+  Checks for callouts of this form: (?C'keyword:action')
+
+  A lookbehind is specified as:
+  Want this: (?<=abc+) => Write this (?C'infinite_lb:c+ba')
+  Note that the lookbehind pattern is reversed
+  */
+
+  static Func&lt;PcreCallout, PcreCalloutResult> CalloutSwitch =
+                              delegate (PcreCallout callData)
+  {
+    int pos = callData.CurrentOffset;
+    // Check if the callout has this form: (?C'keyword:action')
+    string[] sides = callData.String.Split(':');
+    if (sides.Length > 1)
+    {
+      switch (sides[0])
+      {
+        <b>// Method 1: Pure PCRE</b>
+        case "infinite_lb":
+          string subject_behind = subject.Substring(0, pos);
+          // Reverse the subject
+          string lookbehind_subject = new string(subject_behind
+                                      .ToCharArray()
+                                      .Reverse()
+                                      .ToArray());
+          var lookbehind_regex = new PcreRegex(sides[1],
+                                  PcreOptions.Anchored);
+          var lookbehind = lookbehind_regex
+                                  .Match(lookbehind_subject);
+          return lookbehind.Success ? PcreCalloutResult.Pass :
+                                      PcreCalloutResult.Fail;
+
+        <b>// Method 2: Frankenstein (PCRE marries .NET)</b>
+        case ".net_lb":
+          // In the case of a DotNet lookbehind, we expect
+          // something like (?C'.net_lb:(?&lt;=abc+)')
+
+          // Ensure the lookbehind operates at the right spot
+          var dotnetRegex = new Regex("^.{"
+                                      + pos.ToString()
+                                      + "}"
+                                      + sides[1]);
+          var dotnetLB = dotnetRegex.Match(subject);
+          return dotnetLB.Success ? PcreCalloutResult.Pass :
+                                    PcreCalloutResult.Fail;
+
+        <b>// implement other interesting callouts</b>
+        case "neg_infinite_lb":
+          break;
+        default:
+          break;
+      }
+    }
+    // We didn't handle the callout: resume
+    return PcreCalloutResult.Pass;
+  };
+
+  <b>// Test it!</b>
+  static void Main()
+  {
+    var purePCRELookbehind = new PcreRegex(
+        @"(?C'infinite_lb:c+ba')\d+",
+        PcreOptions.NoAutoPossess |
+        PcreOptions.NoStartOptimize |
+        PcreOptions.NoDotStarAnchor
+    );
+
+    var frankensteinLookbehind = new PcreRegex(
+        @"(?C'.net_lb:(?&lt;=abc+)')\d+",
+        PcreOptions.NoAutoPossess |
+        PcreOptions.NoStartOptimize |
+        PcreOptions.NoDotStarAnchor
+    );
+
+
+    <b>// First subject: this should match 42</b>
+    subject = "05 AB99 abcc42 hp16";
+    var theMatch = purePCRELookbehind.Match(subject,
+                                       CalloutSwitch);
+    display_match(theMatch);
+    theMatch = frankensteinLookbehind.Match(subject,
+                                      CalloutSwitch);
+    display_match(theMatch);
+
+    <b>// Second subject: this should fail</b>
+    subject = "05 AB99 abcd42 hp16";
+    theMatch = purePCRELookbehind.Match(subject,
+                                      CalloutSwitch);
+    display_match(theMatch);
+    theMatch = frankensteinLookbehind.Match(subject,
+                                      CalloutSwitch);
+    display_match(theMatch);
+
+    Console.WriteLine("Press Key");
+    Console.ReadKey();
+  }
+}
+</div>
+<br />
+
+Here is the output:<br /><br />
+
+<div class="codebox pre">05 AB99 abc42 hp16 => Match = 42
+05 AB99 abc42 hp16 => Match = 42
+05 AB99 abcd42 hp16 => No Match
+05 AB99 abcd42 hp16 => No Match
+</div>
+<br />
+
+It works!<br /><br />
+
+<b>Some Limitations</b><br />
+For the pure PCRE part of the demo, the lookbehind works so long as the pattern can easily be reversed. For <span class="socode">(?&lt;=abc+)</span>, the translation to <span class="socode">c+ba</span> was direct. But if our lookbehind pattern starts to contain some convoluted syntax, as in <span class="socode">(?&lt;=a(?=bc))</span>, the reversal may not be so direct.
+<br /><br />
+This kind of lookbehind creates what I've dubbed a "back to the future regex". It requires that we inspect not just the portion of string before the cursor, but also the portion after the cursor. As a guess, I might approach it by reversing the whole string (or an adequate portion if some smart rules can be found) and passing that string to the match function with an adequate offset.
+<br /><br />
+Reversing the regex inside the <span class="socode">(?&lt;=a(?=bc))</span> lookbehind, we would pass <span class="socode">a(?&lt;=bc))</span> to the match function. Now suppose the <span class="socode">c</span> was instead a <span class="socode">c+</span>. Our reversal would now contain an infinite lookbehind. You see the problem. For a case like this, the Frankenstein solution is the way to go.
+<br /><br />
+
+One limitation that applies to both methods is cases when the lookbehind contains capture groups, as in <span class="socode">(?&lt;=(\d+))</span>. There is no mechanism to relay those capture groups to the calling function.
+<br /><br />
+
+Another limitation is if the lookbehind contains references to previous captures, as in (?&lt;=\1\d+). When building the regex inside the callout, we'll need to replace the reference with the current content of the group, and, in the case of the pure PCRE method, to reverse it.
+<br /><br />
+I'm sure there are many other limitations. Callout within the lookbehind itself, backtracking control verbs&hellip; Let your imagination run wild. The goal of these demos is only to explore some workarounds for infinite lookbehind. The main point is that for "standard cases", it looks like we can implement the feature.
+<br /><br />
+
+<b>Automatically Reversing the Pattern</b><br />
+For a more general solution, your callout would pass the lookbehind the way you want it, without reversing it: <span class="socode">(?C'infinite:abc+')</span>, and you would then call a tokenizer that reverses the regex to <span class="socode">c+ba</span>&hellip; Easier said than done! If you implement such a pattern reverser, please let me know.
+<br /><br />
+<br />
+
+<a id="uses"></a>
+<span class="em8"><a href="#uses">(direct link)</a></span><br />
+<h2>Uses for Callouts</h2>
+I'm sure you already see that the potential of callouts is huge. Program 4 showed directions to implement infinite lookbehind. This section mentions two others of PCRE's "missing features". <br /><br />
+
+<b>Capture Collections</b><br />
+<a href="#prog2">Program 2</a> showed how a callout can use the value stored in a quantified capture group on each pass. In that example, we displayed the value. If we added the values to a list, that would start to feel like a capture collection, except that when the engine backtracks, the list would end up with more elements than actually contributed to the match.
+<br /><br />
+Maybe another callout to reset the list when you enter the quantified group, could bring us closer to the goal.
+<br /><br />
+
+<b>Balancing Groups</b><br />
+The standard .NET regex engine contains an unusual feature called <a href="regex-csharp.html#balancingGroups">balancing groups</a>, which can be used instead of recursion (a feature absent from that engine) to check that certain constructs (such as (parentheses)) are properly balanced.<br /><br />
+
+You could implement that feature with PCRE callouts. Upon matching an opening parenthesis, you place a callout such as <span class="socode">(?C'open')</span>, and upon matching a closing parenthesis, you place a callout such as <span class="socode">(?C'close')</span>. At the end of the pattern, you place a callout such as <span class="socode">(?C'check_count')</span>.
+<br /><br />
+
+In the callout function, you increment or decrement a counter depending on whether the identifier is <i>open</i> or <i>close</i>, returning a negative value to the engine if the counter falls below zero. At the end of the match, the callout function handles the <i>check_count</i> argument by checking that the counter is back to zero, indicating a balanced count.
+<br /><br />
+
+This is a direct translation of the typical <a href="regex-csharp.html#balancingGroups">balancing groups</a> recipe.
+
+
+
+
+<br /><br />
+<br />
+
+
+<a id="details"></a>
+<span class="em8"><a href="#details">(direct link)</a></span><br />
+<h2>Further Details</h2>
+If you plan to use callouts, you may want to be aware of some details that may influence their operation. For instance, PCRE's <a href="backtracking-control-verbs.html#autopossessification">autopossess</a> optimization may interfere with callouts.
+<br /><br />
+
+This and other details are covered in the <a href="https://www.rexegg.com/pcre-doc/_latestpcre2/pcre2callout.html">callout page of the PCRE documentation</a>.
+<br /><br />
+
+Another place to look for examples is the <a href="https://github.com/ltrzesniewski/pcre-net/tree/066f6137704b8c9190a77c14c7113c7f347d4e97/src/PCRE.NET.Tests/PcreNet" target="_blank">suite of tests for PCRE.NET</a>.
+
+<br /><br />
+
+
+
+Smiles,
+<br /><br />
+Rex
+
+<br /><br />
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div><br />
+<a href="pcregrep-pcretest.html" >
+<img src="../b.yu8.us/next_regex.png" class="left"  width="125" height="40" alt="next" />
+<b>&nbsp;Two marvelous PCRE tools:<br />
+&nbsp;grep with pcregrep, debug and optimize with pcretest</b>
+</a>
+<br /><br /><br />
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Be the First to Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/pcre-callouts.html" method="post" >
+<input type="hidden" name="token" value="c7fbfc1fbf2dc2be4c22a9a08e28bf9b" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a class="thispage" href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/pcre-callouts.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:22 GMT -->
+</html>

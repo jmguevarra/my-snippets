@@ -1,0 +1,52 @@
+
+
+
+/* #testimonial 
+ *-----------------*/
+ #testimonial .elementor-testimonial__cite{
+     margin-top: 10px;
+ }
+ #testimonial .elementor-testimonial__cite:after{
+     content: url(/wp-content/uploads/2020/07/star.png);
+     display: block;
+     margin-top: 5px;
+ }
+.quote-mark .elementor-testimonial__footer:after {
+    content: '';
+    width: 35px;
+    height: 25px;
+    position: absolute;
+    background-image: url(/wp-content/uploads/2020/07/quote.png);
+    right: 15px;
+    top: -10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+@media only screen and (max-width:767px){
+    #testimonial .elementor-swiper-button {
+        display: none;
+    }
+    #testimonial .elementor-testimonial{
+        flex-direction: column-reverse;
+        -webkit-flex-direction: column-reverse;
+        -ms-flex-direction: column-reverse;
+    }
+    #testimonial .elementor-testimonial__content{
+        text-align:center;
+    }
+    #testimonial .elementor-testimonial__image{
+        margin-bottom:15px;
+    }
+    .quote-mark .elementor-testimonial__footer:after {
+        top: 80px;
+        left: 0;
+        right: auto;
+    }
+}
+
+@media only screen and (max-width:479px){
+     #testimonial .swiper-slide {
+        padding:0;
+    }
+}

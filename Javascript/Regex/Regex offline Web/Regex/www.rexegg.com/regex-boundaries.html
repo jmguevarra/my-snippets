@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-boundaries.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="About regex boundaries. Presents classic regular expression boundaries such as word boundaries, and explains how to make your own boundaries and delimiters." />
+<title>Regex Boundaries—Word Boundaries and More</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li class="current"><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Regex Boundaries and Delimiters—Standard and Advanced</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+Although this page starts with the regex <i>word boundary</i> <span class="socode">\b</span>, it aims to go far beyond: it will also introduce less-known boundaries, as well as explain how to make your own—<i>DIY Boundaries</i>. 
+<br /><br />
+
+
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#anchors">Boundaries vs. Anchors</a><br />
+✽ <a href="#wordboundary">Word Boundary: <span class="socode">\b</span></a><br />
+✽ <a href="#notb">Not-a-word-boundary: <span class="socode">\B</span></a><br />
+✽ <a href="#leftright">Left- and Right-of-Word Boundaries</a><br />
+✽ <a href="#diy">Making Your Own Boundaries</a><br />
+✽ <a href="#real-word-boundary">DIY Boundary Workshop: "real word boundary"</a><br />
+✽ <a href="#letter-digit">DIY Boundary: between a letter and a digit</a><br />
+✽ <a href="#double-negative-delimiter">Double Negative Delimiter: Character, or Beginning of String</a><br />
+<br /><br />
+
+
+<a id="anchors"></a>
+<span class="em8"><a href="#anchors">(direct link)</a></span><br />
+<h2>Boundaries vs. Anchors</h2>
+Why are <span class="socode">^</span> and <span class="socode">$</span> called <a href="regex-anchors.html">anchors</a> while <span class="socode">\b</span> is called a boundary?<br /><br />
+
+These tokens have one thing in common: they are assertions about the engine's current position in the string. Therefore, none of them consume characters.
+<br /><br />
+Anchors assert that the current position in the string matches a certain position: the beginning, the end, or in the case of <span class="socode">\G</span> the position immediately following the last match. 
+In contrast, boundaries make assertions about what can be matched to the left and right of the current position. 
+<br /><br />
+The distinction is blurry. Typically, you would translate <span class="socode">^</span> as something like "assert that the current position is the beginning of the string". But if you were in a mood to play with logic, you could say:<br /><br />
+
+Imagine that a string is a space between two walls—one to the left and one to the right. All the positions in the string are within that space. Then we could translate the <span class="socode">^</span> anchor as:<br /><br />
+
+<blockquote><div>
+Assert that immediately to the left of the current position, we can find the left wall, while to the right of the current position we cannot find the left wall.
+</div></blockquote>
+<br />
+
+Yep, in that light, our anchor is a boundary—we look left and right. We'll keep anchors and boundaries on separate pages because there's a lot of ground to cover, but just keep that in mind. 
+
+
+
+<br /><br /><br />
+
+
+<a id="wordboundary"></a>
+<span class="em8"><a href="#wordboundary">(direct link)</a></span><br />
+<h2>Word Boundary: <span class="socode">\b</span></h2>
+The word boundary <span class="socode">\b</span> matches positions where one side is a word character (usually a letter, digit or underscore—but see below for variations across engines) and the other side is not a word character (for instance, it may be the beginning of the string or a space character).<br /><br />
+
+The regex <span class="socode">\bcat\b</span> would therefore match <i>cat</i> in <i>a black cat</i>, but it wouldn't match it in <i>catatonic</i>, <i>tomcat</i> or <i>certificate</i>. Removing one of the boundaries, <span class="socode">\bcat</span> would match <i>cat</i> in <i>catfish</i>, and <span class="socode">cat\b</span> would match <i>cat</i> in <i>tomcat</i>, but not vice-versa. Both, of course, would match <i>cat</i> on its own.
+<br /><br />
+
+Word boundaries are useful when you want to match a sequence of letters (or digits) on their own, or to ensure that they occur at the beginning or the end of a sequence of characters.<br /><br />
+
+Be aware, though, that <span class="socode">\bcat\b</span> will not match <i>cat</i> in <i>_cat</i> or in <i>cat25</i> because there is no boundary between an underscore and a letter, nor between a letter and a digit: these all belong to what regex defines as <i>word characters</i>. If you want to create a "real word boundary" (where a <i>word</i> is only allowed to have letters), see <a href="#real-word-boundary">the recipe below</a> in the section on DYI boundaries.
+<br /><br />
+
+<a id="bengines"></a>
+<span class="em8"><a href="#bengines">(direct link)</a></span><br />
+<b>Difference between Engines</b><br />
+As you can see on the <a href="regex-quickstart.html#anchors">regex cheat sheet</a>, <span class="socode">\b</span> behaves differently depending on the engine:
+<br />
+✽ In PCRE (PHP, R…) with the Unicode mode turned off, JavaScript and Python 2.7, it matches where only one side is an ASCII letter, digit or underscore.<br />
+✽ In PCRE (PHP, R…) with the Unicode mode turned on, .NET, Java, Perl, Python 3 and Ruby, it matches a position where only one side is a Unicode letter, digit or underscore.<br />
+<br /><br />
+
+
+
+<a id="notb"></a>
+<span class="em8"><a href="#notb">(direct link)</a></span><br />
+<h2>Not-a-word-boundary: <span class="socode">\B</span></h2>
+
+<span class="socode">\B</span> matches all positions where <span class="socode">\b</span> doesn't match. Therefore, it matches:<br /><br />
+✽ When neither side is a word character, for instance at any position in the string <i>$=(@-%++)</i> (including the beginning and end of the string)<br />
+✽ When both sides are a word character, for instance between the <i>H</i> and the <i>i</i> in <i>Hi!</i><br />
+<br />
+
+This may not seem very useful, but sometimes <span class="socode">\B</span> is just what you want. For instance,<br /><br />
+
+✽ <span class="socode">\Bcat\B</span> will find <i>cat</i> fully surrounded by word characters, as in <i>certificate</i>, but neither on its own nor at the beginning or end of words.<br />
+✽ <span class="socode">cat\B</span> will find <i>cat</i> both in <i>certificate</i> and <i>catfish</i>, but neither in <i>tomcat</i> nor on its own.<br />
+✽ <span class="socode">\Bcat</span> will find <i>cat</i> both in <i>certificate</i> and <i>tomcat</i>, but neither in <i>catfish</i> nor on its own.<br />
+✽ <span class="socode">\Bcat|cat\B</span> will find <i>cat</i> in embedded situation, e.g. in <i>certificate</i>, <i>catfish</i> or <i>tomcat</i>, but not on its own.<br />
+<br />
+
+<b>Difference between Engines</b><br />
+In all engines that support it, <span class="socode">\B</span> matches positions that are not matched by <span class="socode">\b</span>. Since <span class="socode">\b</span> behaves differently in various engines, see <a href="#bengines"><span class="socode">\b</span> engine variations</a> a few paragraphs above.
+<br /><br /><br />
+
+
+
+<a id="leftright"></a>
+<span class="em8"><a href="#leftright">(direct link)</a></span><br />
+<h2>Left- and Right-of-Word Boundaries</span></h2>
+
+The PCRE (PHP, R, …) version 8.34+ and MySQL engines support the POSIX character classes for the beginning-of-word boundary <span class="socode">[[:<:]]</span> and the end-of-word boundary <span class="socode">[[:>:]]</span>
+<br /><br />
+
+✽ <span class="socode">[[:<:]]cat</span> matches <i>cat</i> in the word on its own as well as in <i>catfish</i>, but neither in <i>tomcat</i> nor in <i>certificate</i>.<br />
+✽ <span class="socode">cat[[:<:]]</span> never matches as a word cannot start in the middle of a word.<br />
+✽ <span class="socode">cat[[:>:]]</span> matches <i>cat</i> in the word on its own as well as in <i>tomcat</i>, but neither in <i>catfish</i> nor in <i>certificate</i>.<br />
+✽ <span class="socode">[[:>:]]cat</span> never matches as a word cannot end in the middle of a word.<br /><br />
+
+For MySQL, the definition of a <i>word character</i> is an ASCII letter, digit or underscore—and this set of characters drives the interpretation of these "start of word" and "end of word" boundaries.
+<br /><br />
+
+PCRE offers these boundaries as a convenience for occasions when someone might want to paste POSIX regex into a PCRE-powered language (or, more likely, switch the regex library used by an old C program), but the engine makes the following substitutions before starting the match:<br /><br />
+
+<a id="wordedge-conversions"></a>
+✽ The start of word boundary <span class="socode">[[:<:]]</span> is converted to <span class="socode">\b(?=\w)</span><br />
+✽ The end of word boundary <span class="socode">[[:>:]]</span> is converted to <span class="socode">\b(?<=\w)</span><br /><br />
+
+Therefore, the "start of word" and "end of word" boundaries derive their meaning from the <span class="socode">\b</span> boundary. In non-Unicode mode, it matches a position where only one side is an ASCII letter, digit or underscore. In Unicode mode, it matches a position where only one side is a Unicode letter, digit or underscore.
+<br /><br />
+
+<b>Other Engines</b><br />
+I've never yet encountered a situation where I wished I had one of these boundaries. Most likely, if it ever arises, I automatically solve it by using lookarounds. If you ever want to use these specific boundaries in a language that doesn't support them, one solution among several is to copy the <a href="#wordedge-conversions">patterns</a> (from two paragraphs above) that PCRE uses to convert the boundaries to regular syntax.
+
+
+<br /><br /><br />
+
+
+
+<a id="diy"></a>
+<span class="em8"><a href="#diy">(direct link)</a></span><br />
+<h2>Making Your Own Boundaries</h2>
+Finding a boundary between a word character and a non-word character is convenient, and we can thank <span class="socode">\b</span> for that. But there are many other cases where we could use a boundary for which regex does not provide explicit syntax. For instance, how do you match the position between a letter and a digit? We'll make this exact boundary <a href="#letter-digit">further down</a>, but let's get there at a comfortable pace.<br /><br />
+
+<a id="delimiters"></a>
+<b>Delimiters</b><br />
+As a first example, let's look at a line in an email reply:<br />
+<i>> and then she told him she wouldn't settle for less than a Hawaiian pizza, and</i><br /><br />
+
+Let's say we want a boundary that finds the position between the <span class="socode">> </span> and an ASCII letter. <br /><br />
+
+As a first approach, we could use a lookbehind. Assuming we're in multi-line mode, where the anchor <span class="socode">^</span> matches at the beginning of any line, the lookbehind  <span class="socode">(?&lt;=^> )</span> asserts that what precedes the current position is the beginning of the string, then a "greater-than" symbol <i>></i> and a space.
+<br /><br />
+
+Therefore, something like <span class="socode">(?&lt;=^> )\w+</span> would find the first word of the line. This works, but I would not call <span class="socode">(?&lt;=^> )</span> a boundary. Whereas a boundary asserts that there is a difference between what lies to the left and what lies to the right, our lookbehind only looks in one direction. If we used it on its own, it would match after the space character <i>></i> in <i>> >>></i>: it doesn't care about what follows. It is what I would call a delimiter, rather than a boundary.<br /><br />
+
+Delimiters are very useful, and they are a major source of business for regex lookarounds. For instance, <span class="socode">.*?(?=END)</span> would match an entire line up to—but not including—the word <i>END</i>: the lookahead <span class="socode">(?=END)</span> serves as an ending delimiter. Likewise, <span class="socode">(?&lt;=START)</span> serves as a beginning delimiter in <span class="socode">(?&lt;=START).*</span>, which matches an entire line after—but not including—the word <i>START</i>.
+<br /><br />
+
+Further down, we will look at a useful technique: <a href="#double-negative-delimiter">double-negative delimiters</a>.
+<br /><br />
+
+<b>Boundaries: Look Left and Right</b><br />
+To finish our boundary for the position following the start of an email reply line and preceding a letter, we also need to look to the right. We do that by adding a lookahead after the lookbehind:<br />
+<code class="cinter">(?&lt;=^> )(?=[a-zA-Z])</code><br />
+
+After asserting that what precedes the current position is a "greater than" and a space, we assert that what follows is a letter. Note that the order of the lookahead and the lookbehind do not matter, as they do not consume any characters: they look to the left and to the right with our feet firmly planted in the same spot in the string. Therefore, the reverse-order boundary<br />
+<code class="cinter">(?=[a-zA-Z])(?&lt;=^> )</code>
+works equally well.<br /><br />
+
+After either of these patterns, we can confidently use any regex meta-character—such as the dot—and be sure that it will match a letter: they are true boundaries. 
+<br /><br />
+
+<a id="diyb"></a>
+<span class="em8"><a href="#diyb">(direct link)</a></span><br />
+<b>Generalizing the idea: home-made word boundary</b><br />
+We can use this technique to construct any boundary we like. The coming sections will show some examples in detail, but to whet our appetite, how would you build a word boundary if your regex engine didn't support <span class="socode">\b</span>?
+<br /><br />
+
+When it matches on the left of word characters, a word boundary is able to check that what follows is a word character but what precedes is not. In lookaround terms, this is <span class="socode">(?=\w)(?&lt;!\w)</span>.
+<br /><br />
+When it matches on the right of word characters, a word boundary is able to check that what precedes is a word character but what follows is not. In lookaround terms, this is <span class="socode">(?&lt;=\w)(?!\w)</span>
+<br /><br />
+A word boundary must match either of these positions. Grouping them together inside an alternation, our homemade word boundary becomes:<br />
+<code class="cinter">(?:(?=\w)(?&lt;!\w)|(?&lt;=\w)(?!\w))</code>
+<br />
+Yes, <span class="socode">\b</span> is a bit shorter.
+
+
+<br /><br /><br />
+
+
+
+<a id="real-word-boundary"></a>
+<span class="em8"><a href="#real-word-boundary">(direct link)</a></span><br />
+<h2>DIY Boundary Workshop: "real word boundary"</h2>
+
+With some variations depending on the engine, regex usually defines a <i>word character</i> as a letter, digit or underscore. A word boundary <span class="socode">\b</span>detects a position where one side is such a character, and the other is not.<br /><br />
+
+In the everyday world, most people would probably say that in the English language, a word character is a letter. Others might allow for hyphens. In some situations, it might therefore be useful to have a "real word boundary" that detects the edge between an ASCII letter and a non-letter. How do we do that?<br /><br />
+
+
+As a start, with lookarounds you can make a left-side and a right-side boundary:<br />
+<code class="cinter">(?i)(?<=^|[^a-z])cat(?=$|[^a-z])</code>
+The left side asserts that what precedes is either the beginning of the string or a character that is a non-letter. The right side asserts that what follows is either the end of the string or a non-letter.<br /><br />
+
+Your next step could be to combine the two to form a boundary that can be popped on either side:<br />
+<code class="cinter">(?i)(?<=^|[^a-z])(?=[a-z])|(?<=[a-z])(?=$|[^a-z])</code>
+On the left side, of the alternation, we have our earlier left boundary, and we add a lookahead to check that what follows is a letter. On the right side of the alternation, we have our earlier right boundary, and we add a lookbehind to check that what precedes us is a letter. <br /><br />
+
+Needless to say, if you need to paste this wherever you want a "real word boundary", this is a bit heavy. With engines that support <a href="regex-disambiguation.html#define">pre-defined subroutines</a>—Perl, PCRE (PHP, R, …)—you can define the boundary once and for all, then use it wherever you like by referring to its name:
+<br /><br />
+<div class="codebox"><pre>
+(?x)             # free-spacing mode
+(?(DEFINE)       # Define some subroutines
+   (?&lt;alphaB>       # Define "alphaB" boundary
+                    # This boundary matches when
+                    # only one side is a letter
+   (?i)(?<=^|[^a-z])(?=[a-z])|(?<=[a-z])(?=$|[^a-z])
+   )                # End alphaB definition
+)                # End DEFINE
+
+# The actual regex matching starts here
+# We can use our "alphaB" boundary wherever we like
+(?&alphaB)cat(?&alphaB)    
+</pre></div>
+<br />
+
+This would work really well as a component of a large parsing regex.
+
+<br /><br /><br />
+
+
+<a id="letter-digit"></a>
+<span class="em8"><a href="#letter-digit">(direct link)</a></span><br />
+<h2>DIY Boundary: between a letter and a digit</h2>
+
+Once we have this recipe, producing boundaries is simple. For instance, with minor tweaks, we can produce a boundary that matches between ASCII letters and digits. I called this pre-defined boundary by the descriptive name <i>A1</i>.<br /><br />
+
+<div class="codebox"><pre>
+(?x)             # free-spacing mode
+(?(DEFINE)       # Define some subroutines
+   (?&lt;A1>           # Define "A1" boundary
+                    # This boundary matches when
+                    # one side is a letter and
+                    # the other is a number
+   (?i)(?<=^|\d)(?=[a-z])|(?<=[a-z])(?=$|\d)
+   )                # End A1 definition
+)                # End DEFINE
+
+# The actual regex matching starts here
+# We can use our "A1" boundary wherever we like
+(?&A1)cat(?&A1)    
+</pre></div>
+<br />
+
+If your engine doesn't support pre-defined subroutines, you would have to paste this monster in your regex:<br />
+
+<code class="cinter">(?:(?i)(?&lt;=^|\d)(?=[a-z])|(?&lt;=[a-z])(?=$|\d))</code>
+<br /><br />
+
+
+<a id="double-negative-delimiter"></a>
+<span class="em8"><a href="#double-negative-delimiter">(direct link)</a></span><br />
+<h2>Double Negative Delimiter: Character, or Edge of String</h2>
+In this section I would like to introduce you to a useful family of delimiters that use a fiendish technique: double negative delimiters.
+
+Consider the string <i>0# 1 #2 #3# 4# #5</i>. In this string, we want to match <i>0</i>, <i>3</i> and <i>5</i>, i.e. digits where each side is either a hash or one of the edges of the string.<br /><br />
+
+One first thought might be to use a capture group: <span class="socode">(?:^|#)(\d)(?:$|#)</span>. This exactly performs the task specified in the previous paragraph—first matching either the beginning of the string or a hash, then a digit, then either the end of the string or a hash. The desired digits are captured to Group 1. <br /><br />
+
+To get rid of the capture group, you will probably think of using lookarounds: <span class="socode">(?&lt;=^|#)\d(?=$|#)</span>. This is nearly exactly the same as the first regex, except that the sides are no longer matched, but just checked with a lookbehind and a lookahead. This works in .NET, PCRE (C, PHP, R, …), Java and Ruby (or Python with the <i>regex</i> module), but not in other engines as traditional lookbehind must have a fixed width (see <a href="regex-disambiguation.html#lookbehind_width">Lookbehind: Fixed-Width / Constrained Width / Infinite Width</a>).
+<br /><br />
+
+In Perl, you can get around this problem with <span class="socode">(?:^|#\K)\d(?=$|#)</span>, where we match the left-side hash (if any) then drop it with the <span class="socode">\K</span>. This would also work in PCRE and Ruby.<br /><br />
+
+But here is the solution I would like to introduce you to:<br /><br />
+<code class="cinter">(?&lt;![^#])\d(?![^#])</code><br />
+
+This is a bit of a brain twister. On the left side, the negative lookbehind <span class="socode">(?&lt;![^#])</span> asserts that what precedes the current position is <i>not one character that is not a hash</i>. Flipping the double negative back to a positive assertion, this says that if there is a character behind us, it must be a hash. What is allowed behind us is therefore either a hash character or "not a character" (the beginning of the string).<br /><br />
+
+Why the double negative? Isn't that the same as the positive lookbehind <span class="socode">(?&lt;=#)</span>? Well, no: this positive lookbehind requires a hash character—whereas we also want to allow the absence of any character on the left.<br /><br />
+
+The negative lookahead at the end of the string follows the same principle: <span class="socode">(?![^#])</span> asserts that what follows is <i>not a character that is not a hash</i>—i.e., if it is a character, it must be a hash.
+<br /><br />
+
+<b>Limitation</b><br />
+This technique works for single-line strings. As soon as you move to multiple lines, <i>0#</i> no longer matches at the beginning of lines 2 and beyond. That is because there is a character before the <i>0</i>: the <span class="socode">\n</span>, and it is not a hash. Likewise, <i>#5</i> no longer matches at the end of any line but the last, because there is now a line break character—not a hash—after the <i>5</i>.
+<br /><br />
+
+<b>Extension</b><br />
+To get your eyes accustomed to the technique, let's apply it to other tasks.<br /><br />
+To match A, B or E in <i>A0 1B1 2C D3 4E</i>, i.e capital letters that have either a digit or a string-end on each side, you can use this pattern:<br />
+<code class="cinter">(?&lt;!\D)[A-Z](?!\D)</code>
+<br />
+To match A, C or F in <i>A -B- C -D -E F</i>, i.e capital letters that have either a space or a string-end on each side, you can use this pattern:<br />
+<code class="cinter">(?&lt;!\S)[A-Z](?!\S)</code>
+<br />
+Finally, an unlikely example: to match the tilde, hash or colon in <i>~A ? 2! _#4 @5 6:</i>, i.e special characters that have either a word character or a string-end on each side, you can use this pattern:<br />
+<code class="cinter">(?&lt;!\W)[~#:@?!](?!\W)</code>
+<br /><br />
+
+
+
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div>
+
+<a href="regex-capture.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;Everything You've Wanted to know about Capture Groups</b>
+</a>
+<br /><br /><br />
+
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-3 of 3 Threads</div>
+<a id="cid2640"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Conrad</span><span class="comment-location"> &ndash; conrad.leonard@hotmail.com</span></div>
+<div class="comment-date">May 16, 2019 - 12:52</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Nicely done</div><br />
+<div class = "comment-text">Well presented and great examples, thank you.</div>
+</div>
+<a id="cid2360"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Alex</span><span class="comment-location"> &ndash; W</span></div>
+<div class="comment-date">June 07, 2017 - 22:45</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Thanks</div><br />
+<div class = "comment-text">Just wanted to say thanks for the good explanation of anchors and boundaries.</div>
+</div>
+<a id="cid1734"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">ken berica</span><span class="comment-location"> &ndash; Dallas</span></div>
+<div class="comment-date">March 02, 2015 - 03:28</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>boundaries</div><br />
+<div class = "comment-text">Ahh,<br />
+Finally to find the logical brain that can express concisely.</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-boundaries.html" method="post" >
+<input type="hidden" name="token" value="948ca7a9094377552704df928d272db8" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a class="thispage" href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-boundaries.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+</html>

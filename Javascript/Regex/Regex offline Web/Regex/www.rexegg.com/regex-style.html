@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-style.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:08 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Regex Style. Discusses strategies to solve regular expressions problems and write good regex." />
+<title>Regular Expressions Tutorial</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li class="current"><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>The Elements of Good Regex Style</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+Knowing the English alphabet doesn't make you Hemingway. Likewise, knowing regex syntax doesn't make you literate with regex. Style is a hard thing to teach aspiring writers, but the rudiments of style can certainly be taught. Likewise, "good regex" is not easy to put into rules, and perhaps that's why I've never seen literature on the subject. This makes it all the more interesting to give it a try.
+<br /><br />
+With the disclaimer that I do not present myself as the ultimate authority on efficient, graceful regex, this page presents some "rules" I have gradually distilled with practice. There is always more to learn, so new rules may appear and old ones may be rephrased or subsumed by others.
+<br /><br />
+Before diving into the <i>Elements of Regex Style</i>, let's warm up with some considerations about matching strategy.
+<br /><br />
+<br />
+
+<a id="capturevsmatch"></a>
+<span class="em8"><a href="#capturevsmatch">(direct link)</a></span><br />
+<h2>Should I Match it, or Should I Capture it?</h2>
+<div class="pullquote L">
+Matches are not sacred. Feel free to throw them away!
+</div>
+
+One topic I've never seen discussed (but maybe I'm not reading widely and carefully enough) is the various strategies available to you in order to retrieve the data you need. Should you try to match it? Should you try to capture it? It's an implicit question in nearly every complex piece of regex you write. 
+<br /><br />
+
+In the examples on this site, you'll see a diverse use of matching and capturing. Sometimes, the match returns exactly the data we want. But often, the match is a "throwaway" that just gets us down the string, down to the portions we really care about, which we then capture. 
+<br /><br />
+Sometimes, then, the captured groups contain the data we're after. But at other times, you only use groups (and back references) to build an intricate expression that adds up to the overall match you're looking for.
+<br /><br />
+
+If this sounds confusing, it doesn't need to be. There is only one thing you need to tell yourself: <br /><br />
+<blockquote>
+<div class="cinter">
+<b>The Match is Just Another Capture Group</b> <br />
+</div>
+</blockquote>
+<br />
+Basically, you can imagine that there is a set of parentheses around your entire regex. These parentheses are just implied. They capture Group 0, which by convention we call "the match". 
+<br /><br />
+In fact, your language may already think that way. In PHP, if <i>$match</i> is the match array, <i>$match[1]</i> will contain Group 1, <i>$match[2]</i> will contain Group 2&hellip; and <i>$match[0]</i> ("Group 0") will contain the overall match. Likewise, in JavaScript the overall match will be in <i>matchArray[0]</i>. In Python and C#, you can (although those are not the only options) retrieve the overall match as <i>match.group(0)</i> and <i>matchResult.Groups[0].Value</i>. 
+<br /><br />
+Likewise, in regex replace operations, \1, \2, \3 (or $1, $2, $3, depending on the flavor) usually refer to capture groups 1, 2 and 3. Not by coincidence, \0 ($0) usually refer to the overall match.
+<br /><br />
+
+Once you see that the match is just another group, the question of whether to match or to capture loses importance: You will be capturing anyhow. 
+<br /><br />
+
+
+What does this mean? You are the one who knows what data you want to match. Knowing this, use whatever means you need (whether it's an overall match or a sneaky capture in Group 3) in order to grab what you want. In the example about <a href="regex-tricks.html#sync" >keeping the regex in sync with your string</a>, we'll look at a technique that makes many captures—some useful, some not—and then leaves it to the code outside the regex to decide which of the capture groups are important. It's not a particularly efficient technique, but it works.<br /><br />
+
+
+The only moderation I would add to the advice to "use whatever means you need" is that it's generally considered poor programming practice to spawn unnecessary capture groups, as they create overhead. So if you need parentheses in order to evaluate an expression but don't need to capture the data, make it a <a href="regex-disambiguation.html#noncap" >non-capturing group</a> by using the <i>(?: &hellip; )</i> syntax.
+<br /><br />
+<br />
+
+
+
+<a id="splitvsmatch"></a>
+<span class="em8"><a href="#splitvsmatch">(direct link)</a></span><br />
+<h2>Should I <i>Split</i>, or should I <i>Match All</i>?</h2>
+Here is a regex axiom that may come as a surprise:<br /><br />
+
+<blockquote>
+<div class="cinter">
+<b>Matching All and Splitting are two sides of the same coin.</b> <br />
+</div>
+</blockquote>
+<br />
+
+Consider a list of fruits separated the word "and": <i>apple and banana and orange and pear and cherry</i>. You are interested in obtaining an array with all the names of fruits. To do so, you could match all the words that are not <i>and</i> (something like <code>\b(?!and)\S+</code> would do). Another approach would be to split the string using the delimiter " and ". Both approaches would provide you with the same array: it's a bit like one of those drawings that can be interpreted in different ways depending on whether you focus on the white background or on the inked parts. 
+<br /><br />
+
+<div class="pullquote R">
+When you to want to match, I'll split you... When you want to split, I'll match you...
+</div>
+
+This is a simple example, but often you will gain considerable advantage by deciding to match rather than to split, or vice-versa. You'll often find that one way is easy and the other nearly impossible. Therefore, if someone tells you "I want to match all the&hellip;" or "I am trying to split by&hellip;", try not to rush down the first alley because they said "split" or "match": remember the other side of the coin.
+<br /><br />
+<br />
+
+
+
+<a id="regexstyle"></a>
+<span class="em8"><a href="#regexstyle">(direct link)</a></span><br />
+<h2>The Elements of Regex Style</h2>
+
+In the world of regex, it's appropriate to paraphrase Strunk &amp; White:<br /><br />
+
+<blockquote>
+<div class="cinter">
+<b>To write good regex, say what you mean. Say it clearly.</b>
+<br />
+</div>
+</blockquote>
+<br />
+
+The more specific your expressions, the faster your regex will match; and, often more importantly, the faster your regex will fail when no match is there to be found.
+<br /><br />
+
+Here are a few "golden rules" that every regex craftsperson should keep in mind. <br /><br />
+
+If some of these rules don't make complete sense to you right now, don't worry about it&mdash;just come here again after you've read some other sections, or in a couple months' time. 
+<br /><br />
+
+
+<a id="anchor"></a>
+<span class="em8"><a href="#anchor">(direct link)</a></span><br />
+✽ <b>Whenever Possible, Anchor.</b><br />
+<a href="regex-anchors.html">Anchors</a>, such as the caret <span class="socode">^</span> for the beginning of a line and the dollar sign <span class="socode">$</span> for the end of a line often provide the needed clue that ensures the engine finds a match in the right place. For instance, when we validate a string, they ensure that the engine matches the whole string, rather than a substring embedded in the string being examined. And anchors often save the engine a lot of backtracking. Be aware that anchors are not limited to <span class="socode">^</span> and <span class="socode">$</span>. Most engines have other useful built-in anchors, such as <span class="socode">\A</span> and <span class="socode">\G</span> (see the <a href="regex-quickstart.html#anchors">cheat sheet</a>). 
+<br /><br />
+
+<a id="what_you_want"></a>
+<span class="em8"><a href="#what_you_want">(direct link)</a></span><br />
+✽ <b>When You Know what You Want, Say It. When You Know what You Don't Want, Say It Too!</b><br />
+When you feed your regex engine a lot of <span class="socode">.*</span> "dot-star soup", the engine can waste a lot of energy running down the string then backtracking. Be as specific as possible, whether by using a literal B character, a <span class="socode">\d</span> digit class or a <span class="socode">\b</span> boundary. Another great way to be specific is to say what you <b>don't</b> want—whether what you don't want is&hellip; a double quote: <code>[^"]</code>&hellip; a digit: <code>\D</code>&hellip; or for the next three letters to be "boo": <code>(?!boo)[a-z]{3}</code>.
+<br /><br />
+
+<a id="contrast"></a>
+<span class="em8"><a href="#contrast">(direct link)</a></span><br />
+✽ <b>Contrast is Beautiful—Use It.</b><br />
+When you can, use consecutive tokens that are mutually exclusive in order to create contrast. This reduces backtracking and the need for boundaries in the broad sense of the term, in which I include lookarounds. For instance, let's say you're trying to validate strings that contain exactly three digits located at the end, as in <i>ABC123</i>. Something like <code>^.+\d{3}$</code> would not work, because <span class="socode">.</span> and <span class="socode">\d</span> are not mutually exclusive—this regex would match <i>ABC123456</i>. You may think to add a negative lookbehind: <code>^.+(?&lt;!\d)\d{3}$</code>. But if you use tokens that are mutually exclusive in the first place, you no longer need a lookaround: <code>^\D+\d{3}$</code> works straight out of the box. With time, you come to relish the <b>beautiful contrast</b> between <span class="socode">\D</span> and <span class="socode">\d</span>, between <span class="socode">[^a-z]</span> and <span class="socode">[a-z]</span>. This is a variation on <em>When you know what you want, say it</em>.
+<br /><br />
+
+<a id="lazy_warning"></a>
+<span class="em8"><a href="#lazy_warning">(direct link)</a></span><br />
+✽ <b>Want to Be Lazy? Think Twice.</b><br />
+Let's say you want to match all the characters between a set of curly braces. At first you might think of <code>{.*?}</code> because the lazy quantifier ensures you don't overshoot the closing brace. However, a lazy quantifier has a cost: at each step inside the braces, the engine tries the lazy option first (match no character), then tries to match the next token (the closing brace), then has to backtrack. Therefore, the lazy quantifier causes backtracking at each step (see <i><a href="regex-quantifiers.html#lazy_expensive">Lazy Quantifiers Are Expensive</a></i>). This is more efficient: <code>{[^}]*}</code>. This is a variation on <em>Use Contrast</em> and <em>When you know what you want, say it.</em>
+<br /><br />
+
+
+<a id="greedy_lazy"></a>
+<span class="em8"><a href="#greedy_lazy">(direct link)</a></span><br />
+✽ <b>A Time for Greed, a Time for Laziness.</b><br />
+A reluctant (lazy) quantifier can make you feel safe in the knowing that you won't eat more characters than needed and overshoot your match, but since lazy quantifiers cause backtracking at each step, using them can feel like bumping on a country road when you could be rolling down the highway. Likewise, a greedy quantifier may shoot down the string then backtrack all the way back when all you needed was a few nudges with a lazy quantifier.<br /><br />
+
+
+<a id="delimiters"></a>
+<span class="em8"><a href="#delimiters">(direct link)</a></span><br />
+✽ <b>On the Edges: Really Need Boundaries or Delimiters? Use Them—or Make Your Own!</b><br />
+Most regex engines provide the <span class="socode">\b</span> boundary, and sometimes others, which can be useful to inspect an edge of a substring. Depending on the engine, other boundaries may be available, but why stop there? In the right context, I believe in <em><b><a href="regex-boundaries.html#diy">DIY boundaries</a></b></em>. For instance, using lookarounds, you can make a boundary to check for changes from upper- to lower-case, which can be useful to split a CamelCase string: <code>(?&lt;=[a-z])(?=[A-Z])</code> However, do not overuse boundaries, because good <b>contrast</b> often make them redundant (see <i><a href="#contrast">Use Contrast</a></i>.)
+<br /><br />
+
+
+<a id="atomic"></a>
+<span class="em8"><a href="#atomic">(direct link)</a></span><br />
+✽ <b>Don't Give Up what You Can Possess.</b><br />
+Atomic groups <span class="socode">(?> &hellip; )</span> and the closely-related possessive quantifiers can save you a lot of backtracking. Structured data often gives you chances to incorporate those in your expressions.<br />
+<br />
+
+<a id="match_or_split"></a>
+<span class="em8"><a href="#match_or_split">(direct link)</a></span><br />
+✽ <b>Don't Match what Splits Easily, and Don't Split what Matches Nicely.</b><br />
+I explained this point in the section about <a href="#splitvsmatch">splitting vs. matching</a>.
+<br />
+<br />
+
+<a id="design_to_fail"></a>
+<span class="em8"><a href="#design_to_fail">(direct link)</a></span><br />
+✽ <b>Design to Fail.</b><br />
+As Shakespeare famously wrote, <i>"Any fool can write a regex that matches what it's meant to find. It takes genius to write a regex that knows early that its mission will fail."</i> Take <code>(?=.*fleas).*</code>. It does a reasonable job of matching lines that contain <i>fleas</i>. But what of lines that don't have <i>fleas</i>? At the very start of the string, the engine looks all the way down the line. The lookahead fails, the regex engine moves to the second position in the string, and once again looks for <i>fleas</i> all the way down the line. At each position in the string, the engine repeats the lookahead, so that the pattern takes a long time to fail&hellip; In comparison, consider <code>^(?=.*fleas).*</code>. The only difference is the caret anchor. It doesn't look like a big deal, but once the engine fails to find <i>fleas</i> at the start of the string, it stops because the lookahead is anchored at the start. This pattern is designed for failure, and it is much more efficient—<span class="socode">O(N)</span> vs. <span class="socode">O(N<sup>2</sup>)</span> for the first.
+<br /><br />
+
+<a id="dotstar_eol"></a>
+<span class="em8"><a href="#dotstar_eol">(direct link)</a></span><br />
+✽ <b>Trust the Dot-Star to Get You to the End of the Line</b><br />
+With all the admonishments against the dot-star, here is one of many cases where it can be useful. In a string such as <i>@ABC @DEF</i>, suppose you wish to match the last token that starts with <i>@</i>, but only if there is more than one token. If you simply wanted the last, you could use an anchor: <code>@[A-Z]+$</code>&hellip; but that will match the token even if it is the only one in the string. You might think to use a lookahead: <code>@[A-Z].*\K@[A-Z]+(?!.*@[A-Z])</code>. However, there is no need because the greedy <span class="socode">.*</span> already guarantees you that you are getting the last token! The dot-star matches all the way to the end of the line then backtracks, but only as far as needed: You can therefore simplify this to <code>@[A-Z].*\K@[A-Z]+</code> Trust the dot-star to take you to the end of the line!
+<br />
+<br />
+<br />
+
+
+
+<a id="mnemonic"></a>
+<span class="em8"><a href="#mnemonic">(direct link)</a></span><br />
+<h2>Two Mnemonic Devices to Check your Regexps</h2>
+
+
+<div class="pullquote R">
+Greedy atoms anchor again.
+</div>
+
+Until you acquire a lot of practice, it's probably impossible to keep all these rules in mind at the same time. But remembering a few is better than remembering none, so if you're starting out, may I suggest a simple phrase to help remind yourself of tweaks that may improve the expression?<br /><br />
+
+<blockquote><div class="cinter">
+<b>Greedy atoms anchor again.</b>
+</div></blockquote>
+<br />
+
+✽ "Greedy" reminds you to check if some greedy quantifiers should be made lazy, and vice-versa. It also reminds you of the performance hit of lazy quantifiers (backtracking at each step), and of potential workarounds.<br />
+✽ "Atoms" reminds you to check if some parts of the expression should be made atomic (or use a possessive quantifier).<br />
+✽ "Anchor" reminds you to check if the expression should be anchored. By extension, it may remind you of boundaries, and whether to add them—or remove them.<br />
+✽ "Again" reminds you to check if parts of the expression could use the repeating subpattern syntax.
+<br /><br />
+
+If you prefer short mnemonic devices, you may prefer the acronym <b>AGRA</b>, helpful to build the Taj Mahal of regular expressions, and named after the Indian city Agra, best known for the Taj Mahal:<br /><br />
+
+✽ <b>A</b> for Anchor<br />
+✽ <b>G</b> for Greed<br />
+✽ <b>R</b> for Repeat<br />
+✽ <b>A</b> for Atomic<br />
+<br />
+
+
+
+<a href="regex-disambiguation.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" />
+<b>
+&nbsp;Everything you always wanted to know about<br />
+&nbsp;the many pieces of regex syntax that<br />
+&nbsp;start with the letters (?</b>
+</a>
+<br /><br /><br />
+
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Be the First to Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-style.html" method="post" >
+<input type="hidden" name="token" value="78cadf1a5c55ae3a703b2cac61aeb211" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a class="thispage" href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-style.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:08 GMT -->
+</html>

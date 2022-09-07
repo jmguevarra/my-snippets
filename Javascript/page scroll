@@ -1,0 +1,15 @@
+const ctaOnScroll = function(){
+  window.addEventListener('scroll', function(){
+    
+    let popBtnTop = document.querySelector('.single-course .popup-download.btn').offsetTop + 100,
+        mobileCta = document.querySelector('.single-course .mobile-cta');
+    if (this.scrollY >= popBtnTop) {
+      mobileCta.classList.add('on');
+    } else {
+      mobileCta.classList.remove('on');
+    }
+    
+  });
+};
+
+ctaOnScroll();

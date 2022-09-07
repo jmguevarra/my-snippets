@@ -1,0 +1,1700 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regexbuddy-tutorial.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:38 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="RegexBuddy review and tutorial. Presents all the features of RegexBuddy 4." />
+<title>RegexBuddy Tutorial</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li ><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li class="current"><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>The Huge RegexBuddy Tutorial</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+
+<b>TL;DR</b><br/>
+Simply put, RegexBuddy (RB for short) may be the only program you'll ever need to create and test your regular expressions, whichever programming language and regex engine you use. To get started, get the <a rel="nofollow" href="http://yu8.us/rbdemo" >free RegexBuddy trial</a>.
+<br/><br/>
+
+
+With that said, if you participate on forums and StackOverflow, you may like to share links to patterns you've tested, and if so you may also want to use tools mentioned on my main <a href="regex-tools.html#online">regex tools</a> page, as RegexBuddy does not have a regex sharing service at this time.
+<br/><br/>
+
+<div class="pullquote R">
+    When he finished resting, God created RegexBuddy
+</div>
+
+<b>RegexBuddy on other platforms</b><br/>
+RegexBuddy is a Windows program. There's nothing like it on 'nix or OSX, and there probably never will be&mdash;for the simple reason that being intimate with that many regular expressions flavors is a life's work. If you're on linux or OSX and want to do some serious regex work, your best option is to run RegexBuddy with virtualization software such as VMWare, Parallels or Wine. For <a href="https://www.regexbuddy.com/wine.html" target="_blank">Wine</a>, read this first.
+
+<br/><br/>
+
+<b>About this page</b><br/>
+I've been one of RegexBuddy's many rabid fans for a while now. This tutorial aims to give a comprehensive introduction to RB's features. I hope to share that constant feeling of
+<i>awesome</i> one has when working in RB.
+<br/><br/>
+
+I set out with the goal of writing a thorough review of a product I know intimately. A week later, I ended up with something that feels more like a second manual.
+<br /><br />
+
+At the top of most topics, I've added a link that looks like this: <span class="em8"><a href="#nav">(direct link)</a></span>. This is to enable you to point others to that particular topic if you need to.
+<br /><br />
+
+
+<a id="nav"></a>
+<span class="em8"><a href="#nav">(direct link)</a></span><br/>
+<b>Jumping Points</b><br/>
+For easy navigation, here are some jumping points to various sections of the page:<br/><br/>
+✽ <a href="#afford">Can you afford RegexBuddy?</a><br />
+✽ <a href="#author">Who is behind RegexBuddy?</a><br />
+✽ <a href="#what">What is RegexBuddy?</a><br />
+✽ <a href="#languages">RegexBuddy speaks your language</a><br />
+✽ <a href="#quickstart">Quick Start: A few tweaks so you can follow along</a><br />
+✽ <a href="#maintabs">RegexBuddy Interface 101: the Main Tabs</a><br />
+✽ <a href="#modes">RegexBuddy Interface 102: the Three Modes</a><br />
+✽ <a href="#pattern">RegexBuddy Interface 103: the Pattern Boxes</a><br />
+✽ <a href="#history">RegexBuddy Interface 104: the History Pane</a><br />
+✽ <a href="#create"><span class="socode">Create</span> tab: Explain regular expressions</a><br />
+✽ <a href="#test"><span class="socode">Test</span> tab: Write and apply regular expressions</a><br />
+✽ <a href="#debug"><span class="socode">Debug</span> tab: Trace the engine's matching path</a><br />
+✽ <a href="#use"><span class="socode">Use</span> tab: Generate code for your programming language</a><br />
+✽ <a href="#convert"><span class="socode">Convert</span> tab: Translate a pattern to another regex flavor</a><br />
+✽ <a href="#library"><span class="socode">Library</span> tab: Store and retrieve patterns</a><br />
+✽ <a href="#grep"><span class="socode">GREP</span> tab: Use a pattern to search your files</a><br />
+✽ <a href="#forum"><span class="socode">Forum</span> tab: Interact with other RB users</a><br />
+✽ <a href="#controls">RegexBuddy Interface 201: Miscellaneous controls</a><br />
+✽ <a href="#new_language">Adding a Regex Flavor</a><br />
+✽ <a href="#troubleshooting">I know this matches! Is RegexBuddy broken?</a><br />
+✽ <a href="#migrating">How to Copy your RegexBuddy Settings to Another Machine</a><br />
+✽ <a href="#autohotkey">Tweaking your RegexBuddy setup with AutoHotkey</a><br />
+✽ <a href="#misc">Misc Tips</a><br />
+✽ <a href="#wishlist">Wish List</a><br />
+✽ <a href="#links">Related Links</a><br />
+<br/><br />
+
+
+<a id="afford"></a>
+<span class="em8"><a href="#afford">(direct link)</a></span><br/>
+<h2>Can you afford RegexBuddy?</h2>
+Let's get the money question out of the way. Can you afford RegexBuddy? That depends. If you're a teenager trying to scrape the web pages of your high-school's year book, maybe not. If you're a programmer who gets paid to write code, there's a good chance. RB costs about forty bucks. But you don't have to decide now: you can get started with the
+<a rel="nofollow" href="http://yu8.us/rbdemo" >free RegexBuddy trial</a>.
+<br/><br/>
+
+In my view RegexBuddy is one of those programs that are worth their weight in golden bytes. Nearly all of the examples on this website were tested in RB. That being said, RB is not perfect&mdash;what is?&mdash;and a number of committed users pester Jan with minor feature requests, to which he usually responds.
+<br/><br/>
+<br/>
+
+
+
+<a id="author"></a>
+<span class="em8"><a href="#author">(direct link)</a></span><br/>
+<h2>Who is behind RegexBuddy?</h2>
+
+<img src="../b.yu8.us/rexegg/rb-jan.jpg" class="right goldborder dropshadow" width="200" height="302"
+     alt="Jan Goyvaerts"/>
+RegexBuddy is the brainchild of a cool dude called Jan Goyvaerts. You can see him here proudly wearing that seems to be a fake RexEgg shirt while (I'm guessing) holding a RexEgg mug in his left hand and a RexEgg pen in the right (off-camera).
+<br/><br/>
+
+To implement RegexBuddy's cross-language, cross-engine features, Jan has to stay abreast of several dozen regular expressions flavors. This makes him one of the world's foremost experts on regular expressions.
+<br/><br/>
+
+Among other things, Jan is&hellip;<br/><br/>
+
+✽ the co-author of the <a href="http://www.amazon.com/dp/1449319432?tag=onamazon-20" rel="nofollow" target="_blank">Regular
+    Expressions Cookbook, 2nd Ed</a>, which is one of the only two regex books worth reading.
+<br/><br/>
+✽ the author of the <a href="http://www.regular-expressions.info/"
+                       target="_blank">regular-expressions.info</a> website, which is the top-rated regular expressions website in Google, a rank to which RexEgg is unlikely to catch up before Jan retires.
+<br/><br/>
+
+✽ the author of the proprietary JGsoft regex engine, one of the most powerful regex engines around, which powers RegexBuddy and Jan's other software products.
+<br /><br />
+
+✽ the author of a brilliant regex-friendly text editor called <a rel="nofollow" target="_blank" href="http://www.editpadpro.com/cgi-bin/affref.pl?aff=playful">EditPad Pro</a> (a <a rel="nofollow" href="http://yu8.us/eppdemo" >free EditPad Pro trial</a> is available) and of a powerful text-processing tool called <a rel="nofollow" target="_blank" href="http://www.powergrep.com/cgi-bin/affref.pl?aff=playful">PowerGREP</a> (you can download a <a rel="nofollow" href="http://yu8.us/pgdemo" >free PowerGREP trial</a>). Both of these use the afore-mentioned JGsoft regex engine.
+<br/><br/>
+✽ the owner of two of the legendary (and now rare) <a href="http://en.wikipedia.org/wiki/DataHand" target="_blank">DataHand</a> keyboards.
+<br/><br/>
+✽ the co-star (next to Johnny Depp) of the long-awaited <i>Lord of the Regex</i>.
+<br/><br/>
+
+One of the items on this list is fictional. Can you tell which? To earn a free RegexBuddy trial, fedex your answer to Bill Gates.
+
+
+<br /><br /><br />
+
+
+
+<a id="what"></a>
+<span class="em8"><a href="#what">(direct link)</a></span><br/>
+<h2>What is RegexBuddy?</h2>
+RegexBuddy is a tool that helps you at all stages of a regular expression's life.<br/>
+It can help you:<br/><br/>
+
+✽ Create and test regular expressions for the specific regex
+engine of your target platform&mdash;Python, Java, .NET, JavaScript, C, PHP, Perl and <a href="#languages">countless others</a>.
+<br/><br/>
+
+✽ Perform <a href="#test">real actions</a> on real text and even web pages: extract all matches in a document; decorate extracted information to build a useful list; perform complex replacements; split a file into several components.
+<br /><br />
+
+✽ Either build patterns with <a href="#assisted_insertion">expert assistance</a> as you tell the program the kind of tokens you'd like to insert, or<br/><br/>
+
+✽ build patterns by typing them in yourself. Either way, RegexBuddy gives you <a href="#test">instant feedback</a> on the matches in your text.
+<br/><br/>
+
+✽ Switch back and forth between potential regex variations using a pattern "<a href="#history">scratch pad</a>".<br/><br/>
+
+✽ Manage your favorite expressions by saving them to a <a href="#library">library</a>.<br/><br/>
+
+✽ <a href="#use">Generate code</a> to integrate your regular expressions in a target language&mdash;and customize that boiler-plate code by defining templates.
+<br/><br/>
+
+✽ <a href="#comparing">Compare</a> what a regex pattern (or, more usefully, a single token) means in various engines.<br/>
+<br/>
+
+✽ <a href="#convert">Translate</a> a regex pattern from the syntax of one regex engine to that of another engine.<br/><br/>
+
+✽ <a href="#create">Understand</a> patterns you inherited by reading plain-English token-by-token explanations.<br/><br/>
+
+✽ Export such explanations in various formats such as text and html.<br/><br/>
+
+✽ <a href="#debug">Debug</a> an expression by observing the path followed by the regex engine.<br/><br/>
+
+✽ Match or replace text in files thanks to the integrated <a href="#grep">GREP tool</a>.<br/><br/>
+
+✽ And more (really!)<br/>
+<br/><br/>
+
+
+<a id="languages"></a>
+<span class="em8"><a href="#languages">(direct link)</a></span><br/>
+<h2>RegexBuddy speaks your language</h2>
+
+<img src="../b.yu8.us/rexegg/rb-languages3.png" class="left goldborder dropshadow" width="195" height="585"
+     alt="Partial list of supported languages in RegexBuddy"/>
+
+<br/>
+When you create or test a regular expression in RegexBuddy, you select its target environment.<br /><br />
+
+Since different languages use different regex engines which differ in features and behavior, you'll want to specify whether you're working in C#, Java, Python, Ruby etc. But it gets more specific. Regex engines are constantly updated, so you'll also want to tell RegexBuddy which version of the engine or language you're working with&mdash;for instance Java 13 or PCRE 25.6. (Yeah I know, these might not be out yet.) RegexBuddy knows all these details!
+<br /><br />
+
+Through these combinations of engines, languages and versions, RegexBuddy supports over two hundred target environments. You can even add flavors whose features you define yourself.
+<br/><br/>
+
+You don't have to look at this Smörgåsbord of languages in the drop-down list: at the top of the list, after you select <i>More applications and languages</i> (highlighted in yellow on the image), the full list appears with check boxes allowing you to populate the everyday drop-down you'll be using.
+<br /><br />
+
+<b>Translating between languages</b><br />
+Sometimes, you have a PCRE regex and need to make it work in JavaScript. Will it work? JavaScript's regex flavor is so crippled that there's a good chance a token won't work and you will have to look for a different idiom. RegexBuddy lets you <a href="#compare">compare</a> what tokens mean in different regex flavors, as well as <a href="#convert">translate</a> from one flavor to another. We'll look at these features later.<br /><br /><br />
+
+
+
+
+<a id="quickstart"></a>
+<span class="em8"><a href="#quickstart">(direct link)</a></span><br/>
+<h2>Quick Start: A few tweaks so you can follow along</h2>
+
+To call this section a <i>quick start</i> might be false advertising as this tutorial is taking you on a journey into the depths of RegexBuddy. By the end, you'll be well on your way to becoming a RegexBuddy ninja. But if you're planning to follow along, I thought I'd mention some quick adjustments so that your screen looks much like mine.<br /><br />
+
+<b>Full-screen mode</b><br />
+Go ahead, maximize the RegexBuddy window if you haven't already done so. When working with regular expressions, there's a lot you need to keep track of. I can't work in RB unless it's in full-screen mode.
+<br /><br />
+
+
+<b>Default layout</b><br />
+<img src="../b.yu8.us/rexegg/rb-layout.png" class="right goldborder dropshadow" width="137" height="38" alt="RegexBuddy layout menu" /> On most of my screenshots, all eight of the main tabs are in a single row. If you're in a different layout, you may want to switch back to the default. Click the <i>View</i> menu (circled on the image) and save your layout if you like it (Custom layouts / Save layout), then pick <i>Restore default layout</i>. Unable to restore the default layout? See <a href="#restore-default-layout">this tip</a>.
+<br /><br />
+
+
+Still in the <i>View</i> menu, make sure that <i>Lock Toolbars</i> is checked. This will prevent you from repositioning interface elements inadvertently.
+<br /><br />
+
+
+<b>Show controls as toggles</b><br />
+<img src="../b.yu8.us/rexegg/rb-prefs.png" class="right goldborder dropshadow" width="137" height="38" alt="RegexBuddy preferences menu" />
+Some toolbar controls can either be shown as drop-down menus or as toggle buttons. To see the same as on my screenshots, click the Prefs menu (circled on the right), click the <i>Operation</i> tab and select the third option (<i>Show options that can be changed with toggle buttons that indicate the "on" state</i>).
+<br /><br />
+
+
+<b>Pimping up the interface</b><br />
+There are more tweaks we can do to the interface (colors schemes! fonts!), and we'll get into those <a href="#controls">later</a>, but for now this will do. Let's dive into the interface.<br /><br /><br />
+
+
+
+<a id="maintabs"></a>
+<span class="em8"><a href="#maintabs">(direct link)</a></span><br/>
+<h2>RegexBuddy Interface 101: the Main Tabs</h2>
+The RegexBuddy interface looks innocent and simple, but it hides a lot of power.<br />
+Let's dive in!<br/><br/>
+
+The core of the interface&mdash;the section you need to understand first&mdash;are the eight tabs shown on the picture below. You can <a href="#layouts">reposition the tabs</a> so your list might be in a different order.
+<br /><br />
+
+<div class="cinter"><img src="../b.yu8.us/rb4-tabs2.png" class="goldborder dropshadow" width="500" height="33" alt="regexbuddy tabs"/></div>
+<br/><br />
+
+These eight tabs determine what we are doing: <br /><br />
+
+1. explaining a regular expression (<span class="socode"><a href="#create">Create</a></span>),<br />
+2. translating between flavors (<span class="socode"><a href="#convert">Convert</a></span>),<br />
+3. building a pattern and running it against sample text or files (<span class="socode"><a href="#test">Test</a></span>),<br />
+4. tracing the engine's matching path (<span class="socode"><a href="#debug">Debug</a></span>),<br />
+5. integrating the pattern in your target language (<span class="socode"><a href="#use">Use</a></span>),<br />
+6. storing and retrieving patterns from custom libraries (<span class="socode"><a href="#library">Library</a></span>),<br />
+7. using the pattern to search your files (<span class="socode"><a href="#grep">GREP</a></span>),<br />
+8. interacting with Jan and RegexBuddy users (<span class="socode"><a href="#forum">Forum</a></span>).<br />
+<br />
+In later sections, we'll look at each of these tabs.
+
+<br /><br />
+<br />
+
+
+<a id="modes"></a>
+<span class="em8"><a href="#modes">(direct link)</a></span><br/>
+<h2>RegexBuddy Interface 102: the Three Modes</h2>
+
+When you work on a regular expression in RB, you select one of three modes, corresponding to the three main tasks we set out to perform with regular expressions:<br /><br />
+
+1. <span class="socode">Match</span><br />
+2. <span class="socode">Replace</span><br />
+3. <span class="socode">Split</span><br />
+<br />
+
+This selection takes place in the very top toolbar.
+<br /><br />
+
+
+<div class="cinter"><img src="../b.yu8.us/rexegg/rb-modes.png" width="550" height="61" class="goldborder dropshadow" alt="RegexBuddy's three modes: match, replace and split"/></div>
+<br /><br />
+
+In <span class="socode">Match</span> mode, RegexBuddy highlights the matches in the text and builds additional views showing extracted components. In addition to matching, <span class="socode">Replace</span> mode lets you specify a replacement pattern, while <span class="socode">Split</span> lets you divide the sample text using the pattern as a delimiter.
+<br /><br />
+
+Depending on which mode you select, the section below the toolbar presents a slightly different face. For instance, in <span class="socode">Replace</span> mode, there is a text box for the replacement pattern.
+<br /><br /><br />
+
+
+
+<a id="pattern"></a>
+<span class="em8"><a href="#pattern">(direct link)</a></span><br/>
+<h2>RegexBuddy Interface 103: the Pattern Boxes</h2>
+Below the buttons for the three operating modes, you'll find the box where you develop your regular expression patterns.
+<br /><br />
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/regexbuddy-pattern-box.png" class="goldborder dropshadow" width="550" height="62" alt="RegexBuddy box for regular expression" />
+</div>
+<br /><br />
+
+There are two main ways to work in this window:<br /><br />
+
+1. Freehand regex writing. You just type your expressions in the window. <br />
+2. Assisted token insertion. You insert tokens by picking them from a list.<br />
+<br />
+
+You can use both methods together. For instance, while I work in freehand mode 99% of the time, when I've forgotten the syntax for, say, a named capture group in C#, I just get RegexBuddy to insert it.<br /><br />
+
+
+<img src="../b.yu8.us/rexegg/rb-insert-token.png" class="left goldborder dropshadow" width="200" height="376" alt="Insert token in RegexBuddy" />
+<a id="assisted_insertion"></a>
+<span class="em8"><a href="#assisted_insertion">(direct link)</a></span><br/>
+
+<b>Assisted Token Insertion: two ways</b><br />
+There are two ways to have RB insert tokens for you.<br /><br />
+
+- You can right-click in the text box for the pattern. <br />
+- You can go to the <span class="socode"><a href="#create">Create</a></span> tab and use its "Insert Token" pull-down menu.<br />
+<br />
+
+
+<b>Unicode</b> is one place where I find token insertion particularly useful. The insert pull-down allows you to insert:<br /><br />
+
+- specific characters (such as <span class="socode">\x{20AA}</span> for ₪) which you select on a character map<br /><br />
+- tokens to match specific scripts, such as <span class="socode">\p{Hiragana}</span><br /><br />
+- tokens to match specific categories, such as <span class="socode">\p{Sm}</span> to match a math symbol.<br />
+
+
+<br style="clear: both;"/><br />
+
+<a id="highlighting"></a>
+<span class="em8"><a href="#highlighting">(direct link)</a></span><br/>
+<b>Syntax Highlighting</b><br />
+The various tokens are colored according to their semantic value. <br /><br />
+
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-syntax-highlighting.png" class="goldborder dropshadow" width="550" height="24" alt="Syntax highlighting in RegexBuddy" />
+</div><br />
+
+For instance, on the picture, you can see that character classes have a lovely shade of ocher. In addition, when you move around the regex with the cursor, the closest nesting construct (such as parentheses or square brackets) is highlighted in aqua. See the aqua parentheses at the end of the line? The aqua makes it easier to know where you are and to identify closing parentheses. <br /><br />
+
+
+<img src="../b.yu8.us/rexegg/rb-prefs-icon.png" class="right goldborder dropshadow" width="35" height="34" alt="RegexBuddy Prefs icon" />You can customize colors in the Preferences menu, which is accessed by clicking the icon shown on the right (it lives at the top right of the interface). I keep the colors the way they are, but a decent easy tweak would be to use the provided "white on black" theme.<br /><br />
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/regexbuddy-pattern-box-black.png" class="goldborder dropshadow" width="550" height="57" alt="RegexBuddy patter white on black" />
+</div>
+<br /><br />
+
+<b>Love that color? Use it everywhere.</b><br />
+Anytime you see colored syntax in RegexBuddy, if you paste it in programs that understand rich text formatting, the coloring comes with it. The screenshot shows an RB regex in MS Word.
+<br/><br/>
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/regexbuddy-in-word2.png" class="goldborder dropshadow" width="275" height="129" alt="Formatted RegexBuddy pattern in MS Word" />
+</div><br />
+
+Jan tells me that Word messes up the colors by reducing them to a 16-color VGA palette while simple old WordPad does not mess them up.
+
+
+<br /><br />
+
+
+<a id="replace"></a>
+<span class="em8"><a href="#replace">(direct link)</a></span><br/>
+<b>Replace Text Box</b><br />
+In <span class="socode">Replace</span> mode, the regex pattern's text box shrinks to make space for a second text box. <br /><br />
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-replace-box.png" class="goldborder dropshadow" width="550" height="77" alt="RegexBuddy replacement pattern text box" />
+</div>
+<br />
+
+That is where you specify the replacement pattern. If you've forgotten the back-reference syntax of your target engine, right-click inside the text box: RegexBuddy offers to insert the token for you.
+<br /><br />
+<br />
+
+
+<a id="history"></a>
+<span class="em8"><a href="#history">(direct link)</a></span><br/>
+<h2>RegexBuddy Interface 104: the History Pane</h2>
+
+<img src="../b.yu8.us/rexegg/rb-history-pane.png" class="right goldborder dropshadow" width="237" height="174" alt="RegexBuddy History Pane" />
+At the top right or RegexBuddy, you'll find a little box that I use all the time: the History pane.
+<br /><br />
+Jan intended for the History pane to be a scratch pad where you temporarily stash various versions of expressions you're working on. For that purpose, it works brilliantly. You can add, remove and rename patterns, and you can reorder the list.<br /><br />
+
+What Jan didn't foresee is that some people would use the History pane to stash expressions on a semi-permanent basis. For that purpose, he had created the <span class="socode"><a href="#history">Library</a></span> tab. But using the Library usually means you have to shift to another tab, and people are lazy. (You can actually create a <a href="#library_layout">layout where the library replaces the history pane</a>.)
+<br /><br />
+
+I spend most of my RB hours in the <span class="socode"><a href="#test">Test</a></span> tab, and the History pane makes it easy to manage multiple expressions I'm working on. When I build something that I feel I might reuse, I move it to the library. <br /><br />
+
+One way I like using the History pane is to name a number of presets after different regex engines. That way when I need to build something for C#, I just click the C# item and I'm ready to go.
+
+<br /><br />
+As a result of the History pane's mission as a scratch pad, it lacks features that you'll soon miss if you use it a lot, such as saving different subjects for different patterns. Backups also involve some leg work, such as moving items to a library or messing with the <i>INI</i> file.
+<br /><br />
+
+<b>Warning: don't lose all your history</b><br />
+<img src="../b.yu8.us/rexegg/rb-clear-history.png" class="right goldborder dropshadow" width="237" height="" alt="63" />One thing that's happened to me too many times is that to delete a pattern, I've mistakenly clicked the "Clear All" button (circled on the right) instead of the Delete button. As of RB 4.6.1, there's no confirmation dialog. In my view that's a big problem that needs to be fixed as hours of work can too easily be lost. Don't be that guy!<br /><br />
+
+In the meantime, I've provided a <a href="#autohotkey">solution</a> that you'll find later on the page: a AutoHotkey script that, in addition to providing some cool keyboard shortcuts, makes it impossible to click on the buttons of the History pane. In my view it's well worth spending the two minutes to install AutoHotkey just for this.
+<br /><br />
+
+
+
+<b>My two cents: the History pane should just be a special Library</b><br />
+Given the way many people are using the History pane, it seems to me that the history pane should just be a special library (<i>history.rbl</i>)&mdash;with all the benefits of a library, such as the ability to store dedicated subjects for each pattern. In fact Jan has announced that this is his exact plan.<br /><br />
+
+Often, you want to use the same text for multiple patterns. Cloning text and patterns across multiple entries of a special <i>ScratchPad.rbl</i> library could be gracefully handled by an item on the revised History pane's menu.
+<br /><br />
+
+
+A number of controls and menus complete the interface, but it's time to dive into the tabs. We'll visit the <a href="#controls">rest of the interface</a> later.
+
+
+<br /><br />
+Alright, let's dive into the tabs.
+<br /><br /><br />
+
+
+
+
+<a id="create"></a>
+<span class="em8"><a href="#create">(direct link)</a></span><br/>
+<h2><span class="socode">Create</span> tab: Explain regular expressions</h2>
+
+The title of this tab&mdash;<i>Create</i>&mdash;is a bit of a misnomer, perhaps a leftover from earlier versions. I've used this tab a lot, but not once have I used it to <i>create</i> a regex pattern!
+<br /><br />
+
+Sure, you can use the <i>Insert Token</i> pull-down menu to have RB's gentle hand pick the right syntax for a Unicode titlecase letter. That's wonderful, but you can also do that directly by right-clicking in the regex text box, without ever leaving the comfort of the <span class="socode">Test</span> tab.<br /><br />
+
+
+So what's the point of the <span class="socode">Create</span> tab? My view is is that in the next major RB version it should be renamed the <span class="socode">Explain</span> tab. I'll warn you now that I'll be thick-headed about this for the rest of the tut. Besides, who doesn't like the word <i>Explain</i>? It reminds me of happy times spent in a SQL console&mdash;SQL, another declarative language.
+<br /><br />
+
+Besides inserting tokens, here is what the <span class="socode">Explain</span> tab (mmm, sorry, the <i>Create</i> tab) does really well.<br /><br />
+<br />
+
+<a id="explain"></a>
+<span class="em8"><a href="#explain">(direct link)</a></span><br/>
+<b>Explain a Regular Expression and a Replacement Pattern</b><br />
+<img src="../b.yu8.us/rexegg/rb-explain.png" class="right goldborder dropshadow" width="214" height="275" alt="RegexBuddy explains a regular expression" />
+Most of the real estate in this tab is dedicated to explaining the regex, as well as the replacement pattern if there is one.
+<br /><br />
+The explanation lines "talk" to the regex and the replacement text boxes. When you click somewhere in the regex or replacement pattern, the corresponding line is highlighted in the explanation. When you click on a line of the explanation, the cursor moves in the regex or replacement box. This makes it really easy to pinpoint whatever section you need to clarify.
+<br /><br />
+
+Even if you think you know regex syntax backwards and forwards, this can be surprisingly helpful, as RegexBuddy provides way more detail than most of us keep in our heads, especially if you select the <i>detailed</i> mode (circled on the pull-down).
+<br /><br />
+
+Feel like taking the challenge? Select the PCRE regex flavor from the pull-down at the top left, then paste <span class="socode">(?m)^</span> in the regex window. In the mode selectors at the top, make sure "LF Only" is <b>not</b> selected. In the <span class="socode">Explain</span> tab (cough&hellip; <i>Create</i>) select Detailed mode, click on the <span class="socode">^</span> in the regex window, look at the explanation. You knew all that, so what's the big deal? Now switch the regex flavor to Java. Holy smokes! The explanation is nearly twice as long.
+<br /><br />
+<br />
+
+<a id="explain-share"></a>
+<span class="em8"><a href="#explain-share">(direct link)</a></span><br/>
+<b>Sharing Regex Explanations</b><br />
+<img src="../b.yu8.us/rexegg/rb-explain-export.png" class="right goldborder dropshadow" width="108" height="67" alt="Share regex explanations from RegexBuddy" />
+What I've used the <span class="socode">Explain</span> tab (yeah, I know) the most is to share regex explanations. For this, there are two magic buttons: <i>Export</i> and <i>Copy</i>. For some reason, <i>Copy</i> doesn't yet have a label, but I'm sure Jan will fix that down the line.
+<br /><br />
+The two buttons offer the same three ways of formatting the explanation (plus two variations). The difference is that <i>Export</i> outputs the explanation to a file, while <i>Copy</i> outputs it to your clipboard. Here are the three core formats:<br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-explain-html.png" class="left goldborder dropshadow" width="200" height="240" alt="RegexBuddy outputs html explanation" /><br />
+1. <b>Plain text.</b> As the name suggests, with pleasant indentation.<br /><br />
+
+2. <b>Markdown.</b> This is perfect if you're answering questions on StackOverflow and don't feel like crafting your own explanation. (Not sure if that's the right strategy but it will give you lots of ink very fast.)<br /><br />
+
+3. <b>Html.</b> This creates code for a beautiful interactive webpage. Thanks to some JavaScript, the pattern and the explanation talk to each other: depending on where you hover, both the token and the explanation line are highlighted. Neat!
+<br /><br /><br />
+
+
+
+<a id="compare"></a>
+<span class="em8"><a href="#compare">(direct link)</a></span><br/>
+<b>Compare the meaning of a pattern in various regex flavors</b><br />
+<img src="../b.yu8.us/rexegg/rb-compare.png" class="left goldborder dropshadow" width="178" height="178" alt="RegexBuddy compare meaning of pattern in various regex engines" />
+This is another feature of the <span class="socode">Explain</span> tab (no apologies this time) that I've found immensely helpful: it enables you to compare what your regex would mean (if anything) in a different engine.<br /><br />
+
+In the pull-down menu, you select one target regex flavor&mdash;or, by selecting the <i>More applications</i> item at the top, you check boxes in order to run a multi-language comparison. The explanations are often illuminating: you realize that syntax that seems identical on the surface handles a number of details differently. And where is the devil? In the details. No wonder some people say the devil invented regex.
+<br /><br />
+
+For me, the compare function might at its most useful when comparing the meaning of single tokens&mdash;instead of full patterns, for which explanations explode into more lines than I can handle. For instance, if you'd like to take the <i>Compare</i> function for a spin, have a go at running it for a regex containing this single token: <span class="socode">^</span>. Hint: include Ruby in the list of engines you select.
+<br /><br />
+
+<b>One last thought about renaming the <span class="socode">Create</span> tab to <span class="socode">Explain</span></b><br />
+One added benefit is that each of the eight tabs would have a unique initial:<br /> <b>T</b>est, <b>U</b>se, <b>L</b>ibrary, <b>E</b>xplain, <b>C</b>onvert, <b>D</b>ebug, <b>G</b>rep, <b>F</b>orum. That's a dream situation for keyboard shortcuts (at the moment the <i>C</i> in <i>Create</i> clashes with <i>Convert</i>). The <a href="#autohotkey">custom keyboard shortcuts</a> script I share at the bottom takes advantage of this (in the meantime, <i>E</i> is also in crEate.)
+
+
+<br /><br /><br />
+
+
+
+<a id="test"></a>
+<span class="em8"><a href="#test">(direct link)</a></span><br/>
+<h2><span class="socode">Test</span> tab: Write and apply regular expressions</h2>
+
+The <span class="socode">Test</span> tab is where I spend most of my time. I love it. On the screenshot, you can see that we work in three zones: the regex, the text, and the results. What you do in the regex box immediately affects what you see in the other two&mdash;as long as you have the right options selected (more about this shortly). Likewise, if you change the test, the highlighted matches do, as do the results in the bottom pane.
+<br /><br />
+
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-test.png" class="right goldborder dropshadow" width="600" height="245" alt="RegexBuddy test tab" />
+</div><br />
+
+On the screenshot, the middle pane is the subject text. One of the matches is highlighted. In the bottom pane (the results pane), I have asked RB to display the text captured by group 2.
+<br /><br />
+<br />
+
+
+<a id="important_options"></a>
+<span class="em8"><a href="#important_options">(direct link)</a></span><br/>
+<b>Some options you <i>MUST</i> know about in the Test tab</b><br />
+
+In order to see beautiful results as in the screenshot, some things have to be in order. Sure, the regex has to match, you must select the right mode (Match, Replace, Split) and you must make sure the various matching <a href="#controls">controls</a> are right. But even when all of this is right, the results may not show what you expect unless you pay attention to the following.
+<br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-test-highlight.png" class="right goldborder dropshadow" width="106" height="34" alt="RegexBuddy highlight button" />
+✽ <b>Highlight.</b> Toggling this button turns the highlighting on and off in the text pane. The pull-down menu offers to highlight one of the capture groups as well. I leave highlighting on most of the time.
+<br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-test-listall.png" class="right goldborder dropshadow" width="185" height="32" alt="RegexBuddy List / Replace buttons" />
+✽ <b>List All / Replace All.</b> The screenshot lies&mdash;you only see the <i>List All</i> part when in Match mode and the <i>Replace</i> part while in Replace mode. And of course they have a cousin: <i>Split</i> mode. The <i>List All</i> and <i>Replace</i> pulldowns are extremely important because they drive what you see in the Results pane at the bottom. In both cases, you usually want to click the pull-down menu and <span class="yglo">ensure that the <i>Update Automatically</i> option is checked</span>.
+<br /><br />
+
+Within the <i>List All</i> pulldown, you can choose to show the matches, selected groups or two composite views. In the <i>Full details</i> view, pay close attention to the <span class="operator">+</span> symbol in the left margin, as you'll need to click it to see match details. If you want to count matches, at the moment, this view is the most convenient way to do so; since the matches are numbered, just navigate to the bottom.<br /><br />
+
+In the <i>Replace All</i> pulldown, you can chose either to replace all the matches directly in the text pane, or to build a list of replacements in the Results pane. You can copy text from either pane.
+<br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-test-wholefile.png" class="right goldborder dropshadow" width="141" height="45" alt="RegexBuddy Whole file / Line by line button" />
+✽ <b>Whole File / Line by Line.</b> This pull-down determines whether the regex is applied one line at a time, one page at a time, or to the whole file. This makes a big difference! Often, when I scratch my head as to why a pattern is not working, this setting is the culprit.
+<br /><br />
+
+
+
+<img src="../b.yu8.us/rexegg/rb-test-linebreaks.png" class="right goldborder dropshadow" width="279" height="47" alt="RegexBuddy Line breaks button" />
+✽ <b>Line Breaks.</b> Sometimes, line breaks really matter to your regex&mdash;for instance when you'd prefer the dot and <span class="socode">$</span> anchor to only consider the <span class="socode">\r\n</span> combination as a line break, but neither lone carriage returns nor new lines. The line breaks pull-down is for such time: it can override automatic conversions. For everyday work, select <i>Automatic line breaks</i>. The details are intricate: if you want to know more, read the docs.
+<br /><br />
+<br />
+
+<b>Other controls in the <span class="socode">Test</span> tab</b><br />
+I'll briefly mention the other controls in the tab.<br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-test-open.png" class="left goldborder dropshadow" width="43" height="28" alt="Open" /><br />
+The <i>Open</i> pull-down at the very left lets you load a text file into the test field.<br style="clear:both;"/><br />
+
+<img src="../b.yu8.us/rexegg/rb-test-save.png" class="left goldborder dropshadow" width="42" height="26" alt="Save" /><br />
+The <i>Save</i> pull-down lets you save test text or results.<br style="clear:both;"/><br />
+
+<img src="../b.yu8.us/rexegg/rb-test-paste.png" class="left goldborder dropshadow" width="41" height="28" alt="Paste" /><br />
+The <i>Paste</i> pull-down offers an array of ways to paste your clipboard. I've never used it but I'm sure it's valuable to some. <br style="clear:both;"/><br />
+
+<img src="../b.yu8.us/rexegg/rb-test-web.png" class="left goldborder dropshadow" width="44" height="29" alt="Web button" /><br />
+The <i>Open url</i> pull-down is the scraper's friend. It lets you enter a url address, then downloads the page and dumps it into the text pane. The pull-down remembers sites you've visited.<br style="clear:both;"/><br />
+
+
+<img src="../b.yu8.us/rexegg/rb-test-debug.png" class="left goldborder dropshadow" width="89" height="28" alt="RegexBuddy debug button" /><br />
+The <i>Debug</i> button activates the <span class="socode">Debug</span> tab. Its usage is explained in the <a  href="#debug">next section</a>.<br style="clear:both;"/><br />
+
+<img src="../b.yu8.us/rexegg/rb-test-arrows.png" class="left goldborder dropshadow" width="61" height="27" alt="Arrows" /><br />
+The back and forward arrows navigate the highlighted matches.
+<br style="clear:both;"/><br /><br />
+<br />
+
+
+<a id="debug"></a>
+<span class="em8"><a href="#debug">(direct link)</a></span><br/>
+<h2><span class="socode">Debug</span> tab: Trace the engine's matching path</h2>
+
+The <span class="socode">Debug</span> tab shows you the engine's path as it attempts matches on the subject. This is handy for two kinds of situations:<br /><br />
+
+- when you want to show someone how an engine works,<br />
+- when you're at a loss as to the engine's behavior.<br /><br />
+
+When using the <span class="socode">Debug</span> tab, I switch to my <i>Debug</i> custom layout (see the <a href="#layouts">section on layouts</a>), which has the <span class="socode">Test</span> and <span class="socode">Create</span> tabs to one side and the <span class="socode">Debug</span> tab to the other.
+<br /><br />
+
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-debug-create3.png" class="goldborder dropshadow" width="600" height="216" alt="Debugging in RegexBuddy" />
+</div>
+<br /><br />
+
+
+<b>How to launch the debug trace</b><br />
+If you switch to the <span class="socode">Debug</span> tab, you'll notice that it shows you nothing like what's on the screenshot. Instead, it tells you to first switch to the <span class="socode">Test</span> tab, because that's where debug operations are launched.<br /><br />
+
+If you want to debug the match attempts starting at a particular position in the subject string, place the cursor at the corresponding position in the text box. If you intend to test everywhere, no need for that step. Next select the <i>Debug</i> pull-down menu that lives within the text tab. There are three options:<br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-debug-pulldown.png" class="right goldborder dropshadow" width="165" height="112" alt="Debug menu pull-down" />
+
+✽ <i>Debug Here</i> is for when you want the debugger to show exactly <b>one</b> match attempt starting at the position in the text where you have your cursor (or at the start of the highlighted match if the cursor is on a highlighted match),<br /><br />
+
+✽ <i>Debug Till End</i> is for when you want the debugger to show all match attempts from your cursor position to the end of the string,<br /><br />
+
+✽ <i>Debug Everywhere</i> is for when you want the debugger to show all match attempts from the beginning of the string till the end.<br />
+<br />
+
+Why wouldn't you want to always use <i>Debug Everywhere</i>? Because it can generate a lot of noise in the results of the <span class="socode">Debug</span> tab. Usually, when you debug, you know exactly where you expect the match attempt to succeeds, so you can skip the other match attempts. If that's the case, place your cursor at the string position where you expect a match and select <i>Debug Here</i>. In fact, that's too many clicks: without touching the pull-down menu, click the <i>Debug</i> button directly as <i>Debug Here</i> is its default action.
+<br /><br />
+
+
+<b>Understanding Debug Results</b><br />
+Reading the results of the debug output takes a bit of getting used to. If you have multiple match attempts, you first need to expand them and pick one to examine (one of the reasons why <i>Debug Here</i> is often a better option).
+<br /><br />
+
+The key to using the <span class="socode">Debug</span> pane is to know that it "talks" to three other components. When you click somewhere in the debug window, the relevant sections of these elements (if currently displayed)  are highlighted:<br />
+- the regex pattern,<br />
+- the text box in the <span class="socode">Test</span> tab,<br />
+- the explanation in the <span class="socode">Create</span> tab.
+<br /><br />
+
+That's why the side-by-side layout is helpful.
+<br /><br />
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-debug-test2.png" class="goldborder dropshadow" width="600" height="136" alt="Debugging in RegexBuddy" />
+</div>
+<br />
+<br />
+
+<a id="static-debug-view"></a>
+<span class="em8"><a href="#static-debug-view">(direct link)</a></span><br/>
+<b>Static View</b><br />
+RegexBuddy's debug trace is a wonderful feature. And yet I don't use it all that much because the presentation is not ideal for how I grasp things.
+<br /><br />
+Ideally, I would like to see two columns in the <span class="socode">Debug</span> tab: one showing a "string pyramid" (as it currently does), one showing the token being attempted on each line (or the beginning of the sub-expression if it's too long to display).
+<br /><br />
+For many debugging tasks, this would make it easier for me to understand what is happening because I would be looking at a static view (an unchanging picture), in contrast to the current view, which is "cinematic": you have to move through the match attempt to see the tokens being attempted at each step. Hopefully, such a view will be added in a future release.
+<br /><br />
+<br />
+
+
+<a id="use"></a>
+<span class="em8"><a href="#use">(direct link)</a></span><br/>
+<h2><span class="socode">Use</span> tab: Generate code for your programming language</h2>
+
+The Use tab helps you integrate your regex into the programming language of your choice by generating code. In the <i>Function</i> pull-down, you select one of several templates, such as <i>Iterate over all matches and capturing groups</i>.
+<br/><br />
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-use.png" class="goldborder dropshadow" width="600" height="98" alt="RegexBuddy Use tab" />
+</div><br />
+
+Depending on the template, RegexBuddy may present text boxes for you to enter custom names for variables used in the generated code. In the above screenshot, notice how I typed <span class="socode">news_post</span> and <span class="socode">have_title</span>, and how RB used these names in the code.
+<br /><br />
+
+<b>Perfectly formatted regex strings</b><br />
+One of the benefits of using RegexBuddy's templates is that RB handles the sometimes gruesome formatting your regex must undergo before it can live in your target language. For instance, some characters may need to be escaped; or, as in the screenshot, some options may need to be set in a matching function.
+<br/><br/>
+<br />
+
+
+<a id="code_templates"></a>
+<span class="em8"><a href="#code_templates">(direct link)</a></span><br/>
+<b>Customizing and adding code templates (just do it!)</b><br />
+Every coder has her own coding style. The templates that ship with RB are only meant as a starting point. Make them your own! You can either tweak the existing templates or add new ones. I find this tremendously useful. Here are some examples of templates I write:<br /><br />
+
+1. <b>House style and documentation.</b> You may not write your method calls exactly how Jan has provided them. A custom template lets you feel at home, and also allows you to insert any comments you like.
+<br /><br />
+
+2. <b>Complete scripts.</b> Sometimes you want to give someone a full working demo of a regex operation. With a template, I can generate a self-standing C# command-line program or Python script.
+<br /><br />
+
+3. <b>Same engine, new contexts.</b> RegexBuddy fully understands PCRE, but PCRE is integrated in many projects, and naturally RB cannot provide templates for every possible context. With custom templates, I can generate code using the PCRE engine in contexts such as Apache, MariaDB and AutoHotkey.
+
+<br /><br />
+Here's how to create a template. <br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-use-edit.png" class="right goldborder dropshadow" width="30" height="30" alt="RegexBuddy template editor button" />
+✽  Click the <i>Template Editor</i> button. The default template for the chosen language appears.
+<br /><br />
+
+✽  Navigate to the <i>General</i> tab. Add a personal suffix to the language name, turning it into something such as <span class="socode">Python 2.7 [Rex]</span>. This will make things easier later when you want the ability to select between your template and the original.
+<br /><br />
+
+✽ Click <i>save</i>. Note that all custom templates go to your RegexBuddy settings folder, i.e. <span class="socode">%AppData%\JGsoft\RegexBuddy 4</span>, without disturbing the originals in <span class="socode">%programfiles%\Just Great Software\RegexBuddy 4</span>. You cannot save them anywhere else. <br /><br />
+
+✽ I usually don't mess much with the rest of the tab and tend to leave the <i>Modes</i> tab alone (I'll explain it later). The <i>Functions</i> tab is where all the action happens. <br /><br />
+<img src="../b.yu8.us/rexegg/rb-use-new.png" class="right goldborder dropshadow" width="57" height="20" alt="New regex template icon" />
+✽ In the <i>Functions</i> tab, click the <i>New</i> icon. On the left, you'll see a new function called <i>&lt;new function&gt;</i>. On the right, the form lets you edit the new function.<br /><br />
+
+✽ Start by editing the name. As you do, the name changes on the left. Hit the <i>Save</i> icon at the top.
+<br /><br />
+
+✽ Note that you can always remove a function using the <i>Delete</i> button.<br /><br />
+
+✽ In the text box to the right, type or paste your template. Note the preview on the left.<br /><br />
+
+✽ Note that the form lets you specify some input parameters. For instance, for the <i>Parameter 1</i> pull-down, select <i>Subject text</i>. In the text box on the right, give the variable a default name, such as <span class="socode">news_post</span>. In the code template, locate the variable you had for the subject, and replace it with <span class="socode">%PARAM1%</span>, which you can either type or paste by using the <i>Placeholders</i> menu at the bottom. When you use the template, you will be able to change the name of the subject, and the proper name will appear in the code.
+<br /><br />
+
+✽ That's the gist of editing templates. Have a play with the <i>Placeholders</i> menu. Apart from the numbered parameters, the placeholders insert values you define on the <i>Modes</i> tab. The <i>Regex Tree</i> menu lets you embellish your code with a full explanation of the regex in one of three formats (comment, string, xml). The <i>Conditionals</i> menu lets you tweak the generated code depending on conditions being met.
+<br /><br />
+
+✽ Click Save when done. You can see the results by selecting the function in the <span class="socode">Use</span> tab.
+<br /><br />
+
+
+✽ When you have added several functions, you can organize them using the <i>Move Up</i> and <i>Move Down</i> buttons.
+<br /><br />
+<br />
+
+
+<b>Pairing a language with a code template</b><br />
+By default, RegexBuddy uses your modified code template if available for a language. If you've deleted all of Jan's original functions and would like to see what they look like, create a new language based on the target language, giving it a clear and distinctive name.
+<br /><br />
+
+In the language creation form, in the <i>Template for source code snippets</i> pull-down at the bottom, you'll be able to select the original template, which you'll recognize because its name won't be decorated like yours (see the <span class="socode">Python 2.7 [Rex]</span> example above).
+<br /><br />
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-languages-select-template.png" class="goldborder dropshadow" width="494" height="50" alt="Select code template" /></div>
+
+
+<br /><br /><br />
+
+
+
+
+
+<a id="convert"></a>
+<span class="em8"><a href="#convert">(direct link)</a></span><br/>
+<h2><span class="socode">Convert</span> tab: Translate a pattern to another regex flavor</h2>
+
+Suppose you have a file parser written in, say, Python, whose job it is to extract the beginning of each file, up to a section starting with <span class="mono">"=== SUMMARY ==="</span>. For this job, it would be reasonable to use a simple pattern such as this:<br /><br />
+<div class="cinter">
+    <code>(?s)^.*?(?=\n=== SUMMARY ===)</code>
+</div>
+<br />
+
+One day your boss tells you that all Python scripts have to be moved over to Ruby. As you write the code, you pop the regex straight into the new script. Now you have two problems. (No, not <i><a href="regex-humor.html#twoprobs">these</a></i> two problems.)<br /><br />
+
+1. The inline modifier <span class="socode">(?s)</span> that you had used to flip on <span class="socode">DOTALL</span> mode (dot matches line breaks) does not work in Ruby.<br /><br />
+
+2. The caret anchor <span class="socode">^</span> that you had used to tell the engine to search at the beginning of the file tells Ruby to search at the <i>beginning of every line</i>.<br /><br />
+
+This is what RegexBuddy's Convert tab is for. If there is a straightforward conversion, it does it brilliantly.<br /><br />
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-convert2.png" class="goldborder dropshadow" width="600" height="135" alt="RegexBuddy convert tab" />
+</div>
+<br />
+
+On the conversion pane, there are pull-down menus giving you the options, if applicable, to strip comments and to use free-spacing mode.<br /><br />
+
+If RegexBuddy has doubts about the conversion, it will issue several degrees of warnings, such as this one:<br /><br />
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-convert-message.png" class="goldborder dropshadow" width="600" height="45" alt="regex conversion warning" /></div>
+<br />
+
+<img src="../b.yu8.us/rexegg/rb-convert-accept.png" class="right goldborder dropshadow" width="154" height="29" alt="RegexBuddy Accept Conversion" />
+Once you're happy with the conversion, if you want to keep working with the pattern in the target language, click <i>Accept Conversion</i>. This changes the selected regex flavor, copies the pattern to the regex text box and sets all the required flags.
+<br /><br />
+<br />
+
+
+
+<a id="spacing_conversion"></a>
+<span class="em8"><a href="#spacing_conversion">(direct link)</a></span><br/>
+<b>Converting between Exact Spacing and Free-Spacing</b><br />
+One great bonus of the <span class="socode">Convert</span> tab is that you can use it to strip a <a href="regex-modifiers.html#freespacing">free-spacing regex</a> of all comments and whitespace, and a regular regex of its <a href="regex-disambiguation.html#inlinecomments">inline comments</a>.
+<br /><br />
+To perform this feat, in the <i>Conversion target</i> pulldown, select the same language as the one used by the pattern. The spacing and comment pulldowns do the rest.
+<br /><br />
+
+Conversely, the same method allows you to set up a plain regex for free-spacing, assuming of course that the chosen flavor supports it. This may sound less useful, but it's actually a great time-saver for patterns that contain lots of spaces, as you otherwise need to manually escape them or insert them in character classes such as <span class="socode">[ ]</span> (less efficient but more readable).
+<br /><br />
+<br />
+
+
+
+<a id="conversion_layout"></a>
+<span class="em8"><a href="#conversion_layout">(direct link)</a></span><br/>
+<b>Understanding conversions</b><br />
+If you're unsure of some of the syntax in the conversion, you can look at it in the <span class="socode"><a href="#create">Explain</a></span> tab (mmm&hellip; it's still called <i>Create</i>?) To do so, start by backing up the current regex by adding it to the History pane. Then accept the conversion and switch to the <span class="socode">Explain</span> tab. In that same tab, you can also set up a <a href="#compare">comparison</a> between the two flavors.
+<br /><br />
+
+At times, it may be helpful to view the <span class="socode">Compare</span> and <span class="socode">Explain</span> tabs together. If that's of interest, you can set up a <a href="#layouts">custom layout</a> such as this one.
+<br /><br />
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-convert-layout.png" class="goldborder dropshadow" width="600" height="168" alt="Conversion layout in RegexBuddy" />
+</div>
+
+<br /><br />
+<br />
+
+
+
+<a id="library"></a>
+<span class="em8"><a href="#library">(direct link)</a></span><br/>
+<h2><span class="socode">Library</span> tab: Store and retrieve patterns</h2>
+
+In this tab, you create libraries to store patterns you might want to use again. When you store a pattern, you can store the whole thing: the kind of operation (match, replace, split), the language, the regex, the modifiers and the subject text.
+<br /><br />
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-library2.png" class="goldborder dropshadow" width="600" height="277" alt="RegexBuddy library" />
+</div><br />
+
+RegexBuddy comes with a built-in library, which contains a vast range of regular expressions dealing with topics ranging from IP addresses and credit cards to Romanian national ID numbers. Even though I've never needed these patterns, I still find the default library to be a great illustration of what a mature library can look like.<br /><br />
+
+<b>Create your first custom library now</b><br />
+The power of libraries is really in creating your own. You can do anything with regex, and your libraries should reflect that! Just look at one of my libraries in the screenshot above.<br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-library-new.png" class="left goldborder dropshadow" width="25" height="30" alt="Regex library open icon" />
+To create a custom library, press the <i>New</i> icon at the very left. But that's only the first step.
+<br style="clear:both;"/><br />
+
+<img src="../b.yu8.us/rexegg/rb-library-save.png" class="left goldborder dropshadow" width="45" height="26" alt="Regex library save icon" />Immediately after pressing <i>New</i>, press the <i>Save</i> icon. That's because RegexBuddy doesn't offer to enter a name for the new library. Naming and saving the library ensures that everything you create will get properly saved. I strongly recommend you save your custom libraries in a location that you recognize and frequently back-up, so that it doesn't get left behind by oversight when you migrate to a different machine. Some of you use that company with a <i>box</i> in its name, right?
+<br /><br />
+
+<b>Two things you need to know first</b><br />
+<img src="../b.yu8.us/rexegg/rb-library-open.png" class="right goldborder dropshadow" width="196" height="144" alt="RegexBuddy library open button" />
+The key to having a good experience with the RegexBuddy library is to be aware of the <i>Open</i> button and the <i>Read-only</i> checkbox (both circled on the screenshot). The <i>Open</i> button lets you switch to a different library. If, like me, you're not very good at understanding icons, you might miss it. The <i>Read-only</i> checkbox will save you a lot of aggravation when RB refuses to add a pattern to the library. Yeah, you probably need to uncheck that box.
+<br /><br />
+
+<b>Using the library: the three main buttons</b><br />
+The library is easy to use. You operate it with three buttons.<br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-library-use.png" class="left goldborder dropshadow" width="76" height="32" alt="RegexBuddy library: Use icon" />
+When you select a library item, the <i>Use</i> icon lets you copy that item to the test pane. You can copy the regex, the text or both. After applying this action, you need to switch to another tab such as <span class="socode"><a href="#test">Test</a></span> to get to work.
+<br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-library-update.png" class="left goldborder dropshadow" width="86" height="29" alt="RegexBuddy library: Update icon" />
+While using an item from the library, if you modify the regex or the subject, the <i>Update</i> button lets you save either or both to the stored pattern (assuming the <i>Read-only</i> box is unchecked). No need to touch the <i>Save</i> button: the library file is updated on disk.
+<br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-library-add.png" class="left goldborder dropshadow" width="72" height="34" alt="RegexBuddy library: Add icon" />
+When you'd like to preserve to preserve a pattern, use the <i>Add</i> button to save it and, optionally, the subject text. RB doesn't ask you for a name, so <b>you need to name your pattern</b>. I don't find this super intuitive&mdash;the name lives in the top-right-most text box of the <span class="socode">Library</span> tab.
+<br /><br />
+
+<br />
+
+
+<a id="boilerplate"></a>
+<span class="em8"><a href="#boilerplate">(direct link)</a></span><br/>
+<b>Trick: saving boiler-plate text</b><br />
+How many times do you craft a pattern then realize you don't have suitable boiler-plate to test it on? One idea is to create some library entries that only contain text&mdash;either creating a dedicated Boiler-Plate library or saving them to your custom library with a prefix such as <span class="mono">[Boiler-Plate]</span>. I like the first solution best.<br /><br />
+
+
+You can use the regex field (and the replacement field!) to jot down notes about what the text represents, its source, and so on.
+<br /><br />
+
+An alternative solution is to use the <i>Open</i> button in the <span class="socode"><a href="#">Test</a></span> pane and let RegexBuddy manage a list of files to use as input.
+
+<br /><br />
+<br />
+
+
+<b>Saving Changes to the Library</b><br />
+When you've changed a regex and want to ensure the library reflects the change, use the <i>Update</i> button.
+<br /><br />
+You don't need to worry about saving the library itself. When you click the <i>Add</i> or <i>Update</i> buttons, the library is updated on disk.<br /><br />
+
+The floppy icon is a bit confusing. It's not to save pending changes, but to make a copy of the current library, with or without the expressions'subject text.
+<br /><br />
+
+
+<b>Organizing your Libraries</b><br />
+Don't try dragging items up and down the list: that won't work. You'll have to rely on alphabetization&mdash;for instance by adding numbered prefixes as on my screenshot at the top of the section.
+<br /><br /><br />
+
+
+
+
+<a id="library_layout"></a>
+<span class="em8"><a href="#library_layout">(direct link)</a></span>
+<br />
+<b>Library Layout</b><br/>
+
+There's not a whole lot more to the library. It's a great feature and it works as advertised. But here's one final trick you might like: a library <a href="#layouts">layout</a>. It shoves the History pane out of the way, replacing it with a dedicated <i>Scratch Pad</i> library. That way you can save a subject with each pattern and no longer need to fear you might click the <i>Clear All</i> button by mistake.
+<br /><br />
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-library-layout.png" class="goldborder dropshadow" width="600" height="219" alt="Library Layout in RegexBuddy" /></div>
+
+<br />
+
+
+To create this layout, start by clicking the red button at the top right of the History pane in order to close it. Now click the <span class="socode">Library</span> tab and drag it to the right of the screen, until you see a ghost outline roughly corresponding to the section of the screen where the History pane used to be. Release the mouse button. If everything worked the way you wanted, save the layout under the View button's <i>Custom Layouts</i> menu.
+
+<br /><br /><br />
+
+
+<a id="grep"></a>
+<span class="em8"><a href="#grep">(direct link)</a></span><br/>
+<h2><span class="socode">GREP</span> tab: Use a pattern to search your files</h2>
+
+
+This tab offers a powerful tool to search (and replace!) inside files using regular expressions. Jan is also the author of <a rel="nofollow" target="_blank" href="http://www.powergrep.com/cgi-bin/affref.pl?aff=playful">PowerGREP</a>, possibly the most powerful text-processing tool on the market (click here for a <a rel="nofollow" href="http://yu8.us/pgdemo" >free PowerGREP trial</a>)</a>.<br /><br />
+
+
+If your job involves manipulating large amounts of text, then PowerGREP is probably a great tool for you&mdash;even more so if you craft data extraction tools for others, as you can produce text pipelines for your clients to plug into their own copies of PowerGREP. <br /><br />
+
+
+For everyone else, RegexBuddy's <span class="socode">GREP</span> tab offers a great balance of features. Not only can you search and replace, you can also save and reload an <i>action</i> i.e., a search or replacement job.
+<br /><br />
+
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-grep2.png" class="goldborder dropshadow" width="600" height="196" alt="RegexBuddy Grep" />
+</div>
+<br /><br />
+
+<b>Basic Workflow</b><br />
+
+First, we need to decide what we're looking for in the target files.<br /><br />
+
+0. Enter a regex in the usual regex text box. If you want to perform a replace operation, enter that pattern too.
+<br /><br />
+
+Alternately, you can specify what <b>not</b> to match. To do so, check the <i>Invert results</i> box on the right.
+<br /><br />
+
+Second, we need to tell the tool which folders and files we're interested in.<br /><br />
+
+1. In the folders box, either click the browse button to the right or paste a folder path.<br /><br />
+
+2. At the very right, check the <i>Recurse subfolders</i> box if you'd like to look in subfolders as well.<br /><br />
+
+3. If you want to restrict the search to certain files, enter a DOS-style wildcard pattern such as <span class="socode">f*.html</span> in the file mask field (see the circled text on the picture above). Alternately, enter a pattern for the files you want to exclude, and check the <i>invert masks</i> box on the right.
+<br /><br />
+
+Yeah, I know&hellip; A DOS-style wildcard in a regex tool? Really? Why not a regex? To be fair, there's actually an expanded syntax for those wildcards&mdash;you can look it up in the docs if you like. For my part, I don't feel like learning another matching syntax, so I'll hold out for regex file-matching in RB5.<br /><br />
+
+Quick tip: the pull-downs to the right of the file and folder text fields contain paths and masks you've used before.
+<br /><br />
+
+4. If this is a Replace operation, decide whether you'd like to change the original files or work on a copy. These options are in the <i>Target</i> pull-down. If you'd like to replace in copies, you'll have to specify a path to the right of the pull-down.<br /><br />
+
+5. For Replace operations, decide whether to backup the originals before proceeding. That's highly recommended because you'll then be able to perform an <i>Undo</i> on your last replace operation. There are multiple options in the <i>Backup</i> pull-down: see the docsfor details.<br /><br />
+
+Next, we're ready to search (and perhaps replace). <br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-grep-button.png" class="right goldborder dropshadow" width="86" height="32" alt="Grep button" /><br />
+6. If you're just searching, go ahead and press the Grep button on the left. Results appear in pleasant highlighting. You can double-click files or line numbers to open them in the Test pane.
+<br style="clear:both;"/>
+
+<img src="../b.yu8.us/rexegg/rb-grep-edit.png" class="left goldborder dropshadow" width="270" height="61" alt="Edit Grep matches" /><br />
+Or you can click inside the match results then use the <i>Edit</i> pull-down menu to edit the match results in a text editor.<br style="clear:both;"/><br />
+
+6 bis. For replacement operations, click on the button's pull-down menu. Generally you'll want <i>Preview</i>. The <i>Execute</i> option lets you review the changes. <i>Quick Execute</i> is acceptable if you've selected to backup the originals. Before launching a massive replacement operation, I strongly recommend you try a Replace and Undo on a sample file in order to make sure that it performs as you expect and as advertised. Bugs happen.<br /><br />
+
+
+<img src="../b.yu8.us/rexegg/rb-grep-undo.png" class="right goldborder dropshadow" width="166" height="53" alt="RegexBuddy Grep Undo" /><br />
+
+7. If you've performed a replacement, now it may be time to either <i>Undo</i> or delete the backup files. These actions live in the <i>Grep</i> button's pull-down menu.
+<br style="clear:both;"/><br />
+<br />
+
+
+
+<b>Save and Open Grep Operations</b><br />
+<img src="../b.yu8.us/rexegg/rb-grep-save-open.png" class="right goldborder dropshadow" width="83" height="35" alt="Save Grep operation" />
+One neat feature of the <span class="socode">GREP</span> tab is that it lets you save and reload what it calls <i>actions</i>, i.e. search and replace operations. The menus are self-explanatory.
+<br /><br />
+<br />
+
+<b>Miscellaneous refinements</b><br />
+✽ On the right, <i>Include Binary Files</i> does what it says.<br />
+✽ Likewise, the <i>Line-based</i> checkbox processes the input line by line.<br />
+✽ The <i>Clear</i> button (blank sheet) quickly resets the form.<br />
+✽ The <i>Export</i> button saves the results to a text file (which you can also achieve via copy-paste).
+
+<br /><br /><br />
+
+
+
+<a id="forum"></a>
+<span class="em8"><a href="#forum">(direct link)</a></span><br/>
+<h2><span class="socode">Forum</span> tab: Interact with other RB users</h2>
+<img src="../b.yu8.us/rexegg/rb-forum-login.png" class="left goldborder dropshadow" width="200" height="374" alt="RegexBuddy forum login" />
+<br />
+The RegexBuddy forum is a brilliant touch. It's integrated within the program itself, and it feels like a software product of its own. In fact, it's received a lot of attention as it's a component of Jan's other products.<br /><br />
+
+Being used to web forums nowadays, it took a few tries to get comfortable with the bulletin-board-style software, but I've really come to appreciate it. For one thing, since you need the product in order to post, there is no spam whatsoever. And since the forum is behind a "private screen", you can run into some pretty cool people.
+<br />
+<br />
+
+<b>Login Options</b><br />
+The login button is at the top left. It pays to look carefully at the options, which stay selected from one session to the next. If you use EditPad (<a rel="nofollow" href="http://yu8.us/eppdemo" >free EditPad Pro trial</a> here) or other JGsoft products, you may want to select "Show all groups", as that will allow you to navigate to these fora. If you want to be alerted when someone replies to your beautiful posts, select "Email replies to conversations you participate in".
+
+<br style="clear:both;"/><br />
+
+The forum can take your screen's full width, so it can be very readable.
+<br /><br />
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-forum.png" class="goldborder dropshadow" width="600" height="115" alt="RegexBuddy forum" />
+</div>
+
+<br />
+Still, I often prefer to access the RB forum from within <a rel="nofollow" target="_blank" href="http://www.editpadpro.com/cgi-bin/affref.pl?aff=playful">EditPad Pro</a>, where I can launch it with a hotkey and where I have better luck getting it to run in its own window. In addition, EPP also seems to give more control over the font size.<br /><br />
+
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-forum-epp.png" class="goldborder dropshadow" width="600" height="117" alt="RegexBuddy forum in EditPad Pro" />
+</div>
+<br />
+
+<b>Orientation</b><br />
+I'll let you play with the features, but here's some quick orientation as the forum has a unique interface (unlike familiar web-based fora).<br /><br />
+
+✽ If you selected "Show all groups" at login, you can switch between fora at the top right.<br /><br />
+
+✽ The two panes on the left let you navigate conversations. The one at the top shows the overall thread title, while the one at the bottom shows posts within a given thread.<br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-forum-refresh.png" class="right goldborder dropshadow" width="85" height="33" alt="RegexBuddy forum refresh" />
+✽ Make sure you locate the <i>Refresh</i> button. It's your friend.<br /><br />
+
+✽ While the <i>New</i> button creates a new thread (shown in the top-left pane), the <i>Reply</i> button adds a post to an existing thread (shown in the bottom-left pane).<br /><br />
+<img src="../b.yu8.us/rexegg/rb-forum-send.png" class="right goldborder dropshadow" width="71" height="34" alt="RegexBuddy forum Send button" />
+
+✽ <b>It's not enough to compose a post.</b> You need to click the <i>Send</i> button. Until you do, your post actually stays as a draft in the forum pane, even if you close and re-open RB. It may look like its been sent, but it hasn't. <br /><br />
+
+✽ Watch out for the two <i>Delete</i> buttons. The first deletes an entire thread you've created, while the second deletes a single post.<br /><br />
+
+✽ The <i>Edit</i> button lets you edit your posts. Use responsibly, as threads become illegible when someone completely alters the original.<br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-forum-attach.png" class="right goldborder dropshadow" width="84" height="28" alt="RegexBuddy forum attach" />
+✽ The <i><b>Attach</b></i> pull-down is terrific. Use it! Not only can you attach random files, you can also attach the RegexBuddy's current pattern and subject text without having to paste them. Doing this ensures others get an exact copy of the regex and all its settings or of the test subject. It also keeps the message body short and readable. You can also attach a library or a source code template.<br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-forum-use.png" class="right goldborder dropshadow" width="58" height="30" alt="RegexBuddy forum Use button" />
+✽ Conversely, the <i>Use</i> button lets you use a pattern or subject text that someone attached, copying it into the proper RegexBuddy fields.  
+<br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-forum-feeds.png" class="right goldborder dropshadow" width="78" height="30" alt="RegexBuddy forum Feeds button" />
+
+✽ In the <i>Feeds</i> menu, don't miss the <i>Open</i> buttons. I won't explain what they do but they're very cool. Their output depends on the options you select at the top.<br /><br />
+
+✽ <b>Don't miss the 'Search here' box.</b> There's a good chance you can learn a lot about your question before you even ask.<br /><br />
+<br />
+
+
+<a id="forum-bookmarks"></a>
+<span class="em8"><a href="#forum-bookmarks">(direct link)</a></span><br/>
+<b>Tip: Bookmarking and Organizing Forum Threads</b><br /><br />
+If you don't use a news reader, you can still bookmark and organize forum threads, either in a text file or in an html page. <br /><br />
+
+1. In the top or bottom left pane, click a thread or individual message you would like to bookmark.<br /><br />
+
+2. Press <span class="operator">Ctrl + C</span> to copy.<br /><br />
+
+3. Press <span class="operator">Ctrl + V</span> to paste in a text file for your bookmarks. This will create a <span class="socode">regexbuddy:</span> link. In <a rel="nofollow" target="_blank" href="http://www.editpadpro.com/cgi-bin/affref.pl?aff=playful">EditPad Pro</a>, the links will be clickable. The first time you click such a link, you may need to tell Windows to let RegexBuddy handle it: the post should open in the RegexBuddy forum.<br /><br />
+
+4. For an html file of bookmarks, wrap the <span class="socode">regexbuddy:</span> links in html, as in:<br /><br />
+
+<div class="cinter">
+    <code>&lt;a href="regexbuddy:forum/view/1000/1007880"&gt;Green title bar&lt;/a&gt;</code>
+</div>
+<br />
+
+Enjoy!
+<br /><br />
+<br />
+
+
+<a id="controls"></a>
+<span class="em8"><a href="#controls">(direct link)</a></span><br/>
+<h2>RegexBuddy Interface 201: Miscellaneous controls</h2>
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-controls.png" class="goldborder dropshadow" width="600" height="66" alt="RegexBuddy controls" />
+</div><br />
+
+We never really wrapped up the tour of the interface, remember? Let's do so now by looking at the controls and menus at the very top.
+
+<br /><br /><br />
+
+
+<a id="helpful"></a>
+<span class="em8"><a href="#helpful">(direct link)</a></span><br/>
+<b>Helpful and Strict Modes</b><br/><br />
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-helpful.png" class="goldborder dropshadow" width="444" height="127" alt="RegexBuddy helpful mode" />
+</div><br />
+
+It's good to know about the pull-down menu that lets you choose between "Helpful" and "Strict" modes. The strict mode simply behaves like the chosen engine is supposed to behave, without alerting you to potential problems. The helpful mode alerts you to points of syntax that may be specific to that engine and that you may not have considered. For instance, in most engines,
+<span class="socode">\s</span> matches a whitespace character. But if you use this token in MySQL, it simply matches a literal "s". In strict mode, if you use
+<span class="socode">\s</span> (presumably with the intention of matching whitespace) RegexBuddy does not flag the token as problematic because it is valid MySQL regex. In helpful mode, RegexBuddy highlights the token in red, and if you switch to the <span class="socode"><a href="#create">Explain</a></span> tab to investigate the error, it tells you that "MySQL does not support any shorthand character classes". This is a valuable feature and speaks for leaving helpful mode turned on.
+<br/><br/>
+<br />
+
+<a id="copypaste"></a>
+<span class="em8"><a href="#copypaste">(direct link)</a></span><br/>
+<b>Copy and Paste</b><br/><br />
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-copypaste.png" class="goldborder dropshadow" width="600" height="145" alt="RegexBuddy copy and paste formatted regex" />
+</div><br />
+
+I don't use the Copy and Paste menus much, but I can see how someone else with a different workflow might use them all the time. <br /><br />
+
+<b>Copy to Code</b><br />
+You know how a simple regex such as <span class="socode">"https?://[Rr]ex[Ee]gg\.com\b"</span> can give you a headache when you try to use it in your code? You'll have to do things like&hellip;<br /><br />
+✽ <span class="socode">/"https?:\/\/[Rr]ex[Ee]gg\.com\b"/</span> in JavaScript,<br /><br />
+✽ <span class="socode">@"""https?://[Rr]ex[Ee]gg\.com\b"""</span> in C#, and so on.<br /><br />
+
+
+The <i>Copy</i> button takes that pain away: you tell RegexBuddy what your target language is, and it does the rest. It fills your clipboard with an ugly string that you didn't have to write, and you can go paste it <i>verbatim</i> in your environment.
+
+<br /><br />
+
+<b>Paste from Code</b><br />
+Likewise, you can lift a regular expression straight from a piece of code, and navigate the <i>Paste From</i> menu to let RB handle the burden of peeling away the ugliness to reveal the beautiful regex core, which it pastes to the pattern text box.
+<br /><br /><br />
+
+
+<a id="undo"></a>
+<span class="em8"><a href="#undo">(direct link)</a></span><br/>
+<b>Undo and Redo</b><br />
+<img src="../b.yu8.us/rexegg/rb-undo.png" class="left goldborder dropshadow" width="108" height="37" alt="RegexBuddy Undo and Redo buttons" />
+<br />Nothing to report here&mdash;these work as advertised.
+<br style="clear: both;"/><br />
+<br />
+
+
+<a id="view"></a>
+<span class="em8"><a href="#view">(direct link)</a></span><br/>
+<b>View Menu</b><br />
+<img src="../b.yu8.us/rexegg/rb-layout.png" class="left goldborder dropshadow" width="137" height="38" alt="RegexBuddy layout menu" />
+<br />
+Within the View menu, there are several items of interest. The minor ones first:<br />
+<br />
+- <i>Large Toolbar Icons</i> makes the menu more usable,<br />
+- <i>Lock Toolbars</i> prevents you from dragging interface items inadvertently.
+<br /><br /><br />
+
+
+<a id="layouts"></a>
+<span class="em8"><a href="#layouts">(direct link)</a></span><br/>
+<b>Custom Layouts</b><br />
+The most important part of the <i>View</i> menu is the Layouts section at the bottom. If you ever mess up your layout, you can quickly restore the default. You can also experiment with the side-by-side layout. Best, you can save and restore some Custom Layouts.<br/><br />
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-debug-layout.png" class="goldborder dropshadow" width="600" height="110" alt="RegexBuddy debug layout" />
+</div>
+<br />
+
+To create a custom layout, start by resizing the text panes to your liking by hovering over the pane separator until the mouse cursor changes to a "drag" icon. If you also want to move menus around, make sure the <i>Lock Toolbars</i> toggle in the <i>View</i> menu is unchecked: handles appear next to some menu items, allowing you to drag them into new positions.
+<br /><br />
+
+Tabs can also moved. It takes a moment getting used to, but if you drag a tab to the right and a little bit below, a shadow appears where the tab will be placed. Only drag to the right&mdash;shuffling tabs until you get the desired order&mdash;I've had no success dragging in the other direction.
+<br /><br />
+
+I've found it useful to save several layouts:<br /><br />
+
+1. <b>One-Line Layout.</b> This is for patterns that hold on one line. The regex text box is minimized, giving maximum space to the Test and Results panes.<br /><br />
+
+2. <b>Multi-Line Layout.</b> This is for when I work in free-spacing mode, when patterns can span many lines. This gives more space to the regex box, taking away from the Test and Results fields.
+<br/><br/>
+
+3. <b>Debug Layout.</b> This is a side-by-side layout, helpful when using the debug tab. The <span class="socode"><a href="#test">Test</a></span> and <span class="socode"><a href="#create">Explain</a></span> tabs are on the left, the <span class="socode"><a href="#debug">Debug</a></span> tab is on the right. See the screenshot in the <a href="#debug">debug section</a>.
+<br /><br />
+
+4. <b>Conversion Layout.</b> This layout shows the <span class="socode"><a href="#convert">Convert</a></span> and <span class="socode"><a href="#create">Explain</a></span> tabs together. See the <a href="#conversion_layout">screenshot</a> in the section about conversions.
+<br /><br />
+
+
+5. <b>Library Layout.</b> In this layout, the <span class="socode"><a href="#library">Library</a></span> tab replaces the <a href="#history">History</a> pane, allowing you to use a personal library as a scratch pad. You can see a <a href="#library_layout">screenshot</a> in the section about libraries.
+<br /><br />
+
+Unable to restore the default layout? See <a href="#restore-default-layout">this tip</a>.
+
+
+<br /><br />
+<br />
+
+<a id="prefs"></a>
+<span class="em8"><a href="#prefs">(direct link)</a></span><br/>
+<b>Preferences Menu</b><br />
+<img src="../b.yu8.us/rexegg/rb-prefs.png" class="left goldborder dropshadow" width="137" height="38" alt="RegexBuddy preferences menu" />
+
+The Preferences dialog has seven tabs. I won't walk you through everything (see the docs) but I'll highlight items to which I pay attention.
+<br /><br />
+
+1. <i>Editors</i> tab.<br />
+- Regular Expression: check all boxes<br />
+- Test: Visualize line breaks, word wrap, Ctrl + Wheel changes font size <b>(awesome!)</b><br />
+- Use: Ctrl + Wheel changes font size<br />
+- GREP: all unchecked<br />
+- Configure Text Tools / Main font: Consolas, 16<br />
+<br />
+
+2. <i>Operation</i> tab.<br />
+- <span class="yglo">Show options that can be changed with toggle buttons that indicate the "on" state</span><br />
+- Preserve state: check all<br />
+- Statusbar: show<br /><br />
+
+3. <i>GREP</i> tab: no tweaks.<br /><br />
+
+4. <i>Regex Colors</i> tab: default.<br /><br />
+
+5. <i>Text Colors</i> tab: at the moment, for contrast with the regex box, I'm enjoying the white on black.<br /><br />
+
+6. <i>Use Colors</i> tab: the Borland classic scheme brings me back to Turbo C and Clipper/dBase.
+<br /><br />
+
+7. <i>GREP Colors</i> tab: experimenting with white on black<br /><br />
+
+<br />
+
+
+
+<a id="help"></a>
+<span class="em8"><a href="#help">(direct link)</a></span><br/>
+<b>Help Menu</b><br />
+<img src="../b.yu8.us/rexegg/rb-help.png" class="left goldborder dropshadow" width="137" height="38" alt="RegexBuddy help menu" />
+
+Surprisingly, the Help menu is packed with goodies. Do yourself a favor and take a leisurely look!
+<br style="clear: both;"/><br />
+
+<img src="../b.yu8.us/rexegg/rb-xkcd-208.png" class="right goldborder dropshadow" width="176" height="131" alt="xkcd 208 regex troubleshooting" />
+The star of the Help menu is <b>Create Portable Installation</b>. Insert a flash drive, install, and you're ready for some serious off-site troubleshooting.
+<br /><br />
+
+The first four items of the <i>Help</i> menu open strategically chosen sections of the help file&mdash;a <i>chm</i> document that is a true treasure. It contains far more than RegexBuddy-related help: most of the content from Jan's <a href="http://www.regular-expressions.info/" target="_blank">regular-expressions.info</a> website is there, making it pleasant to read this outstanding reference about regular expressions offline. See this tip to <a href="#help-ebook">read the RegexBuddy help on your Kindle or other e-reader</a>.
+<br /><br />
+
+Three other items are worthy of note:<br /><br />
+
+- Since RB doesn't yet have an option to check for updates automatically, you may find it helpful to peruse the <i>Check for New Version</i> item every once in a while.<br /><br />
+
+- The <i>About RegexBuddy</i> item shows you which version you're running.<br /><br />
+
+- The <i>Support and Feedback</i> item generates a chunk of text that you can paste in an email or forum message if you need help.
+<br />
+<br /><br />
+
+<a id="modifiers"></a>
+<span class="em8"><a href="#modifiers">(direct link)</a></span><br/>
+<b>Regex modifiers and settings</b><br /><br />
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-modifiers.png" class="goldborder dropshadow" width="600" height="75" alt="RegexBuddy pattern modifiers" />
+</div><br />
+
+Just above the text box for the regex pattern, there is a line of controls that dictate how the match is made. These controls can either be shown as toggles (as on the image) or as drop-downs. If you have drop-downs and want toggles, see the <a href="#quickstart">quick-start section</a>.<br /><br />
+
+Even if you have toggles, you may not see the same control as on my screenshot. These controls depend on the context&mdash;chiefly which regex engine and which mode (match, replace, split) are selected.<br /><br />
+
+By and large (but not exclusively), the controls correspond to the classic regex <a href="regex-modifiers.html">pattern modifiers</a>. On the picture, the <i>case-insensitive</i> modifier is selected. This would be equivalent to setting it as a parameter in a match function, rather than inline. <br /><br />
+
+
+In fact, when you go to the <span class="socode"><a href="#use">Use</a></span> tab to integrate the regex into your language, RegexBuddy places the modifiers in the match, replace or split function. Likewise when you copy a language-ready regex via the <a href="#copypaste">Copy</a> menu.
+<br /><br />
+
+On the picture, note that the <span class="socode"><a href="regex-modifiers.html#dotall">DOTALL</a></span> mode (dot matches line breaks) is set inline by the <span class="socode">(?s)</span> token, but that the <i>dot matches line breaks</i> control is off. That's because the controls work independently of what you write in the pattern&mdash;in the same way as you could turn on a mode in a function while you turn it off inline, such as in:<br /><br />
+
+<div class="cinter">
+    <code>if subject =~ /(?-i)https?/i</code>
+</div><br />
+
+There are simple rules to deal with such situations (namely the case-insensitivity passed as a parameter to the match function is overridden once the pattern turns it off inline), and you can be sure that RegexBuddy knows them.
+
+<br /><br /><br />
+
+
+
+<a id="new_language"></a>
+<span class="em8"><a href="#new_language">(direct link)</a></span><br/>
+<h2>Adding a Regex Flavor</h2>
+Sometimes, you maybe working in a variation of an existing regex flavor that doesn't happen to match anything offered in the Languages list. At such times, you may find it handy to create a custom flavor. You won't be able to control every aspect of the engine's behavior, but you'll have a starting point.<br /><br />
+
+<div class="cinter">
+    <img src="../b.yu8.us/rexegg/rb-new-language.png" class="goldborder dropshadow" width="600" height="111" alt="RegexBuddy new language editor" /></div>
+<br /><br />
+
+On the above screenshot, I have created a new flavor, which now appears in the list of languages to the left. To the right, you can see the form that you fill in to set up a language. You select a base flavor (in this case POSIX BRE), and you select a number of parameters.
+<br /><br />
+
+I haven't had a need to do this myself, but I've used a template that someone else made and shared on the RegexBuddy forum&mdash;you can be that guy! It was particularly helpful because it came with a code template. I can't recall the details now as it was a few years back but I believe it was for some flavor of an Apple-related language.
+<br /><br /><br />
+
+
+
+<a id="troubleshooting"></a>
+<span class="em8"><a href="#troubleshooting">(direct link)</a></span><br/>
+<h2>I know this matches! Is RegexBuddy broken?</h2>
+When you're a hurry, it sometimes happens that a regex that you <i>know</i> matches gets you a stern<br />
+<br />
+
+<blockquote><div><span class="mono">The regular expression does not match the test subject.</span></div></blockquote>
+
+<br />
+You place the pattern under the microscope, you try it in actual code, and there's nothing wrong with it. In these situations, I've learned that a handful of settings are often the culprit.<br /><br />
+
+✽ The highest offender by far is the <i>Line by Line vs Whole file</i> setting. I use both and often forget to check it when working fast.<br /><br />
+
+✽ Another big one is free-spacing mode that I've left turned on when I'm typing classic-style. <br /><br />
+
+✽ Oh, and case-sensitivity is known to interfere.<br /><br />
+
+✽ Did I mention line breaks? Did <span class="mono">DOTALL</span> or, more insidiously, <i>CR Only</i> get turned on?
+<br /><br />
+
+✽ It sounds silly but sometimes I've just forgot to turn <i>Highlight</i> on&mdash;or I've turned off the <i>Update automatically</i> setting inside <i>List all</i>.<br /><br />
+
+✽ I've never flipped on the <i>Lazy quantifiers</i> toggle by mistake. But you might! Come to think of it, I've never turned it on at all. Who knows what happens when you do? Music starts playing, a magical door opens? For now I won't look.
+<br /><br />
+
+If all of those fail&hellip; Well, bugs do happen. If your language is showing you one thing and RB another, and you've double-checked all the settings, then it's definitely worth posting via the <span class="socode"><a href="#forum">Forum</a></span> tab.
+<br /><br /><br />
+
+
+
+
+
+<a id="migrating"></a>
+<span class="em8"><a href="#migrating">(direct link)</a></span><br/>
+<h2>How to Copy your RegexBuddy Settings to Another Machine</h2>
+Migrating a RegexBuddy installation is easy. There are two steps.
+<br /><br />
+
+
+<b>1. Settings.</b> In the source machine, paste this folder path in Windows Explorer or your favorite file manager (Directory Opus, right?)<br /><br />
+
+<div class="cinter">
+<span class="socode">%AppData%\JGsoft\RegexBuddy 4</span>
+</div>
+<br />
+
+Copy everything. After installing RB on the new machine, once again paste that folder name to navigate to it, and overwrite the contents of the folder with the backed up data.
+<br /><br />
+
+<b>2. Libraries.</b> In the section about the <span class="socode"><a href="#library">Library</a></span> tab, I advised you to save your libraries in a personal folder that often gets backed up. You did that, right? Copy the libraries to a personal folder on the new machine, go to the Library tab and open each of the files to populate the Open menu.
+<br /><br /><br />
+
+
+
+<a id="autohotkey"></a>
+<span class="em8"><a href="#autohotkey">(direct link)</a></span><br/>
+<h2>Tweaking your RegexBuddy setup with AutoHotkey</h2>
+In version 4, one of my gripes with RB is that you can't assign your own keyboard shortcuts. One easy way around this is to run a AutoHotkey script.
+<br /><br />
+
+If you don't already have AutoHotkey (a.k.a. <i>AHK</i>) installed, it's a program that lets you tweak how Windows works. For instance, it lets you assign keyboard shortcuts that work in groups of programs that you define, saving you the pain of tweaking each application individually. It's a joy moving from VisualStudio to Pycharm (or Thunderbird!) and being able to use the same shortcuts to duplicate or move lines.
+<br /><br />
+
+Having a hotkey script also lowers the pain of setting up a new machine. You take your <i>ahk</i> script with you and a lot of the customizations that make you feel at home are done.
+<br /><br />
+
+There's a lot more you can do in AHK, but to get started I suggest you create a simple file for keyboard shortcuts. In that file, you can have shortcuts for multiple programs.
+<br /><br />
+I'll give you a file that only applies to RegexBuddy; you can expand it with shortcuts for other applications.
+<br /><br />
+
+In a second I'll tell you what it does, but in the meantime here is the link to download this simple <a href="regexbuddy_autohotkey.html" target="_blank">AutoHotkey script to customize RegexBuddy shortcuts</a>. To install,<br /><br />
+
+✽ Save to a safe place.<br /><br />
+
+✽ Make a shortcut to that file in your startup folder. To go there, paste this in Windows Explorer or your favorite file manager:<br />
+<span class="socode">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp</span><br /><br />
+
+✽ <a href="https://autohotkey.com/download/" target="_blank">Install AutoHotkey</a> if needed.<br /><br />
+
+That's it, you're good to go.
+<br /><br />
+
+
+The script does three things:<br /><br />
+
+<img src="../b.yu8.us/rexegg/rb-ahk-shortcuts.png" class="right goldborder dropshadow" width="225" height="526" alt="RegexBuddy keyboard shortcuts with AutoHotkey" />
+
+1. It assigns a few keyboard shortcuts that make sense to me. For instance, take the main row of tabs: Test, Use, Library, Explain (a.k.a. Create), Convert, Grep, Forum. To switch to a tab, the formula is: <br /><br />
+
+<div class="cinter">
+<span class="operator">Alt + Initial of the tab's name</span>
+</div>
+<br />
+
+For instance, for the <span class="socode"><a href="#test">Test</a></span> tab, press <span class="operator">Alt + T</span>. The exception is <i>Create</i> because its <i>C</i> collides with <i>Convert</i>. I think of it as <span class="socode"><a href="#create">Explain</a></span> anyway. <br /><br />
+
+2. The script has a special key: <span class="operator">F12</span> pops up a window that shows all the programmed shortcuts, like on the screenshot.<br /><br />
+
+3. The script disables clicking on the icons of the History pane. This is because at the moment it is way too easy to click on <i>Clear History</i>, causing you to lose all the patterns in the pane. There was no way to disable only the <i>Clear History</i> button, but right-clicking in the pane gives you all the actions, which also have convenient shortcuts assigned by the script: <span class="operator">Ctrl + Plus / Minus</span> to add a pattern, <span class="operator">Ctrl + Alt + Up / Down</span> to move it up or down the list.<br /><br />
+
+If you don't like that click-disabling behavior, comment it out using <span class="socode">/*C-style comments,*/</span> making sure that the beginning and ending markers each live at the beginning of a line.
+<br /><br />
+
+This is only a starting point. It's up to you to modify the script to tweak the shortcuts and add behavior. Do note that some of the shortcuts mean that some default RB shortcuts will not work. For instance, in the <span class="socode"><a href="#use">Use</a></span> tab, <span class="operator">Alt + U</span> no longer opens the function drop-down list because it switches to that tab in the first place.
+<br style="clear:both;"/><br />
+
+
+<br />
+
+
+
+<a id="misc"></a>
+<span class="em8"><a href="#misc">(direct link)</a></span><br/>
+<h2>Misc Tips</h2>
+
+Here are some miscellaneous tips about the program.<br /><br />
+
+<a id="restore-default-layout"></a>
+<span class="em8"><a href="#restore-default-layout">(direct link)</a></span><br/>
+<b>Default Layout not restoring?</b><br />
+Normally, you can solve layout issues via View button's <i>Restore Default Layout</i> item. If that is not working even after restarting RegexBuddy, one file may be corrupted. Exit RB and use your file manager to navigate to the <span class="socode">%APPDATA%\JGsoft\RegexBuddy 4</span> folder. There, delete the <i>Dock.ini</i> file. When you restart, the default layout will be shown.
+<br /><br /><br />
+
+<a id="debug-build"></a>
+<span class="em8"><a href="#debug-build">(direct link)</a></span><br/>
+<b>Debug Build</b><br />
+You can download a <a href="https://www.regexbuddy.com/downloaddebug.html" target="_blank">special version of RegexBuddy called the debug build</a>. The main time to do this is when your program regularly crashes. The debug build will output a file that you can email to Jan.
+<br /><br />
+
+Sometimes, the debug build is one step ahead of the current build, so that new features or bug fixes may be baked in. In that sense you could consider it a pre-release, except that you'll usually have no idea what's been added (unless you read about it on the forum). You'll also have to put up with the debug build's peculiar (but deliberate) way of crashing without attempting to recover from errors.
+<br /><br /><br />
+
+
+<a id="help-ebook"></a>
+<span class="em8"><a href="#help-ebook">(direct link)</a></span><br/>
+<b>Read the RegexBuddy help on your e-reader</b><br />
+RB's <i>chm</i> file is much more than a RegexBuddy reference: it contains a huge amount of information about regular expressions, mirroring Jan's <a href="http://www.regular-expressions.info/" target="_blank">regular-expressions.info</a> website. Reading on the screen can be tiring. Luckily, you can read the entire <i>chm</i> file:<br /><br />
+
+1. as a PDF by downloading the <a target="_blank" href="https://www.regexbuddy.com/manual/RegexBuddy.pdf">RegexBuddy PDF</a> directly from JGsoft,<br />
+2. online on the <a target="_blank" href="https://www.regexbuddy.com/manual.html">RegexBuddy manual pages</a>,<br />
+3. as an ebook file to peruse on your e-reader: for instructions, read on.
+<br /><br />
+
+I was going to upload a version for you, but given that the help file changes with every release, staying on top of it would be tedious. Instead, here are simple instructions.<br /><br />
+
+1. Paste <span class="socode">%programfiles%\Just Great Software\RegexBuddy 4</span> into Windows Explorer or your favorite file manager.
+<br /><br />
+
+2. Locate <i>RegexBuddy4.chm</i>. If your e-reader handles <i>chm</i> files natively, you know what to do. Otherwise, &hellip;<br /><br />
+
+3. Open Calibre or <a href="https://calibre-ebook.com/download_windows" target="_blank">install</a> that wonderful ebook manager if you haven't yet. Drag the file onto Calibre.<br /><br />
+
+4. Edit the metadata so the ebook correctly shows the author (Jan Goyvaerts). For the title, include the version, e.g. <i>RegexBuddy 4.6.1</i><br /><br />
+
+5. Click <i>Convert</i>. At the top right, select your output format (for Kindle, select <i>mobi</i>). Press OK.
+<br /><br />
+
+6. Once the conversion terminates, navigate to your Calibre library to pickup the converted ebook and transfer it to your e-reader. If you don't know the location of the library, click the <i>Calibre</i> button and read the top line: <i>Your Calibre library is currently located at&hellip;</i><br /><br />
+
+Note that the sixth step might be simpler for you&mdash;I have disabled Calibre's auto-sync option.<br /><br /><br />
+
+<br />
+
+
+<a id="wishlist"></a>
+<span class="em8"><a href="#wishlist">(direct link)</a></span><br/>
+<h2>Wish List</h2>
+
+RegexBuddy is awesome, but no one is perfect, and there are a few things I would like our champion to work on.
+
+<br /><br />
+
+<b>1. Regex Features</b><br />
+
+The only language features you'll find on this list are fairly obscure&mdash;but regex addicts use them, and what do regex addicts use? That's right, they use RegexBuddy. <br /><br />
+
+✽ Support for <a href="backtracking-control-verbs.html#skipfail">the <span class="socode">(*SKIP)(*FAIL)</span> construct</a> and other backtracking control verbs.<br/><br />
+
+✽ Support for <a target="_blank" href="https://pypi.python.org/pypi/regex">Matthew Barnett's <i>regex</i> engine</a> (by far the best regex module for Python).<br/><br/>
+
+
+<b>2. Program Features</b><br />
+
+✽ Option to check for updates automatically.<br /><br />
+
+✽ Shortcut for the Preferences menu.<br /><br />
+
+✽ Rename the <span class="socode">Create</span> tab to <span class="socode"><a href="#create">Explain</a></span>, as that's what the tab is for in RB4.<br /><br />
+
+✽ The "Clear History" icon is a time bomb. Click it instead of the "Delete" icon next to it, and you'll lose all your patterns. This button urgently needs a confirmation dialog.<br /><br />
+
+✽ <span class="socode"><a href="#test">Test</a></span> tab: show the number of matches and replacements in a more direct way (for instance in the status bar) so we don't have to navigate to the bottom of the results pane with every change.
+<br /><br />
+
+
+✽ Library: after clicking <i>Use</i>, directly switch to the <span class="socode">Test</span> tab as our job in the library is done.
+<br /><br />
+
+
+✽ Forum: ability to unsubscribe from a single thread (currently you have to unsubscribe from the whole forum.)
+<br /><br />
+
+
+✽ Forum: "Subscribe" button so that we can follow a conversation by email even when we haven't participated.
+<br /><br />
+
+✽ In the <span class="socode">Use</span> tab, ability to choose delimiters for languages that require them.
+<br /><br />
+
+✽ In the Template editor, ability to set a default delimiter for languages that require them.<br /><br />
+
+✽ <span class="socode">Create</span> tab: for consistency, a label for the Copy button?<br /><br />
+
+
+✽ We need a way to customize hotkeys. In Windows, F2 stands for rename. I want to use F2 to rename my regex patterns in the History pane. Instead, F2 adds a pattern.<br /><br />
+
+
+✽ <a href="#history">History</a> pane: ability to use different text for each pattern (that will be fixed when the History becomes an <i>rbl</i> file).<br /><br />
+
+
+✽ <span class="socode">Test</span> tab: ability to copy a pattern to all the test patterns in the History pane.<br /><br />
+
+✽ Test panel: ability to copy the test text to each pattern in the History pane.
+<br/><br/>
+
+✽ Code template editor: a parameter to use the text currently present in the Test pane.<br/><br/>
+
+
+✽ In the <span class="socode">Debug</span> tab, addition of a <a href="#static-debug-view">static view mode</a>, allowing us to grasp the debug on a static picture, rather than in a cinematic way. On this view, a second column would be added, so that we can see, side by side, the engine's position in the string and the token or expression being attempted.
+<br/><br/>
+<br />
+
+
+
+<a id="links"></a>
+<span class="em8"><a href="#links">(direct link)</a></span><br/>
+<h2>Related Links</h2>
+
+Here are links related to RegexBuddy.<br /><br />
+
+<b>Software by Jan Goyvaerts: official website, free trials</b><br />
+
+✽ <a rel="nofollow" target="_blank" href="http://www.regexbuddy.com/cgi-bin/affref.pl?aff=playful">RegexBuddy</a>: the most powerful regex tool on Earth. A <a rel="nofollow" href="http://yu8.us/rbdemo" >free RegexBuddy trial</a> is available.<br />✽ <a rel="nofollow" target="_blank" href="http://www.editpadpro.com/cgi-bin/affref.pl?aff=playful">EditPad Pro</a>: the most regex-aware text editor. A <a rel="nofollow" href="http://yu8.us/eppdemo" >free EditPad Pro trial</a> is available.<br />✽ <a rel="nofollow" target="_blank" href="http://www.powergrep.com/cgi-bin/affref.pl?aff=playful">PowerGREP</a>: perhaps the most powerful text search and manipulation tool. A <a rel="nofollow" href="http://yu8.us/pgdemo" >free PowerGREP trial</a> is available.<br />✽ <a rel="nofollow" target="_blank" href="http://www.regexmagic.com/cgi-bin/affref.pl?aff=playful">RegexMagic</a>: build regex without knowing regex. A <a rel="nofollow" href="http://yu8.us/rmdemo" >free RegexMagic trial</a> is available.<br />✽ <a rel="nofollow" target="_blank" href="http://www.acetext.com/cgi-bin/affref.pl?aff=playful">AceText</a>: your text needs from a central location. A <a rel="nofollow" href="http://yu8.us/atdemo" >free AceText trial</a> is available.<br />✽ <a rel="nofollow" target="_blank" href="http://www.helpscribble.com/cgi-bin/affref.pl?aff=playful">HelpScribble</a>: create documentation files and website. A <a rel="nofollow" href="http://yu8.us/hsdemo" >free HelpScribble trial</a> is available.<br />✽ <a rel="nofollow" target="_blank" href="http://www.deploymaster.com/cgi-bin/affref.pl?aff=playful">DeployMaster</a>: no-nonsense installation builder. A <a rel="nofollow" href="http://yu8.us/dmdemo" >free DeployMaster trial</a> is available.<br />
+<br />
+
+<b>RegexBuddy in the wild</b><br />
+
+For a laugh, have a look at this <a href="http://stackoverflow.com/questions/230467/are-regex-tools-like-regexbuddy-a-good-idea" target="_blank">StackOverflow
+    thread</a>, which reveals that some people are threatened by RegexBuddy (and regex in general, but that's not a revelation.)
+<br/><br/>
+<br />
+<div class="cinter">
+✽ ✽ ✽
+</div><br />
+
+That's all I have!<br /><br />
+
+Hope you found this tutorial useful. Please feel free to print it out.<br /><br />
+
+If you're helping out on the forum, remember that the direct links can be used to direct someone to a specific section in the tut.
+<br /><br />
+
+If you find typos or want to share your thoughts on RB, I'll be excited to read you &mdash;please use the comment form below.
+<br /><br />
+
+Keep on regexxing!<br /><br />
+
+Smiles,<br /><br />
+
+Rex
+
+<br/><br/>
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Be the First to Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regexbuddy-tutorial.html" method="post" >
+<input type="hidden" name="token" value="6c4683b060b0abd059b7ba776875193a" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a class="thispage" href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/1449319432?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_regex-cookbook.jpg"
+            class="pulse1st" 
+			height="160" width="123" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>Awesome regex book</b></span><br /><span class="greytext em9"><b>by RegexBuddy's dad.</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regexbuddy-tutorial.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:18:07 GMT -->
+</html>
+
+
+

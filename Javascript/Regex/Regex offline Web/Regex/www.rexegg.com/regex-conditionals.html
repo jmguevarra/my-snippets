@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-conditionals.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Conditional Regular Expressions tutorial. Explains the details of conditional regex syntax and presents useful applications." />
+<title>Conditional Regular Expressions—from 101 to Advanced</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li class="current"><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Mastering Conditional Regex</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+Conditionals are one of the least used components of regex syntax. Granted, not all engines support them. But in my view, the main reason for the low use of conditionals is that the situations in which they do a better job than alternate constructs is poorly known. This page aims to explain the details of regex conditional syntax and to present the typical situations where using conditionals makes sense.
+<br /><br />
+
+
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#engines">Support for Regex Conditionals</a><br />
+✽ <a href="#syntax">Basic Conditional Syntax</a><br />
+✽ <a href="#check_numgroup">Checking if a Numbered Capture Group has been Set</a><br />
+✽ <a href="#check_namedgroup">Checking if a Named Capture Group has been Set</a><br />
+✽ <a href="#check_relgroup">Checking if a Capture Group at a Relative Position has been Set</a><br />
+✽ <a href="#check_lookaround">Checking if a Lookaround has been Successful</a><br />
+✽ <a href="#check_subroutine">Checking if a Subroutine Call has been Made</a><br />
+✽ <a href="#check_recursion">Checking if a Recursive Call has been Made</a><br />
+✽ <a href="#check_code">Checking that Embedded Code Evaluates to <span class="mono">TRUE</span></a><br />
+✽ <a href="#delimiters">Conditionals At Work: Balancing Delimiters</a><br />
+✽ <a href="#control_failure">Conditionals At Work: Controlling Failure</a><br />
+✽ <a href="#selfref">Conditionals At Work: Self-Referencing Group</a><br />
+
+
+
+
+<br /><br />
+
+
+<a id="engines"></a>
+<span class="em8"><a href="#engines">(direct link)</a></span><br />
+<h2>Support for Regex Conditionals</h2>
+
+You can use conditionals in the following engines:<br /><br />
+
+✽ .NET (C#, VB.NET etc.)<br />
+✽ PCRE (C, PHP, R…)<br />
+✽ Perl<br />
+✽ Python<br />
+✽ Ruby 2+<br />
+<br />
+
+Some of these engines are able to test a richer set of conditions than others. We'll see these differences as we go.
+<br />
+<br /><br />
+
+
+
+
+
+<a id="syntax"></a>
+<span class="em8"><a href="#syntax">(direct link)</a></span><br />
+<h2>Basic Conditional Syntax</h2>
+
+The regex conditional is an <i>IF…THEN…ELSE</i> construct. Its basic form is this:<br /><br />
+<code class="cinter">(?(A)X|Y)</code><br />
+
+This means "if proposition <i class="mono">A</i> is true, then match pattern X; otherwise, match pattern Y."
+<br /><br />
+
+Often, you don't need the <i>ELSE</i> case or the <i>THEN</i> case:<br /><br />
+
+✽ <code>(?(A)X)</code> says "if proposition <i class="mono">A</i> is true, then match pattern <i class="mono">X</i>." <code>(?(A)X|)</code> means the same — but the alternation bar can be dropped.<br /><br />
+
+✽ <code>(?(A)|X)</code> amounts to saying "if proposition <i class="mono">A</i> is <b>not</b> true, then match pattern <i class="mono">X</i>." If you translate the <i>IF…THEN…ELSE</i> construction literally, it says "if proposition <i class="mono">A</i> is true, then match the empty string (which always matches at every position), otherwise match pattern <i class="mono">X</i>."
+<br /><br />
+
+<b>Proposition <i class="mono">A</i></b><br />
+Proposition <i class="mono">A</i> can be one of several kinds of assertions that the regex engine can test and determine to be true or false. These various kinds of assertions are expressed by small variations in the conditional syntax. Proposition <i class="mono">A</i> can assert that:<br /><br />
+
+✽ a numbered capture group has been set<br />
+✽ a named capture group has been set<br />
+✽ a capture group at a relative position to the current position in the pattern has been set<br />
+✽ a lookaround has been successful<br />
+✽ a subroutine call has been made<br />
+✽ a recursive call has been made<br />
+✽ embedded code evaluates to <span class="mono">TRUE</span><br />
+
+
+<br />
+<br />
+
+
+
+
+<a id="check_numgroup"></a>
+<span class="em8"><a href="#check_numgroup">(direct link)</a></span><br />
+<h2>Checking if a Numbered Capture Group has been Set</h2>
+To check if a numbered capture group has been set, we use something like:<br /><br />
+
+<code class="cinter">(?(1)foo|bar)</code><br />
+
+In this exact pattern, if Group 1 has been set, the engine must match the literal characters <i class="mono">foo</i>. If not, it must match the literal characters <i class="mono">bar</i>. But the alternation can contain any regex pattern, for instance <span class="socode">(?(1)\d{2}\b|\d{3}\b)</span>
+<br /><br />
+
+A realistic use of a conditional that checks whether a group has been set would be something like this:<br /><br />
+
+
+<code class="cinter">^(START)?\d+(?(1)END|\b)</code><br />
+
+Here is how this works:<br /><br />
+
+✽ The <a href="regex-anchors.html#caret"><span class="socode">^</span> anchor</a> asserts that the current position is the beginning of the string<br />
+✽ The parentheses around <span class="socode">(START)</span> capture the string <i class="mono">START</i> to Group 1, but the <span class="socode">?</span> "zero-or-one" <a href="regex-quantifiers.html">quantifier</a> makes the capture optional<br />
+✽ <span class="socode">\d+</span> matches one or more digits<br />
+✽ The conditional <span class="socode">(?(1)END|\b)</span> checks whether Group 1 has been set (i.e., whether <i class="mono">START</i> has been matched). If so, the engine must match <i class="mono">END</i>. If not, the engine must match a <a href="regex-boundaries.html#wordboundary">word boundary</a>.
+<br /><br />
+
+The net result is that the pattern matches digits that are either embedded within <i class="mono">START…END</i> at the beginning of the string, or standing by themselves at the beginning of the string.
+<br /><br />
+
+To achieve the same effect without a conditional, we could use <code>^(?:START\d+END|\d+\b)</code>, which forces us to repeat the <span class="socode">\d+</span> token.<br />
+<br />
+<br />
+
+
+<a id="check_namedgroup"></a>
+<span class="em8"><a href="#check_numgroup">(direct link)</a></span><br />
+<h2>Checking if a Named Capture Group has been Set</h2>
+To check whether the Group named <i class="mono">foo</i> has been set, use this syntax:<br /><br />
+✽ <span class="socode">(?(foo)…|…)</span> works in .NET, PCRE (C, PHP, R…) and Python<br />
+✽ <span class="socode">(?(&lt;foo>)…|…)</span> works in Perl, PCRE (C, PHP, R…) and Ruby<br />
+✽ <span class="socode">(?('foo')…|…)</span> works in Perl, PCRE (C, PHP, R…) and Ruby<br />
+<br />
+
+
+This example would work in .NET and PCRE:<br /><br />
+
+<code class="cinter">^(?&lt;UC>[A-Z])?\d+(?(UC)_END)$</code><br />
+
+✽ With <span class="socode">(?&lt;UC>[A-Z])</span> the optional capture group named <i class="mono">UC</i> captures one upper-case letter<br />
+✽ <span class="socode">\d+</span> matches digits<br />
+✽ The conditional <span class="socode">(?(UC)_END)</span> checks whether the group named <i class="mono">UC</i> has been set. If so, it matches the characters <i class="mono">_END</i><br /><br />
+
+This pattern would match the string <i class="mono">A55_END</i> as well as the string <i class="mono">123</i>.<br />
+
+
+<br /><br />
+
+
+
+<a id="check_relgroup"></a>
+<span class="em8"><a href="#check_relgroup">(direct link)</a></span><br />
+<h2>Checking if a Capture Group at a Relative Position has been Set</h2>
+
+In PCRE (but not .NET, Perl, Python and Ruby), you can check whether a capture group at a relative position has been set. The relative position can be to the left of to the right of the conditional.<br /><br />
+
+
+<b>Checking a relative group to the left</b><br />
+
+To specify that the relative group to be checked is back from our current position in the pattern, we place a minus sign <span class="socode">-</span> in front of an integer. For instance, <span class="socode">(?(-2)…|…)</span> checks whether the second capture group to the left of our current position in the pattern has been set. Therefore, 
+<br /><br />
+
+
+<code class="cinter">(?(-1)X|Y)</code><br />
+
+says: if the nearest capture group to the left of this conditional has been set, match pattern X; otherwise, match pattern Y.<br /><br />
+
+Using a relative group in a conditional comes in handy when you are working on a large pattern, some of whose parts you may later decide to move. It can be easier to count a relative position such as -2 than an absolute position.
+<br /><br />
+
+
+<b>Checking a relative group to the right</b><br />
+
+Although this is far less common, you can also use a forward relative group. This time, we use a <span class="socode">+</span> sign in front of an integer:<br /><br />
+
+<code class="cinter">(?(+1)X|Y)</code><br />
+
+This says: if the nearest capture group to the right of this conditional has been set, match pattern X; otherwise, match pattern Y.<br /><br />
+
+But how, you may ask, can a capture group to the right of the current position in the pattern already have been set? This can happen in various ways:<br /><br />
+
+✽ The conditional and the group live inside a quantified group. For instance, <br />
+<code>(?:A(?(+1)B)(C))+</code> matches <i class="mono">ACABC</i>. On the first pass through the repeated group, the conditional fails as <i class="mono">C</i> has not yet been captured. On the second pass, the conditional succeeds.<br /><br />
+
+✽ The conditional has been reached through a <a href="regex-disambiguation.html#subroutines">subroutine call</a>. For instance,<br />
+<code>(A(?(+1)B)(C))(?1)</code> matches <i class="mono">ACABC</i>. Inside the parentheses that define Group 1, the conditional fails as <i class="mono">C</i> has not been captured. On the subroutine call <span class="socode">(?1)</span>, the conditional succeeds.<br /><br />
+
+✽ The conditional has been reached through a <a href="regex-disambiguation.html#recursion">recursive call</a>. For instance,<br />
+<code>(A(?(+1)B)(C)(?R)?D)</code> matches <i class="mono">ACABCDD</i>. At the outer level, the conditional fails as <i class="mono">C</i> as not been captured. At the first depth of recursion, it succeeds.<br />
+<br /><br />
+
+
+
+
+
+<a id="check_lookaround"></a>
+<span class="em8"><a href="#check_lookaround">(direct link)</a></span><br />
+<h2>Checking if a Lookaround has been Successful</h2>
+In .NET and PCRE (C, PHP, R…), a conditional can check whether a <a href="regex-lookarounds.html">lookaround</a> can succeed at the current position. For instance, suppose you wish to match the first word of a string, which by default is a vegetable. However, if the string ends with <i class="mono">_FRUIT</i>, the first word must be a fruit rather than the default vegetable. You can use this:<br /><br />
+
+<code class="cinter">^(?(?=.*_FRUIT$)(?:apple|banana)|(?:carrot|pumpkin))\b</code><br />
+
+After the <a href="regex-anchors.html#caret"><span class="socode">^</span> anchor</a> asserts that the current position is the beginning of the string, the conditional <span class="socode">(?(?=.*_FRUIT$)…|…)</span> checks whether the lookahead <span class="socode">(?=.*_FRUIT$)</span> can succeed. That lookahead asserts that at the current position, the engine can match any characters, then <i class="mono">_FRUIT</i> and the end of the string.<br /><br />
+
+If the lookahead succeeds, we match a fruit: <span class="socode">(?:apple|banana)</span>. Otherwise, we match a vegetable: <span class="socode">(?:carrot|pumpkin)</span>
+<br /><br />
+
+Without a conditional, this would be a bit heavier to express:<br />
+<code class="cinter">^(?:(?:apple|banana)(?=.*_FRUIT$)|(?:carrot|pumpkin)(?!.*_FRUIT$))\b</code>
+<br />
+<br />
+
+
+<a id="check_subroutine"></a>
+<span class="em8"><a href="#check_subroutine">(direct link)</a></span><br />
+<h2>Checking if a Subroutine Call has been Made</h2>
+In Perl and PCRE (C, PHP, R…) you can check whether we are currently in the middle of a call to a specific <a href="regex-disambiguation.html#subroutines">subroutine</a>. In the case one subroutine call is nested within another, the conditional test succeeds only if the specific subroutine being tested was the last one called.
+<br /><br />
+
+For these tests, we can use both named and numbered subroutines. For instance, <span class="socode">(?(R1)…|…))</span> checks whether we are in the middle of a call to subroutine 1, and <span class="socode">(?(R&amp;foo)…|…))</span> checks whether we are in the middle of a call to a subroutine named <i>foo</i>.
+
+Consider this pattern:
+<br /><br />
+<code class="cinter">(A(?(R1)B|C))(?1)</code><br />
+
+It matches the string <i class="mono">ACAB</i>.<br /><br />
+
+✽ The parentheses around <span class="socode">(A…)</span> define Group 1 and Subroutine 1. First, we match the character <i class="mono">A</i>.<br />
+✽ The conditional <span class="socode">(?(R1)B|C)</span> checks whether we are in the middle of a call to subroutine 1. After matching the string's initial <i class="mono">A</i>, it is <b>not true</b> that we have reached this point in the pattern via a subroutine call, so we must match the pattern in the <i>ELSE</i> branch of the conditional, which is the letter <i class="mono">C</i>.<br />
+✽ <span class="socode">(?1)</span> is a call to subroutine 1. First, we match another <i class="mono">A</i>. The conditional check succeeds as we have reached this point via a call to subroutine 1, so we must match the pattern in the <i>THEN</i> branch, which is the letter <i class="mono">B</i>.<br />
+<br />
+
+Here is the same, but using a named subroutine:<br /><br />
+
+<code class="cinter">(?&lt;foo>A(?(R&amp;foo)B|C))(?&amp;foo)</code><br />
+
+✽ The parentheses around <span class="socode">(?&lt;foo>A…)</span> define a capture group and subroutine named <i>foo</i>. First, we match the character <i class="mono">A</i>.<br />
+✽ The conditional <span class="socode">(?(R&amp;foo)B|C)</span> checks whether we are in the middle of a call to the subroutine named <i>foo</i>. After matching the string's initial <i class="mono">A</i>, it is <b>not true</b> that we have reached this point in the pattern via a subroutine call, so we must match the pattern in the <i>ELSE</i> branch of the conditional, which is the letter <i class="mono">C</i>.<br />
+✽ <span class="socode">(?&amp;foo)</span> is a call to the subroutine named <i>foo</i>. First, we match another <i class="mono">A</i>. The conditional check succeeds as we have reached this point via a call to the subroutine named <i>foo</i>, so we must match the pattern in the <i>THEN</i> branch, which is the letter <i class="mono">B</i>.<br />
+<br />
+
+
+<b>Nested Subroutine Calls</b><br />
+Suppose a part of the pattern calls subroutine 2, which then calls subroutine 1. Once inside subroutine 1, the engine encounters a conditional check on whether subroutine 2 has been called. Even though we are currently within a call to subroutine 2, the conditional test fails because what matters is the last subroutine call that was made—which is the call to subroutine 1. <br /><br />
+
+We can see this with these two patterns:<br /><br />
+
+✽ <code>(A(?(R1)C))(B(?1))(?2)</code> matches <i class="mono">ABACBAC</i>. Within it, <span class="socode">(A(?(R1)C))</span> matches <i class="mono">A</i>, <span class="socode">(B(?1))</span> matches <i class="mono">BAC</i> and <span class="socode">(?2)</span> matches <i class="mono">BAC</i> again.<br /><br />
+
+✽ <code>(A(?(R2)C))(B(?1))(?2)</code> matches <i class="mono">ABABA</i> but not all of <i class="mono">ABABAC</i>. Within it, <span class="socode">(A(?(R2)C))</span> matches <i class="mono">A</i>, <span class="socode">(B(?1))</span> matches <i class="mono">BA</i>, and <span class="socode">(?2)</span> matches <i class="mono">BA</i> again. The conditional <span class="socode">(?(R2)C)</span> fails even when reached via <span class="socode">(?2)</span>, as the most recent subroutine call when it is reached is the one made by <span class="socode">(?1)</span>.
+<br />
+
+
+
+
+<br /><br />
+
+
+
+<a id="check_recursion"></a>
+<span class="em8"><a href="#check_recursion">(direct link)</a></span><br />
+<h2>Checking if a Recursive Call has been Made</h2>
+In Perl and PCRE (C, PHP, R…), the conditional <span class="socode">(?(R)…|…))</span> checks whether we have reached this point in the pattern via a <a href="regex-disambiguation.html#recursion">recursive call</a>. Consider this pattern:
+<br /><br />
+<code class="cinter">A(?(R)B)(?R)?C</code><br />
+
+It matches the string <i class="mono">AABCC</i>.<br /><br />
+
+✽ The first time we encounter the conditional, we have not made a recursive call, so we do not have to match a <i class="mono">B</i>. The outer level of the recursive match will be <i class="mono">A…C</i><br />
+✽ The second time we encounter the conditional, we are in the middle of a recursive call, so we must match a <i class="mono">B</i>. If we don't recurse again, the depth 1 match is <i class="mono">ABC</i>, and the pattern can match <i class="mono">ACABC</i>.<br />
+
+
+
+
+
+<br /><br />
+
+
+<a id="check_code"></a>
+<span class="em8"><a href="#check_code">(direct link)</a></span><br />
+<h2>Checking that Embedded Code Evaluates to <span class="mono">TRUE</span></h2>
+
+In Perl, a conditional can check that an embedded fragment of Perl code evaluates to <span class="mono">TRUE</span>. The basic syntax for this is <span class="socode">(?(?{<i>Perl code</i>})…|…)</span><br /><br />
+
+For instance, suppose you are using the variable <span class="socode">$currency</span> as a Boolean flag. The pattern<br /><br />
+
+<code class="cinter">\d+(?(?{$currency}) dollars)</code><br />
+
+matches two kinds of strings. <br /><br />
+
+✽ When <span class="socode">$currency</span> is set to <span class="mono">FALSE</span>, the conditional test fails and the pattern only matches a series of digits, such as <i class="mono">122</i>.<br /><br />
+
+✽ When <span class="socode">$currency</span> is set to <span class="mono">TRUE</span>, the conditional test succeeds and the pattern matches strings such as <i class="mono">55 dollars</i>.<br />
+
+
+
+<br /><br />
+
+<a id="delimiters"></a>
+<span class="em8"><a href="#delimiters">(direct link)</a></span><br />
+<h2>Conditionals At Work: Balancing Delimiters</h2>
+Suppose that in a body of text we want to match strings enclosed in two kinds of delimiters:<br />
+✽ If the string starts with <i class="mono">{{</i> it must end with <i class="mono">}}</i><br />
+✽ If the string starts with <i class="mono">BEGIN:</i> it must end with <i class="mono">:END</i><br />
+<br />
+
+We can use this conditional regex:<br /><br />
+
+<code class="cinter">(?:(BEGIN:)|({{)).*?(?(1):END)(?(2)}})</code><br />
+
+This will match <i class="mono">{{foo}}</i> and <i class="mono">BEGIN:bar:END</i><br /><br />
+
+✽ The non-capturing group <span class="socode">(?:(BEGIN:)|({{))</span> matches the opening delimiter, either capturing <i class="mono">BEGIN:</i> to Group 1 or capturing <i class="mono">{{</i> to Group 2.<br />
+✽ <span class="socode">.*?</span> matches any characters, <a href="regex-quantifiers.html#lazy">lazily expanding</a> up to a point where the rest of the pattern can match.<br />
+✽ The conditional <span class="socode">(?(1):END)</span> checks if Group 1 has been set. If so, the engine must match <i class="mono">:END</i><br />
+✽ The conditional <span class="socode">(?(2)}})</span> checks if Group 2 has been set. If so, the engine must match <i class="mono">}}</i><br />
+<br />
+
+<b>Alternative Solution</b><br />
+This can also be solved with a plain alternation:<br /><br />
+
+<code class="cinter">BEGIN:.*?:END|{{.*?}}</code><br />
+
+However, this expression becomes increasingly more complex when<br />
+✽ we add potential delimiter pairs, such as <i class="mono">&lt;== … ==></i>, or<br />
+✽ the content to be matched between the delimiters turns into a longer pattern—as this pattern must be repeated on each branch of the alternation.<br />
+
+
+
+<br /><br />
+
+
+
+<a id="control_failure"></a>
+<span class="em8"><a href="#control_failure">(direct link)</a></span><br />
+<h2>Conditionals At Work: Controlling Failure</h2>
+
+This section relies on the classic trick <span class="socode">(?!)</span> to <a href="regex-tricks.html#fail">force failure</a>. As a reminder, Perl and PCRE (C, PHP, R…) also allow you to use <span class="socode">(*F)</span> and <span class="socode">(*FAIL)</span><br /><br />
+
+Just as we can use a conditional to match a certain pattern if (or unless) condition X is met, we can use a conditional to force a match attempt to fail if (or unless) condition Y is met.
+<br /><br />
+
+
+<b>Fail If X</b><br />
+Suppose we're interested in matching digits <span class="socode">\d+</span> in certain contexts. The digits must be followed by either <i class="mono">END</i> or <i class="mono">_end</i>. However, if they are preceded by <i class="mono">BEG</i>, then <i class="mono">END</i> is the only allowable suffix. Therefore, <i class="mono">BEG12_end</i> cannot match, whereas <i class="mono">BEG00END</i>, <i class="mono">00END</i> and <i class="mono">00_end</i> all match.<br /><br />
+
+We can use this pattern:<br /><br />
+
+<code class="cinter">^(BEG)?\d+(?:END|_end(?(1)(?!)))$</code><br />
+
+✽ <span class="socode">(BEG)?</span> optionally matches <i class="mono">BEG</i>, capturing the characters to Group 1.<br />
+✽ <span class="socode">\d+</span> matches the digits.<br />
+✽ <span class="socode">(?:END|_end(?(1)(?!)))</span> matches either <i class="mono">END</i> or <i class="mono">_end</i>. On the <i class="mono">_end</i> branch, the conditional <span class="socode">(?(1)(?!))</span> checks if Group 1 has been set (i.e., we matched <i class="mono">BEG</i> earlier), and if so, the <i>THEN</i> branch <span class="socode">(?!)</span> forces the match attempt to fail.<br /><br />
+
+
+<b>Fail Unless Y</b><br />
+Let's give a slight tweak to the context in which we'd like to match digits. The digits must still be followed by either <i class="mono">END</i> or <i class="mono">_end</i>. However, if they end with <i class="mono">END</i>, then <i class="mono">BEG</i> is the only allowable prefix. Therefore, <i class="mono">00END</i> cannot match, whereas <i class="mono">BEG00END</i>, <i class="mono">BEG12_end</i> and <i class="mono">00_end</i> all match.<br /><br />
+
+We can use this pattern:<br /><br />
+
+<code class="cinter">^(BEG)?\d+(?:_end|END(?(1)|(?!)))$</code><br />
+
+
+✽ <span class="socode">(BEG)?</span> optionally matches <i class="mono">BEG</i>, capturing the characters to Group 1.<br />
+✽ <span class="socode">\d+</span> matches the digits.<br />
+✽ <span class="socode">(?:_end|END(?(1)|(?!)))</span> matches either <i class="mono">_end</i> or <i class="mono">END</i>. On the <i class="mono">END</i> branch, the conditional <span class="socode">(?(1)|(?!))</span> checks if Group 1 has been set (i.e., we matched <i class="mono">BEG</i> earlier); if <b>not so</b>, the <i>ELSE</i> branch <span class="socode">(?!)</span> forces the match attempt to fail.<br /><br />
+
+
+In the example on <a href="#selfref">self-referencing groups</a>, one of the alternate solutions will show a powerful way to use conditionals to control failure in the context of <a href="#balancing">.NET balancing groups</a>.
+<br />
+
+
+
+<br /><br />
+
+
+
+
+<a id="selfref"></a>
+<span class="em8"><a href="#selfref">(direct link)</a></span><br />
+<h2>Conditionals At Work: Self-Referencing Group</h2>
+
+This is an advanced technique that you should feel free to skip if you just want to get the gist of conditionals. However, it is required for the black belt program. :)
+<br /><br />
+
+Suppose we want to match strings such as <i class="mono">AAA foo BBB</i>, which is framed by the same number of <i class="mono">A</i>s and <i class="mono">B</i>s.  In Perl and PCRE (C, PHP, R…) we could use a recursive solution, such as<br />
+<code class="cinter">\A(A(?:(?1)|[^AB]*)B)\z</code><br />
+(This also works in Ruby if we replace the <span class="socode">(?1)</span> with a <span class="socode">\g&lt;1></span>)<br /><br />
+
+But if we want to balance a greater number of tokens, as in <i class="mono">AAA foo BBB bar CCC baz DDD</i>, it can becomes interesting to use self-referencing groups, as seen on the page about <a href="regex-quantifier-capture.html#pcreBalancing">Quantifier Capture</a> and on the <a href="regex-trick-line-numbers.html#selfref">trick to match line numbers</a>. For our task of balancing <i class="mono">A</i>s with <i class="mono">B</i>s in strings such as <i class="mono">AAA foo BBB</i>, we could use something like:<br /><br />
+
+<code class="cinter">^(?:A(?=A*+[^AB]*+((?(1)\1)B)))++[^B]*+\1$</code><br />
+
+I know… Please don't scream, we'll ease in gently.<br /><br />
+
+One feature of this pattern is that capture Group 1 <span class="socode">((?(1)\1)B)</span> refers to itself with the conditional <span class="socode">(?(1)\1)</span>. This conditional says:<br />
+✽ If Group 1 has already been set, match the current content of the Group 1 capture buffer.<br />
+✽ Match <i class="mono">B</i> — regardless of whether Group 1 has been set.<br /><br />
+
+This construction has the effect that with each pass through Group 1, the Group 1 capture buffer gets longer by one character <i class="mono">B</i>.<br />
+✽ On the first pass, Group 1 has not been set, so the <i>THEN</i> branch of the conditional does not apply, and Group 1 captures one single <i class="mono">B</i>.<br />
+✽ On the second pass, the conditional applies, so the parentheses must match <span class="socode">\1</span> (a back-reference to Group 1, which at this stage is <i class="mono">B</i>) and one additional <i class="mono">B</i>. At this stage, Group 1 contains <i class="mono">BB</i>.<br />
+✽ On the third pass, <span class="socode">\1</span> is <i class="mono">BB</i>, so the parentheses must capture <i class="mono">BBB</i>… and so on.
+<br /><br />
+
+Thanks to this construction, the quantified group <span class="socode">(?:A…)+</span> matches all the characters one by one, and for each <i class="mono">A</i> that is matched, the Group 1 capture buffer grows by one <i class="mono">B</i>. By the time we exit <span class="socode">(?:A…)+</span>, we have matched as many <i class="mono">A</i>s as the number of <i class="mono">B</i>s captured in Group 1. Later in the pattern a simple back-reference <span class="socode">\1</span> to Group 1 matches these <i class="mono">B</i>s.
+<br /><br />
+
+
+
+<b>Alternate Solutions</b><br />
+
+Inside the self-referencing group <span class="socode">((?(1)\1)B)</span>, instead of using a conditional, we could use an optional (but possessive) back-reference to Group 1 <span class="socode">\1?+</span>. If Group 1 is set, it is matched. And the <a href="regex-quantifiers.html#lazy">possessive</a> <span class="socode">+</span> forbids the engine from backtracking and giving up the back-reference.
+<br /><br />
+
+We've already looked at the recursive solution. Let's look at a beautiful solution in .NET.
+<br /><br />
+
+
+<a id="balancing"></a>
+<span class="em8"><a href="#balancing">(direct link)</a></span><br />
+<b>Balancing Groups</b><br />
+In .NET, we can use <a href="regex-csharp.html#balancingGroups">balancing groups</a>. This solution also uses a conditional, which is another example of a <a href="#control_failure">conditional to control failure</a>. <br /><br />
+
+As a reminder, the task is to match strings where the number of <i class="mono">A</i>s and <i class="mono">B</i>s is balanced, as in <i class="mono">AAA foo BBB</i>. We can use this:<br /><br />
+
+<code class="cinter">^(?&lt;Count_A>A)+[^AB]*(?&lt;-Count_A>B)+(?(Count_A)(?!))$</code><br />
+
+✽ <span class="socode">(?&lt;Count_A>A)+</span> matches all the <i class="mono">A</i>s, adding each individual <i class="mono">A</i> to the CaptureCollection named <i>Count_A</i>. I gave the group that name because we use the group as a virtual counter.<br />
+✽ <span class="socode">[^AB]*+</span> matches all the non-<i class="mono">A</i>, non-<i class="mono">B</i> characters.<br />
+✽ <span class="socode">(?&lt;-Count_A>B)+</span> matches all the <i class="mono">B</i> characters, popping individual <i class="mono">A</i> characters from the CaptureCollection as it does do ("decrementing the counter").<br />
+✽ <span class="socode">(?(Count_A)(?!))</span> checks if the named capture Group <i>Count_A</i> is set, which can only be the case if we have not removed enough <i class="mono">A</i>s from the CaptureCollection. This would mean there are fewer <i class="mono">B</i>s then <i class="mono">A</i>s in the string. In that case, the engine matches the <i>THEN</i> branch of the conditional, which is the classic trick <span class="socode">(?!)</span> to <a href="regex-tricks.html#fail">force the regex engine to fail and attempt to backtrack</a>.
+<br /><br />
+
+For efficiency, each quantified group should be made atomic:<br />
+<code class="cinter">^(?>(?&lt;Count_A>A)+)(?>[^AB]*)(?>(?&lt;-Count_A>B)+)(?(Count_A)(?!))$</code>
+<br />
+
+I know, the atomic version (which is far preferable for the engine) looks awful… Do you happen to know the people at Microsoft in charge of .NET regex? If so, please lobby them to support possessive quantifiers (and subroutines, and recursion). And if you don't mind, please shoot me a message as I'd love to know how to reach them. 
+<br /><br />
+
+
+
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div><a href="regex-recursion.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;How to work with Recursive Regular Expressions</b>
+</a>
+<br /><br /><br />
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-2 of 2 Threads</div>
+<a id="cid1231"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">YosheE</span><span class="comment-location"> &ndash; France</span></div>
+<div class="comment-date">December 14, 2013 - 04:59</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>About : 3. Not so useful: checking if a lookaround is successful.</div><br />
+<div class = "comment-text">Hi,<br />
+Let me add my opinion about the 3rd point : I had a problem for which I found a solution with this syntax, and that not seems to work if I use only the lookaround. Please consider a matching test : &quot;if the string ends with END, it should contain WORD, otherwise all is permitted&quot; :<br />
+- with the conditional regex I write this :<br />
+R1 : ^(? (? =. *END$). *WORD. *END|. *)$<br />
+with this R1 regex, &quot;abcd&quot; matches, &quot;theWORD is END&quot; matches, but &quot;only END&quot; doesn&#039;t match because it ends with END but WORD is missing. That&#039;s what I need : presence of WORD is tested only if string ends with END. - without the conditional it becomes :<br />
+R2 : ^(? =. *END$). *WORD. *END|. *$<br />
+with R2 regex, the last test &quot;only END&quot; matches and that&#039;s not what I need<br />
+So I think that there are cases for which checking if a lookaround is successful is so useful. Otherwise, please give me another regex that works for my problem (maybe it exists one, I&#039;m not a regex guru ^^). Regards,<br />
+Yosh</div>
+</div>
+<a id="cid1245"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to YosheE</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">December 22, 2013 - 20:57</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: checking if a lookaround is successful</div><br />
+<div class = "comment-text">Hi Yoshe,<br />
+Sorry about the delay, I have been traveling then had to catch up on a million things. Finally looked at your message today.
+<br /><br />
+Congratulations for building an interesting example!<br /><br />
+With two lookarounds, there are several solutions.<br />
+Here&#039;s a simple solution with a single lookaround:<br />
+(?x)<br />
+^.*?WORD.*END$<br />
+|<br />
+^(?:(?!END$).)*$<br />
+
+In a majority of cases, your conditional implementation probably runs faster. <br />
+I&#039;ve added that as an additional example for case 3.
+
+Wishing you a beautiful day,
+
+Rex</div>
+</div>
+<a id="cid1211"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Ivandro Ismael</span><span class="comment-location"> &ndash; Guinea-Bissau</span></div>
+<div class="comment-date">November 12, 2013 - 15:31</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Hi!</div><br />
+<div class = "comment-text">Thi is really help full thank you</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-conditionals.html" method="post" >
+<input type="hidden" name="token" value="b0534f0fd175644d951d608672e3b3ae" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a class="thispage" href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-conditionals.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+</html>

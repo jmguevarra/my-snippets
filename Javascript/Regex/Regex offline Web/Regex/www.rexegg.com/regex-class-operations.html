@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-class-operations.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:21 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Regular Expression character class operations. Discusses the character class subtraction, intersection and union in .NET, Java and Ruby." />
+<title>Regex character class operations: subtraction, intersection, union</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li class="current"><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Character Class Subtraction, Intersection &amp; Union</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+Some regex engines let you do some fancy operations within your character classes. You can match characters that belong to one class but not to another (<b>subtraction</b>); match characters that belong both to one class and another (<b>intersection</b>), or match characters that belong to either of several classes (<b>union</b>).
+<br /><br />
+
+At the moment, the engines that officially support one or several of these features are .NET, Java, Ruby 1.9+ (Onigmo engine) and <a href="https://pypi.python.org/pypi/regex" target="_blank">Matthew Barnett's <i>regex</i> module</a> for Python. In addition, Perl 5.18 introduced experimental support for set operations with its <a href="http://perldoc.perl.org/perlrecharclass.html#Extended-Bracketed-Character-Classes" target="_blank">Extended Bracketed Character Classes</a>, which I plan to document at some point.
+<br /><br />
+
+For other engines, I'll present some workarounds.
+<br /><br />
+
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#intersection">Character Class Intersection</a> <span class="em8">( <a href="#brackets">optional brackets</a> — <a href="#intersection_workaround">workaround</a> )</span><br />
+✽ <a href="#subtraction">Character Class Subtraction</a> <span class="em8">( <a href="#subtraction_javaruby">Java & Ruby</a> — <a href="#subtraction_dotnet">.NET</a> — <a href="#subtraction_python">Python</a> — <a href="#subtraction_workaround">workaround</a> )</span><br />
+✽ <a href="#union">Character Class Union</a> <span class="em8">(  <a href="#union_javaruby">Java & Ruby</a> — <a href="#union_python">Python</a> — <a href="#union_workaround">workaround</a>  )</span><br />
+<br /><br />
+
+
+<a id="intersection"></a>
+<span class="em8"><a href="#intersection">(direct link)</a></span><br />
+<h2>Character Class Intersection</h2>
+In Java, Ruby 1.9+ and the <i>regex</i> module for Python, you can use the AND operator <span class="socode">&&</span> to specify the intersection of multiple classes within a character class: <span class="socode">[…&&[…]&&[…]]</span> specifies a character class representing the intersection of three sub-classes—meaning that the character matched by the class must belong to all three sub-classes. For instance, <span class="socode">[\S&&[\D]]</span> specifies one character that is both a non-whitespace character and a non-digit.
+<br /><br />
+
+Character class intersection really comes into its own when using Unicode properties, as it lets us zoom in on a desired set of characters. For instance, the regex <span class="socode">[\p{InArabic}&&[\p{L}]]</span> matches a character that is both in the Arabic Unicode block and a letter—in other words, an Arabic letter. Likewise, <span class="socode">[\p{ASCII}&&\p{L}]</span> matches an ASCII character that is also a letter.
+<br /><br />
+
+<a id="brackets"></a>
+<span class="em8"><a href="#brackets">(direct link)</a></span><br />
+<b>Brackets are optional but… Use them with negation</b><br />
+As long as the class after the <span class="socode">&&</span> is not a negated class <span class="socode">[^…]</span>, the brackets are optional. Therefore, the above regex can be written<br />
+<code class="cinter">[\p{InArabic}&&\p{L}]</code>
+
+<br />
+When negation is involved, I recommend always using brackets because things can get messy. For instance, what does <span class="socode">[^a&&[ab]]</span> mean? For Java, it means <span class="socode">[[^a]&&[ab]]</span> and therefore only matches <i>b</i>. For Ruby, it means <span class="socode">[^[a&&[ab]]]</span>, i.e. "not the intersection of two subclasses" (which is <i>a</i>), and it therefore matches any character that is not an <i>a</i>.
+<br /><br />
+
+Combined with negated classes, intersection is very useful to create character class subtraction.
+<br /><br />
+
+<a id="intersection_workaround"></a>
+<span class="em8"><a href="#intersection_workaround">(direct link)</a></span><br />
+<b>Workaround for Engines that Don't Support Character Class Intersection</b><br />
+For engines that don't support character class intersection, we can simply use a lookahead. For instance, our Arabic letter regex <span class="socode">[\p{InArabic}&&\p{L}]</span> can be written like this in Perl:<br /><br />
+
+<code class="cinter">(?=\p{InArabic})\p{L}</code>
+<br />
+The lookahead asserts that the following character belongs to the Arabic Unicode block. Then <span class="socode">\p{L}</span> matches a letter, which is guaranteed to be an Arabic letter.
+<br /><br /><br />
+
+
+
+<a id="subtraction"></a>
+<span class="em8"><a href="#subtraction">(direct link)</a></span><br />
+<h2>Character Class Subtraction</h2>
+
+The syntax for character class subtraction differs depending on whether you're using Java, Ruby 1.9+ or .NET.<br /><br />
+
+
+<a id="subtraction_javaruby"></a>
+<span class="em8"><a href="#subtraction_javaruby">(direct link)</a></span><br />
+<b>Character Class Subtraction in Java and Ruby 1.9+</b><br />
+
+Java and Ruby do not have dedicated syntax for character class subtraction. Rather, the feature is just a logical by-product of their character intersection syntax. For instance, <br />
+<code class="cinter">[a-z&&[^aeiou]]</code>
+matches characters that are both English lowercase letters <i>and</i> not vowels. In effect, it subtracts the vowel class <span class="socode">[aeiou]</span> from the class of letters <span class="socode">[a-z]</span>. The effect is to match all English lowercase consonants.
+<br /><br />
+
+Subtraction becomes particularly useful with Unicode properties. For instance, <br />
+<code class="cinter">[\p{InArabic}&&[^\P{L}]]</code>
+subtracts non-letters <span class="socode">\P{L}</span> from the set of characters in the Arabic Unicode block—guaranteeing we match an Arabic letter.
+<br /><br />
+
+
+
+<a id="subtraction_dotnet"></a>
+<span class="em8"><a href="#subtraction_dotnet">(direct link)</a></span><br />
+<b>Character Class Subtraction in .NET</b><br />
+In .NET, with <span class="socode">[…-[…]]</span>, you can specify that the character to be matched belongs to a certain class (everything before the hyphen), except if it belongs to another class (the embedded character class, which is "subtracted" by the hyphen).<br /><br />
+
+For instance, the class<br />
+<code class="cinter">[a-z-[aeiou]]</code>
+matches an English lower-case consonant.<br /><br />
+
+Using Unicode properties, you can use this feature to zoom in on a useful character range. For instance, you could try <span class="socode">[\p{IsArabic}-[\d]]</span> to match one character in the Arabic code block, except if it is a digit. Do not think that gives you an Arabic letter, though, as the Arabic code block also includes punctuation and various marks and symbols.<br /><br />
+
+In contrast, <span class="socode">[\p{IsArabic}-[\D]]</span> is much more useful: it gives us one character in the Arabic code block, except if it is a non-digit—guaranteeing that it is an Arabic digit.
+<br /><br />
+
+You can have nested subtraction—using subtraction within a class being subtracted. For instance, having defined  <span class="socode">[a-z-[aeiou]]</span> as English lowercase consonants, we could subtract those from the word character class: <span class="socode">[\w-[a-z-[aeiou]]]</span>
+<br /><br />
+
+Note that <span class="socode">[^a-z-[0-9]]</span> is not interpreted as (using pseudoregex) <span class="socode">[^{a-z-[0-9]}]</span>, but as (pseudoregex) <span class="socode">[{^a-z}-[0-9]]</span>. But you would never do that: <span class="socode">[^a-z0-9]</span> is much simpler.
+<br /><br />
+
+<a id="subtraction_python"></a>
+<span class="em8"><a href="#subtraction_python">(direct link)</a></span><br />
+<b>Character Class Subtraction in the <i>regex</i> module for Python</b><br />
+The syntax is the same as for .NET, except for one added hyphen. For instance, the class<br />
+<code class="cinter">[a-z--[aeiou]]</code>
+matches an English lower-case consonant.<br /><br />
+
+In addition, when the subtracted class does not include a range, its brackets are optional. The above can therefore also be written as <span class="socode">[a-z--aeiou]</span>
+
+<br /><br />
+
+
+<a id="subtraction_workaround"></a>
+<span class="em8"><a href="#subtraction_workaround">(direct link)</a></span><br />
+<b>Workaround for Engines that Don't Support Character Class Subtraction</b><br />
+
+For engines that don't support character class subtraction, we can simply use a negative lookahead. For instance, our English consonant regex <span class="socode">[a-z&&[^aeiou]]</span> can be written like this in PCRE (PHP, R…), Perl, Python and JavaScript:<br /><br />
+
+<code class="cinter">(?![aeiou])[a-z]</code>
+<br />
+The negative lookahead asserts that the following character is not a lowercase vowel. Then <span class="socode">[a-z]</span> matches a letter, which is guaranteed not to be a vowel.
+
+
+<br /><br /><br />
+
+
+<a id="union"></a>
+<span class="em8"><a href="#union">(direct link)</a></span><br />
+<h2>Character Class Union</h2>
+
+The syntax for the union of character classes depends on which engine you use.<br /><br />
+
+<a id="union_javaruby"></a>
+<span class="em8"><a href="#union_javaruby">(direct link)</a></span><br />
+<b>Character class union in Java and Ruby 1.9+</b><br />
+
+In Java and Ruby 1.9+, you can embed character classes within a character class like so: <span class="socode">[…[…][…]]</span> to specify that the character to be matched can belong to either of the specified classes. For instance, <span class="socode">[\D[9]]</span> matches one character that is either a non-digit or a 9.
+<br /><br />
+
+Since this can also be written <span class="socode">[\D9]</span>, unions tend to be useful only in convoluted cases that involve negation or other character class operations (subtraction and intersection). For instance, <span class="socode">[0[^\W\d]]</span> is a reduced word character class where the only allowable characters are letters, underscores and the digit 0.
+
+<br /><br />
+Each embedded class has access to the entire character class syntax, so it too can embed classes, leading to multiple levels of nesting, as in <span class="socode">[…[…][…[…][…]]]</span>. Looking at it this way, I don't know what situation would ever led you to specify such a class, but this could come in handy if you build patterns dynamically, concatenating classes that originate in various parts of your application. (Thanks to nhahtdh for bringing this to my attention.)<br /><br />
+
+<a id="union_python"></a>
+<span class="em8"><a href="#union_python">(direct link)</a></span><br />
+<b>Character class union in the <i>regex</i> module for Python</b><br />
+In the <i>regex</i> module for Python, to create the union of multiple character classes, we use the OR operator <span class="socode">||</span>. For instance, <span class="socode">[0||[^\W\d]]</span> specifies a character that is either 0 or a word character that is not a digit.
+<br /><br />
+
+<a id="union_workaround"></a>
+<span class="em8"><a href="#union_workaround">(direct link)</a></span><br />
+<b>Workaround for Engines that Don't Support Character Class Union</b><br />
+For engines that don't support character class unions, we can simply use an alternation within a non-capturing group. For instance, our regex <span class="socode">[0||[^\W\d]]</span> can be rewritten like this in all major engines:<br /><br />
+
+<code class="cinter">(?:0|[^\W\d])</code>
+<br />
+<br /><br />
+
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div>
+<a href="regex-lookarounds.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;Mastering Lookahead and Lookbehind</b>
+</a>
+<br /><br /><br />
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Be the First to Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-class-operations.html" method="post" >
+<input type="hidden" name="token" value="45080c3760a5bd55ee0a393db3a33cbd" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a  href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a class="thispage" href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-class-operations.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:21 GMT -->
+</html>

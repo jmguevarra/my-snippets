@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.rexegg.com/regex-quantifiers.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<meta name="revisit-after" content="7 Days" />
+<meta name="dcterms.rightsHolder" content="copyright (c) RexEgg.com --- ALL RIGHTS RESERVED" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../a.yu8.us/icon_rexegg.png">
+<link rel="stylesheet" href="https://yu8.us/0_mycss-200823.html?cat=regex&amp;com=1" media="screen,print" >
+<link rel="stylesheet" href="../yu8.us/google_fonts/google-lato-merriweather.css" rel="stylesheet"><meta name="description" content="Regex Quantifiers Tutorial. Explains the fine details of quantifiers, including greedy, lazy (reluctant) and possessive." />
+<title>Regex Quantifier Tutorial: Greedy, Lazy, Possessive</title>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script src='../www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<header class="sitebanner" id="the_banner" "javascript:void(0)" onclick="close_left_menu()"></header>
+<nav class="topmenu" ><!-- Top Menu -->
+<table cellpadding="0" class="glossymenu mobile_only">
+<col class="w80" />
+<col class="w570" />
+
+<tr>
+<td style="vertical-align:top;"><span class="hamburger" onclick="open_left_menu()"><img class = "w50" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNNCwxMGgyNGMxLjEwNCwwLDItMC44OTYsMi0ycy0wLjg5Ni0yLTItMkg0QzIuODk2LDYsMiw2Ljg5NiwyLDhTMi44OTYsMTAsNCwxMHogTTI4LDE0SDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDIgIHMwLjg5NiwyLDIsMmgyNGMxLjEwNCwwLDItMC44OTYsMi0yUzI5LjEwNCwxNCwyOCwxNHogTTI4LDIySDRjLTEuMTA0LDAtMiwwLjg5Ni0yLDJzMC44OTYsMiwyLDJoMjRjMS4xMDQsMCwyLTAuODk2LDItMiAgUzI5LjEwNCwyMiwyOCwyMnoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9zdmc+Cg==" alt="Menu"></span></td>
+<td style="vertical-align:top;">&#x2B05; Menu: <i><b>All</b></i> the pages<br>quick links &#x2B07;</td>
+</tr>
+
+</table>
+<ul class="glossymenu">
+ <li ><a rel="nofollow" href=".html"><b>Fundamentals</b></a></li><li class="current"><a rel="nofollow" href="regex-disambiguation.html"><b>Black Belt Program</b></a></li><li ><a rel="nofollow" href="regex-tricks.html"><b>Regex in Action</b></a></li><li ><a rel="nofollow" href="regex-humor.html"><b>Humor &amp; More</b></a></li><li ><a rel="nofollow" href="regex-consultant.html"><b>Ask Rex</b></a></li></ul>
+</nav><!-- Top Menu --><div class="wrap_3cols"><div class="wrap_2leftcols">
+
+<article id="the_article" "javascript:void(0)" onclick="close_left_menu()" ><br />
+    <h1>Mastering Quantifiers</h1><div class="cinter">
+        <a rel="nofollow" href="http://www.copyscape.com/"
+        target="_blank">
+        <img src="../b.yu8.us/copyscape-white.gif"
+        alt="Page copy protected against web site content
+        infringement by Copyscape"
+        title="Do not copy content from the page.
+        Plagiarism will be detected by Copyscape."
+        width="234" height="16" />
+        </a></div><br /><script type="text/javascript">
+function open_left_menu() {
+  document.getElementById("the_leftmenu").style.width = "33%"; 
+  /* document.getElementById("the_leftmenu").style.margin = "0 67% 0 0"; */ 
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function close_left_menu() {
+     var close_button = document.getElementById("mobile_close_button");
+     if (window.getComputedStyle(close_button).display !== "none") {
+        document.getElementById("the_leftmenu").style.width = "0";
+        document.getElementById("the_article").style.marginLeft = "0";
+        document.getElementById("the_banner").style.marginLeft = "0";
+        document.getElementById("the_top_nav").style.marginLeft = "0";
+      }
+}
+</script>
+
+
+The behavior of regex quantifiers is a common source of woes for the regex apprentice. You may have heard that they can be "greedy" or "lazy", sometimes even "possessive"—but sometimes they don't seem to behave the way you had expected. Is there a bug in your regex engine?
+<br /><br />
+As it turns out, there is more to quantifiers than just "greedy" and "lazy". This page digs deep into the details of quantifiers and shows you the <b>traps</b> you need to be aware of and the <b>tricks</b> you need to master in order to wield them effectively.
+<br /><br />
+
+
+
+<a id="nav"></a>
+<span class="em8"><a href="#nav">(direct link)</a></span><br />
+<b>Jumping Points</b><br />
+For easy navigation, here are some jumping points to various sections of the page:<br /><br />
+✽ <a href="#basics">Quantifier Basics</a>&emsp;<span class="em8">(&ensp;<a href="#greedy">greedy</a> / <a href="#docile">docile</a> / <a href="#lazy">lazy</a> / <a href="#helpful">helpful</a> / <a href="#possessive">possessive</a>&ensp;)</span><br />
+✽ <a href="#cheat_sheet">Quantifier Cheat Sheet</a><br />
+✽ <a href="#greedytrap">The Greedy Trap</a><br />
+✽ <a href="#lazy_solution">Lazy Quantifier Solution</a><br />
+✽ <a href="#lazy_expensive">Lazy Quantifiers are Expensive</a><br />
+✽ <a href="#negclass_solution">Negated Class Solution</a><br />
+✽ <a href="#tempered_greed">Tempered Greedy Token Solution</a><br />
+✽ <a href="#explicit_greed">Explicit Greedy Alternation Solution</a><br />
+✽ <a href="#unrolled_staralt">Unrolled Star Alternation Solution</a><br />
+✽ <a href="#lazytrap">The Lazy Trap</a><br />
+✽ <a href="#explosive">The Explosive Quantifier Trap</a><br />
+✽ <a href="#longest_shortest">The <i>Longest Match</i> and <i>Shortest Match</i> Traps</a><br />
+
+
+
+<br /><br />
+
+
+<a name=basics></a>
+<span class="em8"><a href="#basics">(direct link)</a></span><br />
+<h2>Quantifier Basics</h2>
+Before we dive into quantifier tricks and traps, let's have a quick reminder of the basics because I don't know what you've read so far and there's no shortage of incomplete regex tutorials.
+<br /><br />
+
+<b>Stick to what's immediately to the left</b><br />
+A regex quantifier such as <span class="socode">+</span> tells the regex engine to match a certain quantity of the character, token or subexpression immediately to its left. For instance, <br /><br />
+✽ in <span class="socode">A+</span> the quantifier <span class="socode">+</span> applies to the character <i>A</i><br />
+✽ in <span class="socode">\w*</span> the quantifier <span class="socode">*</span> applies to the token <span class="socode">\w</span><br />
+✽ in <span class="socode">carrots?</span> the quantifier <span class="socode">?</span> applies to the character <i>s</i>—not to <i>carrots</i><br />
+✽ in <span class="socode">(?:apple,|carrot,)+</span> the quantifier <span class="socode">+</span> applies to the subexpression <span class="socode">(?:apple,|carrot,)</span><br />
+<br />
+
+One place where the "stick-to-the-left" rule is not immediately obvious is with the <a href="regex-quickstart.html#other"><span class="socode">\Q…\E</span></a> sequence that escapes all of the characters it contains. If you stick a <span class="socode">+</span> after such a sequence, should it apply to the whole sequence, or only to its last character? The engine treats the content of the sequence as a series of literals, so the quantifier only applies to the last character. For instance, <span class="socode">\QC+\E+</span> matches all of <i class="mono">C++++</i>, but against <i class="mono">C+C+</i> it only matches <i class="mono">C+</i>.
+
+<br /><br />
+
+<a id="greedy"></a>
+<span class="em8"><a href="#greedy">(direct link)</a></span><br />
+<b>Greedy: As Many As Possible (longest match)</b><br />
+By default, a quantifier tells the engine to match as many instances of its quantified token or subpattern as possible. This behavior is called <i>greedy</i>. 
+<br /><br />
+
+For instance, take the <span class="socode">+</span> quantifier. It allows the engine to match one or more of the token it quantifies: <span class="socode">\d+</span> can therefore match one or more digits. But "one or more" is rather vague: in the string <i class="mono">123</i>, "one or more digits" (starting from the left) could be <i class="mono">1</i>, <i class="mono">12</i> or <i class="mono">123</i>. Which of these does <span class="socode">\d+</span> match?
+<br /><br />
+
+Because by default quantifiers are greedy, <span class="socode">\d+</span> matches as many digits as possible, i.e. <i class="mono">123</i>. For the match attempt that starts at a given position, a greedy quantifier gives you the longest match.
+<br /><br />
+
+Do beware of this notion of "longest match": it refers to the longest match that can be found with a match attempt that starts at a given position in the string — not to the longest possible match that can be found if a pattern is applied repeatedly to various sections of a string. For more on this, see the section about the <a href="#longest_shortest">longest and shortest match traps</a>.
+<br /><br />
+
+
+
+<a id="docile"></a>
+<span class="em8"><a href="#docile">(direct link)</a></span><br />
+<b>Docile: Give Back When Needed</b><br />
+<div class="pullquote R">
+Greedy…<br />but docile.
+</div>
+Because by default a quantifier is greedy, the engine starts out by matching as many of the quantified token as it can swallow. For instance, with <span class="socode">A+</span>, the engine swallows as many <i>A</i> characters as it can find.
+<br /><br />
+But if the quantified token has matched so many characters that the rest of the pattern can not match, the engine will backtrack to the quantified token and make it give up characters it matched earlier—one character or chunk at a time, depending on whether the quantifier applies to a single character or to a subpattern that can match chunks of several characters. After giving up each character or chunk, the engine tries once again to match the rest of the pattern. I call this behavior of greedy quantifiers <i>docile</i>.<br /><br />
+
+For instance, against the string <i class="mono">A tasty apple</i>, using the regex <code>.*apple</code>, the token <span class="socode">.*</span> starts out by greedily matching every single character in the string. The engine then advances to the next token <span class="socode">a</span>, which fails to match as there are no characters left in the string. The engine backtracks into the <span class="socode">.*</span>, which gives up the <i class="mono">e</i> in <i class="mono">apple</i>. The engine once again advances to the next token, but the <span class="socode">a</span> fails to match the <i class="mono">e</i>. The engine again backtracks into the <span class="socode">.*</span>, which gives up the <i class="mono">l</i>. The process repeats itself until the <span class="socode">.*</span> has given up the <i class="mono">a</i>, at which stage the text tokens <span class="socode">a</span>, <span class="socode">p</span>, <span class="socode">p</span>, <span class="socode">l</span> and <span class="socode">e</span> are all able to match and the overall match is successful.
+
+<br /><br />
+When you hear that <span class="socode">A+</span> means "one or more <i>A</i> characters", that is therefore not the whole story. It is "one or more, but as many as possible (greedy), and giving back characters if needed in order to allow the rest of the pattern to match (docile)".
+<br /><br />
+
+Suppose our entire string is <i>AAA</i>. Depending on which pattern we use to match the string, the quantified token <span class="socode">A+</span> could end up matching <span class="mono">A</span>, <span class="mono">AA</span> or <span class="mono">AAA</span>. Consider these three patterns:<br /><br />
+
+✽ <code>A+</code>&ensp;—&ensp;<span class="socode">A+</span> matches <span class="mono">AAA</span> (as many as possible).<br /><br />
+✽ <code>(A+).</code>&ensp;—&ensp;<span class="socode">A+</span> (captured to Group 1) matches <span class="mono">AA</span>, because to allow the dot to match, <span class="socode">A+</span> (which starts out by matching <span class="mono">AAA</span>) has to give up one <i>A</i>.<br /><br />
+✽ <code>(A+)..</code>&ensp;—&ensp;<span class="socode">A+</span> (captured to Group 1) matches <span class="mono">A</span>, because to allow the two dots to match,  <span class="socode">A+</span> (which starts out by matching <span class="mono">AAA</span>) has to give up two <i>A</i> characters.<br />
+<br />
+
+<a id="lazy"></a>
+<span class="em8"><a href="#lazy">(direct link)</a></span><br />
+<b>Lazy: As Few As Possible (shortest match)</b><br />
+In contrast to the standard greedy quantifier, which eats up as many instances of the quantified token as possible, a <i>lazy</i> (sometimes called <i>reluctant</i>) quantifier tells the engine to match as few of the quantified tokens as needed. As you'll see in the table below, a regular quantifier is made lazy by appending a <span class="socode">?</span> question mark to it.
+<br /><br />
+
+Since the <span class="socode">*</span> quantifier allows the engine to match zero or more characters, <span class="socode">\w*?E</span> tells the engine to match zero or more word characters, but as few as needed—which might be none at all—then to match an <i class="mono">E</i>. In the string <i class="mono">123EEE</i>, starting from the very left, "zero or more word characters then an <i class="mono">E</i>" could be <i class="mono">123E</i>, <i class="mono">123EE</i> or <i class="mono">123EEE</i>. Which of these does <span class="socode">\w*?E</span> match?
+<br /><br />
+
+Because the <span class="socode">*?</span> quantifier is lazy, <span class="socode">\w*?</span> matches as few characters as possible to allow the overall match attempt to succeed, i.e. <i class="mono">123</i>—and the overall match is <i class="mono">123E</i>. For the match attempt that starts at a given position, a lazy quantifier gives you the shortest match.
+<br /><br />
+
+Do beware of this notion of "shortest match": it refers to the shortest match that can be found with a match attempt that starts at a given position in the string — not to the shortest possible match that can be found if a pattern is applied repeatedly to various sections of a string. For more on this, see the section about the <a href="#longest_shortest">longest and shortest match traps</a>.
+<br /><br />
+
+
+
+<a id="helpful"></a>
+<span class="em8"><a href="#helpful">(direct link)</a></span><br />
+<b>Helpful: Expand When Needed</b><br />
+<div class="pullquote R">
+Lazy…<br />but helpful.
+</div>
+
+With a lazy quantifier, the engine starts out by matching as few of the tokens as the quantifier allows. For instance, with <span class="socode">A*</span>, the engine starts out matching zero characters, since <span class="socode">*</span>allows the engine to match "zero or more".
+<br /><br />
+But if the quantified token has matched so few characters that the rest of the pattern can not match, the engine backtracks to the quantified token and makes it expand its match—one step at a time. After matching each new character or subexpression, the engine tries once again to match the rest of the pattern. I call this behavior of lazy quantifiers <i>helpful</i>.<br /><br />
+
+For instance, against the string <i class="mono b">Two_apples</i>, using the regex <code>.*?apples</code>, the token <span class="socode">.*?</span> starts out by matching zero characters—the minimum allowed by the <span class="socode">*</span> quantifier. The engine then advances in the pattern and tries to match the <span class="socode">a</span> token against the <i class="mono">T</i> in <i class="mono">Two</i>. That fails, so the engine backtracks to the <span class="socode">.*?</span>, which expands to match the <i class="mono">T</i>. The engine advances both in the pattern and in the string and tries to match the <span class="socode">a</span> token against the <i class="mono">w</i> in <i class="mono">Two</i>. Once again, the engine has to backtrack. The <span class="socode">.*?</span> expands to match the <i class="mono">w</i>, then the <span class="socode">a</span> token fails against the <i class="mono">o</i> in <i class="mono">Two</i>. This process of advancing, failing, backtracking and expanding repeats itself until the <span class="socode">.*?</span> has expanded to match <i class="mono">Two_</i>. At that stage, the following token <span class="socode">a</span> is able to match, as are the <span class="socode">p</span> and all the tokens that follow. The match attempt succeeds.
+
+<br /><br />
+
+As this example showed, because lazy quantifiers expand their match one step at a time in order to match only as much as needed, they cause the engine to <a href="#lazy_expensive">backtrack at each step</a>. They are expensive. 
+<br /><br />
+
+To fully grasp how lazy quantifiers work, let's look at one more example. The quantified token <span class="socode">A*?</span> matches zero or more <i class="mono">A</i> characters—as few as possible, expanding as needed. Against the string <i class="mono b">AA</i>, depending on the overall pattern, <span class="socode">A*?</span> could end up matching no characters at all, <span class="mono">A</span> or <span class="mono">AA</span>. Consider how these three patterns match <i class="mono b">AA</i>:<br /><br />
+
+✽ <code>^(A*?)AA$</code>&ensp;—&ensp;<span class="socode">A*?</span> (captured to Group 1) matches no characters. After the anchor <span class="socode">^</span> asserts that the current position is the beginning of the string, <span class="socode">A*?</span> tries to match the least number of characters allowed by <span class="socode">*</span>, which is zero characters. The engine moves to the next token: the <span class="socode">A</span>, which matches the first <i class="mono">A</i> in <i class="mono">AA</i>. The next token matches the second <i class="mono">A</i>. The match attempt succeeds, and Group 1 ends up containing no characters.
+<br /><br />
+
+✽ <code>^(A*?)A$</code>&ensp;—&ensp;<span class="socode">A*?</span> (captured to Group 1) matches one <i class="mono">A</i>. Initially, the <span class="socode">A*?</span> matches zero characters. The next token <span class="socode">A</span> matches the first <i class="mono">A</i> in <i class="mono">AA</i>. The engine advances to the next token, but the anchor <span class="socode">$</span> fails to match against the second <i>A</i>. The engine sees that the <span class="socode">A*?</span> can expand. It backtracks and gives up the <i>A</i>, which the <span class="socode">A*?</span> now expands to match. The engine moves to the next token: the <span class="socode">A</span> matches the second <i class="mono">A</i> in the string. The <span class="socode">$</span> anchor now succeeds. Group 1 ends up containing one <i>A</i>.<br /><br />
+
+✽ <code>^A*?$</code>&ensp;—&ensp;<span class="socode">A*?</span> matches <i class="mono">AA</i>. After the <span class="socode">A*?</span> matches zero characters, the <span class="socode">$</span> fails to match. The engine backtracks and allows the <span class="socode">A*?</span> to match one <i>A</i>. Once again, the <span class="socode">$</span> fails to match (there is one <i>A</i> left in the string). The engine backtracks again and allows the <span class="socode">A*?</span> to expand to match the second <i class="mono">A</i>. This time, the <span class="socode">$</span> anchor matches. Group 1 ends up containing <i>AA</i>.
+<br /><br />
+
+
+
+
+<a id="possessive"></a>
+<span class="em8"><a href="#lazy">(direct link)</a></span><br />
+<b>Possessive: Don't Give Up Characters</b><br />
+In contrast to the standard docile quantifier, which gives up characters if needed in order to allow the rest of the pattern to match, a <i>possessive</i> quantifier tells the engine that even if what follows in the pattern fails to match, it will hang on to its characters.
+<br /><br />
+As you'll see in the table below, a quantifier is made possessive by appending a <span class="socode">+</span> plus sign to it. Therefore, <span class="socode">A++</span> is possessive—it matches as many characters as needed and never gives any of them back.
+<br /><br />
+
+Whereas the regex <code>A+.</code> matches the string <span class="mono">AAA</span>, <code>A++.</code> doesn't. At first, the token <span class="socode">A++</span> greedily matches all the <i>A</i> characters in the string. The engine then advances to the next token in the pattern. The dot <span class="socode">.</span> fails to match because there are no characters left to match. The engine looks if there is something to backtrack. But <span class="socode">A++</span> is possessive, so it will not give up any characters. There is nothing to backtrack, and the pattern fails. In contrast, with <span class="socode">A+.</span>, the <span class="socode">A+</span> would have given up the final <i class="mono">A</i>, allowing the dot to match.
+<br /><br />
+
+Possessive quantifiers match fragments of string as solid blocks that cannot be backtracked into: it's all or nothing. This behavior is particularly useful when you know there is no valid reason why the engine should ever backtrack into a section of matched text, as you can save the engine a lot of needless work.
+<br /><br />
+
+In particular, when a match must fail, a possessive quantifier can help it to fail faster. For instance, suppose we want to match a string of digits that ends with <i class="mono">E</i>, as in <i class="mono">123E</i>. We can use a possessive quantifier with the <span class="socode">\d</span> digit token:<br />
+<code class="cinter">\b\d++E</code><br />
+
+When we use this pattern against <i class="mono">123E</i>, it matches in the same way as if we had used a non-possessive <i class="mono">\d</i>. Actually, in theory the match could be a hair faster because the <span class="socode">\d++</span> quantifier doesn't need to remember positions where it may later need to backtrack—it's all or nothing. 
+<br /><br />
+Now let's use the same pattern against <i class="mono b">13245</i>. We expect the match to fail because the string doesn't end with an <i class="mono">E</i>. Let's see how the possessive and non-possessive versions compare.
+<br /><br />
+✽ In the possessive version <span class="socode">\b\d++E</span>, after matching all the digits, the engine advances in the pattern and attempts the next token <span class="socode">E</span>. There are no characters left in the string, so this fails. Since the engine has nowhere to backtrack to, the match fails.<br /><br />
+
+✽ In the non-possessive version <span class="socode">\b\d+E</span>, after failing to match the <span class="socode">E</span> token at the end of the string, unless the engine has been optimized to detect that the <span class="socode">\d+</span> token and the <span class="socode">E</span> are mutually incompatible, it has positions to backtrack to. It backtracks into the <span class="socode">\d+</span> and gives up the last character matched, which was the <i class="mono">5</i>. It then advances in the pattern and tries the next token <span class="socode">E</span> against the <i class="mono">5</i>. That fails, so the engine backtracks into the <span class="socode">\d+</span> again, gives up the <i class="mono">4</i>, advances in the pattern and tries the <span class="socode">E</span> against the <i class="mono">4</i>. This fails, and the process repeats itself until the <span class="socode">\d+</span> has given up everything except the <i class="mono">1</i>, at which stage there is nothing left to backtrack and the pattern can finally fail.
+<br /><br />
+
+As you can see, in the regular version the engine spends a lot of time in needless backtracking, whereas in the possessive version the "all or nothing" <span class="socode">\d++</span> allows the match to fail right away.
+<br /><br />
+
+It's worth noting that certain engines (such as PCRE) study the pattern before starting the match, notice that the token <span class="socode">\d</span> is mutually exclusive with the token <span class="socode">E</span>, and optimize the pattern by automatically turning the <span class="socode">\d+</span> into a possessive <span class="socode">\d++</span>. This process is called <i>auto-possessification</i>. PCRE even allows you to turn it off with the <a href="regex-modifiers.html#pcre">special start-of-pattern modifier</a> <span class="socode">(*NO_AUTO_POSSESS)</span>
+
+
+
+<br /><br />
+Possessive quantifiers are supported in Java (which introduced the syntax), PCRE (C, PHP, R…), Perl, Ruby 2+ and the alternate <i>regex</i> module for Python.
+<br /><br />
+
+In .NET, where possessive quantifiers are not available, you can use the <a href="regex-disambiguation.html#atomic">atomic group syntax <span class="socode">(?>…)</span></a> (this also works in Perl, PCRE, Java and Ruby). The atomic group <span class="socode">(?>A+)</span> tells the engine that if the pattern fails after the <span class="socode">A+</span> token, it is not allowed to backtrack into <span class="socode">A+</span>. This means that <span class="socode">A+</span> will not give up any of its characters—it is like a solid block (hence the name <i>atomic</i>). As you can see, this is the same behavior as <span class="socode">A++</span>. In fact, <span class="socode">A++</span> is syntactic sugar for <span class="socode">(?>A+)</span>, as internally most engines convert the first to the second.
+<br /><br />
+
+
+
+<br />
+<a id="cheat_sheet"></a>
+<span class="em8"><a href="#cheat_sheet">(direct link)</a></span><br />
+<h2>Quantifier Cheat Sheet</h2>
+
+<table " border="0" style="table-layout:fixed;"><tr><th class="w100" scope="col"></th><th class="w500" scope="col"></th></tr><tr class="brown"><td><span class="cinter b mono">+</span></td><td><span class="cinter b">once or more</span></td></tr><tr class="beige"><td><span class="mono">A+</span></td><td>One or more As, as many as possible (greedy), giving up characters if the engine needs to backtrack (docile)</td></tr><tr class="brown"><td><span class="mono">A+?</span></td><td>One or more As, as few as needed to allow the overall pattern to match (lazy)</td></tr><tr class="beige"><td><span class="mono">A++</span></td><td>One or more As, as many as possible (greedy), not giving up characters if the engine tries to backtrack (possessive)</td></tr><tr class="brown"><td><span class="cinter b mono">*</span></td><td><span class="cinter b">zero times or more</span></td></tr><tr class="beige"><td><span class="mono">A*</span></td><td>Zero or more As, as many as possible (greedy), giving up characters if the engine needs to backtrack (docile)</td></tr><tr class="brown"><td><span class="mono">A*?</span></td><td>Zero or more As, as few as needed to allow the overall pattern to match (lazy)</td></tr><tr class="beige"><td><span class="mono">A*+</span></td><td>Zero or more As, as many as possible (greedy), not giving up characters if the engine tries to backtrack (possessive)</td></tr><tr class="brown"><td><span class="cinter b mono">?</span></td><td><span class="cinter b">zero times or once</span></td></tr><tr class="beige"><td><span class="mono">A?</span></td><td>Zero or one A, one if possible (greedy), giving up the character if the engine needs to backtrack (docile)</td></tr><tr class="brown"><td><span class="mono">A??</span></td><td>Zero or one A, zero if that still allows the overall pattern to match (lazy)</td></tr><tr class="beige"><td><span class="mono">A?+</span></td><td>Zero or one A, one if possible (greedy), not giving the character if the engine tries to backtrack (possessive)</td></tr><tr class="brown"><td><span class="cinter b mono">{x,y}</span></td><td><span class="cinter b">x times at least, y times at most</span></td></tr><tr class="beige"><td><span class="mono">A{2,9}</span></td><td>Two to nine As, as many as possible (greedy), giving up characters if the engine needs to backtrack (docile)</td></tr><tr class="brown"><td><span class="mono">A{2,9}?</span></td><td>Two to nine As, as few as needed to allow the overall pattern to match (lazy)</td></tr><tr class="beige"><td><span class="mono">A{2,9}+</span></td><td>Two to nine As, as many as possible (greedy), not giving up characters if the engine tries to backtrack (possessive)</td></tr><tr class="brown"><td><span class="mono">A{2,}<br />A{2,}?<br />A{2,}+</span></td><td>Two or more As, greedy and docile as above.<br />Two or more As, lazy as above.<br />Two or more As, possessive as above.</td></tr><tr class="beige"><td><span class="mono">A{5}</td><td>Exactly five As. Fixed repetition: neither greedy nor lazy.</td></tr></table>
+<br /><br />
+<br />
+
+
+
+<a id="greedytrap"></a>
+<span class="em8"><a href="#greedytrap">(direct link)</a></span><br />
+<h2>The Greedy Trap</h2>
+
+The classic trap with greedy quantifiers is that they may match more than you expect. Suppose you want to match tokens that begin with <i class="mono">{START}</i> and end with <i class="mono">{END}</i>. You may try this pattern:<br />
+<code class="cinter">{START}.*{END}</code>
+<div class="em9">Note that Java will require that you escape the opening braces:&ensp;<span class="socode">\{</span>&emsp;</div><br />
+
+However, you will find that this pattern matches this entire string from start to finish:<br />
+<span class="mono">{START} Mary {END} had a {START} little lamb {END}</span>
+<br />
+<br />
+
+…whereas we wanted to find two matches:<br />
+<i class="mono">{START} Mary {END}</i><br />
+<i class="mono">{START} little lamb {END}</i><br /><br />
+
+Here is what happens. After matching <i class="mono">{START}</i>, the engine moves to the next token: <span class="socode">.*</span><br />
+Because of the greedy quantifier, the dot-star matches all the characters to the very end of the string. The engine then moves to the next token: the <span class="socode">{</span> at the beginning of <span class="socode">{END}</span>. This fails to match because there are no characters left in the string.
+<br /><br />
+
+But the engine sees that it can backtrack into the dot-star. First, the dot-star gives up the very last character in the string, i.e. <span class="i mono">}</span>. The engine now tries to match the <span class="socode">{</span> token against this character, but fails. The dot-star then gives up the <span class="i mono">D</span>. Again, the engine fails to match the <span class="socode">{</span> token against that character. Repeating this process, the dot-star gives up the <span class="i mono">N</span>, the <span class="i mono">E</span> and the <span class="i mono">{</span>, and and the <span class="socode">{</span> token can finally match. Then the rest of the pattern <span class="socode">END}</span> matches. Therefore, the final match is the entire string. The dot-star has only given up as many characters as were needed to allow an overall match to succeed.
+<br /><br />
+
+The best-known way to solve this problem is with lazy quantifiers. But lazy quantifiers have their own problems, and it is worth understanding other techniques to overcome the greed of an unfettered dot-star. We will look at five distinct solutions, which you all need to master on your way to your regex black belt.
+<br /><br /><br />
+
+
+<a id="lazy_solution"></a>
+<span class="em8"><a href="#lazy_solution">(direct link)</a></span><br />
+<h2>Lazy Quantifier Solution</h2>
+The easiest way is to make the dot-star lazy by adding a <span class="socode">?</span> question mark:<br />
+<code class="cinter">{START}.*?{END}</code>
+<br />
+The lazy <span class="socode">.*?</span> guarantees that the quantified dot only matches as many characters as needed for the rest of the pattern to succeed. Therefore, the pattern only matches one <span class="mono i">{START}…{END}</span> item at a time, which is what we want.
+<br /><br />
+
+<b>Containing a Lazy Quantifier that Can Eat the Delimiter: Atomic Group</b><br />
+Suppose our regex pattern must match not only a <i class="mono">{START}…{END}</i> block, but some characters beyond that block, for instance <span class="socode">\d+</span> digits. In such cases, we must tweak the lazy quantifier solution by embedding the lazy dot-star and the <i class="mono">{END}</i> delimiter together in an <a href="regex-disambiguation.html#atomic">atomic group</a> — like so:<br /><br />
+<code class="cinter">{START}(?>.*?{END})</code><br />
+
+This is because if tokens (such as <span class="socode">\d+</span>) beyond <span class="socode">{END}</span> fail to match, the engine will backtrack and require the <span class="socode">.*?</span> to expand beyond the first <span class="socode">{END}</span>, perhaps reaching a second <span class="socode">{END}</span> where a match is possible. We don't want this. The atomic group <span class="socode">(?>.*?{END})</span> forbids the engine from backtracking into the lazy <span class="socode">.*?</span> after the first <i class="mono">{END}</i> has been matched. There are other ways to solve this problem, which is discussed in the <a href="#lazytrap">Lazy Trap</a> section.
+<br /><br />
+
+Whenever the token quantified by a lazy quantifier is able to eat the delimiter, as in the above example or something like <span class="socode">\d*?9</span>, remember to embed the token and the delimiter together in an atomic group: <span class="socode">(?>\d*?9)</span>
+
+
+<br /><br />
+
+<a id="lazy_expensive"></a>
+<span class="em8"><a href="#lazy_expensive">(direct link)</a></span><br />
+<b>Lazy Quantifiers are Expensive</b><br />
+It's important to understand how the lazy <span class="socode">.*?</span> works in this example because there is a cost to using lazy quantifiers. <br /><br />
+
+When it first encounters <span class="socode">.*?</span> the engine starts out by matching the minimum number of characters allowed by the quantifier—which is zero. The engine then advances in the pattern and tries the next token (which is <span class="socode">{</span>) against the <i class="mono">M</i> in <i class="mono">Mary</i>. This fails, so the engine backtracks and allows the <span class="socode">.*?</span> to expand its match by one item, so that it matches the <i>M</i>. Once again, the engine advances in the pattern. It now tries the <span class="socode">{</span> against the <i class="mono">a</i> in <i class="mono">Mary</i>. This fails, so the engine backtracks and allows the <span class="socode">.*?</span> to expand and match the <i>a</i>. The process then repeats itself—the engine advances, fails, backtracks, allows the lazy <span class="socode">.*?</span> to expand its match by one item, advances, fails and so on.
+<br /><br />
+
+As you can see, for each character matched by the <span class="socode">.*?</span>, the engine has to backtrack. From a computing standpoint, this process of matching one item, advancing, failing, backtracking, expanding is "expensive".
+<br /><br />
+
+On a modern processor, for simple patterns, this will likely not matter. But if you want to craft efficient regular expressions, you must pay attention to use lazy quantifiers only when they are needed. Lower on the page, I will introduce you a <a href="#explicit_greed">far more efficient way of doing things</a>.
+
+<br /><br />
+<br />
+
+<a id="negclass_solution"></a>
+<span class="em8"><a href="#negclass_solution">(direct link)</a></span><br />
+<h2>Negated Class Solution</h2>
+Suppose we know that the character <i class="mono">{</i> will never be present between the delimiters <i class="mono">{START}</i> and <i class="mono">{END}</i>. Instead of the lazy quantifier, we can use a negated character class in our pattern:<br /><br />
+
+<code class="cinter">{START}[^{]*{END}</code>
+<br />
+The negated character class <span class="socode">[^{]*</span> greedily matches zero or more characters that are not an opening curly brace. Therefore, we are guaranteed that the dot-star will never jump over the <i class="mono">{END}</i> delimiter. This is a more direct and efficient way of matching between <i class="mono">{START}</i> and <i class="mono">{END}</i>.
+<br />
+<br />
+
+Note that in this solution, we can fully trust the <span class="socode">*</span> that quantifies the <span class="socode">[^{]</span>. Even though it is greedy, there is no risk that <span class="socode">[^{]</span> will match too much as it is mutually exclusive with the <span class="mono i">{</span> that starts <span class="mono i">{END}</span>. This is the <a href="regex-style.html#contrast">contrast principle</a> from the regex style guide.
+<br />
+
+
+<br /><br />
+
+
+<a id="tempered_greed"></a>
+<span class="em8"><a href="#tempered_greed">(direct link)</a></span><br />
+<h2>Tempered Greedy Token Solution</h2>
+For the negated character class solution, we assumed that the character <i class="mono">{</i> would never be present between the delimiters <i class="mono">{START}</i> and <i class="mono">{END}</i>. Let's now remove this assumption.
+<br /><br />
+
+Going back to our original naive <span class="socode">.*</span> pattern to match between the delimiters, one way to ensure that the <span class="socode">.*</span> doesn't jump over the first <i class="mono">{END}</i> is to <i>temper</i> it with a negative lookahead. That is what this pattern does:<br /><br />
+
+
+<code class="cinter">{START}(?:(?!{END}).)*{END}</code>
+<br />
+
+If you look closely, you'll see that we still have a kind of dot-star—a more complex one. In <span class="socode">(?:(?!{END}).)*</span>, the <span class="socode">*</span> quantifier applies to a dot, but it is now a <i>tempered dot</i>. The negative lookahead <span class="socode">(?!{END})</span> asserts that what follows the current position is not the string <i class="mono">{END}</i>. Therefore, the dot can never match the opening brace of <i class="mono">{END}</i>, guaranteeing that we won't jump over the <i class="mono">{END}</i> delimiter.
+<br /><br />
+
+<b>When Not to Use this Technique</b><br />
+For the task at hand, this technique presents no advantage over the lazy dot-star <span class="socode">.*?{END}</span>. Although their logic differs, at each step, before matching a character, both techniques force the engine to look if what follows is <i class="mono">{END}</i>.
+<br /><br />
+The comparative performance of these two versions will depend on your engine's internal optimizations. The <a href="pcregrep-pcretest.html">pcretest</a> utility indicates that PCRE requires far fewer steps for the lazy-dot-star version. On my laptop, when running both expressions a million times against the string <i class="mono">{START} Mary {END}</i>, pcretest needs 400 milliseconds per 10,000 runs for the lazy version and 800 milliseconds for the tempered version.
+<br /><br />
+
+Therefore, if the string that tempers the dot is a delimiter that we intend to match eventually (as with <i class="mono">{END}</i> in our example), this technique adds nothing to the lazy dot-star, which is better optimized for this job.
+<br /><br />
+
+<b>When to Use this Technique</b><br />
+Suppose our boss now tells us that we still want to match up to and including <i class="mono">{END}</i>, but that we also need to avoid stepping over a <i class="mono">{MID}</i> section, if it exists. Starting with the lazy dot-star version to ensure we match up to the <i class="mono">{END}</i> delimiter, we can then temper the dot to ensure it doesn't roll over <i class="mono">{MID}</i>:<br />
+<br />
+<code class="cinter">{START}(?:(?!{MID}).)*?{END}</code><br />
+ 
+If more phrases must be avoided, we just add them to our tempered dot:<br />
+<code class="cinter">{START}(?:(?!{MID})(?!{RESTART}).)*?{END}</code>
+<br />
+
+This is a useful technique to know about. <br />
+
+<br /><br />
+
+
+
+
+
+<a id="explicit_greed"></a>
+<span class="em8"><a href="#explicit_greed">(direct link)</a></span><br />
+<h2>Explicit Greedy Alternation Solution</h2>
+
+Staying with the idea that the character <i class="mono">{</i> may be present between the delimiters <i class="mono">{START}</i> and <i class="mono">{END}</i>, let's look at an elegant technique that is more efficient than both the <i>tempered greedy dot</i> and the <i>lazy dot star</i>. We'll start with an unoptimized version:<br /><br />
+
+<code class="cinter">{START}(?:[^{]|{(?!END}))*{END}</code>
+<br />
+
+We still have a greedy quantifier <span class="socode">*</span>. This time, it does not apply to a dot but to a non-capturing group <span class="socode">(?:…)</span> that contains an alternation.<br /><br />
+
+✽ On the left side of the alternation, <span class="socode">[^{]</span> matches one character that is not an opening brace. We can safely do this because we know that a non-<i class="mono">{</i> character will never make us roll over the <i class="mono">{END}</i> delimiter. 
+<br /><br />
+✽ On the right side of the alternation, we are allowed to match a <i class="mono">{</i> as long as it is not followed by <i class="mono">END}</i>: the negative lookahead <span class="socode">(?!END})</span> asserts that what follows the position after <i class="mono">{</i> is not <i class="mono">END}</i>. In our language of quantifier techniques, this is a tempered opening brace. 
+<br /><br />
+
+The pattern can be further optimized. If we have several non-<i class="mono">{</i> characters in a row (which will be the typical case), at the moment we have to enter and exit the alternation for every single character because the quantifier <span class="socode">*</span> applies to the non-capturing group <span class="socode">(?:[^{]|{(?!END}))</span>. This seems inefficient. If we also had a quantifier on the <span class="socode">[^{]</span>, we could match multiple non-<i class="mono">{</i> characters without leaving the alternation.<br /><br />
+
+To do so, the first idea would be to use <span class="socode">[^{]+</span>. However, this leads to a situation where the <span class="socode">*</span> quantifier applies to the <span class="socode">+</span> quantifier. If the pattern fails, the engine will explore all the ways that the two quantifiers can divide up the "pie of characters", leading to needlessly long backtracking and the situation I call an <a href="regex-explosive-quantifiers.html">explosive quantifier</a> (we'll explore in a later section). What we want is to match any non-<i class="mono">{</i> characters as a solid block that cannot be backtracked into. We do this with a <a href="#possessive">possessive quantifier</a> <span class="socode">[^{]++</span> or an <a href="regex-disambiguation.html#atomic">atomic group</a> <span class="socode">(?>[^{]+)</span>.
+<br /><br />
+
+While we're at it, we should also lock up the entire quantified alternation once we exit, because if <i class="mono">{END}</i> fails to match, backtracking into the alternation won't help. We also do this either with possessive quantifiers (turning the <span class="socode">*</span> into <span class="socode">*+</span>) or by wrapping the quantified alternation into an atomic group.
+<br /><br />
+
+We can use the possessive version in Java, PCRE (C, PHP, R…), Perl, Ruby 2+ and the alternate <i>regex</i> module for Python:<br />
+<code class="cinter">{START}(?:[^{]++|{(?!END}))*+{END}</code><br />
+
+We can use the atomic version in every major engine except Python and JavaScript:<br />
+<code class="cinter">{START}(?>(?:(?>[^{]+)|{(?!END}))*){END}</code><br />
+
+In any version of this solution, we do away with the generic dot by explicitly stating what we want: either any number of non-<i class="mono">{</i> characters; or a <i class="mono">{</i> as long as it is not followed by <i class="mono">END}</i>. This is a prime example of the <a href="regex-style.html#what_you_want"><i>Say What You Want (and What You Don't Want)</i> principle</a> from the regex style guide.
+<br /><br />
+
+Note that for all the "normal" characters matched by the general case <span class="socode">[^{]+</span> on the left side of the alternation, we don't need to look ahead. Indeed, we only look ahead when we encounter an opening brace—which might only be once, when we hit the <i class="mono">{END}</i> delimiter. Because we avoid the look-ahead-fail-backtrack rigmarole, we should expect this pattern to match faster than both the <a href="#lazy_solution">lazy dot-star</a> and <a href="#tempered_greed">tempered-dot</a> solutions, which both require "looking" at each step. <br /><br />
+
+This is confirmed by <a href="pcregrep-pcretest.html">pcretest</a>:<br /><br />
+
+✽ Running the patterns a million times each on the string <i class="mono">{START} Mary {END}</i>, pcretest needs 400 milliseconds per 10,000 runs for the atomic lazy-dot-star version, 800 for the tempered-dot version and 400 for the <i>Explicit Greedy Alternation</i> solution.<br /><br />
+✽ Lengthening the test string to <i class="mono">{START} Mary Ate a Little Lamb {END}</i>, the gaps between the versions increase drastically: 800 milliseconds per 10,000 runs for the lazy-dot-star, 2,300 for the tempered-dot, and only 500 for the explicit-greedy-alternation solution.<br />
+<br />
+
+This solution takes a little more effort to write as you need to separate the brace case from the non-brace case, but it is well worth it if performance matters.
+<br />
+
+<br /><br />
+
+
+
+<a id="unrolled_staralt"></a>
+<span class="em8"><a href="#unrolled_staralt">(direct link)</a></span><br />
+<h2>Unrolled Star Alternation Solution</h2>
+
+The <a href="#explicit_greed">Explicit Greedy Alternation</a> solution just above uses a subpattern of the form <span class="socode">(A|B)*</span>. In the <a href="regex-tricks.html#staralt">trick to mimic an alternation quantified by a star</a>, we see that this can be unrolled into <span class="socode">A*(?:B+A*)*</span>: zero or more <i class="mono">A</i>s, then zero or more repetitions of one or more <i class="mono">B</i>s followed by zero or one <i class="mono">A</i>s.<br />
+<br />
+
+Applying this formula to <span class="socode">(?:[^{]|{(?!END}))*</span>, we obtain this fifth solution:<br /><br />
+<code class="cinter">{START}[^{]*(?:(?:{(?!END}))+[^{]*)*{END}</code><br />
+
+This solution has pros and cons. On the plus side, it is even faster than the <a href="#explicit_greed">Explicit Greedy Alternation</a> solution it unrolls. <a href="pcregrep-pcretest.html">pcretest</a> reports that per 10,000 runs, the performance on the short test string is identical, but on the longer test string this solution clocks in at 400 milliseconds, compared to 500 milliseconds for the other. If you are looking to squeeze out every last drop of performance, this is the way to go.<br /><br />
+
+On the minus side, the pattern is harder to read. While the intent of the alternation in the original is immediate, it is not the case once the alternation is unrolled. Moreover, one of the elements of the alternation is now repeated—when <span class="socode">(A|B)*</span> becomes <span class="socode">A*(?:B+A*)*</span> there are now two <i class="mono">A</i>s. If you ever change <i class="mono">A</i> in one place, you may forget to do it in the other—a maintenance hazard.<br /><br />
+
+In my view, this is the kind of tweak that should be performed by the engine <a href="regex-optimizations.html#staralt">as an optimimization behind the curtain</a>.
+<br />
+<br /><br />
+
+
+<a id="lazytrap"></a>
+<span class="em8"><a href="#lazytrap">(direct link)</a></span><br />
+<h2>The Lazy Trap</h2>
+
+In the right context, lazy quantifiers solve some problems. But if you become overconfident in their power, you can run into new problems. This section explains a common source of confusion.
+<br /><br />
+We will use this string:<br />
+<span class="mono b">{START} Mary {END}00A  {START} little lamb {END}01B</span><br />
+As before, we want to match an entire <i class="mono">{START}…{END}</i> group, except this time we want to extend the match after the <i class="mono">{END}</i> to include some digits and the letter <i>B</i>.<br /><br />
+
+At first, it may seem reasonable to tack on <span class="socode">\d+B</span> at the end of our <a href="#lazy_solution">lazy quantifier solution</a>:<br />
+<code class="cinter">{START}.*?{END}\d+B</code>
+Looking at the bold string a few lines above, what do you think this pattern matches? Keep reading when you've made up your mind.<br /><br />
+
+The pattern matches the entire string from the very beginning to the very end. Do you see why?<br /><br />
+
+
+<div class="pullquote R">
+Lazy quantifiers can jump the fence.
+</div>
+
+The <span class="socode">.*?</span> is supposed to expand until <span class="socode">{END}\d+B</span> is able to match. Starting the match at the very start of the string, the <span class="socode">.*?</span> has no reason to stop expanding after the first <i class="mono">{END}</i> — where <span class="socode">\d+B</span> cannot match. The <span class="socode">.*?</span> therefore continues to expand until a position where <span class="socode">{END}\d+B</span> is able to match. Starting the match at the beginning of the string, the shortest match is the whole string.
+<br /><br />
+
+The lesson: remember that the engine allows a lazy quantifier to expand its match as much as needed to allow an overall match. If forced to, a lazy quantifier may jump the fence you thought you had made for it.<br /><br />
+
+To contain the <span class="socode">.*?</span> in <span class="socode">.*?{END}</span> to the section before the first instance of <span class="socode">{END}</span>, you need to tweak it or replace it using one of four techniques we have already seen:<br /><br />
+
+✽ Bundle the characters preceding <i class="mono">{END}</i> together with <i class="mono">{END}</i> into an <a href="regex-disambiguation.html#atomic">atomic group</a>, forbidding the engine to backtrack and expand the <span class="socode">.*?</span> past the first <i class="mono">{END}</i>: <span class="socode">(?>.*?{END})</span><br />
+✽ Use a <a href="regex-quantifiers.html#tempered_greed">Tempered Greedy Token</a>: <span class="socode">(?:(?!{END}).)*{END}</span><br />
+✽ Use an <a href="regex-quantifiers.html#explicit_greed">Explicit Greedy Alternation</a>: <span class="socode">(?:[^{]++|{(?!END}))*+{END}</span><br />
+✽ Use an <a href="regex-quantifiers.html#unrolled_staralt">Unrolled Star Alternation Solution</a>: <span class="socode">[^{]*(?:(?:{(?!END}))+[^{]*)*+{END}</span><br />
+
+
+<br /><br />
+
+
+
+<a id="explosive"></a>
+<span class="em8"><a href="#explosive">(direct link)</a></span><br />
+<h2>The Explosive Quantifier Trap</h2>
+
+If you're not careful, you can easily build a regular expression that has the potential to backtrack for a billion years. The page would feel too cramped if I tried to cover this important topic here, so please visit the companion page about <a href="regex-explosive-quantifiers.html">explosive quantifiers</a>.<br />
+
+<br /><br />
+
+<a id="longest_shortest"></a>
+<span class="em8"><a href="#longest_shortest">(direct link)</a></span><br />
+<h2>The <i>Longest Match</i> and <i>Shortest Match</i> Traps</h2>
+
+You'll often hear that a greedy quantifier gives you the "longest match" while a lazy quantifier gives you the "shortest match". While true in a specific context, these assertions are a frequent source of confusion.
+<br /><br />
+
+
+<a id="longest_trap"></a>
+<span class="em8"><a href="#longest_trap">(direct link)</a></span><br />
+<b>What does "longest match" mean?</b><br />
+Sometimes people will try to match a string such as <span class="mono">12 9876</span> with a regex such as <span class="socode">\d+</span> and expect the engine to return <i class="mono">9876</i>. The <span class="socode">+</span> quantifier is greedy, so isn't that the longest match?<br /><br />
+
+This is a misunderstanding. When we talk of greedy or lazy quantifiers providing us the longest or shortest match, it is always in the context of a single match attempt starting at a fixed position in  the string. 
+<br /><br />
+
+For the match attempt that starts at the beginning of the string, the longest match is <i class="mono">12</i>, as opposed to the shortest match <i class="mono">1</i>. The string <i class="mono">9876</i> is never considered in this match attempt as it is not at the beginning of the string.
+<br /><br />
+
+If you ask your language or tool to return all the matches in the string, it will also return <i class="mono">9876</i> as a match found at position 3 (counting from 0). That will be the longest match for <span class="socode">\d+</span> at that position, whereas <i class="mono">9</i> would be the shortest.
+<br /><br />
+
+
+<a id="shortest_trap"></a>
+<span class="em8"><a href="#shortest_trap">(direct link)</a></span><br />
+<b>What does "shortest match" mean?</b><br />
+
+Sometimes people will try to match a string such as <span class="mono">123EEE 98EE</span> with a regex such as <span class="socode">\w+?E</span> and expect the engine to return <i class="mono">98E</i>. The <span class="socode">+?</span> quantifier is lazy, so isn't that the shortest match?<br /><br />
+
+This is another misunderstanding. Once again, when we talk of greedy or lazy quantifiers providing us the longest or shortest match, it is in the context of a single match attempt starting at a fixed position in  the string. 
+<br /><br />
+
+
+For the match attempt that starts at the beginning of the string, the shortest match is <i class="mono">123E</i>, as opposed to the longest match <i class="mono">123EEE</i>. The string <i class="mono">98EE</i> is never considered in this match attempt as it is not at the beginning of the string.
+
+<br /><br />
+
+
+<b>Longest or Shortest Possible Match in a String</b><br />
+
+If you wanted the longest or shortest of the various matches returned by the engine, you could ask your programming language to sort them by length. <br /><br />
+
+This would not be a good task to try to do directly in regex as there is no syntax to compare the number of times various quantifiers are applied. I have been lobbying for <a href="regex-quantifier-capture.html">quantifier arithmetic</a>, and hopefully this will some day enter the syntax through the big gate.
+
+
+<br /><br /><br />
+
+<br /><br /><div class="cinter">
+Don't Miss The <a href="regex-style.html" ><span class="redtext em2"><b>Regex Style Guide</b></span></a><br /><br />
+and <a href="regex-best-trick.html" ><span class="redtext em2"><b>The Best Regex Trick Ever!!!</b></span></a><br />
+</div><a href="regex-conditionals.html" >
+<img src="../b.yu8.us/next_regex.png" class="left" width="125" height="40" alt="next" /><br />
+<b>&nbsp;A good long look at Regex Conditionals</b>
+</a>
+<br /><br /><br />
+
+
+<div class="cinter">
+		<a href="regex-consultant.html">
+		<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+        class="tada" width="100" height="100" alt="Regex Rex" /><br />
+		<b>Ask Rex</b></a>
+		<br /><br />
+		</div><a id="comlist"></a>
+<div class="comment-wrapper"><br /><div class="cinter"><a href="#comform">Leave a Comment</a></div><div class="cinter redtext mt1">1-5 of 5 Threads</div>
+<a id="cid2767"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Youssef</span></div>
+<div class="comment-date">April 20, 2020 - 13:06</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Thanks</div><br />
+<div class = "comment-text">Thank you so much for the great explanation :)</div>
+</div>
+<a id="cid2674"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">SmokinMoe</span></div>
+<div class="comment-date">September 20, 2019 - 02:49</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Thanks</div><br />
+<div class = "comment-text">Very well explained, thank you very much.</div>
+</div>
+<a id="cid2649"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Tara</span><span class="comment-location"> &ndash; Canada</span></div>
+<div class="comment-date">July 05, 2019 - 15:43</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>Thank you</div><br />
+<div class = "comment-text">Thanks so much for writing this. Very clear and helpful.</div>
+</div>
+<a id="cid1834"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Andrey</span><span class="comment-location"> &ndash; Moscow</span></div>
+<div class="comment-date">June 10, 2015 - 23:44</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>quantifier: two possible quantities</div><br />
+<div class = "comment-text">Hi, Rex<br />
+I have a small question about quantifiers.<br />
+A{3} matches 3 As<br />
+A{3,} matches 3 or more As<br />
+A{,5} matches up to 5 As<br />
+How to match 3 or 5 As? For instance, {3|5} doesn&#039;t work.<br />
+<br />
+Thank you<br />
+Best regards<br />
+Andrey</div>
+</div>
+<a id="cid1835"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Andrey</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">June 11, 2015 - 09:42</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: quantifier: two possible quantities</div><br />
+<div class = "comment-text">Hi Andrey,<br />
+Great question.<br />
+To match either exactly 3 or 5 of the character A, you could use this:<br />
+^A{3}(?:A{2})?$<br />
+The A{3} matches the first three As.<br />
+The optional non-capturing group (?:A{2})? optionally captures another 2 As.<br /><br />
+Kindest regards,<br />
+Rex
+</div>
+</div>
+<a id="cid1543"></a>
+<div class = "comment">
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Claude</span></div>
+<div class="comment-date">August 25, 2014 - 21:35</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>greedy/lazy?</div><br />
+<div class = "comment-text">At the beginning of &quot;The Longest Match and Shortest Match&hellip; &quot;, you are using &quot;greedy&quot; twice. I am assuming that you mean &quot;greedy&quot; first and then &quot;lazy&quot;.</div>
+</div>
+<a id="cid1544"></a>
+<div class = "comment-reply"><div class="comment-reply-legend">Reply to Claude</div>
+<div class="comment-header"><div class="comment-author_location"><span class="comment-author">Rex</span></div>
+<div class="comment-date">August 26, 2014 - 08:24</div></div>
+<div class = "comment-subject"><span class="comment-subject-title">Subject: </span>RE: greedy/lazy?</div><br />
+<div class = "comment-text">Bonjour Claude,
+Thank you very much for reporting this typo. I spent last week entirely rewriting that page, so it&#039;s still fresh and I rely on kind readers like you to let me know about little bugs. :)
+Kindest regards,
+Rex
+</div>
+</div>
+</div><br /><br />
+<a id="comform"></a><div class="comment-form-wrapper"><div class="cinter redtext mt1">Leave a Comment</div><div id="comment-form-div">
+<form action="https://www.rexegg.com/regex-quantifiers.html" method="post" >
+<input type="hidden" name="token" value="40a4878b3a0cde45f17b7c6969a81652" />
+<input type="hidden" name="admin" value="0" />
+
+<input class="comment-field" type="text"
+			name="poster" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Your name</label><br />
+<input class="comment-field" type="text"
+			name="email" value="" />
+		<label class="comment-required-field">*</label>
+		<label class="comment-label">Email (it will not be shown)</label><br />
+<input class="comment-field" type="text"
+			name="location" value="" />
+		<label class="comment-label">Your location</label><br /><br />
+<label class="comment-label">Subject: </label>
+			<input class="comment-subject-field" type="text"
+			name="subject" value=""  maxlength="128" /><br /><br />
+<div class="cinter blue">
+		<b>All comments are moderated.<br />
+		Link spammers, this won't work for you.</b></div>
+<textarea name="comment"></textarea><br />To prevent automatic spam, we require that you type the two words below before you submit your comment.<br />
+        <div class="captcha_wrapper">
+		<div class="g-recaptcha" data-sitekey="6Lc2WE8UAAAAABFS5ks4OB6onjL6EJOP_kDE7zTZ"></div>
+	    </div>
+<div id="comment-form-submit-line">
+<input class="comment-submit" type="submit"
+			name="submitcomment" value="Submit"
+			onmouseout="this.className='comment-submit'"
+			onmouseover="this.className='comment-submit-hover'" /></div></form>
+
+</div></div><br />
+	
+</article>
+<nav id='the_leftmenu' class='leftmenu fadein'><a id="mobile_close_button" href="javascript:void(0)" class="mobile_only mob_leftmenu_close_button" onclick="close_left_menu()">&times;</a>
+
+<b>Fundamentals</b><br /><ul><li><a  href=".html">Regex Tutorial</a></li><li><a  href="regex-vs-regular-expression.html">Regex vs. Regex</a></li><li><a  href="regex-quickstart.html">Quick Reference</a></li><li><a  href="regex-uses.html">100 Uses for Regex</a></li><li><a  href="regex-style.html">Regex Style Guide</a></li></ul><br />
+<b>Black Belt Program</b> <br /><ul><li><a  href="regex-disambiguation.html">All <span class="mono">(? &hellip; ) Syntax</span></a></li><li><a  href="regex-boundaries.html">Boundaries++</a></li><li><a  href="regex-anchors.html">Anchors</a></li><li><a  href="regex-capture.html">Capture &amp; Back</a></li><li><a  href="regex-modifiers.html">Flags &amp; Modifiers</a></li><li><a  href="regex-lookarounds.html">Lookarounds</a></li><li><a class="thispage" href="regex-quantifiers.html">Quantifiers</a></li><li><a  href="regex-explosive-quantifiers.html">Explosive Quantifiers</a></li><li><a  href="regex-conditionals.html">Conditionals</a></li><li><a  href="regex-recursion.html">Recursion</a></li><li><a  href="regex-class-operations.html">Class Operations</a></li><li><a  href="backtracking-control-verbs.html">Backtracking Control</a></li><li><a  href="regex-gotchas.html">Regex <i>Gotchas</i></a></li><li><a  href="regex-tricks.html">Syntax Tricks</a></li><li><a  href="pcre-callouts.html">PCRE Callouts</a></li><li><a  href="regex-quantifier-capture.html">Quantifier capture</a></li></ul><br />
+<b>Regex in Action</b> <br /><div class="">For awesome tricks:<br />scroll down!</div><ul><li><a  href="regex-cookbook.html">Cookbook</a></li><li><a  href="regex-interesting-character-classes.html">Cool Regex Classes</a></li><li><a  href="regex-optimizations.html">Regex Optimizations</a></li><li><a  href="pcregrep-pcretest.html">PCRE: Grep and Test</a></li><li><a  href="regex-perl-one-liners.html">Perl One-Liners</a></li><li><a  href="regex-firefox-shortcuts.html">Amazing Shortcuts</a></li></ul><br />
+<b>Tools &amp; More</b> <br /><ul><li><a  href="regex-tools.html">Regex Tools</a></li><li><a  href="regexbuddy-tutorial.html">RegexBuddy</a></li><li><a  href="regex-humor.html">Regex Humor</a></li><li><a  href="regex-books.html">Regex Books &amp; Links</a></li></ul><br />
+<b>Tricks</b> <br /><ul><li><a  href="regex-best-trick.html">The Best Regex Trick</a></li><li><a  href="regex-trick-conditional-replacement.html">Conditional Sub</a></li><li><a  href="regex-trick-line-numbers.html">Line Numbers</a></li><li><a  href="regex-trick-numbers-in-english.html">Numbers in English</a></li></ul><br />
+<b>Languages</b> <br /><ul><li><a  href="https://www.rexegg.com/pcre-documentation.html">PCRE Doc &amp; Log</a></li><li><a  href="regex-perl.html">Regex with Perl</a></li><li><a  href="regex-csharp.html">Regex with C#</a></li><li><a  href="regex-php.html">Regex with PHP</a></li><li><a  href="regex-python.html">Regex with Python</a></li><li><a  href="regex-java.html">Regex with Java</a></li><li><a  href="regex-javascript.html">Regex with JavaScript</a></li><li><a  href="regex-ruby.html">Regex with Ruby</a></li><li><a  href="regex-vbnet.html">Regex with VB.NET</a></li></ul>
+<br />
+
+
+
+
+</nav>
+</div><!-- wrap_2leftcols -->
+</div><!-- wrap_3cols -->
+	<div class="topanchor desktop_only">
+	<aside class="rightcolumn fadein"><table class="cintable">
+            <tr><td style="text-align:center; ">
+            <a rel="nofollow" href="http://www.amazon.com/dp/0596528124?tag=onamazon-20"
+            target="_blank">
+            <img src="../a.yu8.us/c_mastering-regex.jpg"
+            class="pulse1st" 
+			height="160" width="116" alt="Matering Regular Expressions" />
+            <br /><span class="greytext em9"><b>A must-read</b></span><br /><br /></a></td></tr></table><div class="cinter greytext">
+					<b>
+					RegexBuddy 4 is<br />
+					the <i>best</i> regex tool!<br />
+					</b>
+					<div class="em9 pulse2nd strong">
+					<a href="regexbuddy-trial.html"	><span class="redtext under">Get the Free Trial</span></a><br />
+					<a href="regexbuddy-tutorial.html"	><span class="redtext under">Huge RB Tutorial</span></a>
+					</div>
+					<br />
+					<div class="dtada" style="margin: 0 0 -0.5em 0;">
+					<img src="../b.yu8.us/rightgraphic_rexegg3.png"
+                    class="tada" width="100" height="100" alt="Regex Rex" />
+					</div>
+                    <span class="greytext em9"><a href="regex-consultant.html"><b>Ask Rex</b></a></span>
+					<br />
+<form method="get" action="http://www.google.com/search" 
+        target="_blank">
+        <input type="text"   name="q" size="14"  maxlength="255"
+		placeholder="search the site"
+        value=""
+		class = "searchbox"
+		/>
+        <input type="hidden"  name="sitesearch"
+        value="RexEgg.com" /><input type="image" src="../b.yu8.us/search2.png"
+        alt="Search" title="Search" /></form>
+</div><br />
+
+</aside>
+</div><!-- Top Anchor -->
+<footer>
+<br /><b>&copy; Copyright RexEgg.com</b>
+<br /><br /><br /><br /><br /><br /><br />
+	
+</footer>
+<!-- POWERED BY BIG FOOT -->
+</body>
+<!-- Mirrored from www.rexegg.com/regex-quantifiers.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 30 Aug 2020 21:17:10 GMT -->
+</html>
