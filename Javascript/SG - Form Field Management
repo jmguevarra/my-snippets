@@ -1,0 +1,26 @@
+<script defer type="text/javascript">
+  var d = window.module.lp.form.data;
+  
+  $(document).ready(function(){
+    
+    // Limit Post Code to numbers and 4 characters only
+    $("#postcode").attr("maxlength", "4"); 
+    $('#postcode').unbind('keyup change input paste').bind('keyup change input paste',function(e){
+      this.value = this.value.replace(/[^0-9\.]/g,'');
+      var $this = $(this);
+      var val = $this.val();
+      var valLength = val.length;
+      var maxCount = $this.attr('maxlength');
+      if(valLength>maxCount){
+          $this.val($this.val().substring(0,maxCount));
+      }
+    }); 
+    
+    //Change default error message
+	$('#'+d.errorContainerId).find('div.error').text( 
+	  "Please correct the marked fields."/* Change the default message here*/ 
+		); 
+   
+    
+  });
+</script>
