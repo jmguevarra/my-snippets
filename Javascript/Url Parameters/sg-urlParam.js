@@ -23,4 +23,20 @@
     }
    
   });
+
+$(document).ready(function(){
+    //firstName
+    let firstName = decodeURIComponent($.urlParam('first_name'));
+    if(firstName !== ''){
+    	localStorage.setItem('first_name', firstName);
+    }
+	if(localStorage.getItem("first_name") !== null){
+		$('.dynamic-first-name').text(localStorage.getItem("first_name"));
+	}
+  });
 </script>
+
+
+
+ 
+  
