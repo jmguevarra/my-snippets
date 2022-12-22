@@ -1,0 +1,158 @@
+<style>
+
+
+  #preferred_date{
+    cursor: pointer;
+  }  
+
+  .lp-pom-button { /*fixes ease in/out transition of all default buttons*/
+    transition: background 0.5s;
+    -moz-transition: background 0.5s;
+    -ms-transition: background 0.5s;
+    -webkit-transition: background 0.5s;
+  }  
+
+  div.lp-pom-root .lp-pom-button span { /*button text/span*/
+    font-weight:700;
+  }
+
+  #lp-pom-form-42 .lp-pom-form-field label {/*field label*/
+
+  }  
+
+  #lp-pom-form-42 input[type=text],
+  #lp-pom-form-42 input[type=tel],
+  #lp-pom-form-42 input[type=email],  
+  #lp-pom-form-42 select{ /**text boxes*/
+
+  }
+
+  #lp-pom-form-42 textarea{ /**text area**/
+    resize: none !important; y-overflow:auto;
+  }  
+
+
+  #lp-pom-form-42 input[type=email]:focus, 
+  #lp-pom-form-42 input[type=email]:hover,  
+  #lp-pom-form-42 input[type=tel]:focus, 
+  #lp-pom-form-42 input[type=tel]:hover,   
+  #lp-pom-form-42 input[type=text]:focus, 
+  #lp-pom-form-42 input[type=text]:hover,  
+  #lp-pom-form-42 select:focus, 
+  #lp-pom-form-42 select:hover, 
+  #lp-pom-form-42 textarea:focus, 
+  #lp-pom-form-42 textarea:hover {
+    //border-color: #F5AF49 !important; 
+    // -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(72,95,115,0.6);
+    //-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(72,95,115,0.6);
+    //box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(72,95,115,0.6); 
+  }  
+
+  #lp-pom-form-42 select {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    padding-left: 10px;
+    border-radius: 5px !important;
+    background: #fff url(https://user-assets-unbounce-com.s3.amazonaws.com/38e549b4-1f3a-11e3-b583-12313e02a4f0/1fa6a4ae-38d9-4aae-9c2c-e40d1e78bfb1/vector.original.png) center right 15px no-repeat !important;
+    //color: #2B2B2B !important;
+    padding-right: 33px !important;
+    background-repeat: no-repeat;
+    background-size: 12px !important;
+  }
+  
+
+
+  /*FOR PLACEHOLDER TEXT*/
+  ::-webkit-input-placeholder { 
+    color: #2B2B2B;
+    opacity: 1 !important;
+  }
+  :-moz-placeholder { 
+    color: #808083; 
+    opacity: 1 !important;
+  }
+
+  ::-moz-placeholder {  
+    color: #2B2B2B; 
+    opacity: 1 !important;
+  }
+
+  :-ms-input-placeholder { 
+    color: #2B2B2B; 
+    opacity: 1 !important;
+  } 
+  
+  
+  #lp-pom-button-858{
+  	font-weight: 400;
+  }
+  .lp-pom-form-field.multi-group {
+    width: 100% !important;
+  }
+  .lp-pom-form-field.multi-group .lp-form-label {
+    width: 100% !important;
+    color: #001F6F !important;
+    font-weight: 700 !important;
+  }
+    
+
+  #container_reason_for_studying {
+    top: 0;
+  }
+  #container_course_of_interest {
+    left: 0;
+    top: 234px;
+  }
+  #container_preferred_start {
+    top: 482px;
+  }
+  #container_study_mode {
+    left: 0;
+    top: 0;
+  }
+  #container_best_contact_method {
+    top: 312px;
+  }
+  
+  @media only screen and (min-width: 601px){
+    #container_postcode,
+    #container_email {
+      top: 146px;
+    }
+    input.single.text {
+      margin-top: 15px;
+      height: 66px !important;
+    }
+    .lp-pom-form-field.multi-group .lp-form-label{
+      font-size: 24px !important;
+       text-align: center;
+    }
+    .lp-pom-form-field.multi-group .optionsList {
+      margin-top: 35px;
+    }
+  }
+  
+  @media only screen and (max-width: 600px){
+    input.single.text {
+      margin-top: 8px;
+      height: 58px !important;
+    }
+    .lp-pom-form-field.multi-group .optionsList {
+      margin-top: 20px;
+      font-size: 20px !important;
+    }
+    #container_course_of_interest {
+      top: 463px;
+    }
+    #container_preferred_start {
+      top: 847px;
+    }
+    #container_best_contact_method {
+      top: 388px;
+    }
+    
+  }
+  
+  
+</style>

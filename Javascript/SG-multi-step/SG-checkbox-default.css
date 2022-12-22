@@ -1,0 +1,147 @@
+<style>
+  /**CHECKBOX CUSTOM STYLE UNBOUNCE*/
+  #lp-pom-form-42 input[type='radio'] { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #ffffff;
+    border: none;
+    z-index: -9999;
+    display: none;
+
+  }
+
+  #lp-pom-form-42  input[type='radio'] option   {
+    opacity: 0;
+    width: 20px;
+    cursor: pointer;
+  }
+
+  #lp-pom-form-42 input[type='radio'] + label {
+    cursor: pointer;
+    display: block;
+    left: 0 !important;
+    margin-left: 0 !important;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    font-family:  sans-serif, arial !important;
+    padding: 0;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    width: 492px;
+    padding-bottom: 54px;
+    background: #ffffff;
+    border: 1px solid #12376F;
+    position: relative;
+  }
+
+  #lp-pom-form-42 input[type='radio'] + label span {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  #lp-pom-form-42 input[type='radio'] + label:hover,
+  #lp-pom-form-42 input[type='radio']:checked + label {
+    background-color: #12376F;
+    color: #ffffff;
+  }   
+
+  div.lp-pom-root .lp-pom-form-field .optionsList { 
+    width: 100% !important;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    display: -ms-flexbox;
+    display: -webkit-flex; 
+    flex-wrap: wrap;
+  }
+
+  div.lp-pom-root .lp-pom-form-field .option {
+    top: 0 !important; /* add this */
+    width: auto !important; /* add this */
+    height: auto !important; /* add this */
+    position: relative !important; /* add this */
+    padding: 0; /* add this */
+    display: inline-block; /* add this */
+    text-align: center; /* add this */
+    margin: 0 10px 15px;
+  }  
+  #group_best_contact_method  .opt-label > span,
+  #group_study_mode .opt-label > span {
+    margin-top: 25px !important;
+  }
+   #group_best_contact_method  .opt-label:before,
+  #group_study_mode .opt-label:before {
+    content: '';
+    width: 60px;
+    height: 47px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 50px auto 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center
+  }
+  #ub-option-study_mode-item-0 .opt-label:before {
+    background-image: url(/publish/assets/972177fd-d085-44e9-bd8d-acca45f23461/blue-online-12232022.original.svg);
+  }
+  #ub-option-study_mode-item-1 .opt-label:before {
+    background-image: url(/publish/assets/1771b3cf-cf83-4922-8484-14fca04382c8/blue-inperson-12232022.original.svg);
+  }
+
+  #ub-option-best_contact_method-item-0 .opt-label:before {
+    background-image: url(/publish/assets/2d68c38a-fdb2-47dc-b0ac-30a41d1d8684/blue-email-12232022.original.svg);
+  }
+  #ub-option-best_contact_method-item-1 .opt-label:before {
+    background-image: url(/publish/assets/641a489c-b957-401f-b07f-a4f2b77ee128/blue-mobie-12232022.original.svg);
+  }
+  #ub-option-best_contact_method-item-2 .opt-label:before {
+    background-image: url(/publish/assets/67a4e5e3-dbb7-4acd-b4b4-5fde0a462f6e/blue-check-12232022.original.svg);
+  }
+
+  #lp-pom-form-42 input[type='radio'] + label:hover:before,
+  #lp-pom-form-42 input[type='radio']:checked + label:before {
+    filter: brightness(0)invert(1);
+    -webkit-filter: brightness(0)invert(1);
+    -moz-filter: brightness(0)invert(1);
+    -o-filter: brightness(0)invert(1);
+  }  
+
+
+  @media only screen and (min-width: 601px){
+    #group_reason_for_studying .opt-label {
+      width: 184px !important;
+      height: 114px !important;
+    }
+    #group_best_contact_method .opt-label,
+    #group_study_mode .opt-label {
+      width: 280px !important;
+      height: 192px !important;
+    }
+  }
+
+  @media only screen and (max-width: 600px){
+    #lp-pom-form-42 input[type='radio'] + label {
+      width: 300px;
+      padding-bottom: 62px;
+    }
+    #group_study_mode .opt-label, 
+    #group_best_contact_method .opt-label {
+      padding-bottom: 143px !important;
+    }
+    #group_best_contact_method .opt-label:before,
+    #group_study_mode .opt-label:before{
+      width: 50px;
+      margin-top:35px;
+    }
+  }
+
+</style>

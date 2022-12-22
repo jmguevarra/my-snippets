@@ -1,0 +1,148 @@
+<style type="text/css">
+  #lp-pom-button-854 ,
+  #lp-pom-button-858,
+  .lp-pom-form-field{
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+  }
+  
+  .lp-pom-form-field:not(.show) {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .multi-step-indicator {
+    width: 100%;
+    background-color: rgba(38, 202, 211, 0.3);
+    height: 100%;
+    position: relative;
+  }
+  .multi-step-indicator .progress-bar {
+    content: '';
+    width: 0%;
+    height: 100%;
+    position: absolute;
+    background-color: #26CAD3;
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+  }
+  #lp-pom-button-858 .label {
+    right: auto;
+    padding: 0;
+    text-decoration: underline;
+    font-weight:400;
+  }
+  #lp-pom-box-856 {
+    top: auto;
+    bottom: 100px;
+  }
+  
+  /*Step 1*/
+  #lp-pom-root.step1 #lp-pom-button-854 {
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+  #lp-pom-root.step1 #lp-pom-button-858{
+  	visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+  #lp-pom-button-43,
+  #lp-pom-root.step1 #lp-pom-text-850,
+  #lp-pom-root:not(.step1) #lp-pom-text-648{
+    display:none;
+  }
+  
+  /*step 2*/
+  #lp-pom-root.step2 #lp-pom-box-849-color-overlay,
+  #lp-pom-root.step2 #lp-pom-box-849{
+  	height: 1000px;
+  }
+  #lp-pom-root.step2 #lp-pom-box-860{
+  	top: calc(1299px + 300px);
+    top: -webkit-calc(1299px + 300px);
+  }
+  #lp-pom-root.step2 #lp-pom-block-39, 
+  #lp-pom-root.step2 #lp-pom-block-39 > * {
+    height: calc(1299px + 300px);
+    height: -webkit-calc(1299px + 300px);
+  }
+  #lp-pom-root.step2,
+  #lp-pom-root.step2 #lp-pom-root-color-overlay {
+    height: calc(1499px + 300px);
+    height: -webkit-calc(1499px + 300px);
+  }
+  
+  /*step 3*/
+  #lp-pom-root.step3 #lp-pom-box-849-color-overlay,
+  #lp-pom-root.step3 #lp-pom-box-849{
+  	height: 906px;
+  }
+  #lp-pom-root.step3 #lp-pom-box-860{
+  	top: calc(1299px + 288px);
+    top: -webkit-calc(1299px + 288px);
+  }
+  #lp-pom-root.step3 #lp-pom-block-39, 
+  #lp-pom-root.step3 #lp-pom-block-39 > * {
+    height: calc(1299px + 288px);
+    height: -webkit-calc(1299px + 288px);
+  }
+  #lp-pom-root.step3,
+  #lp-pom-root.step3 #lp-pom-root-color-overlay {
+    height: calc(1499px + 288px);
+    height: -webkit-calc(1499px + 288px);
+  }
+  
+  @media only screen and (max-width: 600px){
+   #lp-pom-box-856{
+    	bottom: 0;
+    }
+    #lp-pom-button-858 .label {
+      right: 0;
+    }
+    
+    #lp-pom-root.step1 #lp-pom-box-856 {
+      bottom: -40px;
+    }
+    /*Step 2*/
+    #lp-pom-root.step2 #lp-pom-box-849-color-overlay,
+    #lp-pom-root.step2 #lp-pom-box-849 {
+      height: 1517px;
+    }
+    #lp-pom-root.step2 #lp-pom-block-39,
+    #lp-pom-root.step2 #lp-pom-block-39 > * {
+      height: calc(1182px + 812px);
+      height: -webkit-calc(1182px + 812px)
+    }
+    #lp-pom-root.step2 #lp-pom-box-860{
+      top: calc(1342px + 812px);
+      top: -webkit-calc(1342px + 812px);
+    }
+    #lp-pom-root.step2, #lp-pom-root.step2 #lp-pom-root-color-overlay {
+      height: calc(1524px + 812px);
+      height: -webkit-calc(1524px + 812px);
+    }
+    /*Step 3*/
+    #lp-pom-root.step3 #lp-pom-box-849-color-overlay,
+    #lp-pom-root.step3 #lp-pom-box-849 {
+      height: 1222px;
+    }
+    #lp-pom-root.step3 #lp-pom-block-39,
+    #lp-pom-root.step3 #lp-pom-block-39 > * {
+      height: calc(1182px + 522px);
+      height: -webkit-calc(1182px + 522px)
+    }
+    #lp-pom-root.step3 #lp-pom-box-860{
+      top: calc(1342px + 522px);
+      top: -webkit-calc(1342px + 522px);
+    }
+    #lp-pom-root.step3,
+    #lp-pom-root.step3 #lp-pom-root-color-overlay {
+      height: calc(1524px + 522px);
+      height: -webkit-calc(1524px + 522px);
+    }
+
+  }
+  
+</style>
