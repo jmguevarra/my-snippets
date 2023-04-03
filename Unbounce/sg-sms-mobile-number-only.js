@@ -3,7 +3,7 @@
     reset();
     if (input.value.trim()) {
       if (iti.isValidNumber()) { 
-        if(iti.getSelectedCountryData().iso2 === "au" && iti.getNumberType() === 1){ // In AU number must be mobile only. ref https://github.com/jackocnr/intl-tel-input/blob/master/src/js/utils.js#L119
+        if(iti.getSelectedCountryData().iso2 === "au" && iti.getNumberType() !== 1){ // In AU number must be mobile only. ref https://github.com/jackocnr/intl-tel-input/blob/master/src/js/utils.js#L119
           input.classList.add("error");
           var errorCode = iti.getValidationError();
           errorMsg.innerHTML = errorMap[5];
