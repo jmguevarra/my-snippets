@@ -69,9 +69,8 @@ export class DownloadItemComponent implements OnInit, OnDestroy {
                   this.file.completed = true;
                   this.file.statusCode = event.status;
                   const responseFilename = this.downloadService.getFilenameFromContentDisposition(event.headers.get('Content-Disposition') ?? '');
-                  let newFileName = responseFilename ? responseFilename : this.file.fileName;
-                  console.log(event.headers.get('Content-Disposition'), responseFilename, newFileName);
-                  if (event.body) this.downloadBlob(event.body, newFileName);
+                  this.file.fileName = responseFilename ? responseFilename : this.file.fileName;
+                  if (event.body) this.downloadBlob(event.body, this.file.fileName);
                   this.downloadService.addFileToDownloaded(this.file);
                }
                return event;
