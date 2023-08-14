@@ -101,9 +101,12 @@ export class DownloadService implements OnDestroy {
    }
 
    getFilenameFromContentDisposition(contentDisposition: string): string {
-      const filenameRegex = /filename[^;=\n]*=([^"';\n\s]*)/;
+      const filenameRegex = /filename\*?=(?:(?:"([^"]+)")|([^;\n\r]+))/i;
       const matches = filenameRegex.exec(contentDisposition);
-      if (matches && matches.length >= 2) return matches[1];
+      if (matches && matches.length > 1){
+         const encodedFilename = matches[1] || matches[2];
+         return decodeURI(encodedFilename);
+      }
       return '';
    }
 
