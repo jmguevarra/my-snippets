@@ -15,6 +15,8 @@ var isEdge = !isIE && !!window.StyleMedia;
 
 // Chrome 1 - 79
 var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+var isChrome = window.chrome != null && window.navigator.vendor === "Google Inc."
 
 // Edge (based on chromium) detection
 var isEdgeChromium = isChrome && (navigator.userAgent.indexOf("Edg") != -1);
@@ -33,3 +35,16 @@ output += 'isEdge: ' + isEdge + '<br>';
 output += 'isEdgeChromium: ' + isEdgeChromium + '<br>';
 output += 'isBlink: ' + isBlink + '<br>';
 document.body.innerHTML = output;
+
+
+/* Device Checking and Browser fixes */
+    let platform = window.navigator?.userAgentData?.platform.toLowerCase() || window.navigator.platform.toLowerCase();
+    const macosPlatforms = ["macintosh", "macintel", "macppc", "mac68k", "macos", "mac"];
+
+    let isFirefox = typeof InstallTrigger !== 'undefined';
+    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+
+    if(macosPlatforms.indexOf(platform) !== -1 && (isFirefox || isChrome)){
+    	document.querySelector("#lp-pom-root").classList.add("sglp-mac-DIN-Font"); 
+    }
+    /* End Device Checking and Browser fixes */
