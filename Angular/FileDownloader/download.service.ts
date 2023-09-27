@@ -21,11 +21,11 @@ export class DownloadService implements OnDestroy {
    private _queuedFiles: { url: string; fileName: string; options: any }[] = [];
 
    constructor(
-      private httpClient: HttpClient, 
+      private httpClient: HttpClient,
       private apiUrl: ApiUrl,
-      private modalService: NgbModal, 
+      private modalService: NgbModal,
    ) {}
-   
+
    generateFileId(): string {
       const timestamp = Date.now().toString();
       const randomNum = Math.floor(Math.random() * 10000).toString();
@@ -72,7 +72,7 @@ export class DownloadService implements OnDestroy {
             this.queueFile(fileToDownload.url, fileToDownload.fileName, fileToDownload.options);
             this._queuedFiles.shift();
             return;
-         } 
+         }
 
          if (this._downloading.length === 0 && this._queuedFiles.length === 0){
             this.downloadsStatus.next({ isDone: true, withError: false, errorCode: '' });
@@ -100,8 +100,8 @@ export class DownloadService implements OnDestroy {
       return this.httpClient.get(url, { observe: 'events', reportProgress: true, responseType: 'blob' });
    }
 
-   getFilenameFromContentDisposition(contentDisposition: string): string {
-      const filenameRegex = /filename\*?=(?:(?:"([^"]+)")|([^;\n\r]+))/i;
+   getFilenameFromContentDisposition(contentDisposition: string) {
+      const filenameRegex = /filename\*=UTF-8''+(?:(?:"([^"]+)")|([^;\n\r]+))/i; // /filename\*?=(?:(?:"([^"]+)")|([^;\n\r]+))/i;
       const matches = filenameRegex.exec(contentDisposition);
       if (matches && matches.length > 1){
          const encodedFilename = matches[1] || matches[2];
