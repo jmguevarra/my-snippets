@@ -4,7 +4,6 @@ import { LocalConstants } from '../constants';
 import { DownloadItemComponent } from './download-item/download-item.component';
 import { DownloadService } from 'src/app/services/download.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { Subscription } from 'rxjs';
 
 @Component({
    standalone: true,
@@ -86,6 +85,49 @@ export class DownloadsPanelComponent implements OnInit, AfterViewInit, OnChanges
             if(this.downloadService.allDownloadsIsDone()) this.notificationService.show(LocalConstants.downloadDownloadedAlreadyNotif, {classname: 'bg-warning text-light'});
             if(!this.downloadService.allDownloadsIsDone()) this.destroyDownloadItems();
          } 
+      });
+
+      this.DragDownloadPanel();
+   }
+
+   private DragDownloadPanel(){
+      const panelElement: HTMLElement = this.elementRef.nativeElement;
+      const panelHeaderElement = panelElement.querySelector('.download-wrapper') as HTMLElement;
+      let offsetX: number, offsetY: number;
+      let dragEventX: number, dragEventY: number;
+      let isDragging = false;
+      let panelHeaderElWidth = 0;
+
+      panelHeaderElement.draggable = true;
+      panelHeaderElement.addEventListener('dragstart', (event) => {
+         event.dataTransfer?.setData('text/plain', 'Dragged Element');
+         const rect = panelHeaderElement.getBoundingClientRect();
+         offsetX = event.clientX - rect.left;
+         offsetY = event.clientY - rect.top;
+         panelHeaderElWidth = panelHeaderElement.clientWidth;
+         isDragging = true;
+      });
+
+      document.addEventListener('drag', (event) => {
+         if(event.clientX === 0 || event.clientY === 0) return;
+
+         dragEventX = event.clientX;
+         dragEventY = event.clientY;
+
+         if (isDragging) {
+            const finalOffsetX = dragEventX - offsetX;
+            const finalOffsetY = dragEventY - offsetY;
+            const calCulatedRightPos = window.innerWidth - finalOffsetX - panelHeaderElement.clientWidth,
+                  rightPos = calCulatedRightPos < 0 ? 0: calCulatedRightPos;
+            const calCulatedBottomPos = window.innerHeight - finalOffsetY - panelHeaderElement.clientHeight,
+                  bottomPos = calCulatedBottomPos < 0 ? 0: calCulatedBottomPos;
+            panelHeaderElement.style.bottom = `${bottomPos}px`;
+            panelHeaderElement.style.right = `${rightPos}px`;
+         }
+      });
+
+      document.addEventListener('dragend', (event) => {
+         isDragging = false;
       });
    }
 
