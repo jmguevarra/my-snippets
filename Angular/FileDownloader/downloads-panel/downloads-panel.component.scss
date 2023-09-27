@@ -18,16 +18,30 @@
     .downloads-header {
         padding: 16px 6px 16px 16px;
         background-color: var(--bs-gray-300);
+        cursor: grab;
 
         .progress-text{
             font-size: 14px;
             font-weight: 600;
+            pointer-events: none;
+            user-select: none;
         }
         .progress-total-percent{
             width: 20px;
         }
         .row{
             margin: 0;
+        }
+    }
+
+    .downloads-controls{
+        .ctrl-minmax > img{
+            @include simpleTransition;
+        }
+        .dropicon-rotate > img {
+            -moz-transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
         }
     }
 
