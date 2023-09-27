@@ -9,8 +9,14 @@
                     <object data="assets/images/energin-loading-animate.svg" style="max-height: 22.25px;"></object>
                 </div>
                 <div class="downloads-controls d-flex align-items-center ms-4">
-                    <img src="assets/images/dropdown-black-icon.svg" class="download-ctrl ctrl-minmax me-2" (click)="minMaxControl()">
-                    <img src="assets/images/close-black-icon.svg" alt="" class="download-ctrl ctrl-remove" (click)="cancelDownloads()">
+                    <div class="row">
+                        <div class="col-6 p-0 download-ctrl ctrl-minmax" [ngClass]="{'dropicon-rotate': isMinimized }" (click)="minMaxControl()">
+                            <img src="assets/images/dropdown-black-icon.svg" class="me-2">
+                        </div>
+                        <div class="col-6 p-0 download-ctrl ctrl-remove text-end" (click)="cancelDownloads()">
+                            <img src="assets/images/close-black-icon.svg" alt="">
+                        </div>
+                    </div>
                 </div>
     
             </div>
