@@ -90,9 +90,8 @@ export class DownloadItemComponent implements OnInit, OnDestroy {
                      }
                   }, 1000);
             },
-            complete: () => {
-               this.stopCheckConnection();
-            }
+            error: (e) => this.stopCheckConnection(),
+            complete: () => this.stopCheckConnection()
          });
    }
 
