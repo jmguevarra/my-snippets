@@ -1,0 +1,10 @@
+.ree-lg-anim {
+    -moz-transition: 1.2s;
+    -webkit-transition: 1.2s;
+    transition: 1.2s;
+    left: auto !important;
+    right: -200%;
+  }
+  .ree-lg-anim.show {
+    right: -40px;
+  }
