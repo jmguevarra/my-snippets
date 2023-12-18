@@ -1,0 +1,36 @@
+<style type="text/css">
+  #lp-pom-form-42 .lp-pom-form-field {
+    position: static;
+    height: auto;
+    margin-bottom: 40px;
+  }
+  #lp-pom-form-42 .lp-pom-form-field .lp-form-label{
+    position: static;
+  }
+  #lp-pom-form-42 .optionsList {
+    position: static;
+    height: auto;
+    margin-top: 48px;
+  }
+  .lp-pom-form.has-axis .fields{
+    display: block;
+  }
+  button#lp-pom-button-43{
+    position: static;
+    margin: 0 auto;
+  }
+  #lp-pom-button-43 .label {
+    position: static;
+    margin-top: 0 !important;
+  }
+
+
+  @media only screen  and (max-width: 600px){
+    #lp-pom-form-42 .optionsList{
+      margin-top: 28px;
+    }
+    #lp-pom-form-42 .lp-pom-form-field {
+      margin: 0 auto 40px;
+    }
+  }
+</style>
