@@ -28,6 +28,7 @@
     border: 0 !important;
     border-bottom: solid 1px #fff !important;
     font-family: 'Bagoss Standard', Arial, sans-serif;
+    letter-spacing: 1px;
   }
 
   #lp-pom-form-42 textarea{ /**text area**/
@@ -111,7 +112,7 @@
     position: static;
     width: 100% !important;
   }
-  #container_phone {
+  #lp-pom-form-42 #container_phone {
     position: relative !important;
     top: auto;
     left: auto;
