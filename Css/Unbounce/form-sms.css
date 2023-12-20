@@ -1,0 +1,215 @@
+<style>
+
+
+  .fieldError:after {
+    content: '';
+    background-image: url(https://d2qakxn0oh6mu0.cloudfront.net/assets/sensis/error.svg) !important;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 23px;
+    display: block;
+    position: absolute;
+    right: -25px;
+    top: 18px;
+    z-index: 10;
+  }
+
+
+  #lp-pom-button-652{ /* Fake Submit Button */ 
+    z-index: 1;   
+  }
+
+  .verificationContainer{ /* verification container */
+    left: 0 !important;
+  }
+  .unhideBox{
+    display: block !important; 
+  }
+
+  .verificationFieldError{
+    border: 1px solid #f45d48 !important;
+  }
+
+  #lp-pom-form-42 input[type=email]:focus, 
+  #lp-pom-form-42 input[type=tel]:focus, 
+  #lp-pom-form-42 input[type=text]:focus, 
+  #lp-pom-form-42 select:focus, 
+  #lp-pom-form-42 textarea:focus {
+    border-color: 1px solid #3da9fc;
+  }  
+
+
+
+  .fieldError .single{border-color: #f45d48 !important}
+  .fieldError > label{color: #f45d48 !important}
+  input#verification_code.auth-code-error{
+    border: 1px solid #f45d48;
+  }
+
+
+  .disable-click{
+    pointer-events: none;
+  }
+
+  .redo_phone,
+  .resend_phone{
+    cursor: pointer;  
+  }
+  input#verification_code {
+    width: 100% !important;
+    height: 100% !important;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    border: 0;
+    padding: 0 20px;
+    font-size: 60px;
+    text-align: center;
+    letter-spacing: 10px;
+  }
+
+  .error_phone{
+    color: #f45d48;
+    bottom: -20px;
+    position: absolute;
+  }
+  .error_fields{
+    color: #f45d48;
+    bottom: -20px;
+    position: absolute;
+  } 
+
+
+
+
+  .iti {
+    z-index:99999999;
+  }
+  .iti--allow-dropdown input,
+  .iti--allow-dropdown input[type="tel"],
+  .iti--allow-dropdown input[type="text"],
+  .iti--separate-dial-code input,
+  .iti--separate-dial-code input[type="tel"],
+  .iti--separate-dial-code input[type="text"] {
+    padding-right: 6px !important;
+    padding-left: 52px !important;
+  }
+  .iti.iti--allow-dropdown {
+    height: 100%;
+  } 
+  .iti--allow-dropdown .iti__flag-container,
+  .iti--separate-dial-code .iti__flag-container {
+    height: 48px;
+    top: 0px;
+  }
+  #container_phone .iti--allow-dropdown .iti__flag-container:hover .iti__selected-flag {
+    background-color: initial !important;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  span#valid-msg, span#error-msg {
+    position: absolute;
+    bottom: -20px;
+    right: 8px;
+  } 
+
+  #error-msg {
+    color: red;
+  }  
+  #valid-msg {
+    color: #00C900;
+  }  
+
+  #lp-pom-form-42 .lp-pom-form-field input[type=tel].error{
+    border: 1px solid #ff0000;
+  }
+
+
+
+  /* send animation */
+
+
+
+  .circle-loader {
+    margin-bottom: 3.5em;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-left-color: #5cb85c;
+    animation: loader-spin 1.2s infinite linear;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 50%;
+    /*width: 7em;*/
+    /*height: 7em;*/
+    width: 4em;
+    height: 4em;
+  }
+
+  .load-complete {
+    -webkit-animation: none;
+    animation: none;
+    border-color: #5cb85c;
+    transition: border 500ms ease-out;
+  }
+
+  .checkmark {
+    display: none;
+  }
+  .checkmark.draw:after {
+    animation-duration: 800ms;
+    animation-timing-function: ease;
+    animation-name: checkmark;
+    transform: scaleX(-1) rotate(135deg);
+  }
+  .checkmark:after {
+    opacity: 1;
+    /*height: 3.5em;*/
+    /*width: 1.75em;*/
+    height: 2em;
+    width: 1em;
+    transform-origin: left top;
+    border-right: 3px solid #5cb85c;
+    border-top: 3px solid #5cb85c;
+    content: "";
+    left: 0.85em;
+    top: 2em;
+    position: absolute;
+  }
+
+  @keyframes loader-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes checkmark {
+    0% {
+      height: 0;
+      width: 0;
+      opacity: 1;
+    }
+    20% {
+      height: 0;
+      width: 1em;
+      opacity: 1;
+    }
+    40% {
+      height: 2em;
+      width: 1em;
+      opacity: 1;
+    }
+    100% {
+      height: 2em;
+      width: 1em;
+      opacity: 1;
+    }
+  }
+
+
+</style>
