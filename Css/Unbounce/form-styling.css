@@ -5,20 +5,29 @@
     -ms-transition: background 0.5s;
     -webkit-transition: background 0.5s;
   }  
-
-  div.lp-pom-root .lp-pom-button span { /*button text/span*/
-
+  div.lp-pom-root .lp-pom-button span,
+  #lp-pom-form-42 .lp-pom-form-field label {
+    letter-spacing: 1px;
+    font-family: 'Bagoss Standard', Arial, sans-serif !important;
   }
-
-  #lp-pom-form-42 .lp-pom-form-field label {/*field label*/
-
-  }  
-
+  #lp-pom-form-42 .lp-pom-form-field.multi-group > label {
+    letter-spacing: 1px;
+    font-family: 'Pompallier', Arial, sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    line-height: 1.4;
+  }
+  #lp-pom-form-42 .lp-pom-form-field input[type=text], 
+  #lp-pom-form-42 .lp-pom-form-field input[type=email] {
+    padding-left: 0;
+  }
   #lp-pom-form-42 input[type=text],
   #lp-pom-form-42 input[type=tel],
   #lp-pom-form-42 input[type=email],  
   #lp-pom-form-42 select{ /**text boxes*/
-
+    border: 0 !important;
+    border-bottom: solid 1px #fff !important;
+    font-family: 'Bagoss Standard', Arial, sans-serif;
   }
 
   #lp-pom-form-42 textarea{ /**text area**/
@@ -54,29 +63,29 @@
 
   /*FOR PLACEHOLDER TEXT*/
   ::-webkit-input-placeholder { 
-    color: #2B2B2B;
-    opacity: 1 !important;
+    color: #fff;
+    opacity: 0.6 !important;
   }
   :-moz-placeholder { 
-    color: #808083; 
-    opacity: 1 !important;
+    color: #fff;
+    opacity: 0.6 !important;
   }
 
   ::-moz-placeholder {  
-    color: #2B2B2B; 
-    opacity: 1 !important;
+    color: #fff;
+    opacity: 0.6 !important;
   }
 
   :-ms-input-placeholder { 
-    color: #2B2B2B; 
-    opacity: 1 !important;
+    color: #fff;
+    opacity: 0.6 !important;
   } 
 
-	
+
   #lp-pom-form-42 .lp-pom-form-field {
     position: static !important;
     height: auto;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
   #lp-pom-form-42 .lp-pom-form-field .lp-form-label{
     position: static;
@@ -84,10 +93,11 @@
   #lp-pom-form-42 .optionsList {
     position: static;
     height: auto;
-    margin-top: 48px;
+    margin-top: 30px;
   }
   .lp-pom-form.has-axis .fields{
     display: block;
+    margin: 0 !important;
   }
   button#lp-pom-button-43{
     position: static;
@@ -99,9 +109,12 @@
   }
   #lp-pom-form-42 .lp-pom-form-field .single {
     position: static;
-  }
-  #lp-pom-form-42 .lp-pom-form-field .single {
     width: 100% !important;
+  }
+  #container_phone {
+    position: relative !important;
+    top: auto;
+    left: auto;
   }
   @media only screen and (min-width: 601px){
     #container_phone,
@@ -124,10 +137,16 @@
 
   @media only screen  and (max-width: 600px){
     #lp-pom-form-42 .optionsList{
-      margin-top: 28px;
+      margin-top: 15px;
     }
     #lp-pom-form-42 .lp-pom-form-field {
       margin: 0 auto 15px;
+    }
+    #container_timeframe_to_purchase {
+      margin-top: 40px !important;
+    }
+    #lp-pom-form-42 .lp-pom-form-field.multi-group > label{
+      font-size: 16px !important;
     }
   }
 </style>
