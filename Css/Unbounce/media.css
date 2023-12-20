@@ -1,0 +1,25 @@
+<style type="text/css">
+  @media only screen and (max-width: 600px)  {
+    .center {
+      text-align: center !important;
+    }
+    .left {
+      text-align: left !important;
+    }
+    .right {
+      text-align: right !important;
+    }
+
+    .iti.iti--allow-dropdown {
+      width: 100%;
+    }
+    div.lp-pom-root .lp-pom-form-field .option {
+      width: 100% !important;
+    }
+    #lp-pom-form-42 input[type='radio'] + label {
+      width: 100%;
+      text-align: left;
+      padding-left: 20px;
+    }
+  } 
+</style>
