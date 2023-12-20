@@ -1,0 +1,67 @@
+<style>
+  /**CHECKBOX CUSTOM STYLE UNBOUNCE*/
+  #lp-pom-form-42 input[type='radio'] { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #ffffff;
+    border: none;
+    z-index: -9999;
+    display: none;
+
+  }
+
+  #lp-pom-form-42  input[type='radio']  option   {
+    opacity: 0;
+    width: 20px;
+    cursor: pointer;
+  }
+
+  #lp-pom-form-42  input[type='radio']  + label {  
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    font-family: 'Bagoss Standard', Arial, sans-serif !important;
+    padding: 0;
+    width: 244px;
+    height: 50px;
+    background: #364023;
+    border: 1px solid #e0e0e0;
+    line-height: 48px !important;
+  }
+
+  #lp-pom-form-42 input[type='radio'] + label:hover,
+  #lp-pom-form-42 input[type='radio']:checked + label {
+    background-color: #fff;
+    border-color: #fff;
+    color: #364023;
+  }   
+
+  div.lp-pom-root .lp-pom-form-field .optionsList { 
+    width: 100% !important;
+    display: -ms-flexbox;
+    display: -moz-box; 
+    display: -webkit-box; 
+    display: -webkit-flex; 
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  div.lp-pom-root .lp-pom-form-field .option {
+    top: 0 !important; /* add this */
+    width: auto !important; /* add this */
+    height: auto !important; /* add this */
+    position: relative !important; /* add this */
+    padding: 0; /* add this */
+    display: inline-block; /* add this */
+    text-align: center; /* add this */
+    margin: 5px 0;
+  }  
+
+
+</style>
