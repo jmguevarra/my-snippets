@@ -1,8 +1,8 @@
 <style type="text/css">
   #lp-pom-form-42 .lp-pom-form-field {
-    position: static;
+    position: static !important;
     height: auto;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
   #lp-pom-form-42 .lp-pom-form-field .lp-form-label{
     position: static;
@@ -23,14 +23,41 @@
     position: static;
     margin-top: 0 !important;
   }
-
+  #lp-pom-form-42 .lp-pom-form-field .single {
+    position: static;
+  }
+  #lp-pom-form-42 .lp-pom-form-field .single {
+    width: 100% !important;
+  }
+  @media only screen and (min-width: 601px){
+    #container_phone,
+    #container_email,
+    #container_first_name,
+    #container_last_name {
+      display: inline-block;
+      vertical-align: top;
+      width: 252px;
+    }
+    #container_phone,
+    #container_first_name {
+      padding-right: 10px;
+    }
+    #container_email,
+    #container_last_name {
+      padding-left: 10px;
+    }
+    #lp-pom-form-42 #container_course_of_interest,
+    #lp-pom-form-42 #container_state {
+      width: 100%;
+    }
+  }
 
   @media only screen  and (max-width: 600px){
     #lp-pom-form-42 .optionsList{
       margin-top: 28px;
     }
     #lp-pom-form-42 .lp-pom-form-field {
-      margin: 0 auto 40px;
+      margin: 0 auto 15px;
     }
   }
 </style>
