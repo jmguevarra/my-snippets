@@ -1,3 +1,8 @@
+Regen Local SSH keys
+```
+ssh-keygen -t rsa -b 4096 -f c:/users/bilal/.ssh/wpengine_rsa
+```
+
 To Access
 ```
 ssh jindingkilmore@jindingkilmore.ssh.wpengine.net
