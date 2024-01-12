@@ -1,9 +1,9 @@
-#To Access
+To Access
 ```
 ssh jindingkilmore@jindingkilmore.ssh.wpengine.net
 ```
 
-#Delete all Files 
+Delete all Files 
 ```
 rm -rf *
 ```
@@ -13,12 +13,12 @@ rm -rf *
 mv jinding-kilmore/* . 
 ```
 
-#Unzip with .tgz file compressor
+Unzip with .tgz file compressor
 ```
 tar -zxvf jinding-kilmore.tgz
 ```
 
-#Unzip with .zip compressor
+Unzip with .zip compressor
 ```
 unzip public.zip
 ```
