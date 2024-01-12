@@ -2,9 +2,9 @@
 ssh jindingkilmore@jindingkilmore.ssh.wpengine.net
 
 #Delete all Files 
-
+```
 rm -rf *
-
+```
 #Move all files up to one dir
 mv jinding-kilmore/* . 
 
