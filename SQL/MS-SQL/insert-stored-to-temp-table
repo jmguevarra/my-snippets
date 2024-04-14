@@ -1,0 +1,54 @@
+
+IF OBJECT_ID('tempdb..#Sites') IS NOT NULL
+BEGIN
+    DROP TABLE #Sites;
+END
+
+CREATE TABLE #Sites (
+	[Id] NVARCHAR(100) NOT NULL, 
+	[Name] VARCHAR(MAX) NULL,
+	[Stage] VARCHAR(MAX) NULL,
+	[Sites] INT NULL,
+	[Retailer] VARCHAR(MAX) NULL,
+	[NMI] VARCHAR(MAX) NULL,
+	[Terms] INT NULL,
+	[ContractStartDate] VARCHAR(MAX) NULL,
+	[ContractEndDate] VARCHAR(MAX) NULL,
+	[TenderCloseDate] VARCHAR(MAX) NULL,
+	[OfferExpiry] VARCHAR(MAX) NULL,
+	[TotalUsagePerAnnum] VARCHAR(MAX) NULL,
+	[TypeOfService]  VARCHAR(MAX) NULL,
+	[IsGroupTender] INT NULL,
+	[EPXJobId] BIGINT NULL,
+	[GroupTenderId] INT NULL,
+	[DateCreated] VARCHAR(MAX) NULL,
+	[TenderAs]  VARCHAR(MAX) NULL,
+	[ProductCategory] VARCHAR(MAX) NULL,
+	[Owner] VARCHAR(MAX) NULL,
+	[Email] VARCHAR(MAX) NULL,
+	[FromBH] BIGINT NOT NULL
+);
+
+INSERT INTO #Sites
+EXEC BH.sp_GetDashboardByFilter @Filter = 'Active Accounts',
+                                @OpportunityOwnerEmail = 'inbox@energin.co,e.beard@leadingedgeenergy.com.au,k.will@leadingedgeenergy.com.au,y.chan@leadingedgeenergy.com.au,j.iliffe@fortiserve.com.au,tim.iliffe@fortiserve.com.au,b.wallington@leadingedgeenergy.com.au,p.dobbin@fortiserve.com.au,m.ha@leadingedgeenergy.com.au,ben@leadingedgeenergy.com.au,a.gaete@leadingedgeenergy.com.au,marketing-zoho@leadingedgeenergy.com.au', -- varchar(max)
+                                @TenderAs = 'LARGE',
+                                @ProductType = 'ELECTRICITY'
+INSERT INTO #Sites
+EXEC BH.sp_GetDashboardByFilter @Filter = 'Awaiting Transfer',
+                                @OpportunityOwnerEmail = 'inbox@energin.co,e.beard@leadingedgeenergy.com.au,k.will@leadingedgeenergy.com.au,y.chan@leadingedgeenergy.com.au,j.iliffe@fortiserve.com.au,tim.iliffe@fortiserve.com.au,b.wallington@leadingedgeenergy.com.au,p.dobbin@fortiserve.com.au,m.ha@leadingedgeenergy.com.au,ben@leadingedgeenergy.com.au,a.gaete@leadingedgeenergy.com.au,marketing-zoho@leadingedgeenergy.com.au', -- varchar(max)
+                                @TenderAs = 'LARGE',
+                                @ProductType = 'ELECTRICITY'
+INSERT INTO #Sites
+EXEC BH.sp_GetDashboardByFilter @Filter = 'Renewal Management',
+                                @OpportunityOwnerEmail = 'inbox@energin.co,e.beard@leadingedgeenergy.com.au,k.will@leadingedgeenergy.com.au,y.chan@leadingedgeenergy.com.au,j.iliffe@fortiserve.com.au,tim.iliffe@fortiserve.com.au,b.wallington@leadingedgeenergy.com.au,p.dobbin@fortiserve.com.au,m.ha@leadingedgeenergy.com.au,ben@leadingedgeenergy.com.au,a.gaete@leadingedgeenergy.com.au,marketing-zoho@leadingedgeenergy.com.au', -- varchar(max)
+                                @TenderAs = 'LARGE',
+                                @ProductType = 'ELECTRICITY'
+
+SELECT * FROM #Sites WHERE [Stage] IN (
+'Current client',
+'Closed won - pre transfer',
+'Current client up for renewal',
+'Current client renewal in progress',
+'Current client renewed'
+) AND YEAR (ContractEndDate) = YEAR(GETDATE())
