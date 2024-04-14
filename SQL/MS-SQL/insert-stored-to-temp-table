@@ -29,19 +29,22 @@ CREATE TABLE #Sites (
 	[FromBH] BIGINT NOT NULL
 );
 
+DECLARE @Emails VARCHAR(MAX) = '"=sophiegwilliam@zembl.com.au,brittanylovell@zembl.com.au,danieltwigg@zembl.com.au,lauramanerowski@zembl.com.au,nathanschofield@zembl.com.au,nathanieljohns@zembl.com.au,roberthall@zembl.com.au,tomgoulding@zembl.com.au,jackmcdonald@zembl.com.au,matthewpeek@zembl.com.au,harliefay@zembl.com.au,blainechippendale@zembl.com.au';
+--DECLARE @Emails VARCHAR(MAX) = 'inbox@energin.co,e.beard@leadingedgeenergy.com.au,k.will@leadingedgeenergy.com.au,y.chan@leadingedgeenergy.com.au,j.iliffe@fortiserve.com.au,tim.iliffe@fortiserve.com.au,b.wallington@leadingedgeenergy.com.au,p.dobbin@fortiserve.com.au,m.ha@leadingedgeenergy.com.au,ben@leadingedgeenergy.com.au,a.gaete@leadingedgeenergy.com.au,marketing-zoho@leadingedgeenergy.com.au'
+
 INSERT INTO #Sites
 EXEC BH.sp_GetDashboardByFilter @Filter = 'Active Accounts',
-                                @OpportunityOwnerEmail = 'inbox@energin.co,e.beard@leadingedgeenergy.com.au,k.will@leadingedgeenergy.com.au,y.chan@leadingedgeenergy.com.au,j.iliffe@fortiserve.com.au,tim.iliffe@fortiserve.com.au,b.wallington@leadingedgeenergy.com.au,p.dobbin@fortiserve.com.au,m.ha@leadingedgeenergy.com.au,ben@leadingedgeenergy.com.au,a.gaete@leadingedgeenergy.com.au,marketing-zoho@leadingedgeenergy.com.au', -- varchar(max)
+                                @OpportunityOwnerEmail = @Emails, 
                                 @TenderAs = 'LARGE',
                                 @ProductType = 'ELECTRICITY'
 INSERT INTO #Sites
 EXEC BH.sp_GetDashboardByFilter @Filter = 'Awaiting Transfer',
-                                @OpportunityOwnerEmail = 'inbox@energin.co,e.beard@leadingedgeenergy.com.au,k.will@leadingedgeenergy.com.au,y.chan@leadingedgeenergy.com.au,j.iliffe@fortiserve.com.au,tim.iliffe@fortiserve.com.au,b.wallington@leadingedgeenergy.com.au,p.dobbin@fortiserve.com.au,m.ha@leadingedgeenergy.com.au,ben@leadingedgeenergy.com.au,a.gaete@leadingedgeenergy.com.au,marketing-zoho@leadingedgeenergy.com.au', -- varchar(max)
+                                @OpportunityOwnerEmail =  @Emails,
                                 @TenderAs = 'LARGE',
                                 @ProductType = 'ELECTRICITY'
 INSERT INTO #Sites
 EXEC BH.sp_GetDashboardByFilter @Filter = 'Renewal Management',
-                                @OpportunityOwnerEmail = 'inbox@energin.co,e.beard@leadingedgeenergy.com.au,k.will@leadingedgeenergy.com.au,y.chan@leadingedgeenergy.com.au,j.iliffe@fortiserve.com.au,tim.iliffe@fortiserve.com.au,b.wallington@leadingedgeenergy.com.au,p.dobbin@fortiserve.com.au,m.ha@leadingedgeenergy.com.au,ben@leadingedgeenergy.com.au,a.gaete@leadingedgeenergy.com.au,marketing-zoho@leadingedgeenergy.com.au', -- varchar(max)
+                                @OpportunityOwnerEmail =  @Emails,
                                 @TenderAs = 'LARGE',
                                 @ProductType = 'ELECTRICITY'
 
