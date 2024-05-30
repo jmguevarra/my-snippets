@@ -185,5 +185,21 @@ export class DateUtilService {
       return newDate;
    }
 
+  function isValidDate(value) {
+    // Check if the value is null
+    if (value === null) {
+        return false;
+    }
+
+    // Check if the value is an instance of Date
+    if (value instanceof Date) {
+        return !isNaN(value.getTime());
+    }
+
+    // Convert strings and numbers to Date
+    const date = new Date(value);
+    return !isNaN(date.getTime());
+}
+
   
 }
