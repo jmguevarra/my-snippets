@@ -1,0 +1,11 @@
+{
+  "runtime": "nodejs18.x",
+  "version": "1.0",
+  "environment": {},
+  "endpoints": {
+    "hubdbaddcontact": {
+      "method": "POST",
+      "file": "hubdbaddcontact.js"
+    }
+  }
+}
