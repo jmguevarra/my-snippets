@@ -1,0 +1,15 @@
+{
+  "runtime": "nodejs18.x",
+  "version": "1.0",
+  "environment": {},
+  "endpoints": {
+    "update-form-entry": {
+      "method": "GET",
+      "file": "update-form-entry.js"
+    },
+    "add": {
+      "method": "GET",
+      "file": "add.js"
+    }
+  }
+}
