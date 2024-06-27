@@ -1,9 +1,9 @@
-
 const baseURL = "https://api.hubapi.com"; //form entries
 // const formEntriesEURL = "/crm/v3/objects/2-31587822?properties=program_length,contact,form_type,form_id&associations=contacts";
 // // const contactEURL = "/crm/v3/objects/contacts";
 const contactBaseEURL = "crm/v3/objects/contacts/";
 const CREATE_CONTACT_SUBSID = 2675588;
+const CMSTABLE_CONTACTID = 20846409;
 const config = {
   headers: {
     'Content-Type': 'application/json',
@@ -74,12 +74,67 @@ const getContactById = async (id) => {
   return result;
 };
 
+const publishCMSTable = async (endpoint) =>{
+  let result = { isSuccess: false, data: null, message: ''};
+  const newConfig = {
+    method: "POST",
+    ...config,
+  };
+  
+  const contactCreationRes = await fetch(`${baseURL}/${cmsContactEURL}/draft/publish`, config)
+    .then((response) => {
+      if (response.ok) { return response.json(); }
+      result.message = `Publishing Table has an error: ${JSON.stringify(response)}`;
+      return result;
+    }).then(data => {
+      if(data){ result = { isSuccess: true, data: data, message: "Table is now published" }; }
+      return result;
+    }).catch((error) => {
+      result.message = `Publishing Table has an error: ${error}`;
+      return result;
+    });
+
+  return result;
+};
+
+const addCMSTableRow = async (tableId, rowData) => {
+  const cmsContactEURL = `cms/v3/hubdb/tables/${tableId}`;
+  let result = { isSuccess: false, data: null, message: ''};
+  const newConfig = {
+    method: "POST",
+    ...config,
+    body: JSON.stringify(rowData),
+  };
+
+  const contactCreationRes = await fetch(`${baseURL}/${cmsContactEURL}/rows/`, newConfig)
+    .then((response) => {
+      if (response.ok) { return response.json(); }
+      result.message = `Contact request has and error: ${JSON.stringify(response)}`;
+      return result;
+    }).then(data => {
+      if(data){
+        result = { isSuccess: true, data: data, message: "Contact has been added" };
+        const publishRes = await publishCMSTable(`${baseURL}/${cmsContactEURL}`);
+        if(publishRes.isSuccess){
+          result = { isSuccess: true, data: data, publishedResponse: publishRes.data, message: publishRes.message };
+        }
+      }
+      return result;
+    }).catch((error) => {
+      result.message = `Getting contact by its ID has an error: ${error}`;
+      return result;
+    });
+  
+  return result;
+}
+
 const createContact = async (data) => {
-  const cmsContactEURL = "cms/v3/hubdb/tables/20846409";
   let result = { isSuccess: false, data: null, message: ''};
 
-  //create contact
+  //get contact data by id
   const contactRes = await getContactById("31150352925");
+
+  //mapped values and add row on contact table of CMS
   if(contactRes.isSuccess && contactRes.data){
     const contact = contactRes.data;
     const contactData = {
@@ -92,46 +147,13 @@ const createContact = async (data) => {
         "crmid": contact.hs_object_id
       }
     };
-    const newConfig = {
-      method: "POST",
-      ...config,
-      body: JSON.stringify(contactData),
-    };
-    
-    const contactCreationRes = await fetch(`${baseURL}/${cmsContactEURL}/rows/`, newConfig).then((response) => {
-      if (response.ok) { return response.json(); }
-      result.message = `Contact request has and error: ${JSON.stringify(response)}`;
-      return result;
-    }).then(data => {
-      if(data){
-        result = {
-          isSuccess: true,
-          data: data,
-          message: "Contact has been added"
-        };
-        
-    
-        //       axios.post(`${baseURL}/draft/publish`, {}, config)
-        //         .then(res=> { 
-        //         result.message = "Contact has been added";
-        //         result.data = response;
-        //         return result;
-        //       }).catch((error)=>{
-        //         result.message = `There's error on publishing contacts: ${error}`;
-        //         return result;
-        //       });
-      }
-      return result;
-    }).catch((error) => {
-      result.message = `Getting contact by its ID has an error: ${error}`;
-      return result;
-    });
+    //add new row with mapped data
+    const contactCreationRes = await addCMSTableRow(CMSTABLE_CONTACTID, contactData);
     if(contactCreationRes.isSuccess){
       result = contactCreationRes;
     }
   }
-  //end create contact
-
+  
   return result;
 };
 
