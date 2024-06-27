@@ -59,7 +59,7 @@ const getContactById = async (id) => {
     return result;
   }).then(data => {
     if(Object.keys(data).length > 1){
-       result = {
+      result = {
         isSuccess: true,
         data: data.properties,
         message: "Successfully get the contact details"
@@ -74,15 +74,14 @@ const getContactById = async (id) => {
   return result;
 };
 
-const publishCMSTable = async (endpoint) =>{
+const publishCMSTable = async (endpoint) => {
   let result = { isSuccess: false, data: null, message: ''};
   const newConfig = {
     method: "POST",
     ...config,
   };
-  
-  const contactCreationRes = await fetch(`${baseURL}/${cmsContactEURL}/draft/publish`, config)
-    .then((response) => {
+
+  const resResult = await fetch(`${endpoint}/draft/publish`, newConfig).then((response) => {
       if (response.ok) { return response.json(); }
       result.message = `Publishing Table has an error: ${JSON.stringify(response)}`;
       return result;
@@ -94,7 +93,7 @@ const publishCMSTable = async (endpoint) =>{
       return result;
     });
 
-  return result;
+  return resResult;
 };
 
 const addCMSTableRow = async (tableId, rowData) => {
@@ -106,25 +105,18 @@ const addCMSTableRow = async (tableId, rowData) => {
     body: JSON.stringify(rowData),
   };
 
-  const contactCreationRes = await fetch(`${baseURL}/${cmsContactEURL}/rows/`, newConfig)
-    .then((response) => {
+  const contactCreationRes = await fetch(`${baseURL}/${cmsContactEURL}/rows/`, newConfig).then((response) => {
       if (response.ok) { return response.json(); }
       result.message = `Contact request has and error: ${JSON.stringify(response)}`;
       return result;
     }).then(data => {
-      if(data){
-        result = { isSuccess: true, data: data, message: "Contact has been added" };
-        const publishRes = await publishCMSTable(`${baseURL}/${cmsContactEURL}`);
-        if(publishRes.isSuccess){
-          result = { isSuccess: true, data: data, publishedResponse: publishRes.data, message: publishRes.message };
-        }
-      }
+      if(data){ result = { isSuccess: true, data: data, message: "Contact has been added" }; }
       return result;
     }).catch((error) => {
       result.message = `Getting contact by its ID has an error: ${error}`;
       return result;
     });
-  
+
   return result;
 }
 
@@ -151,9 +143,14 @@ const createContact = async (data) => {
     const contactCreationRes = await addCMSTableRow(CMSTABLE_CONTACTID, contactData);
     if(contactCreationRes.isSuccess){
       result = contactCreationRes;
+      const cmsContactPublishEURL = `${baseURL}/cms/v3/hubdb/tables/${CMSTABLE_CONTACTID}`;
+      const publishRes = await publishCMSTable(cmsContactPublishEURL);
+      if(publishRes.isSuccess){
+        result = { isSuccess: true, data: { contactRes: data, published: publishRes.data }, message: publishRes.message };
+      }
     }
   }
-  
+
   return result;
 };
 
