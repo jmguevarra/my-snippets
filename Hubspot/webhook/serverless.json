@@ -1,0 +1,17 @@
+{
+  "runtime": "nodejs18.x",
+  "version": "1.0",
+  "environment": {},
+  "endpoints": {
+    "webhook": {
+      "method": [
+        "GET",
+        "DELETE",
+        "POST",
+        "PATCH",
+        "PUT"
+      ],
+      "file": "webhook.js"
+    }
+  }
+}
