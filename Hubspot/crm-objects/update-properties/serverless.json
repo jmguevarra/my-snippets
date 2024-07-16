@@ -1,0 +1,11 @@
+{
+  "runtime": "nodejs18.x",
+  "version": "1.0",
+  "environment": {},
+  "endpoints": {
+    "form-entry/update-properties": {
+      "method": "POST",
+      "file": "index.js"
+    },
+  }
+}
