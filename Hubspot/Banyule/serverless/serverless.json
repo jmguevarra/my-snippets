@@ -1,0 +1,38 @@
+{
+  "runtime": "nodejs18.x",
+  "version": "1.0",
+  "environment": {},
+  "endpoints": {
+    "booking/add": {
+      "method": [
+        "GET",
+        "POST"
+      ],
+      "file": "add.js"
+    },
+    "booking/update": {
+      "method": [
+        "POST"
+      ],
+      "file": "update.js"
+    },
+    "booking/refs": {
+      "method": [
+        "GET"
+      ],
+      "file": "refs.js"
+    },
+    "booking/ref/get-school-program": {
+      "method": [
+        "POST"
+      ],
+      "file": "get-school-program.js"
+    },
+    "booking/refspost": {
+      "method": [
+        "POST"
+      ],
+      "file": "refspost.js"
+    }
+  }
+}
