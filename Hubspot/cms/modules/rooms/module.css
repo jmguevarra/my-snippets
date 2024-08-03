@@ -1,0 +1,57 @@
+.bnts-table.room-list  table{
+  min-width: 2800px;
+}
+.bnts-table .pagination > li {
+    width: auto;
+    padding: 10px;
+    line-height: 1.2;
+    height: auto;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.bnts-table .pagination > li:hover {
+    background-color: var(--bs-primary);
+}
+.bnts-table .pagination > li:hover a {
+    color: #fff;
+}
+.table-scroll{
+  padding-bottom: 0;
+}
+.btn-consult {
+    text-decoration: none !important;
+}
+.bnts-form.room-form input[type="submit"] {
+    max-width: 280px !important;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+.bnts-table .choice-value {
+    font-size: 12px;
+    background-color: #e2e2e2;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 2px;
+    display: inline-block;
+}
+th.record-prop-header.room_equipment_list, 
+th.record-prop-header.room_amenities{
+    width: 440px;
+}
+th.record-prop-header.furniture,
+th.record-prop-header.av,
+th.record-prop-header.power_access{
+    width: 280px;
+}
+th.record-prop-header.row-number {
+    width: 60px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+th.controller {
+    width: 180px;
+}
+.modal .ms-ctn .ms-sel-ctn {
+    margin-left: 0;
+}
