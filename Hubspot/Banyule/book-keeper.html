@@ -1,0 +1,696 @@
+<!--
+    templateType: page
+    isAvailableForNewContent: true
+    label: Bookings
+-->
+{% extends ".././layouts/booking-app-base.html" %}
+{% block bnts_style_page %}
+<style type="text/css">
+  #booking-calendar .fc-event-title{
+    text-transform: capitalize;
+  }
+  table td.td-label{
+    width: 30%;
+    font-weight: 700;
+  }
+  .table td {
+    border-width: 0 0 1px 0;
+  }
+
+  .table{
+    --bs-table-striped-bg: rgba(43, 154, 153, 0.05);
+    font-size: 0.875rem;
+    border: 0;
+    box-shadow: none;
+  }
+  td {
+    border-color: rgba(43, 154, 153, 0.6);
+    text-align: left;
+  }
+  #booking-calendar th[role="columnheader"] .fc-scrollgrid-sync-inner {
+    background-color: var(--bnts-color-gray);
+  }
+  .fc a.fc-col-header-cell-cushion {
+    text-decoration: none;
+    pointer-events: none;
+  }
+  #booking-calendar thead th {
+    background-color: var(--bnts-color-dark-gray);
+  }
+  .fc-h-event {
+    background-color: var(--bnts-color-green-100);
+    border-color: var(--bnts-color-green-100);
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  .fc-h-event:hover {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+  }
+  .fc .fc-daygrid-day.fc-day-today {
+    background-color: var(--bnts-color-green-100);
+  }
+  .fc .fc-daygrid-body{
+    margin-right: 10px;
+  }
+  .fc .fc-daygrid-day-top {
+    flex-direction: row;
+  }
+  .fc .fc-button-primary{
+    background-color: var(--bnts-color-dark-gray);
+    border-color: var(--bnts-color-dark-gray);
+  }
+  .fc .fc-button-primary:hover{
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+  }
+  .fc .fc-button-primary:disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.5;
+  }
+  .fc-h-event .fc-event-main {
+    color: var(--bnts-color-dark-gray);
+  }
+  .fc-h-event:hover .fc-event-main {
+    color: #fff;
+  }
+  .fc .fc-toolbar-title {
+    color: var(--bs-primary);
+  }
+  .fc-event:not(.fc-h-event) {
+    background-color: #e8dbf1;
+  }
+  .fc-daygrid-dot-event .fc-event-title{
+    font-weight: 400;
+  }
+  .fc-event:not(.fc-h-event):hover {
+    background-color: var(--bs-secondary);
+    color: #fff;
+  }
+  .fc-event {
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  .modal-title label {
+    display: inline-block;
+  }
+  .modal .bnts-form input[type="submit"] {
+    max-width: 240px !important;
+    margin: -20px auto 30px;
+    margin-right: auto;
+    display: block;
+  }
+
+</style>
+{% endblock bnts_style_page %}
+
+
+{% block body %}
+<section class="bnts-sections book-keep">
+  <div id='booking-calendar'></div>
+  <div class="modal fade" id="view-modal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-capitalize info-wrap title" id="eventModalLabel">Progam Event: <label></label></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="infosec contant-info">
+            <h3 class="infosec-title">Contact Info</h3>
+            <div class="info-group-wrap col2">
+              <div class="info-wrap fullname">
+                <h6 class="title">Fullname</h6>
+                <label></label>
+              </div>
+              <div class="info-wrap email">
+                <h6 class="title">Email </h6>
+                <label></label>
+              </div>
+            </div>
+            <div class="info-group-wrap col2">
+              <div class="info-wrap mobilephone">
+                <h6 class="title">Phone </h6>
+                <label></label>
+              </div>
+              <div class="info-wrap school">
+                <h6 class="title">School </h6>
+                <label></label>
+              </div>
+            </div>
+          </div>
+          <div class="infosec booking-info">
+            <h3 class="infosec-title">Details</h3>
+            <div class="accordion" id="accor-booking">
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accor-item-info" aria-expanded="true" aria-controls="accor-item-info">
+                    Info
+                  </button>
+                </h2>
+                <div id="accor-item-info" class="accordion-collapse collapse show" data-bs-parent="#accor-booking">
+                  <div class="accordion-body">
+                    <div class="info-group-wrap col2">
+                      <div class="info-wrap booking_start_date">
+                        <h6 class="title">Start of Event</h6>
+                        <label></label>
+                      </div>
+                      <div class="info-wrap booking_end_date">
+                        <h6 class="title">End of Event</h6>
+                        <label></label>
+                      </div>
+                    </div>
+                    <div class="info-group-wrap col3">
+                      <div class="info-wrap number_of_students">
+                        <h6 class="title">Number of Teachers </h6>
+                        <label></label>
+                      </div>
+                      <div class="info-wrap number_of_teachers">
+                        <h6 class="title">Number of Students </h6>
+                        <label></label>
+                      </div>
+                      <div class="info-wrap year_level">
+                        <h6 class="title">Year Level </h6>
+                        <label></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accor-item-program" aria-expanded="false" aria-controls="accor-item-program">
+                    Program
+                  </button>
+                </h2>
+                <div id="accor-item-program" class="accordion-collapse collapse" data-bs-parent="#accor-booking">
+                  <div class="accordion-body">
+                    <div class="info-wrap program">
+                      <h6 class="title">Program</h6>
+                      <label></label>
+                    </div>
+                    <div class="info-group-wrap col2">
+                      <div class="info-wrap bkcons_program_length">
+                        <h6 class="title">How long will the program be?</h6>
+                        <label></label>
+                      </div>
+                      <div class="info-wrap bkcons_location_site">
+                        <h6 class="title">How much will be done in school/on-site</h6>
+                        <label></label>
+                      </div>
+                    </div>
+                    <div class="info-wrap bkcons_learning_outcomes">
+                      <h6 class="title">What are the expected learning outcomes</h6>
+                      <label></label>
+                    </div>
+                    <div class="info-wrap staffing_needs">
+                      <h6 class="title">Staffing needs</h6>
+                      <label></label>
+                    </div>
+                    <div class="info-wrap additional_notes">
+                      <h6 class="title">Additional Notes</h6>
+                      <label></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accor-item-room" aria-expanded="false" aria-controls="accor-item-room">
+                    Room/Space
+                  </button>
+                </h2>
+                <div id="accor-item-room" class="accordion-collapse collapse" data-bs-parent="#accor-booking">
+                  <div class="accordion-body">
+                    <div class="info-wrap room">
+                      <h6 class="title">Room/Space</h6>
+                      <label></label>
+                    </div>
+                    <div class="info-wrap equipments">
+                      <h6 class="title">Equipments</h6>
+                      <label></label>
+                    </div>
+                    <div class="info-wrap softwares">
+                      <h6 class="title">Softwares</h6>
+                      <label></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark btn-modal-close" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary btn-modal-update">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Update Modal -->
+  <div class="modal fade" id="update-modal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-capitalize" id="eventModalLabel">Update Event <span class="id"></span></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="bnts-form update-event" action="/_hcms/api/booking/update-program" method="POST">
+            <fieldset class="bnts-fieldset contact-info" disabled>
+              <h6 class="fieldset-heading">Contact Details</h6>
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <div class="bnts-field">
+                    <label for="fullname" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="fullname" name="fullname" readonly>
+                  </div>
+                  <div class="bnts-field">
+                    <label for="emai1" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" readonly>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="bnts-field">
+                    <label for="mobilephone" class="form-label">Mobile Phone</label>
+                    <input type="text" class="form-control" id="mobilephone" name="mobilephone" readonly>
+                  </div>
+                  <div class="bnts-field">
+                    <label for="school" class="form-label">School</label>
+                    <input type="text" class="form-control" id="school" name="school" readonly>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="bnts-fieldset booking-info">
+              <h6 class="fieldset-heading">Booking Info</h6>
+              <div class="row">
+                <div class="col-12">
+                  <div class="bnts-field">
+                    <label for="status" class="form-label">Status</label>
+                    <select id="status" class="form-control" name="status">
+                      <option value="1">Active</option>
+                      <option value="2">Completed</option>
+                      <option value="3">Cancelled</option>
+                      <option value="4">Archived</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <div class="bnts-field">
+                    <label for="booking_start_date" class="form-label">Start of Event</label>
+                    <div class='input-group date'>
+                      <input id="booking_start_date" class="form-control" name="booking_start_date" type="text">
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="bnts-field">
+                    <label for="booking_end_date" class="form-label">End of Event</label>
+                    <div class='input-group date'>
+                      <input id="booking_end_date" class="form-control" name="booking_end_date" type="text">
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-4">
+                  <div class="bnts-field">
+                    <label for="number_of_students" class="form-label">Number of Students</label>
+                    <input id="number_of_students" class="form-control" name="number_of_students" min="0" type="number">
+                  </div>
+                </div>
+                <div class="col-12 col-md-4">
+                  <div class="bnts-field">
+                    <label for="number_of_teachers" class="form-label">Number of Teachers</label>
+                    <input id="number_of_teachers" class="form-control" name="number_of_teachers" min="0" type="number">
+                  </div>
+                </div>
+                <div class="col-12 col-md-4">
+                  <div class="bnts-field">
+                    <label for="year_level" class="form-label">Year Level</label>
+                    <input id="year_level" class="form-control" name="year_level" type="text">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <div class="bnts-field">
+                    <label for="program" class="form-label">Program</label>
+                    <select id="program" class="form-control" name="program"></select>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="bnts-field">
+                    <label for="room" class="form-label">Room</label>
+                    <select id="room" class="form-control" name="room"></select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="bnts-field">
+                    <label for="room" class="form-label">Equipments</label>
+                    <div class="form-control bnts-multiselect equipments"></div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="bnts-field">
+                    <label for="softwares" class="form-label">Softwares</label>
+                    <div class="form-control bnts-multiselect softwares"></div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="bnts-field">
+                    <label for="staffing_needs" class="form-label">Staffing Needs</label>
+                    <input id="staffing_needs" class="form-control" name="staffing_needs" type="text">
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="bnts-field">
+                    <label for="additional_notes" class="form-label">Additional Notes</label>
+                    <input id="additional_notes" class="form-control" name="additional_notes" type="text">
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+            <input type="submit" value="Save" class="btn btn-primary">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End of Update Modal -->  
+  <!--- Confirmation --->
+  <div class="modal fade" id="confirmationDialog" tabindex="-1" aria-labelledby="confirmationDialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Saving Confirmation</h1>
+        </div>
+        <div class="modal-body default">
+          Are you sure you want to apply and save the changes on this record?
+        </div>
+        <div class="modal-body loader text-center" style="display:none;">
+          <span class="mb-1 d-block">Loading...</span>
+          <svg width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_ajPY{transform-origin:center;animation:spinner_AtaB .75s infinite linear}@keyframes spinner_AtaB{100%{transform:rotate(360deg)}}</style><path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"></path><path d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z" class="spinner_ajPY"></path></svg>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-primary btn-confirm-yes">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--- End of Confirmation ---> 
+</section>
+
+
+{% endblock body %}
+
+
+
+{% block bnts_script_page %}
+<script type="text/javascript">
+  /** Programs **/
+  {% set localdt = local_dt %}
+  {% set programTableId = 3417993 %}
+  {% set programObjs = hubdb_table_rows(programTableId, "status__eq=Active") %}
+  {% set programChoices = hubdb_table_rows(3410283) %}
+  {% set roomChoices = hubdb_table_rows(3410912)%} 
+  {% set equipmentChoices = hubdb_table_rows(5248771)%}
+  {% set softwareChoices = hubdb_table_rows(21545737)%}
+
+  const programCRMValues = {{ programChoices.objects | tojson }};
+  const roomCRMValues = {{ roomChoices.objects | tojson }};
+  const equipmentCRMValues = {{ equipmentChoices.objects | tojson }};
+  const softwareCRMValues = {{ softwareChoices.objects | tojson }};
+
+  const programs = {{programObjs.objects | tojson}};
+  const programEvents = programs.map((x, i) => {
+    const program = x.program ? x.program[0] : null;
+    const programName = program ?  program.name : '';
+    const school = x.school ? x.school : 'No School'
+
+    return {
+      title: `${school} - ${programName}`,
+      start: x.booking_start_date,
+      end: x.booking_end_date,
+      isAllDay: (x.booking_start_date == x.booking_end_date),
+      ...x
+    }
+  });
+
+  const getValuesOnArray = (choices)=> {
+    return choices.map(x => {
+      return `<span class="choice-value">${x.name}</span>`;
+    });
+  };
+
+
+  const renderValues = (info, propObj)=>{
+    const ievent = info.event;
+    const eProp = ievent.extendedProps;
+    const calendarDefaultProps = ["booking_start_date", "booking_end_date"];
+
+    let value = '';
+    if(propObj.fromObj == "extended"){
+      const property = eProp[propObj.accessor];
+      if(calendarDefaultProps.includes(propObj.accessor)){
+        value = moment(property).format('MMMM Do YYYY | h:mm A');
+      }else if(Array.isArray(property)){
+        value = getValuesOnArray(property);
+      }else if(typeof property === 'object'){
+        console.log(property, propObj.accessor);
+        value = property.name ?? '---';
+      }else{
+        value = property ?? '---';
+      }
+    }else{
+      value = ievent[propObj.accessor] ?? '---';
+    }
+
+    $(`.info-wrap.${propObj.accessor} label`).html(value);
+  };
+
+  const renderUpdateModalFields = (eProp)=> {
+    const ordinaryFields = ['fullname', 'email', 'mobilephone', 'school', 'number_of_students', 'number_of_teachers', 'year_level', 'staffing_needs', 'additional_notes'];
+    const dateFields = ['booking_start_date', 'booking_end_date'];
+    const selectFields = ['status'];
+
+    const foreignFields = [
+      {name: 'program', type: 'select', choices: programCRMValues },
+      {name: 'room', type: 'select', choices: roomCRMValues },
+      {name: 'equipments', type: 'multiselect', choices: equipmentCRMValues },
+      {name: 'softwares', type: 'multiselect', choices: softwareCRMValues },
+    ];
+
+    ordinaryFields.forEach(x => {
+      $(`input[name="${x}"]`).val(eProp[x]);
+    });
+    selectFields.forEach(x => {
+      $(`select[name="${x}"]`).val(eProp[x].id);
+    });
+    dateFields.forEach(x => {
+      $(`input[name="${x}"]`).val(moment(eProp[x]).format('DD/MM/YYYY hh:mm A'));
+      $(`input[name="${x}"]`).datetimepicker({
+        format:'d/m/y h:m A',
+        minDate: new Date(),
+        validateOnBlur: false,
+      });
+    });
+    foreignFields.forEach(x => {
+      const options = x.choices.map(choice => ({ id: choice.hs_id, name: choice.name, type: 'foreignid' }));
+      if(x.type == 'select'){
+        options.forEach(i => {
+          $(`select[name="${x.name}"]`).append(`<option value="${i.id}">${i.name}</option>`);
+        });
+        $(`select[name="${x.name}"]`).val(eProp[x.name][0].id);
+      }
+      if(x.type == 'multiselect'){
+        const magicInstance = $(`.bnts-multiselect.${x.name}`).magicSuggest({ 
+          data: options, 
+          allowFreeEntries: false,
+          highlight: false,
+        });
+        magicInstance.setSelection(eProp[x.name]);
+        $(magicInstance).on("selectionchange", function(e, m, re) {
+          sessionStorage.setItem(`booked-${x.name}-values`, this.getValue());
+        });
+      }
+    }); 
+  };
+
+  const getStatusObjById = (id)=> {
+    const idNum = parseInt(id);
+    switch(idNum){
+      case 1: 
+        return { id: 1, name: "Active" };
+      case 2: 
+        return { id: 2, name: "Completed" };
+      case 3: 
+        return { id: 3, name: "Cancelled" };
+      case 4: 
+        return { id: 4, name: "Archive" };
+      default:
+        return null;
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('booking-calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      events: programEvents,
+      eventClick: function(info){
+        info.jsEvent.preventDefault();
+        const ievent = info.event;
+        const eProp = ievent.extendedProps;
+
+        const programProperties = [
+          {accessor: "title", fromObj: "main"},
+          {accessor: "fullname", fromObj: "extended"},
+          {accessor: "email", fromObj: "extended"},
+          {accessor: "mobilephone",fromObj: "extended"},
+          {accessor: "school", fromObj: "extended"},
+          {accessor: "equipments", fromObj: "extended"},
+          {accessor: "softwares", fromObj: "extended"},
+          {accessor: "program", fromObj: "extended"},
+          {accessor: "room", fromObj: "extended"},
+          {accessor: "staffing_needs", fromObj: "extended"},
+          {accessor: "additional_notes", fromObj: "extended"},
+          {accessor: "booking_start_date", fromObj: "extended"},
+          {accessor: "booking_end_date", fromObj: "extended"},
+          {accessor: "number_of_teachers", fromObj: "extended"},
+          {accessor: "number_of_students", fromObj: "extended"},
+          {accessor: "year_level", fromObj: "extended"},
+
+          {accessor: "bkcons_program_length", fromObj: "extended"},
+          {accessor: "bkcons_location_site", fromObj: "extended"},
+          {accessor: "bkcons_learning_outcomes", fromObj: "extended"},
+        ];
+
+        programProperties.forEach(i => renderValues(info, i));
+        const viewModal = document.getElementById('view-modal');
+        var myModal = new bootstrap.Modal(viewModal, {
+          keyboard: false
+        });
+        myModal.show();
+
+        //Udpate Modal
+        const modalUpdateBtn = $(viewModal).find('.btn-modal-update');
+        const updateModal = document.getElementById('update-modal');
+        const confirmationDialog = document.getElementById('confirmationDialog');
+
+        modalUpdateBtn.click(function(){
+          $(viewModal).modal("hide");
+          const bsUpdateModal = new bootstrap.Modal(updateModal, {
+            keyboard: false,
+            backdrop: 'static',
+          });
+          bsUpdateModal.show();
+          renderUpdateModalFields(eProp);
+        });
+
+
+
+        //confirmation modal
+        const updateModalSave = $(updateModal).find('input[type="submit"]');
+        updateModalSave.click(function(e){
+          e.preventDefault();
+
+          $(updateModal).modal("hide");
+          const bsConfirmModal = new bootstrap.Modal(confirmationDialog, {
+            keyboard: false,
+            backdrop: 'static',
+          });
+          bsConfirmModal.show();
+          confirmationDialog.addEventListener('hidden.bs.modal', event => {
+            $(updateModal).modal("show");
+          });
+        });  
+
+        $('.btn-confirm-yes').click(async function(){
+          $(confirmationDialog).find(".modal-body.default, .modal-footer").hide();
+          $(confirmationDialog).find(".modal-body.loader").show('slow');
+
+          const selectedEquipmentIds = sessionStorage.getItem("booked-equipments-values").split(',');
+          const selectedSoftwareIds = sessionStorage.getItem("booked-softwares-values").split(',');
+
+          const form = $('form.update-event');
+          const bookStart = form.find('input[name="booking_start_date"]').val();
+          const bookEnd = form.find('input[name="booking_end_date"]').val();
+          const status  = getStatusObjById(form.find('select[name="status"]').val());
+          const equipments = equipmentCRMValues.filter(x => selectedEquipmentIds.includes(x.hs_id.toString()));
+          const softwares = softwareCRMValues.filter(x =>  selectedSoftwareIds.includes(x.hs_id.toString()));
+          const programObjs = programCRMValues.filter(x => x.hs_id == form.find('select[name="program"]').val());
+          const roomObjs = roomCRMValues.filter(x => x.hs_id == form.find('select[name="room"]').val());
+
+          const rowData =  {
+            id: eProp.hs_id,
+            data: {
+              values: {
+                status: status,
+                booking_start_date:  moment(bookStart, "DD/MM/YYYY hh:mm A").toDate().getTime(),
+                booking_end_date:  moment(bookEnd, "DD/MM/YYYY hh:mm A").toDate().getTime(),
+                number_of_students: parseInt(form.find('input[name="number_of_students"]').val()),
+                number_of_teachers: parseInt(form.find('input[name="number_of_teachers"]').val()),
+                year_level: form.find('input[name="year_level"]').val(),
+                program: programObjs.map(x => ({id: x.hs_id, name: x.name, type: "foreignid"})),
+                room: roomObjs.map(x => ({id: x.hs_id, name: x.name, type: "foreignid"})),
+                equipments: equipments.map(x => ({id: x.hs_id, name: x.name, type: "foreignid"})),
+                softwares: softwares.map(x => ({id: x.hs_id, name: x.name, type: "foreignid"})),
+                staffing_needs: form.find('input[name="staffing_needs"]').val(),
+                additional_notes: form.find('input[name="additional_notes"]').val()
+              }
+            }
+          };
+
+          const config = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(rowData)
+          };
+
+          await fetch(`https://mp.kongo.melbourne/_hcms/api/booking/update`, config)
+            .then(res => res.ok ? res.json() : Promise.reject(res))
+            .then(data => {
+            console.log(data);
+            const modalBodyDefault = $(confirmationDialog).find(".modal-body.default");
+            modalBodyDefault.show();
+            $(confirmationDialog).find(".modal-body.loader").hide();
+            modalBodyDefault.text("Record saved successfully!");
+            setTimeout(()=> location.reload(), 3000);
+          })
+            .catch(error => {
+            const modalBodyDefault = $(confirmationDialog).find(".modal-body.default");
+            modalBodyDefault.show();
+            $(confirmationDialog).find(".modal-body.loader").hide();
+            modalBodyDefault.text("Something went wrong!. Try again later");
+            setTimeout(()=> location.reload(), 4000);
+          });
+        });
+        //End confirmation modal
+        //End of Update Modal
+      },
+    });
+
+    calendar.render();
+
+  });
+</script>
+<!-- end of FullCalendar Script -->
+{% endblock bnts_script_page %}
