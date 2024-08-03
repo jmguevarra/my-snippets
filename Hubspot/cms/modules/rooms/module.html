@@ -1,0 +1,459 @@
+{% set limit = 100 %} 
+{% set current_page = request.query_dict.page|default(1)|int %}
+{% set offset = (current_page - 1) * limit %} 
+{% set recordResults = hubdb_table_rows(module.rooms, "deleted__eq=0") %}
+{% set records = recordResults.objects %}
+
+<section class="bnts-wrapper crmrecord--listing">
+  <div id="ftable-entries" class="bnts-table room-list">
+      <div class="table-controller flex justify-content-between align-items-center">
+        <div class="page-title">
+          <h4 class="mb-0">Rooms</h4>
+        </div>
+        <div class="controller-inputs flex align-items-end">
+          <a class="btn btn-secondary btn-add-record small" href="#">Add Record</a>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table class="table table-striped{{records|length < 1 ? ' no-data' : ''}}">
+          <thead>     
+            <tr>
+              <th class="record-prop-header row-number">Row</th>
+              <th class="record-prop-header hs_id">ID</th>
+              <th class="record-prop-header name">Room Name</th>
+              <th class="record-prop-header room_equipment_list">Equipments</th>
+              <th class="record-prop-header room_amenities">Amenities</th>
+              <th class="record-prop-header furniture">Furnitures</th>
+              <th class="record-prop-header av">AV</th>
+              <th class="record-prop-header power_access">Power Access</th>
+              <th class="record-prop-header room_location">Room Location</th>
+              <th class="controller">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="list">
+            {% if records|length > 0 %}
+              {% for record in records %}
+              <tr class="record-item record-item-{{loop.index}} page-{{current_page}}">  
+                <td class="record-property row-number">{{loop.index}}</td>
+                <td class="record-property hs_id">{{record.hs_id}}</td>
+                <td class="record-property name">{{record.name}}</td>
+                <td class="record-property room_equipment_list">
+                  {% for item in record.room_equipment_list %}
+                    <span class="choice-value">{{item.name}}</span>
+                  {% endfor %}
+                </td>
+                <td class="record-property room_amenities">
+                  {% for item in record.room_amenities %}
+                    <span class="choice-value">{{item.name}}</span>
+                  {% endfor %}
+                </td>
+                <td class="record-property furniture">
+                  {% for item in record.furniture %}
+                    <span class="choice-value">{{item.name}}</span>
+                  {% endfor %}
+                </td>
+                <td class="record-property av">
+                  {% for item in record.av %}
+                    <span class="choice-value">{{item.name}}</span>
+                  {% endfor %}
+                </td>
+                <td class="record-property power_access">
+                  {% for item in record.power_access %}
+                    <span class="choice-value">{{item.name}}</span>
+                  {% endfor %}
+                </td>
+                <td class="record-property room_location">{{record.room_location}}</td>
+                <td class="record-property actions">
+                <div class="d-flex justify-content-center">
+                  <a class="btn btn-primary btn-modal-update small me-1" href="#" id="{{record.hs_id}}">Update</a>
+                  <a class="btn btn-danger btn-modal-delete small" href="#" id="{{record.hs_id}}">Delete</a>
+                </div>
+              </td>
+              </tr>
+              {% endfor %}
+            {% else %}
+            <tr class="record-item record-item-1">
+              <td colspan="8"> No Data Found</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+      <nav aria-label="Table Pagination">
+        <ul class="pagination">
+            <li class="{{current_page > 1 ? '' : 'disabled'}}"><a href="?page={{ current_page - 1 }}">Previous</a></li>
+            <li class="{{contacts.has_more ? '' : 'disabled'}}"><a href="?page={{ current_page + 1 }}">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+</section>
+<!-- Update Modal -->
+<div class="modal fade" id="update-modal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-capitalize" id="eventModalLabel"><span class="label-title">Update Program  - </span><span class="id"></span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="bnts-form room-form" method="POST">
+          <fieldset class="bnts-fieldset program">
+            <div class="row">
+              <div class="col-12">
+                <div class="bnts-field">
+                  <label for="name" class="form-label">Program Name</label>
+                  <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="bnts-field">
+                  <label for="room_equipment_list" class="form-label">Equipments</label>
+                  <div class="form-control bnts-multiselect room_equipment_list"></div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="bnts-field">
+                  <label for="room_amenities" class="form-label">Amenities</label>
+                  <div class="form-control bnts-multiselect room_amenities"></div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="bnts-field">
+                  <label for="furniture" class="form-label">Furniture</label>
+                  <div class="form-control bnts-multiselect furniture"></div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="bnts-field">
+                  <label for="av" class="form-label">AV</label>
+                  <div class="form-control bnts-multiselect av"></div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="bnts-field">
+                  <label for="power_access" class="form-label">Power Access</label>
+                  <div class="form-control bnts-multiselect power_access"></div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="bnts-field">
+                  <label for="room_location" class="form-label">Room Location</label>
+                  <input type="text" class="form-control" id="room_location" name="room_location">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <input type="submit" value="Update" class="btn btn-primary">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of Modal -->
+<!-- Saving Confirmation Modal -->
+<div class="modal fade" id="confirmationDialog" tabindex="-1" aria-labelledby="confirmationDialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Saving Confirmation</h1>
+      </div>
+      <div class="modal-body default">
+        Are you sure you want to apply and save the changes of this record?
+      </div>
+      <div class="modal-body loader text-center hidden">
+        <span class="mb-1 d-block">Loading...</span>
+        <svg width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_ajPY{transform-origin:center;animation:spinner_AtaB .75s infinite linear}@keyframes spinner_AtaB{100%{transform:rotate(360deg)}}</style><path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"></path><path d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z" class="spinner_ajPY"></path></svg>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary btn-confirm-yes">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of Saving Confirmation Modal -->
+<!-- Deletion Confirmation Modal -->
+<div class="modal fade" id="deletionDialog" tabindex="-1" aria-labelledby="deletionDialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Deletion Confirmation</h1>
+      </div>
+      <div class="modal-body default">
+        Are you sure you want to delete this record?
+      </div>
+      <div class="modal-body loader text-center hidden">
+        <span class="mb-1 d-block">Loading...</span>
+        <svg width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_ajPY{transform-origin:center;animation:spinner_AtaB .75s infinite linear}@keyframes spinner_AtaB{100%{transform:rotate(360deg)}}</style><path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"></path><path d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z" class="spinner_ajPY"></path></svg>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary btn-confirm-yes">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of Deletion Confirmation Modal -->
+<script type="text/javascript">
+  {% set equipmentChoices = hubdb_table_rows(5248771)%}
+  {% set amenityChoices = hubdb_table_rows(5289885)%}
+  {% set furnitureChoices = hubdb_table_rows(5287332)%}
+  {% set avChoices = hubdb_table_rows(5287344)%}
+  {% set powerAccessChoices = hubdb_table_rows(5287345)%}
+
+  const equipmentCMSValues = {{ equipmentChoices.objects | tojson }};
+  const amenityCMSValues = {{ amenityChoices.objects | tojson }};
+  const furnitureCMSValues = {{ furnitureChoices.objects | tojson }};
+  const avCMSValues = {{ avChoices.objects | tojson }};
+  const powerAccessCMSValues = {{ powerAccessChoices.objects | tojson }};
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const programs = {{records|tojson}};
+    let selectedProgram = {};
+    
+    //multi Select Field
+    const msChoices = (choices) => {
+      return choices.map(choice => ({ id: choice.hs_id, name: choice.name }));
+    };
+    const msOpts = { 
+      data: [], 
+      allowFreeEntries: false,
+      highlight: false,
+    };
+    const msIntanceEquip = $(`.bnts-multiselect.room_equipment_list`).magicSuggest({...msOpts, data: msChoices(equipmentCMSValues)});
+    const msIntanceAmenities = $(`.bnts-multiselect.room_amenities`).magicSuggest({...msOpts, data: msChoices(amenityCMSValues)});
+    const mSIntanceFurniture = $(`.bnts-multiselect.furniture`).magicSuggest({...msOpts, data: msChoices(furnitureCMSValues)});
+    const mSIntanceAv = $(`.bnts-multiselect.av`).magicSuggest({...msOpts, data: msChoices(avCMSValues)});
+    const mSIntancePowerAccess = $(`.bnts-multiselect.power_access`).magicSuggest({...msOpts, data: msChoices(powerAccessCMSValues)});
+
+    const renderFields = (props)=> {
+      const ordinaryFields = ['name', 'room_location'];
+      const foreignFields = [
+        { name: 'room_equipment_list', type: 'multiselect', msInstance: msIntanceEquip },
+        { name: 'room_amenities', type: 'multiselect', msInstance: msIntanceAmenities },
+        { name: 'furniture', type: 'multiselect', msInstance: mSIntanceFurniture },
+        { name: 'av', type: 'multiselect', msInstance: mSIntanceAv },
+        { name: 'power_access', type: 'multiselect', msInstance: mSIntancePowerAccess },
+      ];
+
+      ordinaryFields.forEach(x => {
+        const input = document.querySelector(`input[name="${x}"]`);
+        if(props[x]){
+          input.value = props[x];
+        }else{
+          input.value = "";
+        }
+      });
+      foreignFields.forEach(x => {
+        if(x.type == 'select'){
+          const options = x.choices.map(choice => ({ id: choice.hs_id, name: choice.name, type: 'foreignid' }));
+          options.forEach(i => {
+            const select = document.querySelector(`select[name="${x.name}"]`);
+            const optionNode = document.createElement("option");
+            optionNode.value = i.id;
+            optionNode.textContent = i.name;
+            select.appendChild(optionNode);
+          });
+          const select = document.querySelector(`select[name="${x.name}"]`);
+          if(props[x.name]){
+            select.value = props[x.name][0].id;
+          }else{
+            select.value = "";
+          }
+        }
+        if(x.type == 'multiselect'){
+          if(props[x.name]){
+            x.msInstance.setSelection(props[x.name]);
+          }else{
+            x.msInstance.clear();
+          }
+        }
+      }); 
+
+    };
+
+    const btnsModalUpdate = document.querySelectorAll('.btn-modal-update');
+    const btnsModalDelete = document.querySelectorAll('.btn-modal-delete');
+    const updateModal = document.getElementById('update-modal');
+    const confirmationDialog = document.getElementById('confirmationDialog');
+    const updateModalSave = updateModal.querySelector('input[type="submit"]');
+    const confirmYesBtn = confirmationDialog.querySelector('button.btn-confirm-yes');
+    const deletionDialog = document.getElementById('deletionDialog');
+    const confirmedDeletionBtn = deletionDialog.querySelector('button.btn-confirm-yes');
+
+    //update modal
+    const bsUpdateModal = new bootstrap.Modal(updateModal, {
+      keyboard: false,
+      backdrop: 'static',
+    });
+
+    const bsConfirmModal = new bootstrap.Modal(confirmationDialog, {
+      keyboard: false,
+      backdrop: 'static',
+    });
+
+    const bsDeletionModal = new bootstrap.Modal(deletionDialog, {
+      keyboard: false,
+      backdrop: 'static',
+    });
+
+    //Add Button
+    document.querySelector('a.btn-add-record').addEventListener("click", (e)=> {
+      e.preventDefault();
+      bsUpdateModal.show();
+      updateModal.querySelector('.modal-title span.id').textContent = "";
+      updateModal.querySelector('.modal-title .label-title').textContent = "Add Record";
+      renderFields({});
+      updateModalSave.value = "Save";
+    });
+
+    //modal update 
+    for(const btn of btnsModalUpdate ){
+      btn.addEventListener("click", function(e){
+        const id = e.target.id;
+        selectedProgram = programs.find(i => i.hs_id == id);
+        bsUpdateModal.show();
+        updateModal.querySelector('.modal-title span.id').textContent = id;
+        renderFields(selectedProgram);
+        updateModalSave.value = "Update";
+      });
+    }
+    
+    //confirmation modal
+    updateModalSave.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      let allFilled = [];
+      const form = document.querySelector('form.room-form');
+      const fields = form.querySelectorAll('form.room-form input[required]');
+      form.classList.remove("was-validated");
+
+      for (field of fields){
+        const isValid = field.reportValidity();
+        allFilled.push(isValid);
+      }
+
+      if(!allFilled.includes(false)){
+        bsUpdateModal.hide();
+        bsConfirmModal.show();
+      }else{
+        form.classList.add("was-validated");
+      }
+    });
+
+    updateModal.addEventListener('hidden.bs.modal', event => {
+      const form = document.querySelector('form.room-form');
+      form.classList.remove("was-validated");
+    });
+
+    confirmationDialog.addEventListener('hidden.bs.modal', event => {
+      bsUpdateModal.show();
+    }); 
+
+    confirmYesBtn.addEventListener("click", async (e)=>{
+      const bodyDefault = confirmationDialog.querySelector(".modal-body.default");
+      const modalConfirmFooter = confirmationDialog.querySelector(".modal-footer");
+      const loader = confirmationDialog.querySelector(".modal-body.loader");
+      loader.classList.remove('hidden');
+      bodyDefault.classList.add("hidden");
+      modalConfirmFooter.classList.add("hidden");
+      
+      const chosenEquipments = equipmentCMSValues.filter(x => msIntanceEquip.getValue().includes(x.hs_id));
+      const chosenAmenities = amenityCMSValues.filter(x => msIntanceAmenities.getValue().includes(x.hs_id));
+      const chosenfurnitures = furnitureCMSValues.filter(x => mSIntanceFurniture.getValue().includes(x.hs_id));
+      const chosenAv = avCMSValues.filter(x => mSIntanceAv.getValue().includes(x.hs_id));
+      const chosenPower = powerAccessCMSValues.filter(x => mSIntancePowerAccess.getValue().includes(x.hs_id));
+      
+      let EURL = `https://mp.kongo.melbourne/_hcms/api/cms/add-record`;
+      let rowData =  {
+        id: null,
+        tableId: {{module.rooms}},
+          data: {
+            values: {
+              name: updateModal.querySelector('input[name="name"]').value,
+              room_equipment_list: chosenEquipments.map(x => ({id: x.hs_id, name: x.name, type: "foreignid"})),
+              room_amenities: chosenAmenities.map(x => ({id: x.hs_id, name: x.name, type: "foreignid"})),
+              furniture: chosenfurnitures .map(x => ({id: x.hs_id, name: x.name, type: "foreignid"})),
+              av: chosenAv.map(x => ({id: x.hs_id, name: x.name, type: "foreignid"})),
+              power_access: chosenPower.map(x => ({id: x.hs_id, name: x.name, type: "foreignid"})),
+              room_location: updateModal.querySelector('input[name="room_location"]').value,
+            }
+         }
+       }; 
+
+      if(updateModalSave.value.toLowerCase() == 'update'){
+        rowData.id = selectedProgram.hs_id;
+        EURL = `https://mp.kongo.melbourne/_hcms/api/cms/update-record`;
+      }
+
+      const config = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(rowData)
+      };
+
+      await fetch(EURL, config)
+        .then(res => res.ok ? res.json() : Promise.reject(res))
+        .then(data => {
+          bodyDefault.classList.remove('hidden');
+          loader.classList.add("hidden");
+          bodyDefault.textContent = "Record saved successfully!";
+          setTimeout(()=> location.reload(), 3000);
+        }).catch(error => {
+          bodyDefault.classList.remove('hidden');
+          bodyDefault.textContent = "Something went wrong!. Try again later";
+          loader.classList.add("hidden");
+          setTimeout(()=> location.reload(), 3000);
+        });
+    });
+  
+    //deletion of record 
+    for(const btn of btnsModalDelete){
+      btn.addEventListener("click", function(e){
+        const id = e.target.id;
+        selectedProgram = programs.find(i => i.hs_id == id);
+        bsDeletionModal.show();
+      });
+    }
+  
+    confirmedDeletionBtn.addEventListener("click", async (e) => {
+      const bodyDefault = deletionDialog.querySelector(".modal-body.default");
+      const modalConfirmFooter = deletionDialog.querySelector(".modal-footer");
+      const loader = deletionDialog.querySelector(".modal-body.loader");
+      loader.classList.remove('hidden');
+      bodyDefault.classList.add("hidden");
+      modalConfirmFooter.classList.add("hidden");
+      
+      const rowData =  {
+        id: selectedProgram.hs_id,
+        tableId: {{module.rooms}},
+        data: {
+          values: {
+            deleted: 1
+          }
+        }
+      };
+                                        
+      const config = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(rowData)
+      };
+
+      await fetch(`https://mp.kongo.melbourne/_hcms/api/cms/update-record`, config)
+        .then(res => res.ok ? res.json() : Promise.reject(res))
+        .then(data => {
+          bodyDefault.classList.remove('hidden');
+          loader.classList.add("hidden");
+          bodyDefault.textContent = "Record Deleted";
+          setTimeout(()=> location.reload(), 3000);
+        })
+        .catch(error => {
+          bodyDefault.classList.remove('hidden');
+          bodyDefault.textContent = "Something went wrong!. Try again later";
+          loader.classList.add("hidden");
+          setTimeout(()=> location.reload(), 3000);
+      });
+    });
+});
+</script>
