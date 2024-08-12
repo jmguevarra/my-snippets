@@ -1,0 +1,37 @@
+.bnts-table .pagination > li {
+    width: auto;
+    padding: 10px;
+    line-height: 1.2;
+    height: auto;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.bnts-table .pagination > li:hover {
+    background-color: var(--bs-primary);
+}
+.bnts-table .pagination > li:hover a {
+    color: #fff;
+}
+.table-scroll{
+  padding-bottom: 0;
+}
+.btn-consult {
+    text-decoration: none !important;
+}
+
+.datatable-scroll .dt-layout-table {
+    scroll-behavior: smooth;
+    overflow: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin: 5px 0 !important;
+    max-height: 720px;
+    position: relative;
+    display: block !important;
+}
+
+@media only screen and (max-width: 1600px){
+  .datatable-scroll .dt-layout-cell.dt-layout-full {
+    width: 1500px !important;
+  }
+}
