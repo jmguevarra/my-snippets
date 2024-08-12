@@ -1,71 +1,63 @@
 {% set limit = 100 %} {# Number of items per page #}
 {% set current_page = request.query_dict.page|default(1)|int %}
 {% set offset = (current_page - 1) * limit %}
-{% set contacts = crm_objects("contact", 'limit=' ~ limit ~ '&offset='~ offset, "firstname, lastname, mobilephone, email, bnts_school") %}
+{% set contacts = crm_objects("contact", 'limit=' ~ limit ~ '&offset='~ offset, "firstname, lastname, mobilephone, email, bnts_school, preferred_learning_location") %}
 
 
 <section class="bnts-wrapper contact--listing">
-    <div class="container">
-      <div id="ftable-entries" class="bnts-table contacts-list">
-        <div class="table-controller flex justify-content-between align-items-center">
-          <div class="page-title">
-            <h4 class="mb-0">Contacts</h4>
-          </div>
-          <div class="controller-inputs flex align-items-end">
-          </div>
+  <div id="ftable-entries" class="bnts-table contacts-list">
+      <div class="table-controller flex justify-content-between align-items-center">
+        <div class="page-title">
+          <h4 class="mb-0">Contacts</h4>
         </div>
-        <div class="table-scroll">
-          <table class="table table-striped{{contacts.results|length < 1 ? ' no-data' : ''}}">
-            <thead>     
-              <tr>
-                <th class="form-entry-header rowno">No.</th>
-                <th class="form-entry-header crmid">ID</th>
-                <th class="form-entry-header firstname">First Name</th>
-                <th class="form-entry-header Email">Last Name</th>
-                <th class="form-entry-header email">Email</th>
-                <th class="form-entry-header mobilephone">Mobile Phone</th>
-                <th class="form-entry-header school">School</th>
-                <th class="controller">Actions</th>
-              </tr>
-            </thead>
-            <tbody class="list">
-              {% if contacts.results|length > 0 %}
-                {% for contact in contacts.results %}
-                   <tr class="contact-item contact-item-{{loop.index + 1}}">
-                     <td class="contact-property rowno">{{loop.index + 1}}</td>
-                     <td class="contact-property crmid">{{contact.id}}</td>
-                     <td class="contact-property firstname">{{contact.firstname}}</td>
-                     <td class="contact-property lastname">{{contact.lastname}}</td>
-                     <td class="contact-property email">{{contact.email}}</td>
-                     <td class="contact-property mobilephone">{{contact.mobilephone}}</td>
-                     <td class="contact-property school">{{contact.school}}</td>
-                     <td class="contact-property actions">Actions Here</td>
-                  </tr>
-                {% endfor %}
-              {% else %}
-                <tr class="contact-item contact-item-1">
-                  <td colspan="8"> No Data Found</td>
-                </tr>
-              {% endif %}
-            </tbody>
-          </table>
+        <div class="controller-inputs flex align-items-end">
         </div>
-        <nav aria-label="Table Pagination">
-          <ul class="pagination">
-          </ul>
-        </nav>
       </div>
+      <div class="table-scroll">
+        <table class="table table-striped{{contacts.results|length < 1 ? ' no-data' : ''}}">
+          <thead>     
+            <tr>
+              <th class="form-entry-header crmid">ID</th>
+              <th class="form-entry-header firstname">First Name</th>
+              <th class="form-entry-header Email">Last Name</th>
+              <th class="form-entry-header email">Email</th>
+              <th class="form-entry-header mobilephone">Mobile Phone</th>
+              <th class="form-entry-header school">School</th>
+              <th class="form-entry-header learning_location">Preferred Learning Location</th>
+              <th class="controller">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="list">
+            {% if contacts.results|length > 0 %}
+              {% for contact in contacts.results %}
+              <tr class="contact-item contact-item-{{loop.index}} page-{{current_page}}">
+                <td class="contact-property crmid">{{contact.id}}</td>
+                <td class="contact-property firstname">{{contact.firstname}}</td>
+                <td class="contact-property lastname">{{contact.lastname}}</td>
+                <td class="contact-property email">{{contact.email}}</td>
+                <td class="contact-property mobilephone">{{contact.mobilephone}}</td>
+                <td class="contact-property school">{{contact.bnts_school}}</td>
+                <td class="contact-property learning_location">{{contact.preferred_learning_location}}</td>
+                <td class="contact-property actions">
+                  <div class="d-flex justify-content-center">
+                    <a class="btn btn-primary btn-consult small" href="/consultation?firstname={{contact.firstname}}&lastname={{contact.lastname}}&email={{contact.email}}&mobilephone={{contact.mobilephone}}&bkcons_location_site={{contact.preferred_learning_location}}">Consult</a>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            {% else %}
+            <tr class="contact-item contact-item-1">
+              <td colspan="8"> No Data Found</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+      <nav aria-label="Table Pagination">
+        <ul class="pagination">
+            <li class="{{current_page > 1 ? '' : 'disabled'}}"><a href="?page={{ current_page - 1 }}">Previous</a></li>
+            <li class="{{contacts.has_more ? '' : 'disabled'}}"><a href="?page={{ current_page + 1 }}">Next</a></li>
+        </ul>
+      </nav>
     </div>
-  </section>
-
-<div class="pagination">
-    {# Previous Page Link #}
-    {% if current_page > 1 %}
-        <a href="?page={{ current_page - 1 }}">Previous</a>
-    {% endif %}
-    
-    {# Next Page Link #}
-    {% if contacts.has_more %}
-        <a href="?page={{ current_page + 1 }}">Next</a>
-    {% endif %}
-</div>
+</section>
