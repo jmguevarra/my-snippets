@@ -1,0 +1,247 @@
+<!--
+    templateType: page
+    isAvailableForNewContent: true
+    label: Form Entries - Booking Consultation
+-->
+{% extends ".././layouts/booking-app-base.html" %}
+
+{% block bnts_style_page %}
+<style type="text/css">
+  .table-scroll table {
+    width: 2800px;
+  }
+  td.form-entry-property.equipments, 
+  td.form-entry-property.softwares {
+    min-width: 360px;
+  }
+  .bnts-table tbody > tr > td {
+    min-width: 220px;
+  }
+  .bnts-table .rowno{
+    min-width: 60px;
+  }
+</style>
+{% endblock bnts_style_page %}
+
+{% block body %}
+<section class="bnts-wrapper form-entries">
+  <div id="ftable-entries" class="bnts-table book-consultation">
+    <div class="table-controller flex justify-content-between align-items-center">
+      <div class="page-title">
+        <h4 class="mb-0">Consulted Entries</h4>
+      </div>
+      <div class="controller-inputs flex align-items-end">
+        <a class="btn btn-primary me-1 text-decoration-none" href="https://mp.kongo.melbourne/consultation">Add</a>
+        <input class="search form-control mt-0" type="text" placeholder="Search any keyword" />
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table class="table table-striped">
+        <thead>     
+         
+        </thead>
+        <tbody class="list">
+        </tbody>
+      </table>
+    </div>
+    <nav aria-label="Table Pagination">
+      <ul class="pagination">
+      </ul>
+    </nav>
+  </div>
+</section>
+<!-- Saving Confirmation Modal -->
+<div class="modal fade" id="confirmationDialog" tabindex="-1" aria-labelledby="confirmationDialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Sending Email</h1>
+      </div>
+      <div class="modal-body default">
+        Are you sure you want to send an email booking reminder to <span class="contact-email fw-bolder">[email]</span>?
+      </div>
+      <div class="modal-body loader text-center hidden">
+        <span class="mb-1 d-block">Loading...</span>
+        <svg width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_ajPY{transform-origin:center;animation:spinner_AtaB .75s infinite linear}@keyframes spinner_AtaB{100%{transform:rotate(360deg)}}</style><path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"></path><path d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z" class="spinner_ajPY"></path></svg>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary btn-confirm-yes">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of Saving Confirmation Modal -->
+{% endblock body %}
+
+
+{% block bnts_script_page %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    const confirmationDialog = document.getElementById('confirmationDialog');
+    const confirmYesBtn = confirmationDialog.querySelector('button.btn-confirm-yes');
+    const bsConfirmModal = new bootstrap.Modal(confirmationDialog, {
+      keyboard: false,
+      backdrop: 'static',
+    });
+
+    const formEntries = async () => {
+      const formEntriesEURL = "https://mp.kongo.melbourne/_hcms/api/form-entries?form_type=Booking%20Consultation";
+      try {
+        const response = await fetch(formEntriesEURL);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.length > 0) return data;
+        }
+      } catch (error) {
+        console.error(error);
+        return [];
+      }
+    };
+
+    const formListInit = async ()=>{
+      const entries = await formEntries();
+      const tableContainer = $('.bnts-table table');
+      const tableList = tableContainer.find('tbody.list');
+      
+      if(entries && entries.length > 0){
+        entries.forEach((item, index) => {
+          const equipments = item.properties.bkcons_equipments ? item.properties.bkcons_equipments.split(";") : [];
+          const softwares = item.properties.bkcons_softwares ? item.properties.bkcons_softwares.split(";") : [];
+                 
+          const equipsNode = document.createElement('div');
+          equipsNode.classList.add('equipments');
+          equipments.forEach((e) => {
+            equipsNode.insertAdjacentHTML('beforeend', `<span class="choice-value">${e}</span>`);
+          });
+          
+         const softwaresNode = document.createElement('div');
+          softwaresNode.classList.add('softwares');
+          softwares.forEach((s) => {
+            softwaresNode.insertAdjacentHTML('beforeend', `<span class="choice-value">${s}</span>`);
+          });
+          const toUTCDate = (dateStr)=>{
+            let date = new Date(dateStr);
+            date.setUTCHours(0,0,0,0);
+            return date.toUTCString();
+          }
+          const isSentEmailDisable = toUTCDate(item.properties.bkcons_booking_reminder_date) === toUTCDate(new Date()) ? 'disabled': '';
+          
+          const listHTML = `
+            <tr class="form-entry bnts-form-entry-${index}">
+              <td class="form-entry-property rowno">${index + 1}</td>
+              <td class="form-entry-property firstname">${item.firstname}</td>
+              <td class="form-entry-property lastname">${item.lastname}</td>
+              <td class="form-entry-property email">${item.email}</td>
+              <td class="form-entry-property phone">${item.mobilephone}</td>
+              <td class="form-entry-property school">${item.bnts_school ?? ''}</td>
+              <td class="form-entry-property program-length">${item.properties.bkcons_program_length ?? ''}</td>
+              <td class="form-entry-property location-site">${item.properties.bkcons_location_site ?? ''}</td>
+              <td class="form-entry-property learning-outcome">${item.properties.bkcons_learning_outcomes ?? ''}</td>
+              <td class="form-entry-property estimated-students">${item.properties.bkcons_estimate_number_of_students ?? ''}</td>
+              <td class="form-entry-property estimated-teachers">${item.properties.bkcons_estimate_number_of_teachers ?? ''}</td>
+              <td class="form-entry-property bus-transportation">${item.properties.bkcons_bus_transportation ?? ''}</td>             
+              <td class="form-entry-property program">${item.properties.bkcons_programs ?? ''}</td>
+              <td class="form-entry-property room">${item.properties.bkcons_room ?? ''}</td>
+              <td class="form-entry-property equipments"></td>
+              <td class="form-entry-property softwares"></td>
+              <td class="form-entry-property additional-notes">${item.properties.bkcons_additional_notes ?? ''}</td>
+              <td class="form-entry-property staffing-needs">${item.properties.bkcons_staffing_needs ?? ''}</td>    
+              <td class="form-entry-action update">
+                <div class="d-flex justify-content-center">
+                  <input type="button" class="btn btn-secondary btn-update small me-1" value="Update" data-entryid="${item.formEntryId}"> 
+                  <input type="button" class="btn btn-primary btn-prebook small me-1" value="Pre-Book" data-entryid="${item.formEntryId}"> 
+                  <input type="button" class="btn btn-info btn-prebook-email text-light small ${isSentEmailDisable}" value="Pre-Booking Email" data-entryid="${item.formEntryId}"> 
+                </div>
+              </td>
+            </tr>
+          `;
+          tableList.append(listHTML);
+          $(`.bnts-form-entry-${index} td.equipments`).append(equipsNode);
+          $(`.bnts-form-entry-${index} td.softwares`).append(softwaresNode);
+        });
+
+        const options = {
+          valueNames: ['rowno', 'firstname', 'lastname', 'email', 'phone', 'school"', 'program-length', 'location-site', 'learning-outcome', 'estimated-students', 'estimated-teachers', 'bus-transportation', 'program', 'room', 'equipments', 'softwares', 'additional-notes', 'staffing-needs'],
+          pagination: true,
+        };
+        const formList = new List('ftable-entries', options);
+        $('input[type="button"].btn-update').click(function(e){
+          const obj = entries.find(x => x.formEntryId == $(this).attr("data-entryid"));
+          const redirectURL = `https://mp.kongo.melbourne/consultation?form_actioned=Update&firstname=${obj.firstname}&lastname=${obj.lastname}&email=${obj.email}&mobilephone=${obj.mobilephone}&bkcons_program_length=${obj.properties.bkcons_program_length}&bkcons_location_site=${obj.properties.bkcons_location_site}&bkcons_learning_outcomes=${obj.properties.bkcons_learning_outcomes}&bkcons_estimate_number_of_students=${obj.properties.bkcons_estimate_number_of_students}&bkcons_estimate_number_of_teachers=${obj.properties.bkcons_estimate_number_of_teachers}&bkcons_bus_transportation=${obj.properties.bkcons_bus_transportation}&bkcons_programs=${obj.properties.bkcons_programs}&bkcons_room=${obj.properties.bkcons_room}&bkcons_equipments_items=${obj.properties.bkcons_equipments}&bkcons_softwares_items=${obj.properties.bkcons_softwares}&bkcons_additional_notes=${obj.properties.bkcons_additional_notes}&bkcons_staffing_needs=${obj.properties.bkcons_staffing_needs}&form_id=${obj.properties.form_id}&form_label=${obj.properties.form_label}&form_type=${obj.properties.form_type}`;
+          window.open(redirectURL, '_blank');
+        });
+        
+         $('input[type="button"].btn-prebook').click(function(e){
+           const obj = entries.find(x => x.formEntryId == $(this).attr("data-entryid"));
+           const redirectURL = `https://mp.kongo.melbourne/book-program?form_actioned=Update&firstname=${obj.firstname}&lastname=${obj.lastname}&email=${obj.email}&mobilephone=${obj.mobilephone}&form_id=${obj.properties.form_id}&bnts_school=${obj.bnts_school}&bkpros_students_number=${obj.properties.bkcons_estimate_number_of_students}&bkpros_teachers_number=${obj.properties.bkcons_estimate_number_of_teachers}`;
+           window.open(redirectURL, '_blank');
+         });
+        
+        $('input[type="button"].btn-prebook-email').click(function(){
+          const obj = entries.find(x => x.formEntryId == $(this).attr("data-entryid"));
+          const today = new Date().toISOString().split('T')[0];
+          bsConfirmModal.show();
+          $(confirmationDialog).find('span.contact-email').text(obj.email);
+
+          //Yes Sending Email
+          $(confirmYesBtn).click(async (e)=> {
+            e.preventDefault();
+            const bodyDefault = confirmationDialog.querySelector(".modal-body.default");
+            const modalConfirmFooter = confirmationDialog.querySelector(".modal-footer");
+            const loader = confirmationDialog.querySelector(".modal-body.loader");
+            loader.classList.remove('hidden');
+            bodyDefault.classList.add("hidden");
+            modalConfirmFooter.classList.add("hidden");
+
+
+            const rowData = {
+              id: obj.formEntryId,
+              properties: {
+                "bkcons_booking_reminder_date": today
+              }
+            };
+
+            const config = {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify(rowData)
+            };
+
+            await fetch(`https://mp.kongo.melbourne/_hcms/api/form-entry/update-properties`, config)
+              .then(res => res.ok ? res.json() : Promise.reject(res))
+              .then(data => {
+              bodyDefault.classList.remove('hidden');
+              loader.classList.add("hidden");
+              bodyDefault.textContent = "Email Sent";
+              setTimeout(()=> location.reload(), 3000);
+            }).catch(error => {
+              bodyDefault.classList.remove('hidden');
+              bodyDefault.textContent = "Something went wrong!. Try again later";
+              loader.classList.add("hidden");
+              setTimeout(()=> location.reload(), 3000);
+            });
+          });
+          // End of Yes Sending Email
+
+
+        });
+      }else{
+         const listHTML = `
+            <tr class="form-entry bnts-form-entry-0">
+             <td colspan="20" class="p-5"><span>No data found.</span></td>
+            </tr>
+          `;
+          tableList.append(listHTML);
+      }
+    }
+
+    formListInit();  
+    
+    
+
+  });
+</script>
+ {% endblock bnts_script_page %}
+
