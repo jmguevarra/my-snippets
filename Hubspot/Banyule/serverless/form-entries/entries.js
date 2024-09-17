@@ -1,5 +1,5 @@
 const hubspot = require('@hubspot/api-client');
-const ACCESS_TOKEN = "TOKEN HERE";
+const ACCESS_TOKEN = "{{TOKEN HERE}}";
 
 const bookingProperties = [
   'contact',
@@ -221,11 +221,9 @@ exports.main = async ({body, params}, sendResponse) => {
     if(formEntriesRes.isSuccess){
       const { contactIds, assocContacts } = formEntriesRes.data;
       const contactRes = await getContactDetailsByIds(contactIds, assocContacts);
-      sendResponse({ body: contactRes, statusCode: 200 });
-
-      //       if(contactRes.isSuccess){
-      //         sendResponse({ body: contactRes.data, statusCode: 200 });
-      //       }
+      if(contactRes.isSuccess){
+        sendResponse({ body: contactRes.data, statusCode: 200 });
+      }
     }
   }
   sendResponse({ body: {data: [], message: "Nothing found here."} , statusCode: 200 });
