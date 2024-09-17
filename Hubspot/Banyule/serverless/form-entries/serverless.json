@@ -14,10 +14,6 @@
     "add": {
       "method": "GET",
       "file": "add.js"
-    },
-    "eforms": {
-      "method": "GET",
-      "file": "test-entries.js"
     }
   }
 }
