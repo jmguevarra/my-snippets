@@ -1,5 +1,5 @@
 const hubspot = require('@hubspot/api-client');
-const ACCESS_TOKEN = "{{TOKEN HERE}}";
+const ACCESS_TOKEN = "{{TOKEN}}";
 
 const bookingProperties = [
   'contact',
@@ -94,7 +94,7 @@ const getContactDetailsByIds = async (ids, assocContact) => {
       });
 
       defaultRes.isSuccess = true;
-      defaultRes.data = contactsRes;
+      defaultRes.data = updatedAssocData;
       defaultRes.message = "Associated Form Entries with contact successuly retreived!";
     }
 
