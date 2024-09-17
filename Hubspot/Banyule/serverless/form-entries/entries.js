@@ -147,11 +147,12 @@ const getFormEntries = async (formType) => {
       rawData.push(...apiRes.body.results);
       offset = apiRes.body.paging ? apiRes.body.paging.next.after : undefined;
     } while (offset);
+   
 
-    if(rawData.length > 1){ 
+    if(rawData.length > 0){ 
       const formEntryIds = rawData.map((item)=> ({id: item.id}));
       const assocFormEntries = { "inputs": formEntryIds };
-
+      
       //get Associated Ids with Contacts
       const apiResAssocEntries = await hubspotClient.apiRequest({
         method: 'POST',
@@ -160,6 +161,7 @@ const getFormEntries = async (formType) => {
       });
 
       const assocEntriesResBody = apiResAssocEntries.body;
+ 
       if(assocEntriesResBody.status == "COMPLETE"){
         const contactIds = assocEntriesResBody.results.map((item) => ({                                              
           formEntryId: item.from.id,
@@ -180,7 +182,7 @@ const getFormEntries = async (formType) => {
             }
           }else{
             //Default
-            if(props.form_type == formType){
+            if(formType == props.form_type){
               const contactResult = contactIds.find(x => x.formEntryId == item.id);
               return {
                 formEntryId: item.id,
