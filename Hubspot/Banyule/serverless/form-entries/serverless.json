@@ -1,0 +1,23 @@
+{
+  "runtime": "nodejs18.x",
+  "version": "1.0",
+  "environment": {},
+  "endpoints": {
+    "form-entries": {
+      "method": "GET",
+      "file": "entries.js"
+    },
+    "form-entry/update-properties": {
+      "method": "POST",
+      "file": "update-properties.js"
+    },
+    "add": {
+      "method": "GET",
+      "file": "add.js"
+    },
+    "eforms": {
+      "method": "GET",
+      "file": "test-entries.js"
+    }
+  }
+}
