@@ -1,7 +1,4 @@
-<script type="text/javascript">
-  $(document).ready(function(){
-
-    /*Budget Fields Management*/
+/*Budget Fields Management*/
     $('input[name="budget_text"]').click(function(){
       $('input[name="budget_min"]').val('');
       $('input[name="budget_max"]').val('');
@@ -9,6 +6,14 @@
 
       if($(this).prop('checked')){
         const value = $(this).val();
+
+        if(value == '$2M+'){
+          $('input[name="budget_min"]').val('2000000');
+          $('input[name="budget_max"]').val('2000000');
+          $('input[name="budget_picklist"]').val('$2M+');
+          return null;
+        }
+
         const valuesArr = transformRange(value);
         const minValue = parseFloat(valuesArr[0]),
               maxValue = parseFloat(valuesArr[1]);
@@ -19,14 +24,15 @@
 
         sgFMinValue = minValue * Mil;
         sgFMaxValue = maxValue * Mil;
-        
+
         if(valuesArr.length > 1){
           if(minValue >= 0.1 && maxValue < 1){
             const maxValueToHundred = maxValue * 1000;
             sgFPicklistValue = `$${(maxValueToHundred - 50)}K - $${maxValueToHundred}K`;
           }
           if(minValue >= 1 && maxValue <= 2){
-            sgFPicklistValue = `$${maxValue - 0.1}M - $${maxValue}M`;
+            const roundedMin = parseFloat((maxValue - 0.1).toFixed(1));
+            sgFPicklistValue = `$${roundedMin}M - $${maxValue}M`;
           }
           if(minValue >= 0.95 && maxValue == 1){
             sgFPicklistValue = '$950K - $1M';
@@ -68,5 +74,3 @@
       return [start, end];
     }
     /*End Budget Fields Management*/
-  });
-</script>
