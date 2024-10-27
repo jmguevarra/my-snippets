@@ -1,4 +1,4 @@
-<section class="bnts-wrapper contact--listing">
+<div class="bnts-app-module contact--listing">
   <div id="ftable-entries" class="bnts-table contacts-list">
       <div class="table-controller flex justify-content-between align-items-center">
         <div class="page-title">
@@ -17,25 +17,15 @@
               <th class="form-entry-header email">Email</th>
               <th class="form-entry-header mobilephone">Mobile Phone</th>
               <th class="form-entry-header school">School</th>
+              <th class="form-entry-header teacher_requirement">General Requirement Idea</th>
+              <th class="form-entry-header program_interests">Program Interest</th>
+              <th class="form-entry-header preferred_booking_dates">Preferred Booking Dates</th>
               <th class="controller">Actions</th>
             </tr>
           </thead>
-          <tbody class="list">
-             <tr class="contact-item contact-item-{{loop.index}} page-{{current_page}}">
-                <td class="contact-property crmid">{{contact.id}}</td>
-                <td class="contact-property firstname">{{contact.firstname}}</td>
-                <td class="contact-property lastname">{{contact.lastname}}</td>
-                <td class="contact-property email">{{contact.email}}</td>
-                <td class="contact-property mobilephone">{{contact.mobilephone}}</td>
-                <td class="contact-property school">{{contact.bnts_school}}</td>
-                <td class="contact-property actions">
-                  <div class="d-flex justify-content-center">
-                    <a class="btn btn-primary btn-consult small" href="/consultation?firstname={{contact.firstname}}&lastname={{contact.lastname}}&email={{contact.email}}&mobilephone={{contact.mobilephone}}&bkcons_location_site={{contact.preferred_learning_location}}">Consult</a>
-                  </div>
-                </td>
-              </tr>
+          <tbody>
           </tbody>
         </table>
       </div>
     </div>
-</section>
+</div>
