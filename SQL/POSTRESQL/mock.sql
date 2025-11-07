@@ -1,0 +1,683 @@
+-- WARNING: This schema is for context only and is not meant to be run.
+-- Table order and constraints may not be valid for execution.
+
+CREATE TABLE public.adder_set_items (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  adder_set_id uuid NOT NULL,
+  adder_library_id uuid,
+  type text NOT NULL,
+  code text NOT NULL,
+  price_type USER-DEFINED NOT NULL,
+  formula text DEFAULT 'Fixed'::text,
+  cost numeric,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  quantities numeric DEFAULT '0'::numeric,
+  CONSTRAINT adder_set_items_pkey PRIMARY KEY (id),
+  CONSTRAINT adder_set_items_adder_library_id_fkey FOREIGN KEY (adder_library_id) REFERENCES public.adders_library(id),
+  CONSTRAINT adder_set_items_adder_set_id_fkey FOREIGN KEY (adder_set_id) REFERENCES public.adder_sets(id)
+);
+CREATE TABLE public.adder_sets (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  project_id uuid,
+  name text,
+  description text,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  locked boolean NOT NULL DEFAULT false,
+  CONSTRAINT adder_sets_pkey PRIMARY KEY (id),
+  CONSTRAINT adder_sets_project_id_fkey FOREIGN KEY (project_id) REFERENCES public.projects(id)
+);
+CREATE TABLE public.adders_library (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  type text NOT NULL,
+  code text NOT NULL,
+  price_type USER-DEFINED NOT NULL,
+  formula USER-DEFINED,
+  cost numeric,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT adders_library_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.component_relations (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  parent_component_id uuid NOT NULL,
+  child_component_id uuid NOT NULL DEFAULT gen_random_uuid(),
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT component_relations_pkey PRIMARY KEY (id),
+  CONSTRAINT component_relations_parent_component_id_fkey FOREIGN KEY (parent_component_id) REFERENCES public.components(id),
+  CONSTRAINT component_relations_child_component_id_fkey FOREIGN KEY (child_component_id) REFERENCES public.components(id)
+);
+CREATE TABLE public.components (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  type text,
+  code text NOT NULL,
+  manufacturer text,
+  sku text,
+  output_rating numeric,
+  weight numeric,
+  height numeric,
+  width numeric,
+  thickness_depth numeric,
+  cost_per_unit numeric,
+  product_warranty_years numeric,
+  performance_warranty text,
+  addable_at_cost_stage boolean DEFAULT true,
+  specific_attributes jsonb DEFAULT '{}'::jsonb,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT components_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.components_library (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  type USER-DEFINED,
+  code text NOT NULL,
+  manufacturer text,
+  sku text,
+  output_rating numeric,
+  weight numeric,
+  height numeric,
+  width numeric,
+  thickness_depth numeric,
+  product_warranty_years numeric,
+  performance_warranty text,
+  first_year_degradation numeric,
+  annual_degradation numeric,
+  cost_per_unit numeric,
+  labour_cost_per_unit numeric,
+  cost_per_panel numeric,
+  max_power_voltage numeric,
+  max_power_current numeric,
+  short_circuit_current numeric,
+  open_circuit_voltage numeric,
+  nominal_operating_temperature numeric,
+  temp_coefficient_voc numeric,
+  temp_coefficient_isc numeric,
+  temp_coefficient_pmax numeric,
+  cells_in_series integer,
+  bifaciality boolean,
+  transmission numeric,
+  technology text,
+  file_ids ARRAY,
+  status text NOT NULL DEFAULT 'Active'::text,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  bifaciality_factor numeric,
+  effiency_percent numeric,
+  no_mppts numeric,
+  rated_output_voltage_ac numeric,
+  rated_input_voltage numeric,
+  max_input_voltage numeric,
+  min_input_voltage numeric,
+  mppt_max_input_voltage numeric,
+  mppt_min_input_voltage numeric,
+  dc_maximum_current_amps numeric,
+  ac_max_amps numeric,
+  current_isc_max_amps numeric,
+  phase_type text,
+  total_energy numeric,
+  end_life_capacity numeric,
+  depth_charge numeric,
+  roundtrip_efficiency numeric,
+  nominal_voltage numeric,
+  inverter_type text,
+  battery_type text,
+  addable_at_cost_stage boolean DEFAULT true,
+  CONSTRAINT components_library_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.contacts (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  project_id uuid NOT NULL,
+  name text NOT NULL,
+  email text,
+  phone text,
+  relationship text,
+  is_primary boolean NOT NULL DEFAULT false,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT contacts_pkey PRIMARY KEY (id),
+  CONSTRAINT contacts_project_id_fkey FOREIGN KEY (project_id) REFERENCES public.projects(id)
+);
+CREATE TABLE public.contract_versions (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  proposal_version_id uuid NOT NULL,
+  design_id uuid,
+  adder_set_id uuid,
+  payment_option_id uuid,
+  status USER-DEFINED NOT NULL DEFAULT 'Draft'::contract_status_enum,
+  sent_date timestamp with time zone,
+  last_action text,
+  last_action_date timestamp with time zone,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  pandadoc_id text,
+  approved boolean DEFAULT false,
+  CONSTRAINT contract_versions_pkey PRIMARY KEY (id),
+  CONSTRAINT contract_versions_proposal_version_id_fkey FOREIGN KEY (proposal_version_id) REFERENCES public.proposal_versions(id),
+  CONSTRAINT contract_versions_design_id_fkey FOREIGN KEY (design_id) REFERENCES public.system_designs(id),
+  CONSTRAINT contract_versions_adder_set_id_fkey FOREIGN KEY (adder_set_id) REFERENCES public.adder_sets(id),
+  CONSTRAINT contract_versions_payment_option_id_fkey FOREIGN KEY (payment_option_id) REFERENCES public.payment_options(id)
+);
+CREATE TABLE public.daily_energy_simulations (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  system_design_id uuid NOT NULL,
+  net_metering boolean NOT NULL DEFAULT false,
+  ev_enabled boolean NOT NULL DEFAULT false,
+  electric_vehicle_type text,
+  charger_type text,
+  miles_driven_per_day numeric,
+  start_charging_time time without time zone,
+  simulation_output jsonb,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT daily_energy_simulations_pkey PRIMARY KEY (id),
+  CONSTRAINT daily_energy_simulations_system_design_id_fkey FOREIGN KEY (system_design_id) REFERENCES public.system_designs(id)
+);
+CREATE TABLE public.eagleview_orders (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  project_id uuid NOT NULL,
+  order_status text NOT NULL DEFAULT 'submitted'::text,
+  submitted_at timestamp with time zone NOT NULL DEFAULT now(),
+  completed_at timestamp with time zone,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  evid_order numeric NOT NULL,
+  report_id numeric DEFAULT '62926070'::numeric,
+  CONSTRAINT eagleview_orders_pkey PRIMARY KEY (id),
+  CONSTRAINT eagleview_orders_project_id_fkey FOREIGN KEY (project_id) REFERENCES public.projects(id)
+);
+CREATE TABLE public.eagleview_report_versions (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  system_design_id uuid NOT NULL UNIQUE,
+  order_id uuid,
+  report_version_id text NOT NULL,
+  version text NOT NULL,
+  data jsonb,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  version_name text,
+  truedesign_config jsonb,
+  CONSTRAINT eagleview_report_versions_pkey PRIMARY KEY (id),
+  CONSTRAINT eagleview_report_versions_system_design_id_fkey FOREIGN KEY (system_design_id) REFERENCES public.system_designs(id),
+  CONSTRAINT eagleview_report_versions_order_id_fkey FOREIGN KEY (order_id) REFERENCES public.eagleview_orders(id)
+);
+CREATE TABLE public.fm_files (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  folder_id uuid DEFAULT gen_random_uuid(),
+  owner_id uuid NOT NULL DEFAULT gen_random_uuid(),
+  name text,
+  size bigint DEFAULT '0'::bigint,
+  type text,
+  storage_path text,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  storage_full_path text,
+  storage_id uuid,
+  CONSTRAINT fm_files_pkey PRIMARY KEY (id),
+  CONSTRAINT fm_files_folder_id_fkey FOREIGN KEY (folder_id) REFERENCES public.fm_folders(id),
+  CONSTRAINT fm_files_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES public.members(id)
+);
+CREATE TABLE public.fm_files_adders (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  file_id uuid NOT NULL DEFAULT gen_random_uuid(),
+  associate_with uuid NOT NULL DEFAULT gen_random_uuid(),
+  associate_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT fm_files_adders_pkey PRIMARY KEY (id),
+  CONSTRAINT fm_file_adders_file_id_fkey FOREIGN KEY (file_id) REFERENCES public.fm_files(id),
+  CONSTRAINT fm_file_adders_associate_with_fkey FOREIGN KEY (associate_with) REFERENCES public.adders_library(id)
+);
+CREATE TABLE public.fm_files_components (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  file_id uuid NOT NULL DEFAULT gen_random_uuid(),
+  associate_with uuid NOT NULL DEFAULT gen_random_uuid(),
+  associate_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT fm_files_components_pkey PRIMARY KEY (id),
+  CONSTRAINT fm_files_components_file_id_fkey FOREIGN KEY (file_id) REFERENCES public.fm_files(id),
+  CONSTRAINT fm_files_components_associate_with_fkey FOREIGN KEY (associate_with) REFERENCES public.components(id)
+);
+CREATE TABLE public.fm_files_projects (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  file_id uuid NOT NULL DEFAULT gen_random_uuid(),
+  project_id uuid DEFAULT gen_random_uuid(),
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT fm_files_projects_pkey PRIMARY KEY (id),
+  CONSTRAINT fm_files_projects_file_id_fkey FOREIGN KEY (file_id) REFERENCES public.fm_files(id),
+  CONSTRAINT fm_files_projects_project_id_fkey FOREIGN KEY (project_id) REFERENCES public.projects(id)
+);
+CREATE TABLE public.fm_folders (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  parent_id uuid,
+  owner_id uuid NOT NULL DEFAULT gen_random_uuid(),
+  name text NOT NULL,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT fm_folders_pkey PRIMARY KEY (id),
+  CONSTRAINT fm_folders_parent_id_fkey FOREIGN KEY (parent_id) REFERENCES public.fm_folders(id),
+  CONSTRAINT fm_folders_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES public.members(id)
+);
+CREATE TABLE public.fm_shared_files (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  file_id uuid NOT NULL DEFAULT gen_random_uuid(),
+  shared_with uuid NOT NULL DEFAULT gen_random_uuid(),
+  permissions ARRAY,
+  shared_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT fm_shared_files_pkey PRIMARY KEY (id),
+  CONSTRAINT fm_shared_files_shared_with_fkey FOREIGN KEY (shared_with) REFERENCES public.members(id),
+  CONSTRAINT fm_shared_files_file_id_fkey FOREIGN KEY (file_id) REFERENCES public.fm_files(id)
+);
+CREATE TABLE public.fm_shared_folders (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  folder_id uuid DEFAULT gen_random_uuid(),
+  shared_with uuid DEFAULT gen_random_uuid(),
+  permissions ARRAY,
+  shared_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT fm_shared_folders_pkey PRIMARY KEY (id),
+  CONSTRAINT fm_shared_folders_folder_id_fkey FOREIGN KEY (folder_id) REFERENCES public.fm_folders(id),
+  CONSTRAINT fm_shared_folders_shared_with_fkey FOREIGN KEY (shared_with) REFERENCES public.members(id)
+);
+CREATE TABLE public.loan_lease_providers (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  name text NOT NULL,
+  provider_type USER-DEFINED NOT NULL,
+  description text,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT loan_lease_providers_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.members (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  email text NOT NULL UNIQUE,
+  full_name text,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  auth_id uuid,
+  profile_image_id text,
+  status USER-DEFINED,
+  uses_truedesign boolean DEFAULT false,
+  CONSTRAINT members_pkey PRIMARY KEY (id),
+  CONSTRAINT members_auth_id_fkey FOREIGN KEY (auth_id) REFERENCES auth.users(id)
+);
+CREATE TABLE public.payment_auto_apply (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  states ARRAY,
+  zip_codes ARRAY,
+  component_codes ARRAY,
+  min_system_size numeric,
+  max_system_size numeric,
+  sector text,
+  CONSTRAINT payment_auto_apply_pkey PRIMARY KEY (id),
+  CONSTRAINT payment_auto_apply_id_fkey FOREIGN KEY (id) REFERENCES public.payment_options(id)
+);
+CREATE TABLE public.payment_cash (
+  id uuid NOT NULL,
+  deposit numeric DEFAULT '0'::numeric,
+  deposit_min numeric,
+  deposit_max numeric,
+  has_dealer_fee boolean DEFAULT false,
+  dealer_fee_percentage numeric,
+  dealer_fee_fixed_amount numeric,
+  CONSTRAINT payment_cash_pkey PRIMARY KEY (id),
+  CONSTRAINT payment_cash_id_fkey FOREIGN KEY (id) REFERENCES public.payment_options(id)
+);
+CREATE TABLE public.payment_lease_options (
+  id uuid NOT NULL,
+  lease_terms integer DEFAULT 0,
+  lease_interest_rate numeric DEFAULT 0,
+  lease_token numeric DEFAULT 0,
+  down_payment numeric DEFAULT 0,
+  down_payment_min numeric DEFAULT 0,
+  down_payment_max numeric DEFAULT 0,
+  brokerage_rate numeric DEFAULT 0,
+  escalator_annual numeric DEFAULT 0,
+  payment_frequency text,
+  payment_timing text,
+  additional_details text,
+  CONSTRAINT payment_lease_options_pkey PRIMARY KEY (id),
+  CONSTRAINT lease_options_id_fkey FOREIGN KEY (id) REFERENCES public.payment_options(id)
+);
+CREATE TABLE public.payment_loan_options (
+  id uuid NOT NULL,
+  lender_name text,
+  loan_type USER-DEFINED,
+  interest_rate numeric DEFAULT 0,
+  term_years integer DEFAULT 0,
+  reversion_rate numeric DEFAULT 0,
+  reversion_period_start integer DEFAULT 0,
+  prepayment_enabled boolean DEFAULT false,
+  prepayment_formula text,
+  prepayment_month integer DEFAULT 0,
+  no_interest_months integer DEFAULT 0,
+  no_payment_months integer DEFAULT 0,
+  interest_only_months integer DEFAULT 0,
+  dealer_fee_percentage numeric DEFAULT 0,
+  dealer_fee_fixed_amount numeric DEFAULT 0,
+  dealer_fee_adjustment numeric DEFAULT 0,
+  down_payment_enabled boolean DEFAULT false,
+  down_payment_percentage numeric DEFAULT 0,
+  down_payment_min numeric DEFAULT 0,
+  down_payment_max numeric DEFAULT 0,
+  promotional_period_enabled boolean DEFAULT false,
+  dealer_fee_enabled boolean DEFAULT false,
+  CONSTRAINT payment_loan_options_pkey PRIMARY KEY (id),
+  CONSTRAINT loan_options_id_fkey FOREIGN KEY (id) REFERENCES public.payment_options(id)
+);
+CREATE TABLE public.payment_milestones (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  title text,
+  description text,
+  deposit_percentage numeric DEFAULT 0,
+  deposit_min numeric DEFAULT 0,
+  deposit_max numeric DEFAULT 0,
+  remaining_balance text,
+  position integer,
+  payment_option_id uuid,
+  CONSTRAINT payment_milestones_pkey PRIMARY KEY (id),
+  CONSTRAINT payment_milestones_payment_option_id_fkey FOREIGN KEY (payment_option_id) REFERENCES public.payment_options(id)
+);
+CREATE TABLE public.payment_options (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  title text NOT NULL,
+  description text,
+  type text,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  archive boolean DEFAULT false,
+  created_by uuid,
+  modified_by uuid,
+  utility_rate_override text,
+  collect_signature boolean DEFAULT false,
+  priority numeric DEFAULT '0'::numeric,
+  make_standard_price_consistent boolean DEFAULT false,
+  auto_discount_excess_dealer_fee boolean DEFAULT false,
+  fixed_fee_per_period numeric DEFAULT '0'::numeric,
+  supplementary_terms text DEFAULT ''::text,
+  additional_quote_message text,
+  CONSTRAINT payment_options_pkey PRIMARY KEY (id),
+  CONSTRAINT payment_options_created_by_fkey FOREIGN KEY (created_by) REFERENCES public.members(id),
+  CONSTRAINT payment_options_modified_by_fkey FOREIGN KEY (modified_by) REFERENCES public.members(id)
+);
+CREATE TABLE public.payment_quotation_settings (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  system_details boolean,
+  standard_system_price boolean,
+  discounts boolean,
+  total_system_price boolean,
+  upfront_incentives boolean,
+  purchase_price boolean,
+  estimated_other_incentives boolean,
+  total_additional_incentives boolean,
+  estimated_net_system_cost boolean,
+  system_price_watt boolean,
+  down_payment boolean,
+  loan_amount boolean,
+  loan_interest_rate boolean,
+  loan_term boolean,
+  loan_prepayment boolean,
+  no_interest_period boolean,
+  no_payment_period boolean,
+  interest_only boolean,
+  initial_loan_payment boolean,
+  final_loan_payment boolean,
+  total_payments boolean,
+  financed_amount boolean,
+  regular_payments boolean,
+  total_payment_lease boolean,
+  CONSTRAINT payment_quotation_settings_pkey PRIMARY KEY (id),
+  CONSTRAINT payment_quotation_settings_id_fkey FOREIGN KEY (id) REFERENCES public.payment_options(id)
+);
+CREATE TABLE public.preview_options (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  project_id uuid NOT NULL,
+  system_design_id uuid,
+  adder_set_id uuid,
+  payment_option_id uuid,
+  system_size numeric,
+  install_cost_per_watt numeric,
+  total_cost numeric,
+  payment_type USER-DEFINED,
+  savings_years numeric,
+  total_savings numeric,
+  total_savings_percent numeric,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT preview_options_pkey PRIMARY KEY (id),
+  CONSTRAINT preview_options_project_id_fkey FOREIGN KEY (project_id) REFERENCES public.projects(id),
+  CONSTRAINT preview_options_system_design_id_fkey FOREIGN KEY (system_design_id) REFERENCES public.system_designs(id),
+  CONSTRAINT preview_options_adder_set_id_fkey FOREIGN KEY (adder_set_id) REFERENCES public.adder_sets(id),
+  CONSTRAINT preview_options_payment_option_id_fkey FOREIGN KEY (payment_option_id) REFERENCES public.payment_options(id)
+);
+CREATE TABLE public.project_payment_options (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  project_id uuid DEFAULT gen_random_uuid(),
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT project_payment_options_pkey PRIMARY KEY (id),
+  CONSTRAINT project_payment_options_project_id_fkey FOREIGN KEY (project_id) REFERENCES public.projects(id),
+  CONSTRAINT project_payment_options_id_fkey FOREIGN KEY (id) REFERENCES public.payment_options(id)
+);
+CREATE TABLE public.projects (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  name text NOT NULL,
+  address_line_1 text NOT NULL,
+  address_line_2 text,
+  city text,
+  state text,
+  zip text,
+  project_type USER-DEFINED,
+  deal_id text,
+  stage USER-DEFINED NOT NULL DEFAULT 'Draft'::project_stage,
+  credit_check_status text,
+  credit_check_link text,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  member_id uuid,
+  latitude text,
+  longitude text,
+  stage_index integer NOT NULL DEFAULT 0,
+  status USER-DEFINED DEFAULT 'Open'::proposal_status_enum,
+  island text,
+  assigned_users ARRAY,
+  CONSTRAINT projects_pkey PRIMARY KEY (id),
+  CONSTRAINT projects_member_id_fkey FOREIGN KEY (member_id) REFERENCES public.members(id)
+);
+CREATE TABLE public.proposal_share_history (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  proposal_version_id uuid NOT NULL,
+  event_type USER-DEFINED NOT NULL,
+  contact_id uuid,
+  email_address text,
+  event_timestamp timestamp with time zone NOT NULL DEFAULT now(),
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT proposal_share_history_pkey PRIMARY KEY (id),
+  CONSTRAINT proposal_share_history_proposal_version_id_fkey FOREIGN KEY (proposal_version_id) REFERENCES public.proposal_versions(id),
+  CONSTRAINT proposal_share_history_contact_id_fkey FOREIGN KEY (contact_id) REFERENCES public.contacts(id)
+);
+CREATE TABLE public.proposal_versions (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  project_id uuid NOT NULL,
+  version_number integer NOT NULL,
+  status USER-DEFINED NOT NULL DEFAULT 'Draft'::proposal_status_enum,
+  customer_view_count integer NOT NULL DEFAULT 0,
+  last_view_time timestamp with time zone,
+  payment_options ARRAY,
+  max_value numeric,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  designs ARRAY,
+  has_slides boolean NOT NULL DEFAULT true,
+  payment_option_id uuid,
+  CONSTRAINT proposal_versions_pkey PRIMARY KEY (id),
+  CONSTRAINT proposal_versions_project_id_fkey FOREIGN KEY (project_id) REFERENCES public.projects(id),
+  CONSTRAINT proposal_versions_payment_option_id_fkey FOREIGN KEY (payment_option_id) REFERENCES public.payment_options(id)
+);
+CREATE TABLE public.rate_schedule_windows (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  rate_schedule_id uuid NOT NULL,
+  start_time time without time zone,
+  end_time time without time zone,
+  rate numeric NOT NULL,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  rate_type USER-DEFINED NOT NULL DEFAULT 'flat rate'::rate_type_enum,
+  min_usage numeric,
+  max_usage numeric,
+  CONSTRAINT rate_schedule_windows_pkey PRIMARY KEY (id),
+  CONSTRAINT rate_schedule_windows_rate_schedule_id_fkey FOREIGN KEY (rate_schedule_id) REFERENCES public.rate_schedules(id)
+);
+CREATE TABLE public.rate_schedules (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  utility_provider_id uuid NOT NULL,
+  name text NOT NULL,
+  description text,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT rate_schedules_pkey PRIMARY KEY (id),
+  CONSTRAINT rate_schedules_utility_provider_id_fkey FOREIGN KEY (utility_provider_id) REFERENCES public.utility_providers(id)
+);
+CREATE TABLE public.roles (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  name text NOT NULL UNIQUE,
+  description text,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT roles_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.system_design_components (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  system_design_id uuid NOT NULL,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  quantities numeric DEFAULT '1'::numeric,
+  cost_type USER-DEFINED DEFAULT 'Each (default)'::system_design_cost_type,
+  component_id uuid,
+  is_default boolean DEFAULT false,
+  parent_id uuid,
+  CONSTRAINT system_design_components_pkey PRIMARY KEY (id),
+  CONSTRAINT system_design_components_component_id_fkey FOREIGN KEY (component_id) REFERENCES public.components(id),
+  CONSTRAINT system_design_components_system_design_id_fkey FOREIGN KEY (system_design_id) REFERENCES public.system_designs(id)
+);
+CREATE TABLE public.system_design_images (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  system_design_id uuid NOT NULL,
+  file_id text NOT NULL,
+  image_label text,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  file_path text,
+  is_primary boolean DEFAULT false,
+  caption text,
+  weweb_style jsonb,
+  CONSTRAINT system_design_images_pkey PRIMARY KEY (id),
+  CONSTRAINT system_design_images_system_design_id_fkey FOREIGN KEY (system_design_id) REFERENCES public.system_designs(id)
+);
+CREATE TABLE public.system_designs (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  project_id uuid NOT NULL,
+  size_kw numeric,
+  panel_count integer,
+  battery_count integer,
+  storage_capacity_kwh numeric,
+  other_notes text,
+  locked boolean NOT NULL DEFAULT false,
+  estimated_production_monthly ARRAY,
+  estimated_production_weekly ARRAY,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  battery_type text,
+  inverter-opt text,
+  inverter_opt_count numeric,
+  annual_yield numeric,
+  panel_type text,
+  initial_components_loaded boolean,
+  system_design_option USER-DEFINED,
+  name text,
+  is_component_preloaded boolean DEFAULT false,
+  CONSTRAINT system_designs_pkey PRIMARY KEY (id),
+  CONSTRAINT system_designs_project_id_fkey FOREIGN KEY (project_id) REFERENCES public.projects(id)
+);
+CREATE TABLE public.tokens (
+  id bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  provider text,
+  access_token text,
+  refresh_token text,
+  expires_in timestamp with time zone,
+  type USER-DEFINED,
+  CONSTRAINT tokens_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.usage_histories (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  project_id uuid NOT NULL,
+  utility_provider_id uuid NOT NULL,
+  rate_schedule_id uuid,
+  use_average boolean NOT NULL DEFAULT false,
+  average_usage numeric,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  average_cost numeric DEFAULT '0'::numeric,
+  CONSTRAINT usage_histories_pkey PRIMARY KEY (id),
+  CONSTRAINT usage_histories_project_id_fkey FOREIGN KEY (project_id) REFERENCES public.projects(id),
+  CONSTRAINT usage_histories_utility_provider_id_fkey FOREIGN KEY (utility_provider_id) REFERENCES public.utility_providers(id),
+  CONSTRAINT usage_histories_rate_schedule_id_fkey FOREIGN KEY (rate_schedule_id) REFERENCES public.rate_schedules(id)
+);
+CREATE TABLE public.usage_history_entries (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  usage_history_id uuid NOT NULL,
+  month_number smallint NOT NULL,
+  consumption numeric NOT NULL,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  cost numeric DEFAULT '0'::numeric,
+  CONSTRAINT usage_history_entries_pkey PRIMARY KEY (id),
+  CONSTRAINT usage_history_entries_usage_history_id_fkey FOREIGN KEY (usage_history_id) REFERENCES public.usage_histories(id)
+);
+CREATE TABLE public.user_images (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  bucket text,
+  file_id uuid DEFAULT gen_random_uuid(),
+  file_name text,
+  file_type text,
+  file_path text,
+  updated_at timestamp with time zone DEFAULT now(),
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  member_id uuid,
+  CONSTRAINT user_images_pkey PRIMARY KEY (id),
+  CONSTRAINT user_images_member_id_fkey FOREIGN KEY (member_id) REFERENCES public.members(id)
+);
+CREATE TABLE public.user_roles (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  member_id uuid NOT NULL,
+  roleId uuid NOT NULL,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  userId uuid,
+  CONSTRAINT user_roles_pkey PRIMARY KEY (id),
+  CONSTRAINT user_roles_member_id_fkey FOREIGN KEY (member_id) REFERENCES public.members(id),
+  CONSTRAINT user_roles_roleId_fkey FOREIGN KEY (roleId) REFERENCES public.roles(id),
+  CONSTRAINT user_roles_userId_fkey FOREIGN KEY (userId) REFERENCES auth.users(id)
+);
+CREATE TABLE public.user_tdviewer_config (
+  id bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  project_id uuid NOT NULL,
+  member_id uuid,
+  default_version text,
+  hide_versions ARRAY,
+  custom_scopes ARRAY,
+  included_features ARRAY,
+  updated_at timestamp with time zone DEFAULT now(),
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  address text,
+  no_of_system numeric,
+  project_name text,
+  hide_version_labels ARRAY,
+  default_version_label text,
+  report_id numeric,
+  CONSTRAINT user_tdviewer_config_pkey PRIMARY KEY (id),
+  CONSTRAINT user_tdviewer_config_project_id_fkey FOREIGN KEY (project_id) REFERENCES public.projects(id),
+  CONSTRAINT user_tdviewer_config_member_id_fkey FOREIGN KEY (member_id) REFERENCES public.members(id)
+);
+CREATE TABLE public.utility_providers (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  name text NOT NULL UNIQUE,
+  description text,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT utility_providers_pkey PRIMARY KEY (id)
+);
