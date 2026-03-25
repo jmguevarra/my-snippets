@@ -1,0 +1,1429 @@
+{
+  "name": "Authorized Seller and DNS List Generator V2 //n8306",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "=ms306-brand-lists",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -4672,
+        -64
+      ],
+      "id": "c4104df2-4f07-4fa0-8248-7791b993cd0f",
+      "name": "Webhook",
+      "webhookId": "a0000001-0001-4000-8000-000000000001"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.monday.com/v2",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "mondayComApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.queryBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -4224,
+        32
+      ],
+      "id": "ca02bf18-5e2e-49bc-b6ba-0e11cf661342",
+      "name": "Fetch Brands",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "6",
+          "name": "AmzAtlas Josh Monday Credential"
+        },
+        "mondayComApi": {
+          "id": "5",
+          "name": "AmzAtlas Monday.com (Josh)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.first().json.data.boards[0].items_page.items || [];\n\nreturn items.map(brand => {\n  const getChecked = id => JSON.parse(brand.column_values.find(c => c.id === id)?.value || \"{}\").checked === true;\n\n  const auth = getChecked(\"boolean_mm16wr1g\");\n  const dns = getChecked(\"boolean_mm16vrs2\");\n  \n  return {\n      brandId: brand.id,\n      brandName: brand.name,\n      state: brand.state,\n      includeToAuth: auth,\n      includeToDNS: dns\n    };\n}).filter(b => b.state === \"active\" && (b.includeToDNS || b.includeToAuth));\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -4000,
+        32
+      ],
+      "id": "839a17f6-7664-4544-8d1a-b9c930c549f8",
+      "name": "Filter Active Brands"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -3776,
+        32
+      ],
+      "id": "f1f0a661-624e-412c-8278-1c3316693c79",
+      "name": "Brand Loop"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.googleapis.com/drive/v3/files/1tap8RgHKVjIvRKAjEkVSLX_qnEDkND4vprUVRBy8wHo/copy",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleDriveOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"name\": \"{{ $json.brandName }} _ Authorized Reseller List _ {{ $now.toFormat('MMM. dd, yyyy') }}\", \"parents\": [\"1HwCx_Fi6oshhhaGqP10__XC1TH1McyiQ\"]}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3328,
+        -48
+      ],
+      "id": "4ae13913-c7a4-4be5-89b4-cc793f4ca3a0",
+      "name": "Create Auth Reseller Sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2",
+          "name": "Josh@cc Google Sheets account"
+        },
+        "googleDriveOAuth2Api": {
+          "id": "IczRzpMu2qhnpa8X",
+          "name": "CC.io Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.monday.com/v2",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "mondayComApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"query\":\"{boards(ids:9216468780){items_page(limit:500 query_params:{rules:[{column_id:\\\"board_relation_mkrk6by6\\\" compare_value:[{{ $('Brand Loop').item.json.brandId }}]}]}){items{id name column_values{id text value}}}}}\"}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2880,
+        -48
+      ],
+      "id": "0b8c5655-0c72-4338-9700-35bc191e9f46",
+      "name": "Fetch Product Lines",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "6",
+          "name": "AmzAtlas Josh Monday Credential"
+        },
+        "mondayComApi": {
+          "id": "5",
+          "name": "AmzAtlas Monday.com (Josh)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\n\n\nlet queryBody;\nif (!input.cursor || input.cursor === '') {\n  const query = `{boards(ids:8707938312){items_page(limit:500 query_params:{rules:[{column_id:\"board_relation_mkp5t11a\" compare_value:[${input.brandId}]}]}){cursor items{id name group {id title} column_values{id text value ... on BoardRelationValue{display_value linked_items{id}}}}}}}`;\n  queryBody = JSON.stringify({ query });\n} else {\n  const query = `{next_items_page(limit:500 cursor:\"${input.cursor}\"){cursor items{id name group {id title} column_values{id text value ... on BoardRelationValue{display_value linked_items{id}}}}}}`;\n  queryBody = JSON.stringify({ query });\n}\n\nreturn [{\n  json: {\n    allItems: input.allItems,\n    pageIndex: input.pageIndex,\n    queryBody\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1760,
+        32
+      ],
+      "id": "4b1b2cbf-5fed-4639-9f4c-662631315620",
+      "name": "Build App Pipeline Query"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.monday.com/v2",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "mondayComApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.queryBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1536,
+        -48
+      ],
+      "id": "11e28836-5c16-4f74-bf09-cfdb4997a655",
+      "name": "Fetch App Pipeline Page",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "6",
+          "name": "AmzAtlas Josh Monday Credential"
+        },
+        "mondayComApi": {
+          "id": "5",
+          "name": "AmzAtlas Monday.com (Josh)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $('Build App Pipeline Query').first().json;\nconst httpResp = $input.first().json;\n\n// Ensure prevItems is always an array\nlet prevItems = [];\ntry {\n  const parsed = JSON.parse(input.allItems || '[]');\n  prevItems = Array.isArray(parsed) ? parsed : [];\n} catch {\n  prevItems = [];\n}\n\n// Extract page items and cursor safely\nconst data = httpResp.data;\nconst pageItems = data?.boards?.[0]?.items_page?.items\n                || data?.next_items_page?.items\n                || [];\nconst newCursor = data?.boards?.[0]?.items_page?.cursor\n                || data?.next_items_page?.cursor\n                || null;\n\n// Merge items and increment page index\nconst allItems = [...prevItems, ...pageItems];\nconst pageIndex = (input.pageIndex || 0) + 1;\n\nreturn [{\n  json: {\n    cursor: newCursor || \"\",\n    pageIndex,\n    hasMore: !!newCursor,\n    allItems: JSON.stringify(allItems),\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1312,
+        -48
+      ],
+      "id": "848b4328-d8e6-4c4e-808c-067d163c44bb",
+      "name": "Process Page and Check Cursor"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "cond-hasmore",
+              "leftValue": "={{ $json.hasMore }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -1088,
+        -48
+      ],
+      "id": "7e3ee5e9-c561-4b41-8e3f-0fbe4c5f1d22",
+      "name": "Has More Pages"
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -864,
+        128
+      ],
+      "id": "bfb09292-e0c4-42c6-8a9b-65bd05c48381",
+      "name": "Wait Before Next Page",
+      "webhookId": "b0000011-0011-4000-8000-000000000011"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst inputAuthDns = $('Merge Auth and DNS Data').first().json;\nconst allItems = JSON.parse(input.allItems || '[]');\nconst productLines = inputAuthDns.authProductLines || [];\n\nconst productLineIds = productLines.map(pl => pl.id);\nconst productLineNames = productLines.map(pl => pl.name);\n\nfunction colText(item, colId) {\n  const col = (item.column_values || []).find(c => c.id === colId);\n  return col ? (col.text || '') : '';\n}\n\nfunction colLinkedItems(item, colId) {\n  const col = (item.column_values || []).find(c => c.id === colId);\n  return col && col.linked_items ? col.linked_items : [];\n}\n\nfunction baseDnsRow(item, isStatusColumn = false) {\n  const longText = colText(item, 'long_text_mkp5n4a0').replace(/[\\r\\n]+/g, ' ');\n  const name1 = colText(item, 'text_mkp5a2bm');\n  const name2 = colText(item, 'text_mkp5cd5a');\n  const statusOrColor = isStatusColumn ? 'status' : 'color_mkrb6wej';\n  \n  return [\n    colText(item, statusOrColor),\n    colText(item, 'date4'),\n    colText(item, 'text_mkp51hj6'),\n    colText(item, 'text_mkp5gejv'),\n    longText,\n    (name1 + ' ' + name2).trim(),\n    colText(item, 'email_mkp59dnc'),\n    colText(item, 'text_mkq7zecr'),\n    colText(item, 'link_mkp52229')\n  ];\n}\n\nconst dnsNewHighlightRows = [];\nconst dnsDeniedRows = [];\nconst authApprovedRows = [];\nconst approvedStatuses = [\n  \"Approved for B&M\",\n  \"Approved for B&M + Ecom\",\n  \"Approved for Ecom\",\n  \"CA B&M + Ecom\",\n  \"CA B&M Only\",\n  \"Direct Customer\",\n  \"Limited Agreement\"\n];\n\nfor (const item of allItems) {\n  const groupText = item?.group?.title?.trim().toLowerCase() ?? '';\n  const status = colText(item, 'status');\n  const appStatus = colText(item, 'color_mkrb6wej');\n  const isNotArchived = groupText !== 'archived';\n\n  if ((status.includes('Highlight Denied') || status.includes('New Denied')) && isNotArchived) {\n    dnsNewHighlightRows.push(baseDnsRow(item, true));\n  }\n\n  if (appStatus === 'Denied' && isNotArchived) {\n    dnsDeniedRows.push(baseDnsRow(item));\n  }\n\n  if (approvedStatuses.some(s => appStatus.includes(s) && isNotArchived)){\n    const baseRow = baseDnsRow(item);\n    const agreementStatus = colText(item, 'status');\n    const agreementSigned = agreementStatus.includes('Agreement Signed') ? 'x' : '';\n    const linkedItems = colLinkedItems(item, 'board_relation_mkrqc6jm');\n    const linkedIds = linkedItems.map(li => String(li.id));\n    const productCols = productLineIds.map(plId =>\n      linkedIds.includes(String(plId)) ? 'x' : ''\n    );\n    authApprovedRows.push([...baseRow, agreementSigned, ...productCols]);\n  }\n}\n\n\n//sorting\nconst sortedDNSNewHighlightItems = dnsNewHighlightRows\n  .sort((a, b) => {\n    // Priority: Highlight Denied first\n    const priority = (item) => item[0].includes(\"Highlight Denied\") ? 0 : 1;\n    const priorityDiff = priority(a) - priority(b);\n    if (priorityDiff !== 0) return priorityDiff;\n\n    // If same priority, sort by 3rd column alphabetically\n    return a[2].localeCompare(b[2]);\n  })\n  .map((item) => {\n    // Copy the row to avoid mutating original\n    const newRow = [...item];\n\n    // Ensure phone column (H column, index 7) is a string\n    if (newRow[7] != null) {\n      const phoneStr = newRow[7].toString().trim();\n      newRow[7] = phoneStr.startsWith(\"+\") ? `'${phoneStr}` : phoneStr;\n    }\n\n    // Remove \"Denied\" from first column and trim spaces\n    newRow[0] = newRow[0].replace(\"Denied\", \"\").trim();\n\n    return newRow;\n  });\n\nconst priorityMap = {\n  \"Approved for B&M\": 0,\n  \"Approved for B&M + Ecom\": 1,\n  \"Approved for Ecom\": 2,\n  \"CA B&M + Ecom\": 3,\n  \"CA B&M Only\": 4,\n  \"Direct Customer\": 5,\n  \"Limited Agreement\": 6\n};\n\nconst sortedAuthApprovedRowsItems = authApprovedRows\n  .map(row => {\n    const newRow = [...row]; \n    if (newRow[7] != null) {\n      const phoneStr = newRow[7].toString().trim();\n      newRow[7] = phoneStr.startsWith(\"+\") ? `'${phoneStr}` : phoneStr;\n    }\n    return newRow;\n  })\n  .sort((a, b) => {\n  // First, sort by priority\n  const priorityDiff = priorityMap[a[0]] - priorityMap[b[0]];\n  if (priorityDiff !== 0) return priorityDiff;\n\n  // If priority is the same, sort by 3rd item alphabetically\n  return a[2].localeCompare(b[2]);\n});\n\nconst sortedDNSDeniedRows = dnsDeniedRows\n  .map(row => {\n    const newRow = [...row]; \n    if (newRow[7] != null) {\n      const phoneStr = newRow[7].toString().trim();\n      newRow[7] = phoneStr.startsWith(\"+\") ? `'${phoneStr}` : phoneStr;\n    }\n    return newRow;\n  })\n  .sort((a, b) => {\n    return a[2].localeCompare(b[2]);\n});\nconst dnsDeniedWithHeader = sortedDNSDeniedRows.length > 0\n  ? [[\"\", \"\", \"\"], [\"Below is the full DNS List\", \"\", \"\"], ...sortedDNSDeniedRows]\n  : [];\n\n \nreturn [{\n  json: {\n    dnsSheetId: inputAuthDns.dnsSheetId,\n    authSheetId: inputAuthDns.authSheetId,\n    brandId: inputAuthDns.brandId,\n    brandName: inputAuthDns.brandName,\n    dnsNewHighlightRows: JSON.stringify(sortedDNSNewHighlightItems),\n    dnsDeniedWithHeader: JSON.stringify(dnsDeniedWithHeader),\n    authApprovedRows: JSON.stringify(sortedAuthApprovedRowsItems),\n    productLineNames: JSON.stringify(productLineNames),\n    hasDnsNewHighlight: dnsNewHighlightRows.length > 0,\n    hasDnsDenied: dnsDeniedRows.length > 0,\n    hasAuthApproved: authApprovedRows.length > 0,\n    hasProductLines: productLines.length > 0\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -864,
+        -96
+      ],
+      "id": "f547d9d4-731e-4862-b066-36438da45810",
+      "name": "Categorize All Items"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "cond-dnsnh",
+              "leftValue": "={{ $json.hasDnsNewHighlight }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "b50dd24a-7e26-4ac0-aa6a-95da11f7ddc1",
+              "leftValue": "={{ $('Merge Auth and DNS Data').item.json.includeToDns }}",
+              "rightValue": false,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -640,
+        -96
+      ],
+      "id": "a0224408-fe1f-4fdf-a89c-bebb2aa1bf01",
+      "name": "IF Has DNS NewHighlight"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{ $('Categorize All Items').item.json.dnsSheetId }}/values/'DNS List'!A1:Z1:append?valueInputOption=USER_ENTERED&insertDataOption=OVERWRITE",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"values\": {{ $('Categorize All Items').item.json.dnsNewHighlightRows }} }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -416,
+        -160
+      ],
+      "id": "110bfbf0-b393-4845-974a-d9354eafa811",
+      "name": "Write DNS NewHighlight",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2",
+          "name": "Josh@cc Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "cond-dnsd",
+              "leftValue": "={{ $('Categorize All Items').item.json.hasDnsDenied }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "906e6164-acda-494a-9f0b-1bff6df8e178",
+              "leftValue": "={{ $('Merge Auth and DNS Data').item.json.includeToDns }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -192,
+        -96
+      ],
+      "id": "096c23c2-4452-46fe-9b30-f3748e5f36b0",
+      "name": "IF Has DNS Denied"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{ $('Categorize All Items').item.json.dnsSheetId }}/values/'DNS List'!A1:Z1:append?valueInputOption=USER_ENTERED&insertDataOption=OVERWRITE",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"values\": {{ $('Categorize All Items').item.json.dnsDeniedWithHeader }} }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        32,
+        -160
+      ],
+      "id": "3095bc64-d139-43a3-97a0-9b47afc2d03f",
+      "name": "Write DNS Denied",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2",
+          "name": "Josh@cc Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "cond-auth",
+              "leftValue": "={{ $('Categorize All Items').item.json.hasAuthApproved }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "73668ee4-3334-4838-bed8-85816464790f",
+              "leftValue": "={{ $('Merge Auth and DNS Data').item.json.includeToAuth }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        256,
+        -96
+      ],
+      "id": "9b7a8970-e65b-49b8-9560-b8031b7b6083",
+      "name": "IF Has Auth Approved"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{ $('Categorize All Items').item.json.authSheetId }}/values/'Auth List'!A1:AZ1:append?valueInputOption=USER_ENTERED&insertDataOption=OVERWRITE",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"values\": {{ $('Categorize All Items').item.json.authApprovedRows }} }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        -160
+      ],
+      "id": "6f90a731-49aa-47c3-83ee-1efff704d6de",
+      "name": "Write Auth Approved",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2",
+          "name": "Josh@cc Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "cond-pl",
+              "leftValue": "={{ $('Categorize All Items').item.json.hasProductLines }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "49d5b305-86f3-45f6-8c72-2ebf97120c23",
+              "leftValue": "={{ $('Merge Auth and DNS Data').item.json.includeToAuth }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        704,
+        -96
+      ],
+      "id": "1f945108-0263-4dcb-9899-0d0ca8428f24",
+      "name": "IF Has Product Lines"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{ $('Categorize All Items').item.json.authSheetId }}/values/'Auth List'!K2:AZ2?valueInputOption=USER_ENTERED",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"values\": [{{ $('Categorize All Items').item.json.productLineNames }}] }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        928,
+        -160
+      ],
+      "id": "55073f00-8330-43a2-bece-89e5305602b8",
+      "name": "Write Product Line Headers",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2",
+          "name": "Josh@cc Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "cond-filter",
+              "leftValue": "={{ $('Categorize All Items').item.json.hasDnsDenied }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "b2ca5a56-a527-435a-8fc4-c2ce0c226b28",
+              "leftValue": "={{ $('Merge Auth and DNS Data').item.json.includeToDns }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1152,
+        -96
+      ],
+      "id": "e0340e93-2de5-43e9-941c-389f72d30336",
+      "name": "IF Should Create DNS Filter"
+    },
+    {
+      "parameters": {
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{ $('Categorize All Items').item.json.dnsSheetId }}?fields=sheets.properties",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1376,
+        -160
+      ],
+      "id": "74ebd0cc-405a-4b63-98ad-1776bd9d0a8d",
+      "name": "Get DNS Sheet Metadata",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2",
+          "name": "Josh@cc Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{ $('Categorize All Items').item.json.dnsSheetId }}/values/'DNS List'!A:A",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1600,
+        -160
+      ],
+      "id": "5116dfcd-c97d-4c04-abc4-b16115521a48",
+      "name": "Find DNS Header Row",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2",
+          "name": "Josh@cc Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const metaResp = $('Get DNS Sheet Metadata').item.json;\nconst colAResp = $input.first().json;\n\nconst sheets = metaResp.sheets || [];\nconst dnsSheet = sheets.find(s => s.properties && s.properties.title === 'DNS List');\nconst sheetId = dnsSheet ? dnsSheet.properties.sheetId : 0;\n\nconst values = colAResp.values || [];\nlet headerRowIndex = -1;\nfor (let i = 0; i < values.length; i++) {\n  if (values[i] && values[i][0] && values[i][0].includes('Below is the full DNS List')) {\n    headerRowIndex = i;\n    break;\n  }\n}\n\nconst dnsSheetId = $('Categorize All Items').item.json.dnsSheetId;\n\nif (headerRowIndex >= 0) {\n  return [{\n    json: {\n      shouldCreateFilter: true,\n      dnsSpreadsheetId: dnsSheetId,\n      filterBody: JSON.stringify({\n        requests: [{\n          setBasicFilter: {\n            filter: {\n              range: {\n                sheetId: sheetId,\n                startRowIndex: headerRowIndex,\n                startColumnIndex: 0\n              }\n            }\n          }\n        }]\n      })\n    }\n  }];\n} else {\n  return [{\n    json: {\n      shouldCreateFilter: false,\n      dnsSpreadsheetId: dnsSheetId,\n      filterBody: '{}'\n    }\n  }];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1824,
+        -160
+      ],
+      "id": "1982655c-6501-4e44-b621-ffecd310c13e",
+      "name": "Build DNS Filter"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{ $json.dnsSpreadsheetId }}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.filterBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2048,
+        -160
+      ],
+      "id": "4f3a8724-a116-41f1-b0cd-fca61c304faa",
+      "name": "Create DNS Filter",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2",
+          "name": "Josh@cc Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2272,
+        64
+      ],
+      "id": "be7006f9-4463-4f76-afe6-67c7b59d45db",
+      "name": "Wait Between Brands",
+      "webhookId": "b0000020-0020-4000-8000-000000000020"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -4672,
+        128
+      ],
+      "id": "89939a63-0e26-488c-8ae2-25ef9df5ead7",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.googleapis.com/drive/v3/files/1P3fafmzm3eyb8KP-9PasZi78fpQIsORIqNbmlTtHAMU/copy",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleDriveOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"name\": \"{{ $('Brand Loop').item.json.brandName }} _ DNS List _ {{ $now.toFormat('MMM. dd, yyyy') }}\", \"parents\": [\"1HwCx_Fi6oshhhaGqP10__XC1TH1McyiQ\"]}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2432,
+        -48
+      ],
+      "id": "fbdd733e-15db-4b37-82d7-14e138cd831f",
+      "name": "Create DNS Sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2",
+          "name": "Josh@cc Google Sheets account"
+        },
+        "googleDriveOAuth2Api": {
+          "id": "IczRzpMu2qhnpa8X",
+          "name": "CC.io Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "function safeFirst(nodeName) {\n  try {\n    return $(nodeName).first().json;\n  } catch (e) {\n    return {};\n  }\n}\n\nconst input = $('Brand Loop').first().json;\nconst brandId = input.brandId;\nconst brandName = input.brandName;\n\nconst authSheet = safeFirst('Create Auth Reseller Sheet');\nconst dnsSheet = safeFirst('Create DNS Sheet');\n\nlet authProductLines = [];\n\ntry {\n  const productLines = $('Fetch Product Lines').first()\n    ?.json?.data?.boards?.[0]?.items_page?.items ?? [];\n\n  authProductLines = productLines.sort((a, b) => Number(b.id) - Number(a.id));\n} catch (e) {\n  authProductLines = [];\n}\n\nreturn [{\n  json: {\n    brandName,\n    brandId,\n    authSheetId: authSheet.id || \"\",\n    dnsSheetId: dnsSheet.id || \"\",\n    authProductLines,\n    includeToAuth: input.includeToAuth,\n    includeToDns: input.includeToDNS\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1984,
+        32
+      ],
+      "id": "81fd0c23-9a97-4ae7-9188-10aefbfec73a",
+      "name": "Merge Auth and DNS Data"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{ $json.id }}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"requests\":[{\"findReplace\":{\"find\":\"{brand_name}\",\"replacement\":\"{{ $('Has Auth').item.json.brandName }}\",\"allSheets\":true}},{\"findReplace\":{\"find\":\"{date_now}\",\"replacement\":\"{{ $now.toFormat('MM/dd/yyyy') }}\",\"allSheets\":true}}]}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3104,
+        -48
+      ],
+      "id": "b36051ec-be69-417d-b6f2-80e5984fd85f",
+      "name": "Update Auth Template Values",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2",
+          "name": "Josh@cc Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/{{ $json.id }}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"requests\":[{\"findReplace\":{\"find\":\"{brand_name}\",\"replacement\":\"{{ $('Brand Loop').item.json.brandName }}\",\"allSheets\":true}}]}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2208,
+        -48
+      ],
+      "id": "aed1fce3-b39c-4d63-8e7a-e6c557448ee9",
+      "name": "Update DNS Template Values ",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2",
+          "name": "Josh@cc Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let brand = $input.first().json.query?.brand; \nlet graphqlQuery;\n\nif (brand) {\n  // Option A: Filtering by brand name\n  graphqlQuery = `{ \n    boards(ids: 8707940198) { \n      items_page(limit: 200, query_params: { \n        rules: [{ \n          column_id: \"name\", \n          compare_value: [\"${brand}\"], \n          operator: contains_text \n        }] \n      }) { \n        items { \n          id \n          name \n          state \n          column_values(ids: [\"boolean_mm16wr1g\", \"boolean_mm16vrs2\"]) { \n            id \n            text \n            value \n          } \n        } \n      } \n    } \n  }`;\n} else {\n  // Option B: No filter\n  graphqlQuery = `{ \n    boards(ids: 8707940198) { \n      items_page(limit: 200) { \n        items { \n          id \n          name \n          state \n          column_values(ids: [\"boolean_mm16wr1g\", \"boolean_mm16vrs2\"]) { \n            id \n            text \n            value \n          } \n        } \n      } \n    } \n  }`;\n}\n\n// Wrap it in the expected Monday.com JSON structure\nreturn [{ \n  json: { \n    queryBody: { query: graphqlQuery } \n  } \n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -4448,
+        32
+      ],
+      "id": "d631bc8b-4b2e-4285-8ca9-ee85be5f09f9",
+      "name": "Prepare Query"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "8aec3308-9c7f-4dc5-9396-be5be28b250c",
+              "leftValue": "={{ $json.includeToAuth }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -3552,
+        32
+      ],
+      "id": "5383f2a0-74ea-416a-bdc5-e56459921f24",
+      "name": "Has Auth"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "8aec3308-9c7f-4dc5-9396-be5be28b250c",
+              "leftValue": "={{ $('Filter Active Brands').item.json.includeToDNS }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -2656,
+        32
+      ],
+      "id": "8c9d11c2-53a0-4127-b21f-97243e7400e8",
+      "name": "Has DNS"
+    },
+    {
+      "parameters": {
+        "respondWith": "redirect",
+        "redirectURL": "https://drive.google.com/drive/u/0/folders/1HwCx_Fi6oshhhaGqP10__XC1TH1McyiQ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        -3552,
+        -160
+      ],
+      "id": "ed924525-f4fe-45b2-bf57-87c41b238475",
+      "name": "Redirect to Temp Folder"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Prepare Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Brands": {
+      "main": [
+        [
+          {
+            "node": "Filter Active Brands",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Active Brands": {
+      "main": [
+        [
+          {
+            "node": "Brand Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Brand Loop": {
+      "main": [
+        [
+          {
+            "node": "Redirect to Temp Folder",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Has Auth",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Auth Reseller Sheet": {
+      "main": [
+        [
+          {
+            "node": "Update Auth Template Values",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Product Lines": {
+      "main": [
+        [
+          {
+            "node": "Has DNS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build App Pipeline Query": {
+      "main": [
+        [
+          {
+            "node": "Fetch App Pipeline Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch App Pipeline Page": {
+      "main": [
+        [
+          {
+            "node": "Process Page and Check Cursor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Page and Check Cursor": {
+      "main": [
+        [
+          {
+            "node": "Has More Pages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has More Pages": {
+      "main": [
+        [
+          {
+            "node": "Wait Before Next Page",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Categorize All Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Before Next Page": {
+      "main": [
+        [
+          {
+            "node": "Build App Pipeline Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Categorize All Items": {
+      "main": [
+        [
+          {
+            "node": "IF Has DNS NewHighlight",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Has DNS NewHighlight": {
+      "main": [
+        [
+          {
+            "node": "Write DNS NewHighlight",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF Has DNS Denied",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write DNS NewHighlight": {
+      "main": [
+        [
+          {
+            "node": "IF Has DNS Denied",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Has DNS Denied": {
+      "main": [
+        [
+          {
+            "node": "Write DNS Denied",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF Has Auth Approved",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write DNS Denied": {
+      "main": [
+        [
+          {
+            "node": "IF Has Auth Approved",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Has Auth Approved": {
+      "main": [
+        [
+          {
+            "node": "Write Auth Approved",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF Has Product Lines",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Auth Approved": {
+      "main": [
+        [
+          {
+            "node": "IF Has Product Lines",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Has Product Lines": {
+      "main": [
+        [
+          {
+            "node": "Write Product Line Headers",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF Should Create DNS Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Product Line Headers": {
+      "main": [
+        [
+          {
+            "node": "IF Should Create DNS Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Should Create DNS Filter": {
+      "main": [
+        [
+          {
+            "node": "Get DNS Sheet Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait Between Brands",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get DNS Sheet Metadata": {
+      "main": [
+        [
+          {
+            "node": "Find DNS Header Row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find DNS Header Row": {
+      "main": [
+        [
+          {
+            "node": "Build DNS Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build DNS Filter": {
+      "main": [
+        [
+          {
+            "node": "Create DNS Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create DNS Filter": {
+      "main": [
+        [
+          {
+            "node": "Wait Between Brands",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Between Brands": {
+      "main": [
+        [
+          {
+            "node": "Brand Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Prepare Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create DNS Sheet": {
+      "main": [
+        [
+          {
+            "node": "Update DNS Template Values ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Auth and DNS Data": {
+      "main": [
+        [
+          {
+            "node": "Build App Pipeline Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Auth Template Values": {
+      "main": [
+        [
+          {
+            "node": "Fetch Product Lines",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update DNS Template Values ": {
+      "main": [
+        [
+          {
+            "node": "Merge Auth and DNS Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Query": {
+      "main": [
+        [
+          {
+            "node": "Fetch Brands",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Auth": {
+      "main": [
+        [
+          {
+            "node": "Create Auth Reseller Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Has DNS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has DNS": {
+      "main": [
+        [
+          {
+            "node": "Create DNS Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Auth and DNS Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "64c486e4-bf90-47ed-a2ec-4ecddf190a5c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6453c2c6551c802ddbcf5fefa4e79aa983e8feb69a67b60c1c82058ee30097f5"
+  },
+  "id": "8aqp24bRmMoj3EyZ",
+  "tags": []
+}
