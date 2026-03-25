@@ -1,0 +1,166 @@
+const input = $input.first().json;
+const inputAuthDns = $('Merge Auth and DNS Data').first().json;
+const allItems = JSON.parse(input.allItems || '[]');
+const productLines = inputAuthDns.authProductLines || [];
+
+const productLineIds = productLines.map(pl => pl.id);
+const productLineNames = productLines.map(pl => pl.name);
+
+function colText(item, colId) {
+  const col = (item.column_values || []).find(c => c.id === colId);
+  return col ? (col.text || '') : '';
+}
+
+function colLinkedItems(item, colId) {
+  const col = (item.column_values || []).find(c => c.id === colId);
+  return col && col.linked_items ? col.linked_items : [];
+}
+
+function baseDnsRow(item, isStatusColumn = false) {
+  const longText = colText(item, 'long_text_mkp5n4a0').replace(/[\r\n]+/g, ' ');
+  const name1 = colText(item, 'text_mkp5a2bm');
+  const name2 = colText(item, 'text_mkp5cd5a');
+  const statusOrColor = isStatusColumn ? 'status' : 'color_mkrb6wej';
+  
+  return [
+    colText(item, statusOrColor),
+    colText(item, 'date4'),
+    colText(item, 'text_mkp51hj6'),
+    colText(item, 'text_mkp5gejv'),
+    longText,
+    (name1 + ' ' + name2).trim(),
+    colText(item, 'email_mkp59dnc'),
+    colText(item, 'text_mkq7zecr'),
+    colText(item, 'link_mkp52229')
+  ];
+}
+
+const dnsNewHighlightRows = [];
+const dnsDeniedRows = [];
+const authApprovedRows = [];
+const approvedStatuses = [
+  "Approved for B&M",
+  "Approved for B&M + Ecom",
+  "Approved for Ecom",
+  "CA B&M + Ecom",
+  "CA B&M Only",
+  "Direct Customer",
+  "Limited Agreement"
+];
+
+for (const item of allItems) {
+  const groupText = item?.group?.title?.trim().toLowerCase() ?? '';
+  const status = colText(item, 'status');
+  const appStatus = colText(item, 'color_mkrb6wej');
+  const isNotArchived = groupText !== 'archived';
+
+  if ((status.includes('Highlight Denied') || status.includes('New Denied')) && isNotArchived) {
+    dnsNewHighlightRows.push(baseDnsRow(item, true));
+  }
+
+  if (appStatus === 'Denied' && isNotArchived) {
+    dnsDeniedRows.push(baseDnsRow(item));
+  }
+
+  if (approvedStatuses.some(s => appStatus.includes(s) && isNotArchived)){
+    const baseRow = baseDnsRow(item);
+    const agreementStatus = colText(item, 'status');
+    const agreementSigned = agreementStatus.includes('Agreement Signed') ? 'x' : '';
+    const linkedItems = colLinkedItems(item, 'board_relation_mkrqc6jm');
+    const linkedIds = linkedItems.map(li => String(li.id));
+    const productCols = productLineIds.map(plId =>
+      linkedIds.includes(String(plId)) ? 'x' : ''
+    );
+    authApprovedRows.push([...baseRow, agreementSigned, ...productCols]);
+  }
+}
+
+
+//sorting
+const sortedDNSNewHighlightItems = dnsNewHighlightRows
+  .sort((a, b) => {
+    // Priority: Highlight Denied first
+    const priority = (item) => item[0].includes("Highlight Denied") ? 0 : 1;
+    const priorityDiff = priority(a) - priority(b);
+    if (priorityDiff !== 0) return priorityDiff;
+
+    // If same priority, sort by 3rd column alphabetically
+    return a[2].localeCompare(b[2]);
+  })
+  .map((item) => {
+    // Copy the row to avoid mutating original
+    const newRow = [...item];
+
+    // Ensure phone column (H column, index 7) is a string
+    if (newRow[7] != null) {
+      const phoneStr = newRow[7].toString().trim();
+      newRow[7] = phoneStr.startsWith("+") ? `'${phoneStr}` : phoneStr;
+    }
+
+    // Remove "Denied" from first column and trim spaces
+    newRow[0] = newRow[0].replace("Denied", "").trim();
+
+    return newRow;
+  });
+
+const priorityMap = {
+  "Approved for B&M": 0,
+  "Approved for B&M + Ecom": 1,
+  "Approved for Ecom": 2,
+  "CA B&M + Ecom": 3,
+  "CA B&M Only": 4,
+  "Direct Customer": 5,
+  "Limited Agreement": 6
+};
+
+const sortedAuthApprovedRowsItems = authApprovedRows
+  .map(row => {
+    const newRow = [...row]; 
+    if (newRow[7] != null) {
+      const phoneStr = newRow[7].toString().trim();
+      newRow[7] = phoneStr.startsWith("+") ? `'${phoneStr}` : phoneStr;
+    }
+    return newRow;
+  })
+  .sort((a, b) => {
+  // First, sort by priority
+  const priorityDiff = priorityMap[a[0]] - priorityMap[b[0]];
+  if (priorityDiff !== 0) return priorityDiff;
+
+  // If priority is the same, sort by 3rd item alphabetically
+  return a[2].localeCompare(b[2]);
+});
+
+const sortedDNSDeniedRows = dnsDeniedRows
+  .map(row => {
+    const newRow = [...row]; 
+    if (newRow[7] != null) {
+      const phoneStr = newRow[7].toString().trim();
+      newRow[7] = phoneStr.startsWith("+") ? `'${phoneStr}` : phoneStr;
+    }
+    return newRow;
+  })
+  .sort((a, b) => {
+    return a[2].localeCompare(b[2]);
+});
+const dnsDeniedWithHeader = sortedDNSDeniedRows.length > 0
+  ? [["", "", ""], ["Below is the full DNS List", "", ""], ...sortedDNSDeniedRows]
+  : [];
+
+ 
+return [{
+  json: {
+    dnsSheetId: inputAuthDns.dnsSheetId,
+    authSheetId: inputAuthDns.authSheetId,
+    brandId: inputAuthDns.brandId,
+    brandName: inputAuthDns.brandName,
+    dnsNewHighlightRows: JSON.stringify(sortedDNSNewHighlightItems),
+    dnsDeniedWithHeader: JSON.stringify(dnsDeniedWithHeader),
+    authApprovedRows: JSON.stringify(sortedAuthApprovedRowsItems),
+    productLineNames: JSON.stringify(productLineNames),
+    hasDnsNewHighlight: dnsNewHighlightRows.length > 0,
+    hasDnsDenied: dnsDeniedRows.length > 0,
+    hasAuthApproved: authApprovedRows.length > 0,
+    hasProductLines: productLines.length > 0
+  }
+}];
