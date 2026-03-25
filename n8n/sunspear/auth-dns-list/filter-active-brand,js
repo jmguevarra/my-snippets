@@ -1,0 +1,17 @@
+const items = $input.first().json.data.boards[0].items_page.items || [];
+
+return items.map(brand => {
+  const getChecked = id => JSON.parse(brand.column_values.find(c => c.id === id)?.value || "{}").checked === true;
+
+  const auth = getChecked("boolean_mm16wr1g");
+  const dns = getChecked("boolean_mm16vrs2");
+  
+  return {
+      brandId: brand.id,
+      brandName: brand.name,
+      state: brand.state,
+      includeToAuth: auth,
+      includeToDNS: dns
+    };
+}).filter(b => b.state === "active" && (b.includeToDNS || b.includeToAuth));
+
