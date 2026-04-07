@@ -16,15 +16,37 @@ function colLinkedItems(item, colId) {
   return col && col.linked_items ? col.linked_items : [];
 }
 
+function getFormattedDate(item, colId) {
+  const col = (item.column_values || []).find(c => c.id === colId);
+  if (!col?.value) return '';
+
+  try {
+    const dateStr = JSON.parse(col.value).date; // get YYYY-MM-DD
+    if (!dateStr) return '';
+
+    const date = new Date(dateStr);
+    if (isNaN(date)) return '';
+
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    const yyyy = date.getFullYear();
+
+    return `${mm}/${dd}/${yyyy}`;
+  } catch {
+    return '';
+  }
+}
+
 function baseDnsRow(item, isStatusColumn = false) {
   const longText = colText(item, 'long_text_mkp5n4a0').replace(/[\r\n]+/g, ' ');
   const name1 = colText(item, 'text_mkp5a2bm');
   const name2 = colText(item, 'text_mkp5cd5a');
   const statusOrColor = isStatusColumn ? 'status' : 'color_mkrb6wej';
+  const submittedDate = getFormattedDate(item, 'date4');
   
   return [
     colText(item, statusOrColor),
-    colText(item, 'date4'),
+    submittedDate,
     colText(item, 'text_mkp51hj6'),
     colText(item, 'text_mkp5gejv'),
     longText,
@@ -49,20 +71,26 @@ const approvedStatuses = [
 ];
 
 for (const item of allItems) {
-  const groupText = item?.group?.title?.trim().toLowerCase() ?? '';
-  const status = colText(item, 'status');
-  const appStatus = colText(item, 'color_mkrb6wej');
-  const isNotArchived = groupText !== 'archived';
+  const groupText = item?.group?.title?.trim().toLowerCase() ?? '',
+    status = colText(item, 'status'),
+    appStatus = colText(item, 'color_mkrb6wej'),
+    isNotArchived = groupText !== 'archived';
+  
+  const firstName = colText(item, 'text_mkp5a2bm'),
+    email = colText(item, 'email_mkp59dnc'),
+    company = colText(item, 'text_mkp51hj6'),
+    hasCommonDetails = firstName && email && company;
+    
 
-  if ((status.includes('Highlight Denied') || status.includes('New Denied')) && isNotArchived) {
+  if ((status.includes('Highlight Denied') || status.includes('New Denied')) && isNotArchived && hasCommonDetails) {
     dnsNewHighlightRows.push(baseDnsRow(item, true));
   }
 
-  if (appStatus === 'Denied' && isNotArchived) {
+  if (appStatus === 'Denied' && isNotArchived && hasCommonDetails) {
     dnsDeniedRows.push(baseDnsRow(item));
   }
 
-  if (approvedStatuses.some(s => appStatus.includes(s) && isNotArchived)){
+  if (approvedStatuses.some(s => appStatus.includes(s) && isNotArchived && hasCommonDetails)){
     const baseRow = baseDnsRow(item);
     const agreementStatus = colText(item, 'status');
     const agreementSigned = agreementStatus.includes('Agreement Signed') ? 'x' : '';
